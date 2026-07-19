@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BSTS — Site + BSTS OS
 
-## Getting Started
+The public website and interactive operations-workspace demonstration for
+**Bevier Strategic Technology Solutions (BSTS)**, a boutique technology
+transformation and secure AI implementation firm.
 
-First, run the development server:
+> **Keep what works. Connect what is disconnected. Automate what is
+> repetitive. Build what is missing. Secure the foundation.**
+
+## What is in this repository
+
+| Area | Path | Description |
+| --- | --- | --- |
+| Marketing site | `src/app/(marketing)` | 12 fully written public routes + custom 404, dark organic design system |
+| Assessment form | `src/components/assessment` | Multi-step technology assessment (RHF + Zod, client-only, zero-secret) |
+| BSTS OS demo | `src/app/os`, `src/components/os`, `src/lib/os` | 11-module interactive workspace with fictional Solara House engagement data |
+| Content library | `src/lib/content` | All copy centralized: pillars, method, industries, articles, founder, Solara House |
+| Tests | `src/test` | Vitest suite incl. automated claims audit |
+
+## Quick start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Quality gates (all must pass)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run lint       # ESLint
+npm run typecheck  # strict TypeScript
+npm run test       # Vitest (22 tests, incl. claims audit)
+npm run build      # static export → out/
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Zero-dollar architecture
 
-## Learn More
+The project is a **static export** (`output: "export"`): no server runtime,
+no database, no auth, no paid services, no credentials of any kind. All
+interactivity — the assessment form and the entire BSTS OS demo — is
+client-side with typed local data and JSON import/export. Fonts are
+self-hosted. Deployment target is Cloudflare Pages' free tier
+(see `DEPLOY_CLOUDFLARE.md`); the `out/` folder is portable to any static
+host.
 
-To learn more about Next.js, take a look at the following resources:
+## Honesty constraints (load-bearing)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Solara House is fictional.** Every appearance is labeled
+  "CONCEPT DEMONSTRATION — NOT A CLIENT CASE STUDY". No invented metrics.
+- **Claims are precise.** "NIST-aligned", "SOC 2 readiness support",
+  "OWASP-informed" — never "certified", "compliant", or "approved".
+  See `CLAIMS_REGISTER.md`; enforced by `src/test/claims.test.ts`.
+- **The OS demo is labeled a demonstration environment** and holds state in
+  browser memory only.
+- **The contact form never claims delivery it cannot verify** — in
+  zero-config mode it says so plainly and offers copy/download instead.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Key documents
 
-## Deploy on Vercel
+- `DEPLOY_CLOUDFLARE.md` — free deployment, step by step
+- `SECURITY.md` — posture, practices, vulnerability reporting
+- `CLAIMS_REGISTER.md` — every public claim, classified
+- `BUILD_STATUS.md` / `BUILD_REPORT.md` — build checklist and completion report
+- `CHANGELOG.md` — release history
+- `public/badges/README.md` — how to add verified credential badges later
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Next.js (App Router, static export) · TypeScript strict · Tailwind CSS v4 ·
+Framer Motion · Lucide · Zod · React Hook Form · Vitest · npm
