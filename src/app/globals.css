@@ -1,0 +1,289 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   BSTS design tokens — obsidian & graphite foundation, warm-white typography,
+   restrained cyan primary accent, restrained gold prestige accent.
+--------------------------------------------------------------------------- */
+
+@theme {
+  /* Foundation */
+  --color-obsidian: #0b0e13;
+  --color-obsidian-deep: #07090d;
+  --color-graphite: #131820;
+  --color-graphite-2: #1a2029;
+  --color-graphite-3: #232b36;
+  --color-edge: #2c3542;
+
+  /* Typography */
+  --color-warm-white: #f2efe8;
+  --color-warm-mist: #c8cbd0;
+  --color-warm-dim: #939aa5;
+
+  /* Accents — restrained, never neon */
+  --color-cyan-core: #63c7c2;
+  --color-cyan-soft: #8fd8d4;
+  --color-cyan-faint: #63c7c21f;
+  --color-gold-core: #c9a869;
+  --color-gold-soft: #ddc491;
+  --color-gold-faint: #c9a8691a;
+
+  /* Status hues used inside BSTS OS (kept muted) */
+  --color-ok: #7bc47f;
+  --color-warn: #d8b465;
+  --color-alert: #d98a80;
+
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
+
+  --radius-organic: 2rem;
+  --radius-organic-lg: 2.75rem;
+
+  --shadow-surface: 0 1px 0 0 rgb(255 255 255 / 0.04) inset,
+    0 24px 60px -30px rgb(0 0 0 / 0.65);
+
+  --animate-drift: drift 26s ease-in-out infinite alternate;
+  --animate-drift-slow: drift 40s ease-in-out infinite alternate-reverse;
+
+  @keyframes drift {
+    from {
+      transform: translate3d(-3%, -2%, 0) scale(1);
+    }
+    to {
+      transform: translate3d(3%, 4%, 0) scale(1.08);
+    }
+  }
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-obsidian);
+  color: var(--color-warm-white);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  /* Defensive: long tokens wrap instead of forcing horizontal scroll at 320px */
+  overflow-wrap: break-word;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-cyan-core) 30%, transparent);
+  color: var(--color-warm-white);
+}
+
+/* Accessible focus — visible everywhere, never removed */
+:focus-visible {
+  outline: 2px solid var(--color-cyan-core);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Skip link */
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  background: var(--color-graphite-2);
+  color: var(--color-warm-white);
+  border: 1px solid var(--color-edge);
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus-visible {
+  top: 1rem;
+}
+
+/* ---------------------------------------------------------------------------
+   Organic surface language — large radii, layered translucency, soft edges
+--------------------------------------------------------------------------- */
+
+.surface {
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--color-graphite-2) 82%, transparent),
+    color-mix(in srgb, var(--color-graphite) 65%, transparent)
+  );
+  border: 1px solid color-mix(in srgb, var(--color-edge) 70%, transparent);
+  box-shadow: var(--shadow-surface);
+  backdrop-filter: blur(14px);
+}
+
+.surface-quiet {
+  background: color-mix(in srgb, var(--color-graphite) 55%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-edge) 45%, transparent);
+}
+
+/* Asymmetric organic radii — avoids hard rectangles without being a gimmick */
+.blob-a {
+  border-radius: 2.5rem 3.5rem 2.5rem 4rem;
+}
+.blob-b {
+  border-radius: 3.75rem 2.25rem 3.75rem 2.5rem;
+}
+.blob-c {
+  border-radius: 2.25rem 4rem 3rem 2.75rem;
+}
+
+/* Curved section divider */
+.curve-divider {
+  display: block;
+  width: 100%;
+  height: clamp(3rem, 8vw, 7rem);
+}
+
+/* Soft atmospheric glow fields */
+.glow-cyan {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--color-cyan-core) 14%, transparent),
+    transparent
+  );
+}
+.glow-gold {
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--color-gold-core) 11%, transparent),
+    transparent
+  );
+}
+
+/* Fine grain to keep large dark fields from banding */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Type helpers */
+.display {
+  font-family: var(--font-display);
+  font-weight: 480;
+  letter-spacing: -0.015em;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-cyan-soft);
+}
+
+.eyebrow-gold {
+  color: var(--color-gold-soft);
+}
+
+/* Prose for legal pages and articles */
+.prose-bsts {
+  color: var(--color-warm-mist);
+  line-height: 1.75;
+}
+.prose-bsts h2 {
+  font-family: var(--font-display);
+  color: var(--color-warm-white);
+  font-size: 1.5rem;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+.prose-bsts h3 {
+  color: var(--color-warm-white);
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+.prose-bsts p {
+  margin-bottom: 1.1rem;
+}
+.prose-bsts ul {
+  list-style: disc;
+  padding-left: 1.4rem;
+  margin-bottom: 1.1rem;
+}
+.prose-bsts li {
+  margin-bottom: 0.4rem;
+}
+.prose-bsts strong {
+  color: var(--color-warm-white);
+  font-weight: 600;
+}
+.prose-bsts a {
+  color: var(--color-cyan-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* BSTS OS density */
+.os-card {
+  padding: 1.4rem;
+}
+[data-density="Compact"] .os-card {
+  padding: 0.85rem 1.05rem;
+}
+[data-density="Compact"] .os-card p,
+[data-density="Compact"] .os-card li {
+  font-size: 0.82rem;
+}
+
+/* Form action buttons */
+.btn-primary-form {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.7rem 1.4rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: var(--color-cyan-core);
+  color: var(--color-obsidian-deep);
+  transition: background-color 0.2s ease;
+}
+.btn-primary-form:hover {
+  background: var(--color-cyan-soft);
+}
+.btn-ghost-form {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.7rem 1.4rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--color-edge);
+  color: var(--color-warm-white);
+  background: transparent;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+.btn-ghost-form:hover {
+  border-color: color-mix(in srgb, var(--color-cyan-core) 60%, transparent);
+  color: var(--color-cyan-soft);
+}
+
+/* Reduced motion — kill decorative animation entirely */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
