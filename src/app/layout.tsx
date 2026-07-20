@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { MotionProvider } from "@/components/motion/MotionProvider";
+import { NetworkBackground } from "@/components/ui/NetworkBackground";
 import { site } from "@/lib/site";
 // Self-hosted variable fonts (no external font CDN, zero-cost, portable).
 import "@fontsource-variable/inter";
@@ -74,6 +75,7 @@ export default function RootLayout({
         <a href="#main" className="skip-link">
           Skip to main content
         </a>
+        <NetworkBackground />
         <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
