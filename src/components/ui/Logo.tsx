@@ -39,7 +39,7 @@ export function Wordmark() {
         <span className="text-[0.95rem] font-semibold tracking-[0.18em] text-warm-white">
           BSTS
         </span>
-        <span className="mt-1 hidden text-[0.6rem] tracking-[0.14em] text-warm-dim uppercase sm:block">
+        <span className="mt-1 block text-[0.5rem] tracking-[0.08em] text-warm-dim uppercase sm:text-[0.6rem] sm:tracking-[0.14em]">
           Bevier Strategic Technology Solutions
         </span>
       </span>
