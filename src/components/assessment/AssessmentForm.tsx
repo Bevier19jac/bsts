@@ -11,6 +11,7 @@ import {
   ClipboardCopy,
   Download,
   Mail,
+  Send,
 } from "lucide-react";
 import {
   assessmentSchema,
@@ -24,12 +25,22 @@ import {
 
 const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "";
 
+/**
+ * Web3Forms access key. This is a public, client-side key (it only identifies
+ * which inbox receives submissions — it cannot read mail or data).
+ */
+const WEB3FORMS_ACCESS_KEY = "4a21a788-0e18-450a-a32a-5b3cae2c8986";
+const canSubmit = WEB3FORMS_ACCESS_KEY.length > 10 && !WEB3FORMS_ACCESS_KEY.startsWith("__");
+
 const inputClass =
   "w-full rounded-2xl border border-edge bg-graphite px-4 py-3 text-warm-white placeholder:text-warm-dim/70 focus:border-cyan-core/70 focus:outline-none focus-visible:outline-2 focus-visible:outline-cyan-core";
 
 export function AssessmentForm() {
   const [step, setStep] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [sendState, setSendState] = useState<
+    "idle" | "sending" | "sent" | "error"
+  >("idle");
 
   const {
     register,
@@ -90,6 +101,30 @@ export function AssessmentForm() {
     a.download = "bsts-technology-assessment.json";
     a.click();
     URL.revokeObjectURL(url);
+  }
+
+  async function submitToBsts() {
+    const ok = await trigger();
+    if (!ok) return;
+    const data = getValues();
+    setSendState("sending");
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `Technology assessment — ${data.organization}`,
+          from_name: data.name,
+          email: data.email,
+          message: formatSummary(data),
+        }),
+      });
+      const json = (await res.json()) as { success?: boolean };
+      setSendState(json.success ? "sent" : "error");
+    } catch {
+      setSendState("error");
+    }
   }
 
   async function openMailto() {
@@ -352,8 +387,30 @@ export function AssessmentForm() {
                   </p>
                 )}
 
+                {sendState === "sent" ? (
+                  <div
+                    className="mt-7 rounded-2xl border border-cyan-core/40 bg-cyan-core/10 px-5 py-4 text-sm leading-relaxed text-warm-white"
+                    role="status"
+                  >
+                    <span className="font-medium">Sent — thank you.</span> Your
+                    assessment is on its way to BSTS. We&apos;ll reply to the
+                    email you provided, usually within one business day.
+                  </div>
+                ) : null}
+
                 <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                  {contactEmail ? (
+                  {canSubmit && sendState !== "sent" ? (
+                    <button
+                      type="button"
+                      onClick={submitToBsts}
+                      disabled={sendState === "sending"}
+                      className="btn-primary-form disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      <Send className="h-4 w-4" aria-hidden />
+                      {sendState === "sending" ? "Sending…" : "Send to BSTS"}
+                    </button>
+                  ) : null}
+                  {contactEmail && !canSubmit ? (
                     <button type="button" onClick={openMailto} className="btn-primary-form">
                       <Mail className="h-4 w-4" aria-hidden />
                       Open in your email app
@@ -373,8 +430,21 @@ export function AssessmentForm() {
                   </button>
                 </div>
 
+                {sendState === "error" ? (
+                  <p role="alert" className="mt-3 text-sm text-alert">
+                    Sending didn&apos;t go through — please try again, or use
+                    &quot;Copy summary&quot; and email it to us directly.
+                  </p>
+                ) : null}
+
                 <p className="mt-5 text-xs leading-relaxed text-warm-dim" aria-live="polite">
-                  {contactEmail ? (
+                  {canSubmit ? (
+                    <>
+                      &quot;Send to BSTS&quot; transmits only the answers shown
+                      above, directly to the BSTS inbox. Prefer not to send from
+                      the browser? Copy or download your answers instead.
+                    </>
+                  ) : contactEmail ? (
                     <>
                       &quot;Open in your email app&quot; composes a message to{" "}
                       <span className="text-warm-mist">{contactEmail}</span> using
