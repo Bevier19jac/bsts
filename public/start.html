@@ -8,7 +8,7 @@
 <meta name="robots" content="noindex" />
 <style>
   :root{
-    --bg:#0a0c0d; --panel:#101416; --panel2:#0d1113; --edge:#1e2529;
+    --bg:#0a0c0d; --panel:#101416e6; --panel2:#0d1113e6; --edge:#1e2529;
     --white:#f4f6f5; --mist:#c4ccca; --dim:#8a9691;
     --cyan:#63c7c2; --cyan-soft:#8fdcd7; --gold:#d8b782;
   }
@@ -16,13 +16,15 @@
   html,body{background:var(--bg);color:var(--white);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     -webkit-font-smoothing:antialiased;line-height:1.5}
-  body{min-height:100vh;display:flex;flex-direction:column;align-items:center;
-    padding:30px 18px 46px;
+  /* Animated network canvas fills the whole viewport, behind everything */
+  #bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block;
     background:
-      radial-gradient(900px 520px at 50% -10%, rgba(99,199,194,.13), transparent 60%),
-      radial-gradient(700px 500px at 100% 108%, rgba(216,183,130,.06), transparent 60%),
+      radial-gradient(1100px 620px at 50% -8%, rgba(99,199,194,.10), transparent 60%),
+      radial-gradient(900px 600px at 100% 108%, rgba(216,183,130,.05), transparent 60%),
       var(--bg)}
-  .wrap{width:100%;max-width:600px;display:flex;flex-direction:column;gap:26px}
+  body{min-height:100vh;display:flex;flex-direction:column;align-items:center;
+    padding:34px 18px 56px;position:relative;z-index:1}
+  .wrap{width:100%;max-width:600px;display:flex;flex-direction:column;gap:26px;position:relative;z-index:1}
 
   .brand{display:flex;align-items:center;gap:12px;margin-top:6px}
   .mark{width:42px;height:42px;border-radius:50%;flex:0 0 auto;
@@ -34,20 +36,23 @@
   .brand p{font-size:.62rem;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;margin-top:2px}
 
   .eyebrow{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--cyan-soft)}
-  .hero{font-size:2.1rem;line-height:1.08;font-weight:650;letter-spacing:-.01em;margin-top:12px}
+  .hero{font-size:2.1rem;line-height:1.08;font-weight:650;letter-spacing:-.01em;margin-top:12px;
+    text-shadow:0 2px 30px rgba(0,0,0,.6)}
   .hero em{font-style:normal;color:var(--cyan)}
-  .sub{color:var(--mist);font-size:1.02rem;margin-top:14px}
+  .sub{color:var(--mist);font-size:1.02rem;margin-top:14px;max-width:34rem;text-shadow:0 1px 16px rgba(0,0,0,.6)}
 
+  /* Single-line credential strip */
   .creds{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-  .cred{font-size:.7rem;font-weight:600;letter-spacing:.06em;border-radius:999px;padding:6px 12px;
-    border:1px solid var(--edge);color:var(--mist)}
-  .cred.badge{border-color:rgba(216,183,130,.55);color:var(--gold);
-    background:linear-gradient(180deg, rgba(216,183,130,.12), rgba(216,183,130,.02))}
-  .creds .note{width:100%;color:var(--dim);font-size:.8rem;line-height:1.5;margin-top:4px}
-  .creds .note b{color:var(--gold)}
+  .cred{font-size:.68rem;font-weight:600;letter-spacing:.05em;border-radius:999px;padding:6px 13px;
+    border:1px solid var(--edge);color:var(--mist);white-space:nowrap;
+    background:rgba(16,20,22,.6);backdrop-filter:blur(3px)}
+  .cred.badge{border-color:rgba(216,183,130,.6);color:var(--gold);
+    background:linear-gradient(180deg, rgba(216,183,130,.14), rgba(216,183,130,.03))}
+  .note{color:var(--dim);font-size:.8rem;line-height:1.5}
+  .note b{color:var(--gold)}
 
   .multiplier{background:linear-gradient(180deg, rgba(99,199,194,.10), rgba(99,199,194,.02));
-    border:1px solid rgba(99,199,194,.28);border-radius:18px;padding:20px 22px}
+    border:1px solid rgba(99,199,194,.28);border-radius:18px;padding:20px 22px;backdrop-filter:blur(6px)}
   .multiplier b{color:var(--white)}
   .multiplier p{color:var(--mist);font-size:.98rem}
   .multiplier .k{color:var(--cyan-soft);font-weight:600}
@@ -56,7 +61,7 @@
     margin-bottom:-8px;padding-left:2px}
 
   .lanes{display:flex;flex-direction:column;gap:12px}
-  .lane{background:var(--panel);border:1px solid var(--edge);border-radius:16px;padding:18px 20px}
+  .lane{background:var(--panel);border:1px solid var(--edge);border-radius:16px;padding:18px 20px;backdrop-filter:blur(6px)}
   .lane .top{display:flex;align-items:baseline;gap:10px}
   .lane .verb{color:var(--cyan);font-weight:700;font-size:1.05rem}
   .lane .role{color:var(--dim);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase}
@@ -66,7 +71,7 @@
   .lane li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--cyan);
     margin-top:7px;flex:0 0 auto;box-shadow:0 0 8px 1px rgba(99,199,194,.5)}
 
-  .method{background:var(--panel2);border:1px solid var(--edge);border-radius:18px;padding:20px 22px}
+  .method{background:var(--panel2);border:1px solid var(--edge);border-radius:18px;padding:20px 22px;backdrop-filter:blur(6px)}
   .method h3{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:14px}
   .steps{display:flex;flex-direction:column;gap:12px}
   .step{display:flex;gap:12px;align-items:flex-start}
@@ -75,7 +80,7 @@
   .step b{color:var(--white);font-weight:600}
   .step span{color:var(--dim);font-size:.88rem}
 
-  .armor{background:var(--panel);border:1px solid var(--edge);border-radius:18px;overflow:hidden}
+  .armor{background:var(--panel);border:1px solid var(--edge);border-radius:18px;overflow:hidden;backdrop-filter:blur(6px)}
   .armor .banner{position:relative;background:
       radial-gradient(440px 180px at 58% 120%, rgba(99,199,194,.16), transparent 70%),
       linear-gradient(180deg, #0e1417, #0a0f11);
@@ -96,9 +101,9 @@
   .cta{display:flex;flex-direction:column;gap:12px}
   a.btn{display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;
     padding:16px 20px;border-radius:14px;font-size:1rem;font-weight:600;transition:.15s}
-  a.primary{background:var(--cyan);color:#04201f}
+  a.primary{background:var(--cyan);color:#04201f;box-shadow:0 8px 26px rgba(99,199,194,.28)}
   a.primary:active{background:var(--cyan-soft)}
-  a.ghost{background:transparent;color:var(--white);border:1px solid var(--edge)}
+  a.ghost{background:rgba(16,20,22,.6);color:var(--white);border:1px solid var(--edge);backdrop-filter:blur(3px)}
   a.ghost:active{border-color:var(--cyan)}
   .arrow{font-size:1.05rem;line-height:1}
 
@@ -108,6 +113,7 @@
 </style>
 </head>
 <body>
+  <canvas id="bg"></canvas>
   <div class="wrap">
 
     <div class="brand">
@@ -126,11 +132,9 @@
 
     <div class="creds">
       <span class="cred badge">★ SDVOSB</span>
-      <span class="cred">Service-Disabled Veteran-Owned</span>
-      <span class="cred">Small Business</span>
-      <span class="cred">Principal-Led · U.S.-Based</span>
-      <div class="note"><b>Service-Disabled Veteran-Owned Small Business.</b> Eligible for SDVOSB set-aside and sole-source federal contracts — discipline earned in service, applied to your technology.</div>
+      <span class="cred">Veteran-Owned · Small Business · Principal-Led · U.S.-Based</span>
     </div>
+    <div class="note"><b>Service-Disabled Veteran-Owned Small Business.</b> Eligible for SDVOSB set-aside and sole-source federal contracts — discipline earned in service, applied to your technology.</div>
 
     <div class="multiplier">
       <p><b>The whole idea is amplification, not replacement.</b> We make your existing people and tools measurably more capable — keeping what works, connecting what's siloed, and taking the repetitive busywork off your team's plate. <span class="k">AI drafts and flags; your people decide.</span> Every automation keeps a human at the decision point.</p>
@@ -226,5 +230,76 @@
     </div>
 
   </div>
+
+<script>
+(function(){
+  var c = document.getElementById('bg'), ctx = c.getContext('2d');
+  var w, h, dpr = Math.min(window.devicePixelRatio || 1, 2), nodes = [], mouse = {x:-999,y:-999};
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fs = 15, step = fs * 1.5, drops = [], chars = [];
+  function resize(){
+    w = c.clientWidth; h = c.clientHeight;
+    c.width = w * dpr; c.height = h * dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    // Node network
+    var count = Math.max(28, Math.min(120, Math.floor(w*h/14000)));
+    nodes = [];
+    for (var i=0;i<count;i++){
+      nodes.push({ x:Math.random()*w, y:Math.random()*h,
+        vx:(Math.random()-0.5)*0.28, vy:(Math.random()-0.5)*0.28 });
+    }
+    // Faded binary rain columns
+    var cols = Math.floor(w/step);
+    drops = []; chars = [];
+    for (var j=0;j<cols;j++){ drops.push(Math.random()*h); chars.push(Math.random()<0.5?'0':'1'); }
+  }
+  function frame(){
+    ctx.clearRect(0,0,w,h);
+    // 1) faded binary rain (background layer)
+    ctx.font = fs + 'px "SFMono-Regular", Menlo, Consolas, monospace';
+    for (var j=0;j<drops.length;j++){
+      var x = j*step + 2, y = drops[j];
+      // bright leading glyph
+      ctx.fillStyle = 'rgba(143,220,215,0.55)';
+      ctx.fillText(chars[j], x, y);
+      // fading trail
+      ctx.fillStyle = 'rgba(99,199,194,0.28)'; ctx.fillText(Math.random()<0.5?'0':'1', x, y - step);
+      ctx.fillStyle = 'rgba(99,199,194,0.16)'; ctx.fillText(Math.random()<0.5?'0':'1', x, y - step*2);
+      ctx.fillStyle = 'rgba(99,199,194,0.09)'; ctx.fillText(Math.random()<0.5?'0':'1', x, y - step*3);
+      ctx.fillStyle = 'rgba(99,199,194,0.05)'; ctx.fillText(Math.random()<0.5?'0':'1', x, y - step*4);
+      if(!reduced){ drops[j] += 0.5 + (j%3)*0.18; }
+      if (Math.random()<0.03) chars[j] = Math.random()<0.5?'0':'1';
+      if (drops[j] > h + step*4){ drops[j] = -Math.random()*160; chars[j] = Math.random()<0.5?'0':'1'; }
+    }
+    // 2) node network (foreground layer)
+    for (var i=0;i<nodes.length;i++){
+      var n = nodes[i];
+      if(!reduced){ n.x += n.vx; n.y += n.vy; }
+      if (n.x<0||n.x>w) n.vx*=-1;
+      if (n.y<0||n.y>h) n.vy*=-1;
+    }
+    for (var a=0;a<nodes.length;a++){
+      for (var b=a+1;b<nodes.length;b++){
+        var dx=nodes[a].x-nodes[b].x, dy=nodes[a].y-nodes[b].y, d=Math.sqrt(dx*dx+dy*dy);
+        if (d<128){
+          ctx.strokeStyle='rgba(99,199,194,'+(0.14*(1-d/128))+')';
+          ctx.lineWidth=1;
+          ctx.beginPath(); ctx.moveTo(nodes[a].x,nodes[a].y); ctx.lineTo(nodes[b].x,nodes[b].y); ctx.stroke();
+        }
+      }
+    }
+    for (var k=0;k<nodes.length;k++){
+      var m = nodes[k];
+      var md = Math.hypot(m.x-mouse.x, m.y-mouse.y);
+      ctx.fillStyle='rgba(99,199,194,'+(md<150?0.95:0.55)+')';
+      ctx.beginPath(); ctx.arc(m.x, m.y, md<150?2.4:1.5, 0, 6.2832); ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+  window.addEventListener('resize', resize);
+  window.addEventListener('pointermove', function(e){ mouse.x=e.clientX; mouse.y=e.clientY; });
+  window.addEventListener('pointerleave', function(){ mouse.x=-999; mouse.y=-999; });
+  resize(); frame();
+})();
+</script>
 </body>
 </html>
