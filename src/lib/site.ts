@@ -12,7 +12,7 @@ export const site = {
   url: "https://bsts.pages.dev",
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "",
   description:
-    "BSTS is a boutique technology transformation and secure AI implementation firm. We build around the systems you already run — secure AI, intelligent automation, and connected digital experiences.",
+    "BSTS is a strategic technology transformation and secure AI implementation firm. We build around the systems you already run — secure AI, intelligent automation, and connected digital experiences.",
 } as const;
 
 export const navLinks = [

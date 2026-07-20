@@ -68,7 +68,7 @@ export function Clients() {
       </ul>
 
       <p className="text-xs leading-relaxed text-warm-dim">
-        One client is deliberate: BSTS OS demonstrates a boutique practice, and
+        One client is deliberate: BSTS OS demonstrates a focused practice, and
         Solara House (fictional) carries the full engagement story — assessment
         → roadmap → projects → decisions.
       </p>

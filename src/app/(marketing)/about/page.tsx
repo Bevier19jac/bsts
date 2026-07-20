@@ -13,7 +13,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "BSTS is a boutique technology transformation and secure AI implementation firm founded by Jacob Bevier — MS in Artificial Intelligence, BS in Cybersecurity (Magna Cum Laude), U.S. Army veteran with federal cybersecurity experience.",
+    "BSTS is a strategic technology transformation and secure AI implementation firm founded by Jacob Bevier — MS in Artificial Intelligence, BS in Cybersecurity (Magna Cum Laude), U.S. Army veteran with federal cybersecurity experience.",
 };
 
 export default function AboutPage() {
@@ -24,7 +24,7 @@ export default function AboutPage() {
         <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-16">
           <SectionHeading
             eyebrow="About BSTS"
-            title="Boutique on purpose. Principal-led by design."
+            title="Focused on purpose. Principal-led by design."
             lede={site.description}
           />
         </div>

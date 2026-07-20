@@ -26,7 +26,7 @@ export default function HomePage() {
         <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-14 px-6 pt-16 pb-20 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:pt-24">
           <div>
             <Reveal>
-              <p className="eyebrow">Boutique technology transformation · Secure AI</p>
+              <p className="eyebrow">Strategic technology transformation · Secure AI</p>
             </Reveal>
             <Reveal delay={0.08}>
               <h1 className="display mt-6 text-4xl leading-[1.08] sm:text-5xl md:text-6xl">
@@ -36,7 +36,7 @@ export default function HomePage() {
             </Reveal>
             <Reveal delay={0.16}>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-warm-mist">
-                {site.subline} BSTS is a boutique firm for organizations that
+                {site.subline} BSTS is an independent firm for organizations that
                 want their technology transformed — not replaced.
               </p>
             </Reveal>

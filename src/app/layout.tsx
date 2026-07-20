@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "technology transformation",
     "intelligent automation",
     "systems integration",
-    "boutique technology consulting",
+    "strategic technology consulting",
     "NIST-aligned security",
   ],
   openGraph: {

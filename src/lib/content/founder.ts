@@ -19,7 +19,7 @@ export const founder = {
     "BSTS exists because most small and mid-sized organizations are told they have two options: keep struggling with disconnected tools, or sign up for a rip-and-replace project that consumes a year and a budget. Neither is true.",
     "Jacob founded BSTS to offer a third path — engagements that start from what already works, connect it, automate around it, and secure it. His formal training spans both sides of the modern technology question: a Master of Science in Artificial Intelligence and a Bachelor of Science in Cybersecurity, earned Magna Cum Laude. That pairing is deliberate. AI implemented without security discipline is a liability; security that blocks useful automation is a tax. BSTS practices both together.",
     "Before founding BSTS, Jacob served as a U.S. Army senior operational leader and worked in federal cybersecurity — environments where systems must work under pressure, documentation is not optional, and trust is earned through verification. He holds CompTIA Security+ and AWS Certified AI Practitioner certifications.",
-    "BSTS is deliberately boutique. Every engagement is led by the principal, scoped in writing, and measured against criteria agreed before work begins.",
+    "BSTS is deliberately focused. Every engagement is led by the principal, scoped in writing, and measured against criteria agreed before work begins.",
   ],
   principles: [
     {
