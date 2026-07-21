@@ -307,8 +307,8 @@ export default function HomePage() {
         <SectionHeading
           id="stack-heading"
           eyebrow="Built to fit"
-          title="We customize around your stack — whatever your stack is."
-          lede="Property systems, point of sale, practice management, spreadsheets with ten years of institutional memory: we meet your tools where they are. Integration through real APIs where they exist, resilient auditable bridges where they do not."
+          title="We customize around your business — whatever your business is."
+          lede="From a cricket farmer to a cricket coach, the industry has never been what decides whether this works — the way we work is. Property systems, point of sale, practice management, spreadsheets with ten years of institutional memory: we meet your tools where they are. Integration through real APIs where they exist, resilient auditable bridges where they do not."
         />
         <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
           {[
