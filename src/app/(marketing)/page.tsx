@@ -87,7 +87,7 @@ export default function HomePage() {
               {[
                 {
                   title: "No rip-and-replace reflex",
-                  body: "Every recommendation carries a written reason. A system that works, integrates, and is secure enough to keep — stays.",
+                  body: "Every recommendation carries a written reason. A system that works, integrates, and is secure enough to keep — stays. We right-size the fix; target overkill is just wasted rounds.",
                 },
                 {
                   title: "Weeks of disruption avoided",
