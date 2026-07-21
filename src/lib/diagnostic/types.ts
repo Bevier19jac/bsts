@@ -1,48 +1,45 @@
 /**
- * BSTS Business Diagnostic — type system.
+ * BSTS AI & Automation Opportunity Assessment — type system.
  *
- * Two independent diagnostic layers:
- *  1. Business Stage  — where the business is.
- *  2. Founder Archetype — who the founder is.
+ * This is a TECHNOLOGY read, not business or leadership coaching. It looks at
+ * where a business is losing time to manual work, how many hours a week that
+ * could reclaim, exactly which automations and AI would help, and what tools
+ * to use. Nothing here labels the person or gives strategy advice — it stays
+ * in the technology / AI / automation lane BSTS actually operates in.
  *
- * Both are inferred from weighted answers, never asked directly. New stages,
- * archetypes, dimensions, questions, and recommendations can all be added by
- * extending these unions and the data tables — no engine refactor required.
+ * New dimensions, questions, industries, and opportunity patterns can all be
+ * added by extending these unions and the data tables — no engine refactor
+ * required.
  */
 
-export type Stage =
-  | "idea"
-  | "validation"
-  | "prototype"
-  | "mvp"
-  | "early_revenue"
-  | "growth"
-  | "scale";
-
-export type Archetype =
-  | "builder" // Technical Builder
-  | "strategist" // Business Strategist
-  | "operator" // Operator
-  | "creative" // Creative Founder
-  | "consultant" // Consultant / Service Provider
-  | "corporate" // Corporate Professional
-  | "inventor" // Inventor
-  | "ai_native" // AI-Native Founder
-  | "community" // Community Builder
-  | "growth_leader"; // Growth Leader
-
-/** Scored maturity dimensions (each normalised to 0–100). */
+/** Scored technology-maturity dimensions (each normalised to 0–100). */
 export type Dimension =
-  | "founder"
-  | "health"
-  | "execution"
-  | "ai"
-  | "automation"
-  | "marketing"
-  | "sales"
-  | "operations"
-  | "finance"
-  | "leadership";
+  | "ai" // AI adoption
+  | "automation" // Automation maturity
+  | "operations" // Process & workflow maturity
+  | "tools" // Systems & data foundation
+  | "security"; // Data & security readiness
+
+/** Industry buckets — drive tailored recommendations and security relevance. */
+export type Industry =
+  | "professional_services"
+  | "ecommerce_retail"
+  | "hospitality"
+  | "healthcare"
+  | "manufacturing"
+  | "government"
+  | "tech_saas"
+  | "nonprofit"
+  | "other";
+
+/** What the person most wants to get out of technology. */
+export type Goal =
+  | "save_time"
+  | "cut_costs"
+  | "grow_revenue"
+  | "scale_no_hire"
+  | "reduce_errors"
+  | "security";
 
 export type QuestionType = "single" | "multi";
 
@@ -51,10 +48,11 @@ export interface Option {
   label: string;
   /** Dimension score deltas contributed by choosing this option. */
   d?: Partial<Record<Dimension, number>>;
-  /** Founder-archetype affinity deltas. */
-  a?: Partial<Record<Archetype, number>>;
-  /** If this option should set/nudge the detected stage. */
-  stage?: Stage;
+  /** Estimated weekly hours of manual effort this answer implies (per person). */
+  hours?: number;
+  /** Tags the answer sets (industry, goal, dataSensitivity, etc.). */
+  industry?: Industry;
+  goal?: Goal;
   helpText?: string;
 }
 
@@ -65,40 +63,38 @@ export interface Question {
   type: QuestionType;
   category: Dimension | "profile";
   options: Option[];
-  /** Only asked when the detected stage is in this list (undefined = always). */
-  stages?: Stage[];
-  required?: boolean;
+  /** Only shown when this predicate returns true (undefined = always shown). */
+  showIf?: (answers: Answers) => boolean;
   helpText?: string;
 }
 
 export type Answers = Record<string, string[]>;
 
 export interface Scores {
-  founder: number;
-  health: number;
-  execution: number;
   ai: number;
   automation: number;
-  marketing: number;
-  sales: number;
   operations: number;
-  finance: number;
-  leadership: number;
-}
-
-export interface ArchetypeResult {
-  key: Archetype;
-  score: number;
+  tools: number;
+  security: number;
 }
 
 export interface Diagnosis {
-  stage: Stage;
-  archetype: Archetype;
-  secondaryArchetype: Archetype;
-  confidence: number; // 0–100
+  /** Headline AI & Automation Readiness score, 0–100. */
+  overall: number;
   scores: Scores;
-  overall: number; // headline Business Readiness Score 0–100
+  /** Estimated hours per week the business could reclaim with automation/AI. */
+  hoursPerWeek: number;
+  /** Estimated annual labor cost of that manual time (USD). */
+  annualCost: number;
+  /** Dimensions with the most opportunity (lowest first). */
+  opportunities: Dimension[];
+  /** Dimensions the business is already strong in (highest first). */
   strengths: Dimension[];
-  bottlenecks: Dimension[]; // lowest maturity dims, primary first
+  industry: Industry;
+  goal: Goal;
+  /** Whether the business handles regulated/sensitive data. */
+  dataSensitivity: "regulated" | "sensitive" | "standard" | "unknown";
+  teamSize: "solo" | "small" | "mid" | "large";
+  confidence: number; // 0–100
   answered: number;
 }

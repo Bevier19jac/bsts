@@ -3,43 +3,43 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
-  AlertTriangle,
-  Award,
   Bot,
   Check,
-  Compass,
+  Clock,
+  Cpu,
+  DollarSign,
+  Gauge,
   Layers,
   Lightbulb,
-  Quote,
   RefreshCw,
   Send,
+  Shield,
   ShieldAlert,
   Sparkles,
   Target,
-  TrendingUp,
+  Wrench,
 } from "lucide-react";
 import type { Answers, Diagnosis } from "@/lib/diagnostic/types";
 import {
-  ARCHETYPE_CONTENT,
   DIMENSION_LABELS,
+  DIMENSION_NOTE,
   DIMENSION_ORDER,
-  STAGE_CONTENT,
-  archetypeLabel,
-  stageLabel,
-  topPriorities,
+  GOAL_FRAME,
+  INDUSTRY_CONTENT,
+  industryLabel,
+  topActions,
 } from "@/lib/diagnostic/content";
 import { detectPatterns, type DetectedPattern, type PatternKind } from "@/lib/diagnostic/patterns";
-import { buildAdvisor } from "@/lib/diagnostic/advisor";
 
 const WEB3FORMS_ACCESS_KEY = "4a21a788-0e18-450a-a32a-5b3cae2c8986";
 
 function barColor(v: number): string {
   if (v >= 66) return "bg-cyan-core";
-  if (v >= 40) return "bg-gold-core";
+  if (v >= 45) return "bg-gold-core";
   return "bg-alert";
 }
 
-function ScoreBar({ label, value, i }: { label: string; value: number; i: number }) {
+function ScoreBar({ label, note, value, i }: { label: string; note: string; value: number; i: number }) {
   return (
     <div>
       <div className="flex items-center justify-between text-sm">
@@ -54,42 +54,24 @@ function ScoreBar({ label, value, i }: { label: string; value: number; i: number
           transition={{ duration: 0.8, delay: 0.1 + i * 0.05, ease: "easeOut" }}
         />
       </div>
+      <p className="mt-1 text-xs leading-relaxed text-warm-dim">{note}</p>
     </div>
   );
 }
 
 const KIND_LABEL: Record<PatternKind, string> = {
-  risk: "Risk",
   opportunity: "Opportunity",
+  risk: "Watch out",
   strength: "Strength",
 };
 
-function ucFirst(s: string): string {
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
-
 const KIND_STYLE: Record<
   PatternKind,
-  { chip: string; dot: string; icon: typeof ShieldAlert; label: string }
+  { chip: string; dot: string; icon: typeof Lightbulb }
 > = {
-  risk: {
-    chip: "border-alert/40 bg-alert/10 text-alert",
-    dot: "bg-alert",
-    icon: ShieldAlert,
-    label: "Risk",
-  },
-  opportunity: {
-    chip: "border-gold-core/40 bg-gold-core/10 text-gold-soft",
-    dot: "bg-gold-core",
-    icon: Lightbulb,
-    label: "Opportunity",
-  },
-  strength: {
-    chip: "border-cyan-core/40 bg-cyan-faint text-cyan-soft",
-    dot: "bg-cyan-core",
-    icon: Award,
-    label: "Strength",
-  },
+  opportunity: { chip: "border-cyan-core/40 bg-cyan-faint text-cyan-soft", dot: "bg-cyan-core", icon: Lightbulb },
+  risk: { chip: "border-alert/40 bg-alert/10 text-alert", dot: "bg-alert", icon: ShieldAlert },
+  strength: { chip: "border-gold-core/40 bg-gold-core/10 text-gold-soft", dot: "bg-gold-core", icon: Sparkles },
 };
 
 function PatternCard({ p, i }: { p: DetectedPattern; i: number }) {
@@ -112,14 +94,16 @@ function PatternCard({ p, i }: { p: DetectedPattern; i: number }) {
             <span
               className={`mt-1 inline-block rounded-full border px-2 py-0.5 text-[0.62rem] font-semibold tracking-[0.12em] uppercase ${style.chip}`}
             >
-              {style.label}
+              {KIND_LABEL[p.kind]}
             </span>
           </div>
         </div>
-        <div className="shrink-0 text-right">
-          <div className="text-[0.6rem] tracking-wide text-warm-dim uppercase">Confidence</div>
-          <div className="display text-lg text-warm-white tabular-nums">{p.confidence}%</div>
-        </div>
+        {p.payoff ? (
+          <div className="shrink-0 text-right">
+            <div className="text-[0.6rem] tracking-wide text-warm-dim uppercase">Payoff</div>
+            <div className="text-xs leading-tight text-cyan-soft">{p.payoff}</div>
+          </div>
+        ) : null}
       </div>
       <p className="mt-3 text-sm leading-relaxed text-warm-mist">{p.description}</p>
       <div className="mt-3 rounded-xl border border-edge/70 bg-obsidian-deep/40 p-3">
@@ -130,7 +114,7 @@ function PatternCard({ p, i }: { p: DetectedPattern; i: number }) {
       </div>
       <div className="mt-3">
         <div className="text-[0.62rem] font-semibold tracking-[0.14em] text-warm-dim uppercase">
-          What to do
+          What BSTS would do
         </div>
         <ul className="mt-2 space-y-1.5">
           {p.actions.map((a) => (
@@ -141,48 +125,38 @@ function PatternCard({ p, i }: { p: DetectedPattern; i: number }) {
           ))}
         </ul>
       </div>
-      {p.aiRecs && p.aiRecs.length > 0 ? (
-        <div className="mt-3 flex flex-wrap gap-2">
-          {p.aiRecs.map((r) => (
-            <span
-              key={r}
-              className="inline-flex items-center gap-1.5 rounded-full border border-cyan-core/25 bg-cyan-faint px-3 py-1 text-xs text-cyan-soft"
-            >
-              <Bot className="h-3 w-3" aria-hidden /> {r}
-            </span>
-          ))}
-        </div>
-      ) : null}
     </motion.div>
   );
 }
 
+function usd(n: number): string {
+  return "$" + n.toLocaleString("en-US");
+}
+
 function summaryText(dx: Diagnosis, answers: Answers): string {
   const s = dx.scores;
-  const patterns = detectPatterns(dx, answers).slice(0, 6);
-  const advisor = buildAdvisor(dx, answers);
+  const patterns = detectPatterns(dx, answers).slice(0, 8);
+  const ind = INDUSTRY_CONTENT[dx.industry];
   const lines = [
-    `BSTS Business Diagnostic`,
+    `BSTS AI & Automation Opportunity Assessment`,
     ``,
-    `Business Readiness Score: ${dx.overall}/100 (confidence ${dx.confidence}%)`,
-    `Business Stage: ${stageLabel(dx.stage)}`,
-    `Founder Archetype: ${archetypeLabel(dx.archetype)} (secondary: ${archetypeLabel(dx.secondaryArchetype)})`,
+    `Industry: ${industryLabel(dx.industry)}`,
+    `Goal: ${GOAL_FRAME[dx.goal].label}`,
+    `AI & Automation Readiness: ${dx.overall}/100 (confidence ${dx.confidence}%)`,
+    `Estimated time reclaimable: ~${dx.hoursPerWeek} hrs/week (~${usd(dx.annualCost)}/yr in labor)`,
+    `Data sensitivity: ${dx.dataSensitivity}`,
     ``,
-    `Primary constraint: ${DIMENSION_LABELS[dx.bottlenecks[0]]}`,
-    dx.bottlenecks[1] ? `Secondary constraint: ${DIMENSION_LABELS[dx.bottlenecks[1]]}` : ``,
-    ``,
-    `Scores:`,
+    `Maturity:`,
     ...DIMENSION_ORDER.map((d) => `  ${DIMENSION_LABELS[d]}: ${s[d]}`),
     ``,
-    `Signals detected:`,
+    `Opportunities & risks detected:`,
     ...patterns.map((p) => `  [${KIND_LABEL[p.kind]} · ${p.confidence}%] ${p.name} — ${p.description}`),
     ``,
-    `Top priorities:`,
-    ...topPriorities(dx).map((p, i) => `  ${i + 1}. ${p}`),
+    `Recommended AI fit:`,
+    ...ind.aiFit.map((t) => `  • ${t}`),
     ``,
-    `The one decision that matters most: ${advisor.oneDecision}`,
-    `Biggest mistake to avoid: ${advisor.biggestMistake}`,
-    `Fastest path forward: ${advisor.fastestPath}`,
+    `Where to start:`,
+    ...topActions(dx).map((a, i) => `  ${i + 1}. ${a}`),
   ];
   return lines.filter((l) => l !== undefined).join("\n");
 }
@@ -197,13 +171,12 @@ export function DiagnosticReport({
   onRestart: () => void;
 }) {
   const dx = diagnosis;
-  const stage = STAGE_CONTENT[dx.stage];
-  const arch = ARCHETYPE_CONTENT[dx.archetype];
-  const secondary = ARCHETYPE_CONTENT[dx.secondaryArchetype];
-  const priorities = topPriorities(dx);
+  const ind = INDUSTRY_CONTENT[dx.industry];
+  const goal = GOAL_FRAME[dx.goal];
   const patterns = detectPatterns(dx, answers);
-  const advisor = buildAdvisor(dx, answers);
   const topPatterns = patterns.slice(0, 6);
+  const actions = topActions(dx);
+  const showSecurity = dx.dataSensitivity === "regulated" || dx.dataSensitivity === "sensitive";
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -219,7 +192,7 @@ export function DiagnosticReport({
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           access_key: WEB3FORMS_ACCESS_KEY,
-          subject: `Diagnostic — ${stageLabel(dx.stage)} / ${archetypeLabel(dx.archetype)} — ${org || name}`,
+          subject: `Assessment — ${industryLabel(dx.industry)} — ~${dx.hoursPerWeek}h/wk — ${org || name}`,
           from_name: name,
           email,
           message: `${org ? `Organization: ${org}\n\n` : ""}${summaryText(dx, answers)}`,
@@ -239,9 +212,11 @@ export function DiagnosticReport({
       transition={{ duration: 0.4 }}
       className="flex flex-col gap-6"
     >
-      {/* Header: readiness score + dual diagnosis */}
+      {/* Header: readiness + the two big numbers */}
       <div className="surface overflow-hidden rounded-[2rem] p-7 sm:p-9">
-        <p className="text-xs tracking-[0.2em] text-cyan-soft uppercase">Your diagnosis</p>
+        <p className="text-xs tracking-[0.2em] text-cyan-soft uppercase">
+          {industryLabel(dx.industry)} · AI & Automation read
+        </p>
         <div className="mt-5 grid grid-cols-1 gap-6 sm:grid-cols-[auto_1fr] sm:items-center">
           <div className="flex items-center gap-5">
             <div className="relative grid h-24 w-24 place-items-center rounded-full border border-cyan-core/40 bg-cyan-faint">
@@ -251,86 +226,64 @@ export function DiagnosticReport({
               </div>
             </div>
             <div>
-              <div className="text-sm text-warm-dim">Business Readiness</div>
-              <div className="display text-xl text-warm-white">Score {dx.overall}</div>
+              <div className="flex items-center gap-1.5 text-sm text-warm-dim">
+                <Gauge className="h-4 w-4 text-cyan-core" aria-hidden /> Readiness
+              </div>
+              <div className="display text-xl text-warm-white">AI & Automation</div>
               <div className="mt-1 text-xs text-cyan-soft">Confidence {dx.confidence}%</div>
             </div>
           </div>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <div className="rounded-2xl border border-edge bg-graphite/60 p-4">
+            <div className="rounded-2xl border border-cyan-core/30 bg-cyan-faint/60 p-4">
               <div className="flex items-center gap-2 text-xs tracking-[0.14em] text-warm-dim uppercase">
-                <TrendingUp className="h-4 w-4 text-cyan-core" aria-hidden /> Business Stage
+                <Clock className="h-4 w-4 text-cyan-core" aria-hidden /> Time reclaimable
               </div>
-              <div className="display mt-1.5 text-lg text-warm-white">{stageLabel(dx.stage)}</div>
-              <div className="mt-1 text-xs text-warm-dim">{stage.timeToNext}</div>
+              <div className="display mt-1.5 text-2xl text-warm-white">~{dx.hoursPerWeek} hrs/week</div>
+              <div className="mt-1 text-xs text-warm-dim">with automation &amp; AI</div>
             </div>
-            <div className="rounded-2xl border border-edge bg-graphite/60 p-4">
+            <div className="rounded-2xl border border-gold-core/30 bg-gold-core/10 p-4">
               <div className="flex items-center gap-2 text-xs tracking-[0.14em] text-warm-dim uppercase">
-                <Compass className="h-4 w-4 text-gold-soft" aria-hidden /> Founder Archetype
+                <DollarSign className="h-4 w-4 text-gold-soft" aria-hidden /> That&apos;s worth
               </div>
-              <div className="display mt-1.5 text-lg text-warm-white">{arch.label}</div>
-              <div className="mt-1 text-xs text-warm-dim">Secondary: {secondary.label}</div>
+              <div className="display mt-1.5 text-2xl text-warm-white">{usd(dx.annualCost)}/yr</div>
+              <div className="mt-1 text-xs text-warm-dim">in recovered labor time</div>
             </div>
           </div>
         </div>
-        <p className="mt-6 leading-relaxed text-warm-mist">{stage.headline}</p>
-        <p className="mt-3 leading-relaxed text-warm-mist">{arch.summary}</p>
+        <p className="mt-6 leading-relaxed text-warm-mist">
+          <span className="text-warm-white">{goal.label}:</span> {goal.line}{" "}
+          These numbers are estimates from your answers — a starting picture, not a bill. Here&apos;s
+          where the time is hiding and exactly what to do about it.
+        </p>
       </div>
 
-      {/* Constraints */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div className="surface rounded-[2rem] p-6">
-          <div className="flex items-center gap-2 text-xs tracking-[0.16em] text-warm-dim uppercase">
-            <AlertTriangle className="h-4 w-4 text-alert" aria-hidden /> Primary constraint
-          </div>
-          <div className="display mt-2 text-xl text-warm-white">
-            {DIMENSION_LABELS[dx.bottlenecks[0]]}
-          </div>
-          {dx.bottlenecks[1] ? (
-            <p className="mt-3 text-sm text-warm-mist">
-              Secondary: <span className="text-warm-white">{DIMENSION_LABELS[dx.bottlenecks[1]]}</span>
-            </p>
-          ) : null}
-        </div>
-        <div className="surface rounded-[2rem] p-6">
-          <div className="flex items-center gap-2 text-xs tracking-[0.16em] text-warm-dim uppercase">
-            <Award className="h-4 w-4 text-cyan-core" aria-hidden /> Your strengths
-          </div>
-          <ul className="mt-3 flex flex-wrap gap-2">
-            {dx.strengths.map((s) => (
-              <li
-                key={s}
-                className="rounded-full border border-cyan-core/30 bg-cyan-faint px-3 py-1 text-xs text-cyan-soft"
-              >
-                {DIMENSION_LABELS[s]}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      {/* Maturity scores */}
+      {/* Maturity breakdown */}
       <div className="surface rounded-[2rem] p-7">
         <div className="flex items-center gap-2 text-xs tracking-[0.16em] text-warm-dim uppercase">
-          <Layers className="h-4 w-4 text-cyan-core" aria-hidden /> Maturity breakdown
+          <Layers className="h-4 w-4 text-cyan-core" aria-hidden /> Where you stand today
         </div>
-        <div className="mt-5 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
+        <div className="mt-5 grid grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-2">
           {DIMENSION_ORDER.map((d, i) => (
-            <ScoreBar key={d} label={DIMENSION_LABELS[d]} value={dx.scores[d]} i={i} />
+            <ScoreBar
+              key={d}
+              label={DIMENSION_LABELS[d]}
+              note={DIMENSION_NOTE[d]}
+              value={dx.scores[d]}
+              i={i}
+            />
           ))}
         </div>
       </div>
 
-      {/* Signals we detected — the intelligence layer */}
+      {/* Opportunities & risks — the intelligence layer */}
       {topPatterns.length > 0 ? (
         <div className="surface rounded-[2rem] p-7">
           <div className="flex items-center gap-2 text-xs tracking-[0.16em] text-warm-dim uppercase">
-            <Sparkles className="h-4 w-4 text-cyan-core" aria-hidden /> Signals we detected
+            <Sparkles className="h-4 w-4 text-cyan-core" aria-hidden /> What we spotted
           </div>
           <p className="mt-2 text-sm leading-relaxed text-warm-mist">
-            These are the patterns BSTS read across your answers — not single scores, but the
-            relationships between them. Several can be true at once; each is ranked by how
-            confident we are it applies to you.
+            BSTS read the relationships across your answers — not just single scores — to find the
+            highest-payoff moves. Each is ranked by how confident we are it applies to you.
           </p>
           <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2">
             {topPatterns.map((p, i) => (
@@ -340,160 +293,82 @@ export function DiagnosticReport({
         </div>
       ) : null}
 
-      {/* If I were your advisor — the narrative voice */}
-      <div className="relative overflow-hidden rounded-[2rem] border border-gold-core/25 bg-gradient-to-b from-gold-core/10 to-transparent p-7 sm:p-9">
-        <div className="flex items-center gap-2 text-xs tracking-[0.16em] text-gold-soft uppercase">
-          <Quote className="h-4 w-4 text-gold-soft" aria-hidden /> If I were your advisor
+      {/* Where AI fits */}
+      <div className="surface rounded-[2rem] p-7">
+        <div className="flex items-center gap-2 text-xs tracking-[0.16em] text-warm-dim uppercase">
+          <Cpu className="h-4 w-4 text-cyan-core" aria-hidden /> Where AI fits in {industryLabel(dx.industry).toLowerCase()}
         </div>
-        <div className="mt-5 space-y-4">
-          {advisor.paragraphs.map((para, i) => (
-            <motion.p
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.06 * i }}
-              className="leading-relaxed text-warm-mist"
-            >
-              {para}
-            </motion.p>
-          ))}
-        </div>
-        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
-          {(
-            [
-              ["The one decision", advisor.oneDecision, Target],
-              ["Biggest mistake to avoid", advisor.biggestMistake, AlertTriangle],
-              ["Fastest path forward", advisor.fastestPath, TrendingUp],
-            ] as const
-          ).map(([k, v, Icon]) => (
-            <div key={k} className="rounded-2xl border border-edge bg-graphite/60 p-4">
-              <div className="flex items-center gap-1.5 text-[0.62rem] font-semibold tracking-[0.12em] text-gold-soft uppercase">
-                <Icon className="h-3.5 w-3.5" aria-hidden /> {k}
-              </div>
-              <p className="mt-1.5 text-sm leading-relaxed text-warm-mist">{ucFirst(v)}</p>
+        <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="rounded-2xl border border-edge bg-graphite/60 p-5">
+            <div className="flex items-center gap-2 text-xs font-semibold tracking-[0.12em] text-cyan-soft uppercase">
+              <Bot className="h-4 w-4" aria-hidden /> AI that would help
             </div>
-          ))}
+            <ul className="mt-3 space-y-2">
+              {ind.aiFit.map((t) => (
+                <li key={t} className="flex gap-2.5 text-sm leading-relaxed text-warm-mist">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-cyan-core" aria-hidden />
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-edge bg-graphite/60 p-5">
+            <div className="flex items-center gap-2 text-xs font-semibold tracking-[0.12em] text-gold-soft uppercase">
+              <Wrench className="h-4 w-4" aria-hidden /> Automations to put in place
+            </div>
+            <ul className="mt-3 space-y-2">
+              {ind.automations.map((t) => (
+                <li key={t} className="flex gap-2.5 text-sm leading-relaxed text-warm-mist">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-gold-soft" aria-hidden />
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
 
-      {/* Top priorities */}
+      {/* Security & compliance note (only when relevant) */}
+      {showSecurity ? (
+        <div className="rounded-[2rem] border border-alert/25 bg-alert/[0.06] p-7">
+          <div className="flex items-center gap-2 text-xs tracking-[0.16em] text-alert uppercase">
+            <Shield className="h-4 w-4" aria-hidden /> Because you handle sensitive data
+          </div>
+          <p className="mt-3 leading-relaxed text-warm-mist">
+            You told us you handle{" "}
+            {dx.dataSensitivity === "regulated" ? "regulated" : "sensitive client"} data. That raises
+            the stakes on every automation — it has to be built to protect that information, not just
+            move it faster. As a service-disabled veteran-owned firm, security hardening and
+            compliance readiness (HIPAA, NIST/CMMC, SOC 2, PCI) are core to how BSTS works, so
+            speed and safety come together rather than trading off.
+          </p>
+        </div>
+      ) : null}
+
+      {/* Where to start */}
       <div className="surface rounded-[2rem] p-7">
         <div className="flex items-center gap-2 text-xs tracking-[0.16em] text-warm-dim uppercase">
-          <Target className="h-4 w-4 text-cyan-core" aria-hidden /> Top priorities
+          <Target className="h-4 w-4 text-cyan-core" aria-hidden /> Where to start
         </div>
         <ol className="mt-4 space-y-3">
-          {priorities.map((p, i) => (
+          {actions.map((a, i) => (
             <li key={i} className="flex gap-3">
               <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-cyan-core/40 text-xs font-semibold text-cyan-core">
                 {i + 1}
               </span>
-              <span className="text-sm leading-relaxed text-warm-mist">{p}</span>
+              <span className="text-sm leading-relaxed text-warm-mist">{a}</span>
             </li>
           ))}
         </ol>
-      </div>
-
-      {/* 30/60/90 roadmap */}
-      <div className="surface rounded-[2rem] p-7">
-        <div className="flex items-center gap-2 text-xs tracking-[0.16em] text-warm-dim uppercase">
-          <Compass className="h-4 w-4 text-gold-soft" aria-hidden /> Your 90-day roadmap
-        </div>
-        <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {(
-            [
-              ["First 30 days", stage.d30],
-              ["Days 31–60", stage.d60],
-              ["Days 61–90", stage.d90],
-            ] as const
-          ).map(([title, items]) => (
-            <div key={title} className="rounded-2xl border border-edge bg-graphite/60 p-5">
-              <div className="text-xs font-semibold tracking-[0.14em] text-cyan-soft uppercase">
-                {title}
-              </div>
-              <ul className="mt-3 space-y-2.5">
-                {items.map((it) => (
-                  <li key={it} className="flex gap-2.5 text-sm leading-relaxed text-warm-mist">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-cyan-core" aria-hidden />
-                    {it}
-                  </li>
-                ))}
-              </ul>
-            </div>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {ind.tools.map((t) => (
+            <span
+              key={t}
+              className="inline-flex items-center gap-1.5 rounded-full border border-edge bg-graphite/60 px-3 py-1 text-xs text-warm-mist"
+            >
+              <Wrench className="h-3 w-3 text-warm-dim" aria-hidden /> {t}
+            </span>
           ))}
-        </div>
-      </div>
-
-      {/* Founder profile */}
-      <div className="surface rounded-[2rem] p-7">
-        <div className="flex items-center gap-2 text-xs tracking-[0.16em] text-warm-dim uppercase">
-          <Compass className="h-4 w-4 text-gold-soft" aria-hidden /> Founder profile — {arch.label}
-        </div>
-        <div className="mt-5 grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div>
-            <h4 className="text-sm font-semibold text-warm-white">Blind spots to watch</h4>
-            <ul className="mt-2 space-y-2">
-              {arch.blindSpots.map((b) => (
-                <li key={b} className="flex gap-2.5 text-sm leading-relaxed text-warm-mist">
-                  <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-alert/80" />
-                  {b}
-                </li>
-              ))}
-            </ul>
-            <h4 className="mt-5 text-sm font-semibold text-warm-white">Skills to develop next</h4>
-            <ul className="mt-2 space-y-2">
-              {arch.skills.map((s) => (
-                <li key={s} className="flex gap-2.5 text-sm leading-relaxed text-warm-mist">
-                  <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-core" />
-                  {s}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="space-y-3 text-sm">
-            {(
-              [
-                ["Decision-making", arch.decisionStyle],
-                ["Leadership style", arch.leadershipStyle],
-                ["Ideal co-founder", arch.idealCofounder],
-                ["Recommended first hire", arch.firstHire],
-              ] as const
-            ).map(([k, v]) => (
-              <div key={k} className="rounded-2xl border border-edge bg-graphite/60 p-4">
-                <div className="text-xs tracking-[0.12em] text-warm-dim uppercase">{k}</div>
-                <div className="mt-1 leading-relaxed text-warm-mist">{v}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* AI tools + stack */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div className="surface rounded-[2rem] p-6">
-          <div className="flex items-center gap-2 text-xs tracking-[0.16em] text-warm-dim uppercase">
-            <Bot className="h-4 w-4 text-cyan-core" aria-hidden /> Recommended AI automations
-          </div>
-          <ul className="mt-3 space-y-2">
-            {arch.aiTools.map((t) => (
-              <li key={t} className="flex gap-2.5 text-sm leading-relaxed text-warm-mist">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-cyan-core" aria-hidden />
-                {t}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="surface rounded-[2rem] p-6">
-          <div className="flex items-center gap-2 text-xs tracking-[0.16em] text-warm-dim uppercase">
-            <Layers className="h-4 w-4 text-gold-soft" aria-hidden /> Recommended stack
-          </div>
-          <ul className="mt-3 space-y-2">
-            {arch.stack.map((t) => (
-              <li key={t} className="flex gap-2.5 text-sm leading-relaxed text-warm-mist">
-                <Check className="mt-0.5 h-4 w-4 shrink-0 text-gold-soft" aria-hidden />
-                {t}
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
 
@@ -506,18 +381,19 @@ export function DiagnosticReport({
             </div>
             <h3 className="display mt-4 text-xl text-warm-white">Sent — talk soon.</h3>
             <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-warm-mist">
-              Your diagnostic is on its way to BSTS. We&apos;ll turn it into a concrete
-              plan and reply, usually within one business day.
+              Your results are on their way to BSTS. We&apos;ll turn this into a concrete plan —
+              what to automate first, where AI fits, and the ROI — and reply, usually within one
+              business day.
             </p>
           </div>
         ) : (
           <>
             <h3 className="display text-xl text-warm-white">
-              Turn this into a plan with BSTS.
+              Get the plan to reclaim those {dx.hoursPerWeek} hours.
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-warm-mist">
-              Send your results and get a tailored next-steps reply — built around your
-              stage and your archetype. No obligation.
+              Send your results and BSTS will map the exact automations and AI to put in place, in
+              priority order, with the payoff for each. No obligation.
             </p>
             <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
               <input

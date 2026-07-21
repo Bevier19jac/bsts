@@ -1,43 +1,65 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Clock, Sparkles } from "lucide-react";
 import type { Answers } from "@/lib/diagnostic/types";
-import {
-  branchStage,
-  diagnose,
-  isComplete,
-  nextUnanswered,
-  orderedQuestions,
-  totalQuestions,
-} from "@/lib/diagnostic/engine";
+import { applicableQuestions, diagnose, isComplete, nextUnanswered } from "@/lib/diagnostic/engine";
+import { QUESTION_BY_ID } from "@/lib/diagnostic/questions";
 import { DiagnosticReport } from "./DiagnosticReport";
 
 export function DiagnosticFlow() {
   const [started, setStarted] = useState(false);
   const [answers, setAnswers] = useState<Answers>({});
+  const [stepId, setStepId] = useState<string | null>(null);
   const [done, setDone] = useState(false);
 
-  const current = useMemo(
-    () => (done ? null : nextUnanswered(answers)),
-    [answers, done],
-  );
+  const applicable = applicableQuestions(answers);
+  const total = applicable.length;
+  const currentIndex = stepId ? Math.max(0, applicable.findIndex((q) => q.id === stepId)) : 0;
+  const pct = Math.min(100, Math.round((currentIndex / Math.max(total, 1)) * 100));
 
-  const answeredCount = useMemo(
-    () => orderedQuestions(answers).filter((q) => (answers[q.id]?.length ?? 0) > 0).length,
-    [answers],
-  );
-  const total = totalQuestions(answers);
-  const pct = Math.min(100, Math.round((answeredCount / Math.max(total, 1)) * 100));
+  const q = stepId ? QUESTION_BY_ID[stepId] : null;
 
-  function choose(qid: string, value: string) {
+  function begin() {
+    setStarted(true);
+    const first = nextUnanswered({});
+    setStepId(first?.id ?? null);
+  }
+
+  /** After answers change, move to the next unanswered question (or finish). */
+  function advance(na: Answers) {
+    if (isComplete(na)) {
+      setTimeout(() => setDone(true), 220);
+      return;
+    }
+    const next = nextUnanswered(na);
+    if (next) setStepId(next.id);
+    else setTimeout(() => setDone(true), 220);
+  }
+
+  function chooseSingle(qid: string, value: string) {
     const na: Answers = { ...answers, [qid]: [value] };
     setAnswers(na);
-    if (isComplete(na)) {
-      // brief pause so the selection registers before the reveal
-      setTimeout(() => setDone(true), 260);
-    }
+    advance(na);
+  }
+
+  function toggleMulti(qid: string, value: string) {
+    setAnswers((a) => {
+      const cur = (a[qid] ?? []).filter((v) => v !== "__skip__");
+      const next = cur.includes(value) ? cur.filter((v) => v !== value) : [...cur, value];
+      return { ...a, [qid]: next };
+    });
+  }
+
+  function continueMulti(qid: string) {
+    setAnswers((prev) => {
+      const real = (prev[qid] ?? []).filter((v) => v !== "__skip__");
+      // A multi with nothing chosen still needs a value so the flow marks it done.
+      const na: Answers = { ...prev, [qid]: real.length ? real : ["__skip__"] };
+      advance(na);
+      return na;
+    });
   }
 
   function back() {
@@ -45,12 +67,12 @@ export function DiagnosticFlow() {
       setDone(false);
       return;
     }
-    const answeredQs = orderedQuestions(answers).filter(
-      (q) => (answers[q.id]?.length ?? 0) > 0,
-    );
+    // Which applicable questions currently have real answers, in order.
+    const answeredQs = applicable.filter((x) => (answers[x.id]?.length ?? 0) > 0 && x.id !== stepId);
     const last = answeredQs[answeredQs.length - 1];
     if (!last) {
       setStarted(false);
+      setStepId(null);
       return;
     }
     setAnswers((a) => {
@@ -58,12 +80,15 @@ export function DiagnosticFlow() {
       delete c[last.id];
       return c;
     });
+    setStepId(last.id);
   }
 
   function restart() {
     setAnswers({});
     setDone(false);
     setStarted(true);
+    const first = nextUnanswered({});
+    setStepId(first?.id ?? null);
   }
 
   // ── Intro ──────────────────────────────────────────────────────
@@ -71,26 +96,25 @@ export function DiagnosticFlow() {
     return (
       <div className="surface rounded-[2rem] p-8 text-center sm:p-12">
         <span className="inline-flex items-center gap-2 rounded-full border border-cyan-core/40 bg-cyan-faint px-4 py-1.5 text-xs font-semibold tracking-[0.16em] text-cyan-soft uppercase">
-          <Sparkles className="h-3.5 w-3.5" aria-hidden /> BSTS Diagnostic
+          <Sparkles className="h-3.5 w-3.5" aria-hidden /> AI &amp; Automation Assessment
         </span>
         <h2 className="display mt-6 text-3xl leading-tight text-warm-white sm:text-4xl">
-          Discover your Business Stage, Founder Archetype, and AI Readiness — in
-          under 5 minutes.
+          See where AI and automation could save your business time — in under 5 minutes.
         </h2>
         <p className="mx-auto mt-5 max-w-xl leading-relaxed text-warm-mist">
-          This isn&apos;t a survey. Every answer narrows the next question, the way
-          a seasoned consultant would — until BSTS can tell you exactly where you
-          are, what&apos;s holding you back, and the highest-ROI moves to make next.
+          A few plain questions about how your business runs today. At the end you&apos;ll see roughly
+          how many hours a week you could win back, exactly which tools and automations would help,
+          and where to start. No jargon, no account.
         </p>
         <button
           type="button"
-          onClick={() => setStarted(true)}
+          onClick={begin}
           className="mt-8 inline-flex items-center gap-2 rounded-full bg-cyan-core px-7 py-3.5 text-base font-semibold text-obsidian-deep transition-colors hover:bg-cyan-soft"
         >
-          Start the diagnostic <ArrowRight className="h-4 w-4" aria-hidden />
+          Start the assessment <ArrowRight className="h-4 w-4" aria-hidden />
         </button>
-        <p className="mt-4 text-xs text-warm-dim">
-          8–12 questions · adaptive · no account required
+        <p className="mt-4 flex items-center justify-center gap-1.5 text-xs text-warm-dim">
+          <Clock className="h-3.5 w-3.5" aria-hidden /> ~10 questions · about 3 minutes
         </p>
       </div>
     );
@@ -98,20 +122,13 @@ export function DiagnosticFlow() {
 
   // ── Report ─────────────────────────────────────────────────────
   if (done) {
-    return (
-      <DiagnosticReport
-        diagnosis={diagnose(answers)}
-        answers={answers}
-        onRestart={restart}
-      />
-    );
+    return <DiagnosticReport diagnosis={diagnose(answers)} answers={answers} onRestart={restart} />;
   }
 
   // ── Questions ──────────────────────────────────────────────────
-  const q = current;
   if (!q) return null;
-  const chosen = answers[q.id]?.[0];
-  const stageKnown = branchStage(answers) !== null;
+  const chosen = (answers[q.id] ?? []).filter((v) => v !== "__skip__");
+  const isMulti = q.type === "multi";
 
   return (
     <div className="surface rounded-[2rem] p-6 sm:p-9">
@@ -125,7 +142,7 @@ export function DiagnosticFlow() {
           <ArrowLeft className="h-4 w-4" aria-hidden /> Back
         </button>
         <span className="text-xs tracking-[0.14em] text-warm-dim uppercase">
-          {stageKnown ? `Question ${answeredCount + 1} of ${total}` : "Let's begin"}
+          Question {currentIndex + 1} of {total}
         </span>
       </div>
       <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-edge">
@@ -146,21 +163,19 @@ export function DiagnosticFlow() {
           transition={{ duration: 0.28, ease: "easeOut" }}
           className="mt-8"
         >
-          <h2 className="display text-2xl leading-snug text-warm-white sm:text-[1.7rem]">
-            {q.text}
-          </h2>
+          <h2 className="display text-2xl leading-snug text-warm-white sm:text-[1.7rem]">{q.text}</h2>
           {q.description ? (
             <p className="mt-2 text-sm leading-relaxed text-warm-mist">{q.description}</p>
           ) : null}
 
           <div className="mt-6 grid grid-cols-1 gap-3">
             {q.options.map((o, i) => {
-              const active = chosen === o.value;
+              const active = chosen.includes(o.value);
               return (
                 <motion.button
                   key={o.value}
                   type="button"
-                  onClick={() => choose(q.id, o.value)}
+                  onClick={() => (isMulti ? toggleMulti(q.id, o.value) : chooseSingle(q.id, o.value))}
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.04 * i, duration: 0.22 }}
@@ -185,12 +200,25 @@ export function DiagnosticFlow() {
                     }`}
                     aria-hidden
                   >
-                    <ArrowRight className="h-3.5 w-3.5" />
+                    {isMulti ? <Check className="h-3.5 w-3.5" /> : <ArrowRight className="h-3.5 w-3.5" />}
                   </span>
                 </motion.button>
               );
             })}
           </div>
+
+          {isMulti ? (
+            <div className="mt-6 flex items-center justify-between gap-4">
+              <p className="text-xs text-warm-dim">Pick all that apply — or none.</p>
+              <button
+                type="button"
+                onClick={() => continueMulti(q.id)}
+                className="inline-flex items-center gap-2 rounded-full bg-cyan-core px-6 py-3 text-sm font-semibold text-obsidian-deep transition-colors hover:bg-cyan-soft"
+              >
+                Continue <ArrowRight className="h-4 w-4" aria-hidden />
+              </button>
+            </div>
+          ) : null}
         </motion.div>
       </AnimatePresence>
     </div>

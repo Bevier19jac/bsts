@@ -5,9 +5,9 @@ import { Reveal } from "@/components/motion/Reveal";
 import { DiagnosticFlow } from "@/components/diagnostic/DiagnosticFlow";
 
 export const metadata: Metadata = {
-  title: "Business Diagnostic",
+  title: "AI & Automation Assessment",
   description:
-    "Discover your Business Stage, Founder Archetype, and AI Readiness in under 5 minutes. An adaptive diagnostic that narrows to your exact bottlenecks and the highest-ROI next moves.",
+    "See where AI and automation could save your business time — in under 5 minutes. A plain-language assessment that estimates the hours you could reclaim and shows exactly which tools and automations to put in place first.",
 };
 
 export default function ContactPage() {
@@ -17,9 +17,9 @@ export default function ContactPage() {
         <Atmosphere variant="quiet" />
         <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-8">
           <SectionHeading
-            eyebrow="BSTS Diagnostic"
-            title="Where is your business, really?"
-            lede="An adaptive diagnostic — not a survey. Every answer narrows the next question until BSTS can pinpoint your stage, your founder archetype, your biggest constraints, and the exact next moves. Everything runs in your browser; nothing is sent until you choose to."
+            eyebrow="AI & Automation Assessment"
+            title="Where could AI and automation help your business?"
+            lede="A few plain questions about how your business runs today. At the end you'll see roughly how many hours a week you could win back, exactly which tools and automations would help, and where to start. Everything runs in your browser; nothing is sent until you choose to."
           />
         </div>
       </section>
