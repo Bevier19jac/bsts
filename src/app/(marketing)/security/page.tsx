@@ -59,6 +59,32 @@ export default function SecurityPage() {
         </div>
       </section>
 
+      <div className="mx-auto max-w-6xl px-6 pb-12">
+        <Reveal>
+          <div className="relative overflow-hidden rounded-[2rem] border border-edge">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/abrams.jpg"
+              alt="M1 Abrams main battle tank — representing hardened security"
+              className="h-64 w-full -scale-x-100 object-cover sm:h-80"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-obsidian-deep via-obsidian-deep/75 to-transparent" />
+            <div className="absolute inset-0 flex flex-col justify-center gap-3 p-8 sm:p-12">
+              <span className="inline-flex w-fit items-center gap-2 rounded-full border border-gold-core/40 bg-gold-core/10 px-3 py-1 text-[0.62rem] font-semibold tracking-[0.16em] text-gold-soft uppercase">
+                Service-Disabled Veteran-Owned
+              </span>
+              <h2 className="display max-w-lg text-2xl text-warm-white sm:text-4xl">
+                Hardened like it&apos;s under armor.
+              </h2>
+              <p className="max-w-md text-sm leading-relaxed text-warm-mist">
+                Discipline earned in service, applied to your technology — security is the floor
+                everything else stands on.
+              </p>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+
       <div className="mx-auto max-w-6xl px-6">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {practices.map((p, i) => {

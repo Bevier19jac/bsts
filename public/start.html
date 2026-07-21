@@ -4,15 +4,15 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>BSTS — Bevier Strategic Technology Solutions</title>
-<meta name="description" content="A force multiplier for the team and tools you already have. Secure AI, intelligent automation, and connected systems — built around your business, not on top of a rip-and-replace." />
+<meta name="description" content="Secure AI, intelligent automation, and connected systems — built around your business, not on top of a rip-and-replace." />
 <meta name="robots" content="noindex" />
 
-<!-- Social share preview -->
+<!-- Social share preview (keeps the tank card on any already-shared /start link) -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="BSTS" />
 <meta property="og:title" content="BSTS — Bevier Strategic Technology Solutions" />
-<meta property="og:description" content="A force multiplier for the team and tools you already have. Secure AI, intelligent automation, and connected systems — built around your business." />
-<meta property="og:url" content="https://bsts.pages.dev/start" />
+<meta property="og:description" content="Secure AI, intelligent automation, and connected systems — built around your business." />
+<meta property="og:url" content="https://bsts.pages.dev/" />
 <meta property="og:image" content="https://bsts.pages.dev/share-card.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -21,314 +21,19 @@
 <meta name="twitter:title" content="BSTS — Bevier Strategic Technology Solutions" />
 <meta name="twitter:description" content="Secure AI, intelligent automation, and connected systems — built around your business." />
 <meta name="twitter:image" content="https://bsts.pages.dev/share-card.png" />
+
+<!-- Redirect to the main site (the standalone one-pager was retired) -->
+<meta http-equiv="refresh" content="0; url=/" />
+<link rel="canonical" href="https://bsts.pages.dev/" />
 <style>
-  :root{
-    --bg:#0a0c0d; --panel:#101416e6; --panel2:#0d1113e6; --edge:#1e2529;
-    --white:#f4f6f5; --mist:#c4ccca; --dim:#8a9691;
-    --cyan:#63c7c2; --cyan-soft:#8fdcd7; --gold:#d8b782;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:var(--bg);color:var(--white);
+  html,body{margin:0;height:100%;background:#0a0c0d;color:#c4ccca;
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;line-height:1.5}
-  /* Animated network canvas fills the whole viewport, behind everything */
-  #bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block;
-    background:
-      radial-gradient(1100px 620px at 50% -8%, rgba(99,199,194,.10), transparent 60%),
-      radial-gradient(900px 600px at 100% 108%, rgba(216,183,130,.05), transparent 60%),
-      var(--bg)}
-  body{min-height:100vh;display:flex;flex-direction:column;align-items:center;
-    padding:34px 18px 56px;position:relative;z-index:1}
-  .wrap{width:100%;max-width:600px;display:flex;flex-direction:column;gap:26px;position:relative;z-index:1}
-
-  .brand{display:flex;align-items:center;gap:12px;margin-top:6px}
-  .mark{width:42px;height:42px;border-radius:50%;flex:0 0 auto;
-    border:1px solid var(--edge);display:grid;place-items:center;
-    background:radial-gradient(circle at 50% 45%, rgba(99,199,194,.35), transparent 60%)}
-  .mark span{width:12px;height:12px;border-radius:50%;background:var(--cyan);
-    box-shadow:0 0 14px 2px rgba(99,199,194,.7)}
-  .brand h1{font-size:1.08rem;letter-spacing:.14em;font-weight:600}
-  .brand p{font-size:.62rem;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;margin-top:2px}
-
-  .eyebrow{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--cyan-soft)}
-  .hero{font-size:2.1rem;line-height:1.08;font-weight:650;letter-spacing:-.01em;margin-top:12px;
-    text-shadow:0 2px 30px rgba(0,0,0,.6)}
-  .hero em{font-style:normal;color:var(--cyan)}
-  .sub{color:var(--mist);font-size:1.02rem;margin-top:14px;max-width:34rem;text-shadow:0 1px 16px rgba(0,0,0,.6)}
-
-  /* Single-line credential strip */
-  .creds{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-  .cred{font-size:.68rem;font-weight:600;letter-spacing:.05em;border-radius:999px;padding:6px 13px;
-    border:1px solid var(--edge);color:var(--mist);white-space:nowrap;
-    background:rgba(16,20,22,.6);backdrop-filter:blur(3px)}
-  .cred.badge{border-color:rgba(216,183,130,.6);color:var(--gold);
-    background:linear-gradient(180deg, rgba(216,183,130,.14), rgba(216,183,130,.03))}
-  .note{color:var(--dim);font-size:.8rem;line-height:1.5}
-  .note b{color:var(--gold)}
-
-  .multiplier{background:linear-gradient(180deg, rgba(99,199,194,.10), rgba(99,199,194,.02));
-    border:1px solid rgba(99,199,194,.28);border-radius:18px;padding:20px 22px;backdrop-filter:blur(6px)}
-  .multiplier b{color:var(--white)}
-  .multiplier p{color:var(--mist);font-size:.98rem}
-  .multiplier .k{color:var(--cyan-soft);font-weight:600}
-
-  .section-label{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);
-    margin-bottom:-8px;padding-left:2px}
-
-  .lanes{display:flex;flex-direction:column;gap:12px}
-  .lane{background:var(--panel);border:1px solid var(--edge);border-radius:16px;padding:18px 20px;backdrop-filter:blur(6px)}
-  .lane .top{display:flex;align-items:baseline;gap:10px}
-  .lane .verb{color:var(--cyan);font-weight:700;font-size:1.05rem}
-  .lane .role{color:var(--dim);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase}
-  .lane .desc{color:var(--mist);font-size:.9rem;margin-top:8px}
-  .lane ul{list-style:none;margin-top:10px;display:flex;flex-direction:column;gap:6px}
-  .lane li{display:flex;gap:9px;color:var(--dim);font-size:.85rem;line-height:1.45}
-  .lane li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--cyan);
-    margin-top:7px;flex:0 0 auto;box-shadow:0 0 8px 1px rgba(99,199,194,.5)}
-
-  .method{background:var(--panel2);border:1px solid var(--edge);border-radius:18px;padding:20px 22px;backdrop-filter:blur(6px)}
-  .method h3{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:14px}
-  .steps{display:flex;flex-direction:column;gap:12px}
-  .step{display:flex;gap:12px;align-items:flex-start}
-  .step .n{width:24px;height:24px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;
-    border:1px solid rgba(99,199,194,.4);color:var(--cyan);font-size:.72rem;font-weight:700}
-  .step b{color:var(--white);font-weight:600}
-  .step span{color:var(--dim);font-size:.88rem}
-
-  .armor{background:var(--panel);border:1px solid var(--edge);border-radius:18px;overflow:hidden;backdrop-filter:blur(6px)}
-  .armor .banner{position:relative;background:
-      radial-gradient(440px 180px at 58% 120%, rgba(99,199,194,.16), transparent 70%),
-      linear-gradient(180deg, #0e1417, #0a0f11);
-    padding:16px 14px 8px;display:flex;flex-direction:column;align-items:center;gap:4px}
-  .armor .banner img{width:100%;max-width:440px;height:auto;display:block;border-radius:12px;
-    filter:drop-shadow(0 10px 22px rgba(0,0,0,.55))}
-  .armor .kicker{font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-top:6px}
-  .armor .head{font-size:1.25rem;font-weight:650;color:var(--white);text-align:center;padding:2px 20px 0}
-  .armor .body{padding:14px 20px 20px}
-  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
-  .chip{font-size:.72rem;color:var(--cyan-soft);border:1px solid rgba(99,199,194,.3);
-    border-radius:999px;padding:5px 11px}
-  .armor .body p{color:var(--mist);font-size:.85rem;line-height:1.5}
-
-  .why{border-left:2px solid var(--gold);padding-left:16px;color:var(--mist);font-size:.95rem}
-  .why b{color:var(--white)}
-
-  .cta{display:flex;flex-direction:column;gap:12px}
-  a.btn{display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;
-    padding:16px 20px;border-radius:14px;font-size:1rem;font-weight:600;transition:.15s}
-  a.primary{background:var(--cyan);color:#04201f;box-shadow:0 8px 26px rgba(99,199,194,.28)}
-  a.primary:active{background:var(--cyan-soft)}
-  a.ghost{background:rgba(16,20,22,.6);color:var(--white);border:1px solid var(--edge);backdrop-filter:blur(3px)}
-  a.ghost:active{border-color:var(--cyan)}
-  .arrow{font-size:1.05rem;line-height:1}
-
-  .foot{text-align:center;color:var(--dim);font-size:.72rem;line-height:1.7}
-  .foot a{color:var(--cyan-soft);text-decoration:none}
-  @media(min-width:480px){.hero{font-size:2.45rem}}
+    display:flex;align-items:center;justify-content:center;text-align:center}
+  a{color:#63c7c2}
 </style>
+<script>window.location.replace("/");</script>
 </head>
 <body>
-  <canvas id="bg"></canvas>
-  <div class="wrap">
-
-    <div class="brand">
-      <div class="mark"><span></span></div>
-      <div>
-        <h1>BSTS</h1>
-        <p>Bevier Strategic Technology Solutions</p>
-      </div>
-    </div>
-
-    <div>
-      <div class="eyebrow">Strategic technology transformation · Secure AI</div>
-      <div class="hero">A force multiplier for the team you <em>already have</em>.</div>
-      <div class="sub">Secure AI, intelligent automation, and connected systems — built around your business, not on top of a rip-and-replace.</div>
-    </div>
-
-    <div class="creds">
-      <span class="cred badge">★ SDVOSB</span>
-      <span class="cred">Veteran-Owned · Small Business · Principal-Led · U.S.-Based</span>
-    </div>
-    <div class="note"><b>Service-Disabled Veteran-Owned Small Business.</b> Veteran-owned discipline — earned in service, applied to your technology. Open to teaming, subcontracting, and prime opportunities.</div>
-
-    <div class="multiplier">
-      <p><b>The whole idea is amplification, not replacement.</b> We make your existing people and tools measurably more capable — keeping what works, connecting what's siloed, and taking the repetitive busywork off your team's plate. <span class="k">AI drafts and flags; your people decide.</span> Every automation keeps a human at the decision point.</p>
-    </div>
-
-    <div class="section-label">What we do — five lanes, one honest sentence</div>
-    <div class="lanes">
-      <div class="lane">
-        <div class="top"><span class="verb">Keep</span><span class="role">what works</span></div>
-        <div class="desc">Stack assessment &amp; modernization strategy — your existing systems are an asset, not an embarrassment.</div>
-        <ul>
-          <li>Full-stack inventory and data-flow mapping</li>
-          <li>Cost-of-ownership and contract review</li>
-          <li>Modernize-vs-replace decision records for every core system</li>
-        </ul>
-      </div>
-      <div class="lane">
-        <div class="top"><span class="verb">Connect</span><span class="role">what is disconnected</span></div>
-        <div class="desc">Integration &amp; data unification — one source of truth across the tools you run.</div>
-        <ul>
-          <li>PMS ↔ POS ↔ CRM synchronization</li>
-          <li>A unified guest, client, or customer profile across tools</li>
-          <li>Reporting pipelines that end copy-paste consolidation</li>
-        </ul>
-      </div>
-      <div class="lane">
-        <div class="top"><span class="verb">Automate</span><span class="role">what is repetitive</span></div>
-        <div class="desc">Intelligent workflow automation — free your people for the work that needs judgment.</div>
-        <ul>
-          <li>Guest and client communication sequences</li>
-          <li>Nightly reconciliation and exception reports</li>
-          <li>Task routing with human review at every decision point</li>
-        </ul>
-      </div>
-      <div class="lane">
-        <div class="top"><span class="verb">Build</span><span class="role">what is missing</span></div>
-        <div class="desc">Custom software &amp; secure AI implementation — purpose-built for how you actually work.</div>
-        <ul>
-          <li>Internal tools and portals made to fit your workflow</li>
-          <li>AI-assisted drafting and summarization with human review</li>
-          <li>Decision-support dashboards fed by your unified data</li>
-        </ul>
-      </div>
-      <div class="lane">
-        <div class="top"><span class="verb">Secure</span><span class="role">the foundation</span></div>
-        <div class="desc">Security architecture &amp; readiness — the floor everything else stands on.</div>
-        <ul>
-          <li>NIST-aligned security baseline and gap assessment</li>
-          <li>Identity, access, and least-privilege review</li>
-          <li>SOC 2 readiness support and evidence-collection habits</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="method">
-      <h3>How we work — a method public enough to be held against us</h3>
-      <div class="steps">
-        <div class="step"><div class="n">1</div><div><b>Listen.</b> <span>We learn how your operation actually runs — not how the org chart says it does.</span></div></div>
-        <div class="step"><div class="n">2</div><div><b>Map.</b> <span>Every finding sorted into keep, connect, automate, build, or secure — nothing recommended without a reason.</span></div></div>
-        <div class="step"><div class="n">3</div><div><b>Prove.</b> <span>One small, high-visibility pilot before any big commitment. You judge us on working software, not slideware.</span></div></div>
-        <div class="step"><div class="n">4</div><div><b>Build.</b> <span>Two-week delivery cycles with a demo at the end of each. You always know what's live and what it costs.</span></div></div>
-        <div class="step"><div class="n">5</div><div><b>Steward.</b> <span>Documentation and handover written as we go — you're never locked in.</span></div></div>
-      </div>
-    </div>
-
-    <div class="armor">
-      <div class="banner">
-        <img src="abrams.jpg" alt="M1 Abrams main battle tank — hardened security" />
-        <div class="kicker">Secure the foundation</div>
-      </div>
-      <div class="head">Security hardened like it's under armor.</div>
-      <div class="body">
-        <div class="chips">
-          <span class="chip">NIST CSF 2.0</span>
-          <span class="chip">Zero Trust</span>
-          <span class="chip">OWASP-informed</span>
-          <span class="chip">SOC 2 readiness support</span>
-        </div>
-        <p>Private data stays inside agreed boundaries — models never see what they don't need. A human approves consequential actions. No client data trains third-party models without explicit written agreement. Least-privilege access, encryption by default, and an incident-response starting point your team has actually read.</p>
-      </div>
-    </div>
-
-    <div class="why"><b>Focused on purpose. Principal-led by design.</b> No licenses, no commissions, no rip-and-replace reflex — just a working pilot by week six.</div>
-
-    <div class="method" style="margin-top:4px">
-      <h3>Start with the free 5-minute assessment</h3>
-      <p style="color:var(--dim);font-size:.9rem;line-height:1.6;margin-bottom:16px">
-        Answer a handful of plain questions about how your business actually runs today — where the team's time goes, what's still done by hand, and how much AI you're already using. It's one question at a time, and your answers steer what comes next, so you only answer what fits you. No account, and nothing is sent to us unless you choose to share your results.
-      </p>
-      <div style="font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:12px">What you'll get at the end</div>
-      <div class="steps">
-        <div class="step"><div class="n">1</div><div><b>Your AI &amp; automation readiness score</b> <span>— a clear read on where you stand today.</span></div></div>
-        <div class="step"><div class="n">2</div><div><b>Hours a week you could win back</b> <span>— an estimate of the time buried in manual work, and what it's worth per year.</span></div></div>
-        <div class="step"><div class="n">3</div><div><b>The automations and AI that fit your industry</b> <span>— specific, not generic, based on how your business runs.</span></div></div>
-        <div class="step"><div class="n">4</div><div><b>A prioritized place to start</b> <span>— the highest-payoff first moves, and where security matters for your data.</span></div></div>
-      </div>
-    </div>
-
-    <div class="cta">
-      <a class="btn primary" href="https://bsts.pages.dev/contact">Take the 5-minute assessment <span class="arrow">→</span></a>
-      <a class="btn ghost" href="https://bsts.pages.dev">Explore the full site <span class="arrow">→</span></a>
-    </div>
-
-    <div class="foot">
-      Technology built around your business.<br/>
-      <a href="https://bsts.pages.dev">bsts.pages.dev</a>
-    </div>
-
-  </div>
-
-<script>
-(function(){
-  var c = document.getElementById('bg'), ctx = c.getContext('2d');
-  var w, h, dpr = Math.min(window.devicePixelRatio || 1, 2), nodes = [], mouse = {x:-999,y:-999};
-  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var fs = 15, step = fs * 1.5, drops = [], chars = [];
-  function resize(){
-    w = c.clientWidth; h = c.clientHeight;
-    c.width = w * dpr; c.height = h * dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
-    // Node network
-    var count = Math.max(28, Math.min(120, Math.floor(w*h/14000)));
-    nodes = [];
-    for (var i=0;i<count;i++){
-      nodes.push({ x:Math.random()*w, y:Math.random()*h,
-        vx:(Math.random()-0.5)*0.28, vy:(Math.random()-0.5)*0.28 });
-    }
-    // Faded binary rain columns
-    var cols = Math.floor(w/step);
-    drops = []; chars = [];
-    for (var j=0;j<cols;j++){ drops.push(Math.random()*h); chars.push(Math.random()<0.5?'0':'1'); }
-  }
-  function frame(){
-    ctx.clearRect(0,0,w,h);
-    // 1) faded binary rain (background layer)
-    ctx.font = fs + 'px "SFMono-Regular", Menlo, Consolas, monospace';
-    for (var j=0;j<drops.length;j++){
-      var x = j*step + 2, y = drops[j];
-      // bright leading glyph
-      ctx.fillStyle = 'rgba(143,220,215,0.55)';
-      ctx.fillText(chars[j], x, y);
-      // fading trail
-      ctx.fillStyle = 'rgba(99,199,194,0.28)'; ctx.fillText(Math.random()<0.5?'0':'1', x, y - step);
-      ctx.fillStyle = 'rgba(99,199,194,0.16)'; ctx.fillText(Math.random()<0.5?'0':'1', x, y - step*2);
-      ctx.fillStyle = 'rgba(99,199,194,0.09)'; ctx.fillText(Math.random()<0.5?'0':'1', x, y - step*3);
-      ctx.fillStyle = 'rgba(99,199,194,0.05)'; ctx.fillText(Math.random()<0.5?'0':'1', x, y - step*4);
-      if(!reduced){ drops[j] += 0.5 + (j%3)*0.18; }
-      if (Math.random()<0.03) chars[j] = Math.random()<0.5?'0':'1';
-      if (drops[j] > h + step*4){ drops[j] = -Math.random()*160; chars[j] = Math.random()<0.5?'0':'1'; }
-    }
-    // 2) node network (foreground layer)
-    for (var i=0;i<nodes.length;i++){
-      var n = nodes[i];
-      if(!reduced){ n.x += n.vx; n.y += n.vy; }
-      if (n.x<0||n.x>w) n.vx*=-1;
-      if (n.y<0||n.y>h) n.vy*=-1;
-    }
-    for (var a=0;a<nodes.length;a++){
-      for (var b=a+1;b<nodes.length;b++){
-        var dx=nodes[a].x-nodes[b].x, dy=nodes[a].y-nodes[b].y, d=Math.sqrt(dx*dx+dy*dy);
-        if (d<128){
-          ctx.strokeStyle='rgba(99,199,194,'+(0.14*(1-d/128))+')';
-          ctx.lineWidth=1;
-          ctx.beginPath(); ctx.moveTo(nodes[a].x,nodes[a].y); ctx.lineTo(nodes[b].x,nodes[b].y); ctx.stroke();
-        }
-      }
-    }
-    for (var k=0;k<nodes.length;k++){
-      var m = nodes[k];
-      var md = Math.hypot(m.x-mouse.x, m.y-mouse.y);
-      ctx.fillStyle='rgba(99,199,194,'+(md<150?0.95:0.55)+')';
-      ctx.beginPath(); ctx.arc(m.x, m.y, md<150?2.4:1.5, 0, 6.2832); ctx.fill();
-    }
-    requestAnimationFrame(frame);
-  }
-  window.addEventListener('resize', resize);
-  window.addEventListener('pointermove', function(e){ mouse.x=e.clientX; mouse.y=e.clientY; });
-  window.addEventListener('pointerleave', function(){ mouse.x=-999; mouse.y=-999; });
-  resize(); frame();
-})();
-</script>
+<p>Taking you to <a href="/">bsts.pages.dev</a>…</p>
 </body>
 </html>
