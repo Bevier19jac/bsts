@@ -43,7 +43,7 @@ export const methodStages: MethodStage[] = [
     name: "Prove",
     duration: "Weeks 4–6",
     summary:
-      "Before any large commitment, we ship one small, high-visibility win. You judge us on working software, not slideware.",
+      "Before any large commitment, we go for a first-round hit — one small, high-visibility win, live in production. You judge us on working software, not slideware.",
     activities: [
       "One narrowly scoped pilot — an integration, an automation, or a tool",
       "Success criteria agreed in writing before work begins",
