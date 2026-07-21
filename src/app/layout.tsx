@@ -29,11 +29,20 @@ export const metadata: Metadata = {
     title: `${site.shortName} — ${site.tagline}`,
     description: site.subline,
     url: site.url,
+    images: [
+      {
+        url: "/share-card.png",
+        width: 1200,
+        height: 630,
+        alt: `${site.name} — with an M1 Abrams tank representing hardened security.`,
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: `${site.shortName} — ${site.tagline}`,
     description: site.subline,
+    images: ["/share-card.png"],
   },
   robots: { index: true, follow: true },
 };
