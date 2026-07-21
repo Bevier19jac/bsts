@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Check, ChevronDown, Clock, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Clock, Sparkles } from "lucide-react";
 import type { Answers } from "@/lib/diagnostic/types";
 import { applicableQuestions, diagnose, isComplete, nextUnanswered } from "@/lib/diagnostic/engine";
 import { QUESTION_BY_ID } from "@/lib/diagnostic/questions";
@@ -45,8 +45,11 @@ export function DiagnosticFlow() {
     else setTimeout(() => setDone(true), 200);
   }
 
-  function setSingle(qid: string, value: string) {
-    setAnswers((a) => ({ ...a, [qid]: [value] }));
+  // Tap-card single-select: record the answer and advance immediately.
+  function pickSingle(qid: string, value: string) {
+    const na: Answers = { ...answers, [qid]: [value] };
+    setAnswers(na);
+    setTimeout(() => advance(na), 160);
   }
 
   function toggleMulti(qid: string, value: string) {
@@ -200,27 +203,45 @@ export function DiagnosticFlow() {
             <p className="mt-2 text-sm leading-relaxed text-warm-mist">{q.description}</p>
           ) : null}
 
-          {/* Single-select → dropdown */}
+          {/* Single-select → tap cards (auto-advance) */}
           {q.type === "single" ? (
-            <div className="relative mt-6">
-              <select
-                value={singleValue}
-                onChange={(e) => setSingle(q.id, e.target.value)}
-                className="w-full appearance-none rounded-2xl border border-edge bg-graphite px-5 py-4 pr-12 text-[1rem] text-warm-white focus:border-cyan-core/70 focus:outline-none"
-              >
-                <option value="" disabled>
-                  Select an answer…
-                </option>
-                {q.options.map((o) => (
-                  <option key={o.value} value={o.value}>
-                    {o.label}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown
-                className="pointer-events-none absolute top-1/2 right-5 h-5 w-5 -translate-y-1/2 text-warm-dim"
-                aria-hidden
-              />
+            <div className="mt-6 grid grid-cols-1 gap-3">
+              {q.options.map((o, i) => {
+                const active = singleValue === o.value;
+                return (
+                  <motion.button
+                    key={o.value}
+                    type="button"
+                    onClick={() => pickSingle(q.id, o.value)}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.03 * i, duration: 0.2 }}
+                    className={`group flex items-center justify-between gap-4 rounded-2xl border px-5 py-4 text-left transition-all ${
+                      active
+                        ? "border-cyan-core/70 bg-cyan-faint"
+                        : "border-edge bg-graphite/60 hover:border-cyan-core/50 hover:bg-graphite-2"
+                    }`}
+                  >
+                    <span
+                      className={`text-[0.98rem] leading-snug ${
+                        active ? "text-warm-white" : "text-warm-mist group-hover:text-warm-white"
+                      }`}
+                    >
+                      {o.label}
+                    </span>
+                    <span
+                      className={`grid h-6 w-6 shrink-0 place-items-center rounded-full border transition-colors ${
+                        active
+                          ? "border-cyan-core bg-cyan-core text-obsidian-deep"
+                          : "border-edge text-transparent group-hover:border-cyan-core/60"
+                      }`}
+                      aria-hidden
+                    >
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </span>
+                  </motion.button>
+                );
+              })}
             </div>
           ) : null}
 
@@ -285,15 +306,17 @@ export function DiagnosticFlow() {
                   ? "Optional — skip if you like."
                   : " "}
             </p>
-            <button
-              type="button"
-              onClick={onContinue}
-              disabled={!canContinue}
-              className="inline-flex items-center gap-2 rounded-full bg-cyan-core px-6 py-3 text-sm font-semibold text-obsidian-deep transition-colors hover:bg-cyan-soft disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {q.type === "text" && q.optional && !textValue.trim() ? "Skip" : "Continue"}
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </button>
+            {q.type === "single" ? null : (
+              <button
+                type="button"
+                onClick={onContinue}
+                disabled={!canContinue}
+                className="inline-flex items-center gap-2 rounded-full bg-cyan-core px-6 py-3 text-sm font-semibold text-obsidian-deep transition-colors hover:bg-cyan-soft disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {q.type === "text" && q.optional && !textValue.trim() ? "Skip" : "Continue"}
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </button>
+            )}
           </div>
         </motion.div>
       </AnimatePresence>
