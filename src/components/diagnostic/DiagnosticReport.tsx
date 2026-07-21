@@ -133,15 +133,22 @@ function usd(n: number): string {
   return "$" + n.toLocaleString("en-US");
 }
 
+function noteOf(answers: Answers): string {
+  const raw = (answers["notes"]?.[0] ?? "").replace("__skip__", "").trim();
+  return raw;
+}
+
 function summaryText(dx: Diagnosis, answers: Answers): string {
   const s = dx.scores;
   const patterns = detectPatterns(dx, answers).slice(0, 8);
   const ind = INDUSTRY_CONTENT[dx.industry];
+  const note = noteOf(answers);
   const lines = [
     `BSTS AI & Automation Opportunity Assessment`,
     ``,
     `Industry: ${industryLabel(dx.industry)}`,
     `Goal: ${GOAL_FRAME[dx.goal].label}`,
+    note ? `In their words: "${note}"` : ``,
     `AI & Automation Readiness: ${dx.overall}/100 (confidence ${dx.confidence}%)`,
     `Estimated time reclaimable: ~${dx.hoursPerWeek} hrs/week (~${usd(dx.annualCost)}/yr in labor)`,
     `Data sensitivity: ${dx.dataSensitivity}`,

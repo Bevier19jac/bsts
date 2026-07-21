@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Check, Clock, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, ChevronDown, Clock, Sparkles } from "lucide-react";
 import type { Answers } from "@/lib/diagnostic/types";
 import { applicableQuestions, diagnose, isComplete, nextUnanswered } from "@/lib/diagnostic/engine";
 import { QUESTION_BY_ID } from "@/lib/diagnostic/questions";
@@ -23,25 +23,21 @@ export function DiagnosticFlow() {
 
   function begin() {
     setStarted(true);
-    const first = nextUnanswered({});
-    setStepId(first?.id ?? null);
+    setStepId(nextUnanswered({})?.id ?? null);
   }
 
-  /** After answers change, move to the next unanswered question (or finish). */
   function advance(na: Answers) {
     if (isComplete(na)) {
-      setTimeout(() => setDone(true), 220);
+      setTimeout(() => setDone(true), 200);
       return;
     }
     const next = nextUnanswered(na);
     if (next) setStepId(next.id);
-    else setTimeout(() => setDone(true), 220);
+    else setTimeout(() => setDone(true), 200);
   }
 
-  function chooseSingle(qid: string, value: string) {
-    const na: Answers = { ...answers, [qid]: [value] };
-    setAnswers(na);
-    advance(na);
+  function setSingle(qid: string, value: string) {
+    setAnswers((a) => ({ ...a, [qid]: [value] }));
   }
 
   function toggleMulti(qid: string, value: string) {
@@ -52,14 +48,31 @@ export function DiagnosticFlow() {
     });
   }
 
-  function continueMulti(qid: string) {
-    setAnswers((prev) => {
-      const real = (prev[qid] ?? []).filter((v) => v !== "__skip__");
-      // A multi with nothing chosen still needs a value so the flow marks it done.
-      const na: Answers = { ...prev, [qid]: real.length ? real : ["__skip__"] };
-      advance(na);
-      return na;
-    });
+  function setText(qid: string, value: string) {
+    setAnswers((a) => ({ ...a, [qid]: [value] }));
+  }
+
+  function onContinue() {
+    if (!q) return;
+    if (q.type === "multi") {
+      setAnswers((prev) => {
+        const real = (prev[q.id] ?? []).filter((v) => v !== "__skip__");
+        const na: Answers = { ...prev, [q.id]: real.length ? real : ["__skip__"] };
+        advance(na);
+        return na;
+      });
+      return;
+    }
+    if (q.type === "text") {
+      setAnswers((prev) => {
+        const raw = (prev[q.id]?.[0] ?? "").trim();
+        const na: Answers = { ...prev, [q.id]: raw ? [raw] : ["__skip__"] };
+        advance(na);
+        return na;
+      });
+      return;
+    }
+    advance(answers); // single — selection already stored
   }
 
   function back() {
@@ -67,7 +80,6 @@ export function DiagnosticFlow() {
       setDone(false);
       return;
     }
-    // Which applicable questions currently have real answers, in order.
     const answeredQs = applicable.filter((x) => (answers[x.id]?.length ?? 0) > 0 && x.id !== stepId);
     const last = answeredQs[answeredQs.length - 1];
     if (!last) {
@@ -87,8 +99,7 @@ export function DiagnosticFlow() {
     setAnswers({});
     setDone(false);
     setStarted(true);
-    const first = nextUnanswered({});
-    setStepId(first?.id ?? null);
+    setStepId(nextUnanswered({})?.id ?? null);
   }
 
   // ── Intro ──────────────────────────────────────────────────────
@@ -102,9 +113,10 @@ export function DiagnosticFlow() {
           See where AI and automation could save your business time — in under 5 minutes.
         </h2>
         <p className="mx-auto mt-5 max-w-xl leading-relaxed text-warm-mist">
-          A few plain questions about how your business runs today. At the end you&apos;ll see roughly
-          how many hours a week you could win back, exactly which tools and automations would help,
-          and where to start. No jargon, no account.
+          A few plain questions about how your business runs today. Your answers steer which
+          questions come next, so you only answer what fits you. At the end you&apos;ll see roughly
+          how many hours a week you could win back, which tools and automations would help, and
+          where to start. No jargon, no account.
         </p>
         <button
           type="button"
@@ -114,7 +126,7 @@ export function DiagnosticFlow() {
           Start the assessment <ArrowRight className="h-4 w-4" aria-hidden />
         </button>
         <p className="mt-4 flex items-center justify-center gap-1.5 text-xs text-warm-dim">
-          <Clock className="h-3.5 w-3.5" aria-hidden /> ~10 questions · about 3 minutes
+          <Clock className="h-3.5 w-3.5" aria-hidden /> ~10–12 questions · about 3 minutes
         </p>
       </div>
     );
@@ -125,10 +137,17 @@ export function DiagnosticFlow() {
     return <DiagnosticReport diagnosis={diagnose(answers)} answers={answers} onRestart={restart} />;
   }
 
-  // ── Questions ──────────────────────────────────────────────────
+  // ── Question ───────────────────────────────────────────────────
   if (!q) return null;
   const chosen = (answers[q.id] ?? []).filter((v) => v !== "__skip__");
-  const isMulti = q.type === "multi";
+  const singleValue = q.type === "single" ? chosen[0] ?? "" : "";
+  const textValue = q.type === "text" ? answers[q.id]?.[0]?.replace("__skip__", "") ?? "" : "";
+  const canContinue =
+    q.type === "text"
+      ? q.optional || textValue.trim().length > 0
+      : q.type === "multi"
+        ? true
+        : singleValue.length > 0;
 
   return (
     <div className="surface rounded-[2rem] p-6 sm:p-9">
@@ -168,57 +187,101 @@ export function DiagnosticFlow() {
             <p className="mt-2 text-sm leading-relaxed text-warm-mist">{q.description}</p>
           ) : null}
 
-          <div className="mt-6 grid grid-cols-1 gap-3">
-            {q.options.map((o, i) => {
-              const active = chosen.includes(o.value);
-              return (
-                <motion.button
-                  key={o.value}
-                  type="button"
-                  onClick={() => (isMulti ? toggleMulti(q.id, o.value) : chooseSingle(q.id, o.value))}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.04 * i, duration: 0.22 }}
-                  className={`group flex items-center justify-between gap-4 rounded-2xl border px-5 py-4 text-left transition-all ${
-                    active
-                      ? "border-cyan-core/70 bg-cyan-faint"
-                      : "border-edge bg-graphite/60 hover:border-cyan-core/50 hover:bg-graphite-2"
-                  }`}
-                >
-                  <span
-                    className={`text-[0.98rem] leading-snug ${
-                      active ? "text-warm-white" : "text-warm-mist group-hover:text-warm-white"
-                    }`}
-                  >
-                    {o.label}
-                  </span>
-                  <span
-                    className={`grid h-6 w-6 shrink-0 place-items-center rounded-full border transition-colors ${
-                      active
-                        ? "border-cyan-core bg-cyan-core text-obsidian-deep"
-                        : "border-edge text-transparent group-hover:border-cyan-core/60"
-                    }`}
-                    aria-hidden
-                  >
-                    {isMulti ? <Check className="h-3.5 w-3.5" /> : <ArrowRight className="h-3.5 w-3.5" />}
-                  </span>
-                </motion.button>
-              );
-            })}
-          </div>
-
-          {isMulti ? (
-            <div className="mt-6 flex items-center justify-between gap-4">
-              <p className="text-xs text-warm-dim">Pick all that apply — or none.</p>
-              <button
-                type="button"
-                onClick={() => continueMulti(q.id)}
-                className="inline-flex items-center gap-2 rounded-full bg-cyan-core px-6 py-3 text-sm font-semibold text-obsidian-deep transition-colors hover:bg-cyan-soft"
+          {/* Single-select → dropdown */}
+          {q.type === "single" ? (
+            <div className="relative mt-6">
+              <select
+                value={singleValue}
+                onChange={(e) => setSingle(q.id, e.target.value)}
+                className="w-full appearance-none rounded-2xl border border-edge bg-graphite px-5 py-4 pr-12 text-[1rem] text-warm-white focus:border-cyan-core/70 focus:outline-none"
               >
-                Continue <ArrowRight className="h-4 w-4" aria-hidden />
-              </button>
+                <option value="" disabled>
+                  Select an answer…
+                </option>
+                {q.options.map((o) => (
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown
+                className="pointer-events-none absolute top-1/2 right-5 h-5 w-5 -translate-y-1/2 text-warm-dim"
+                aria-hidden
+              />
             </div>
           ) : null}
+
+          {/* Multi-select → checkbox list */}
+          {q.type === "multi" ? (
+            <div className="mt-6 grid grid-cols-1 gap-3">
+              {q.options.map((o, i) => {
+                const active = chosen.includes(o.value);
+                return (
+                  <motion.button
+                    key={o.value}
+                    type="button"
+                    onClick={() => toggleMulti(q.id, o.value)}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.03 * i, duration: 0.2 }}
+                    className={`group flex items-center gap-3.5 rounded-2xl border px-5 py-4 text-left transition-all ${
+                      active
+                        ? "border-cyan-core/70 bg-cyan-faint"
+                        : "border-edge bg-graphite/60 hover:border-cyan-core/50 hover:bg-graphite-2"
+                    }`}
+                  >
+                    <span
+                      className={`grid h-5 w-5 shrink-0 place-items-center rounded-md border transition-colors ${
+                        active
+                          ? "border-cyan-core bg-cyan-core text-obsidian-deep"
+                          : "border-edge text-transparent group-hover:border-cyan-core/60"
+                      }`}
+                      aria-hidden
+                    >
+                      <Check className="h-3.5 w-3.5" />
+                    </span>
+                    <span
+                      className={`text-[0.98rem] leading-snug ${
+                        active ? "text-warm-white" : "text-warm-mist group-hover:text-warm-white"
+                      }`}
+                    >
+                      {o.label}
+                    </span>
+                  </motion.button>
+                );
+              })}
+            </div>
+          ) : null}
+
+          {/* Free text → input */}
+          {q.type === "text" ? (
+            <textarea
+              value={textValue}
+              onChange={(e) => setText(q.id, e.target.value)}
+              placeholder={q.placeholder}
+              rows={3}
+              className="mt-6 w-full resize-none rounded-2xl border border-edge bg-graphite px-5 py-4 text-[1rem] text-warm-white placeholder:text-warm-dim/70 focus:border-cyan-core/70 focus:outline-none"
+            />
+          ) : null}
+
+          <div className="mt-6 flex items-center justify-between gap-4">
+            <p className="text-xs text-warm-dim">
+              {q.type === "multi"
+                ? "Pick all that apply — or none."
+                : q.type === "text" && q.optional
+                  ? "Optional — skip if you like."
+                  : " "}
+            </p>
+            <button
+              type="button"
+              onClick={onContinue}
+              disabled={!canContinue}
+              className="inline-flex items-center gap-2 rounded-full bg-cyan-core px-6 py-3 text-sm font-semibold text-obsidian-deep transition-colors hover:bg-cyan-soft disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {q.type === "text" && q.optional && !textValue.trim() ? "Skip" : "Continue"}
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </button>
+          </div>
         </motion.div>
       </AnimatePresence>
     </div>

@@ -36,6 +36,8 @@ export interface PatternContext {
   a: (qid: string) => string | undefined;
   /** whether a multi-select answer contains a value */
   has: (qid: string, value: string) => boolean;
+  /** whether any of these questions was answered "by hand" (value "manual") */
+  manual: (qids: string[]) => boolean;
 }
 
 export interface DetectedPattern extends Omit<Pattern, "detect"> {
@@ -56,7 +58,7 @@ export const PATTERNS: Pattern[] = [
     ],
     payoff: "Often reclaims 3–6 hrs/week",
     detect: (c) => {
-      if (c.has("manual_tasks", "data_entry") || c.a("time_sink") === "data_entry") return 78;
+      if (c.has("ot_repeat", "data_entry") || c.manual(["mf_intake", "ec_inventory", "hc_intake"])) return 78;
       return 0;
     },
   },
@@ -92,7 +94,7 @@ export const PATTERNS: Pattern[] = [
     ],
     payoff: "Often reclaims 4–6 hrs/week",
     detect: (c) => {
-      if (c.has("manual_tasks", "support") || c.a("time_sink") === "customer") return 74;
+      if (c.has("ot_repeat", "support") || c.manual(["ec_support", "ts_support"])) return 74;
       return 0;
     },
   },
@@ -109,7 +111,7 @@ export const PATTERNS: Pattern[] = [
     ],
     payoff: "Protects revenue you already earned",
     detect: (c) => {
-      if (c.has("manual_tasks", "followup") || c.a("time_sink") === "sales") return 68;
+      if (c.has("ot_repeat", "followup") || c.manual(["ot_followup", "np_donors", "ho_guest"])) return 68;
       return 0;
     },
   },
@@ -145,7 +147,7 @@ export const PATTERNS: Pattern[] = [
     ],
     payoff: "Often reclaims 2–4 hrs/week",
     detect: (c) => {
-      if (c.has("manual_tasks", "reporting") || c.a("time_sink") === "reporting") return 66;
+      if (c.has("ot_repeat", "reporting") || c.manual(["ts_internal", "np_reporting", "ot_reporting"])) return 66;
       return 0;
     },
   },
@@ -162,7 +164,7 @@ export const PATTERNS: Pattern[] = [
     ],
     payoff: "Fewer no-shows, less coordination",
     detect: (c) => {
-      if (c.has("manual_tasks", "scheduling") || c.a("time_sink") === "scheduling") return 62;
+      if (c.has("ot_repeat", "scheduling") || c.manual(["hc_scheduling", "ho_scheduling", "ho_booking"])) return 62;
       return 0;
     },
   },
@@ -179,7 +181,7 @@ export const PATTERNS: Pattern[] = [
     ],
     payoff: "Gets you paid faster",
     detect: (c) => {
-      if (c.has("manual_tasks", "invoicing")) return 58;
+      if (c.has("ot_repeat", "invoicing") || c.manual(["ps_billing", "hc_billing", "ts_billing"])) return 58;
       return 0;
     },
   },
@@ -196,8 +198,8 @@ export const PATTERNS: Pattern[] = [
     ],
     payoff: "Protects quality and reputation",
     detect: (c) => {
-      if (c.a("errors") === "often") return 72;
-      if (c.a("errors") === "sometimes") return 40;
+      if (c.s.operations < 40) return 66;
+      if (c.s.operations < 48) return 42;
       return 0;
     },
   },
@@ -214,7 +216,8 @@ export const PATTERNS: Pattern[] = [
     ],
     payoff: "The biggest time win available to you",
     detect: (c) => {
-      if (c.a("manual_level") === "mostly_manual") return 70;
+      if (c.s.automation < 38) return 70;
+      if (c.s.automation < 46) return 55;
       return 0;
     },
   },
@@ -327,6 +330,7 @@ export function detectPatterns(dx: Diagnosis, answers: Answers): DetectedPattern
     dataSensitivity: dx.dataSensitivity,
     a: (qid) => answers[qid]?.[0],
     has: (qid, value) => (answers[qid] ?? []).includes(value),
+    manual: (qids) => qids.some((id) => answers[id]?.[0] === "manual"),
   };
   return PATTERNS.map((p) => {
     const { detect, ...rest } = p;

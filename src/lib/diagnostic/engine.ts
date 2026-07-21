@@ -71,30 +71,21 @@ const SIZE_MULTIPLIER: Record<string, number> = {
   large: 5.5,
 };
 
-const MANUAL_FACTOR: Record<string, number> = {
-  mostly_manual: 1.25,
-  half: 1.0,
-  mostly_auto: 0.6,
-  highly_auto: 0.35,
-};
-
-/** Estimated weekly hours reclaimable, from manual tasks × size × manual level. */
+/** Estimated weekly hours reclaimable — sums the manual-hours tagged on every
+ *  answered option across all applicable questions, then scales by team size.
+ *  The module answers now capture manual work in detail, so the estimate comes
+ *  straight from what they told us is done by hand. */
 export function computeHours(answers: Answers): number {
-  const tasks = selected(answers, "manual_tasks");
-  const q = QUESTION_BY_ID["manual_tasks"];
   let base = 0;
-  for (const v of tasks) {
-    const opt = q?.options.find((o) => o.value === v);
-    base += opt?.hours ?? 0;
+  for (const q of applicableQuestions(answers)) {
+    for (const v of selected(answers, q.id)) {
+      const opt = q.options.find((o) => o.value === v);
+      base += opt?.hours ?? 0;
+    }
   }
-  // If they told us it's almost all manual but selected few tasks, floor it up a touch.
-  const level = firstValue(answers, "manual_level") ?? "half";
-  if (base === 0 && (level === "mostly_manual" || level === "half")) base = 6;
 
   const sizeMult = SIZE_MULTIPLIER[firstValue(answers, "size") ?? "small"] ?? 1.5;
-  const manualMult = MANUAL_FACTOR[level] ?? 1.0;
-
-  const hours = base * sizeMult * manualMult;
+  const hours = base * sizeMult;
   // Reclaimable ≈ 55% of the manual time is realistically automatable.
   return Math.min(80, Math.round(hours * 0.55));
 }

@@ -41,7 +41,7 @@ export type Goal =
   | "reduce_errors"
   | "security";
 
-export type QuestionType = "single" | "multi";
+export type QuestionType = "single" | "multi" | "text";
 
 export interface Option {
   value: string;
@@ -65,6 +65,9 @@ export interface Question {
   options: Option[];
   /** Only shown when this predicate returns true (undefined = always shown). */
   showIf?: (answers: Answers) => boolean;
+  /** For text questions: placeholder + whether it can be left blank. */
+  placeholder?: string;
+  optional?: boolean;
   helpText?: string;
 }
 
