@@ -14,6 +14,7 @@ export const founder = {
   experience: [
     "Federal cybersecurity experience",
     "U.S. Army veteran and senior operational leader",
+    "M1A2 SEP v3 Abrams Tank Master Gunner",
   ],
   narrative: [
     "BSTS exists because most small and mid-sized organizations are told they have two options: keep struggling with disconnected tools, or sign up for a rip-and-replace project that consumes a year and a budget. Neither is true.",

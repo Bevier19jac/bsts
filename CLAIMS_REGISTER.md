@@ -24,6 +24,7 @@ automated test (`src/test/claims.test.ts`).
 | AWS Certified AI Practitioner | Verified credential | Founder-held. Text display only until badge verification. |
 | Federal cybersecurity experience | Founder experience | Site carries an explicit "does not imply federal endorsement" note (About page). |
 | U.S. Army veteran and senior operational leader | Founder experience | Factual background statement. |
+| M1A2 SEP v3 Abrams Tank Master Gunner | Founder experience | Factual military qualification held by the founder. |
 | "NIST-aligned" / "informed by NIST CSF 2.0" | Framework informing methodology | Site states NIST does not certify consultancies. |
 | "OWASP-informed secure development" | Framework informing methodology | Practice description only. |
 | "Zero Trust principles" | Framework informing methodology | Practice description only. |
