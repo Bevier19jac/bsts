@@ -135,7 +135,7 @@ export function DiagnosticFlow() {
           Start the assessment <ArrowRight className="h-4 w-4" aria-hidden />
         </button>
         <p className="mt-4 flex items-center justify-center gap-1.5 text-xs text-warm-dim">
-          <Clock className="h-3.5 w-3.5" aria-hidden /> ~10–12 questions · about 3 minutes
+          <Clock className="h-3.5 w-3.5" aria-hidden /> ~10–12 questions · about 5 minutes
         </p>
       </div>
     );

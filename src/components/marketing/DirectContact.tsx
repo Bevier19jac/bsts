@@ -13,10 +13,15 @@ export function DirectContact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [hp, setHp] = useState(""); // honeypot — humans never fill this
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   async function send() {
     if (!name.trim() || !email.trim() || !message.trim()) return;
+    if (hp) {
+      setState("sent"); // silently drop bots
+      return;
+    }
     setState("sending");
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
@@ -81,6 +86,15 @@ export function DirectContact() {
             rows={3}
             className="mt-3 w-full resize-none rounded-2xl border border-edge bg-graphite px-4 py-3 text-warm-white placeholder:text-warm-dim/70 focus:border-cyan-core/70 focus:outline-none"
           />
+          <input
+            type="text"
+            value={hp}
+            onChange={(e) => setHp(e.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden
+            className="hidden"
+          />
           <div className="mt-4 flex flex-wrap items-center gap-3">
             <button
               type="button"
@@ -97,6 +111,10 @@ export function DirectContact() {
               </span>
             ) : null}
           </div>
+          <p className="mt-3 text-xs leading-relaxed text-warm-dim">
+            Your details go straight to BSTS via our form provider (Web3Forms) — used only to reply
+            to you, never sold or shared further.
+          </p>
         </>
       )}
     </div>

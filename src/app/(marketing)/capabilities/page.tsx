@@ -134,6 +134,7 @@ export default function CapabilitiesPage() {
                   ["Leadership", `${founder.name}, ${founder.role}`],
                   ["Credentials", "MS Artificial Intelligence · BS Cybersecurity (Magna Cum Laude) · CompTIA Security+ · AWS Certified AI Practitioner"],
                   ["Frameworks", "NIST CSF 2.0 · Zero Trust · OWASP · SOC 2 readiness support"],
+                  ["Point of contact", `${founder.name}, ${founder.role} — bsts.pages.dev/contact`],
                   ["Website", "bsts.pages.dev"],
                 ].map(([k, v]) => (
                   <div key={k}>
@@ -163,8 +164,8 @@ export default function CapabilitiesPage() {
           ))}
         </div>
         <p className="mt-6 text-xs leading-relaxed text-warm-dim">
-          Small-business set-aside and SDVOSB sole-source vehicles welcomed. For teaming,
-          subcontracting, or a tailored capability statement, start the assessment or reach out.
+          Open to teaming, subcontracting, and prime opportunities. For a tailored capability
+          statement or to discuss fit, start the assessment or reach out.
         </p>
       </section>
     </>

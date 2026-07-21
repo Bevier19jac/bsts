@@ -36,47 +36,39 @@ export default function HomePage() {
       <section className="relative isolate overflow-hidden">
         <Atmosphere />
         <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-14 px-6 pt-16 pb-20 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:pt-24">
+          {/* Hero content renders immediately (no scroll-reveal) so the LCP
+              headline is never gated behind JS. */}
           <div>
-            <Reveal>
-              <p className="eyebrow">
-                Service-Disabled Veteran-Owned · Secure AI &amp; Automation
-              </p>
-            </Reveal>
-            <Reveal delay={0.08}>
-              <h1 className="display mt-6 text-4xl leading-[1.08] sm:text-5xl md:text-6xl">
-                Technology built around{" "}
-                <span className="text-cyan-soft">your business.</span>
-              </h1>
-            </Reveal>
-            <Reveal delay={0.16}>
-              <p className="mt-6 max-w-xl text-lg leading-relaxed text-warm-mist">
-                Reclaim the hours your team loses to manual work, connect the tools
-                that don&apos;t talk to each other, and secure the whole thing —
-                without ripping out what already works. An independent AI &amp;
-                automation firm for small and mid-sized organizations.
-              </p>
-            </Reveal>
-            <Reveal delay={0.24}>
-              <div className="mt-9 flex flex-wrap items-center gap-4">
-                <LinkButton href="/contact">
-                  Start your assessment <ArrowRight className="h-4 w-4" aria-hidden />
-                </LinkButton>
-                <LinkButton href="/method" variant="ghost">
-                  See how we work
-                </LinkButton>
-              </div>
-            </Reveal>
-            <Reveal delay={0.32}>
-              <p className="mt-10 max-w-xl text-sm leading-relaxed text-warm-dim">
-                {site.promise}
-              </p>
-            </Reveal>
+            <p className="eyebrow">
+              Service-Disabled Veteran-Owned · Secure AI &amp; Automation
+            </p>
+            <h1 className="display mt-6 text-4xl leading-[1.08] sm:text-5xl md:text-6xl">
+              Technology built around{" "}
+              <span className="text-cyan-soft">your business.</span>
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-warm-mist">
+              Reclaim the hours your team loses to manual work, connect the tools
+              that don&apos;t talk to each other, and secure the whole thing —
+              without ripping out what already works. An independent AI &amp;
+              automation firm for small and mid-sized organizations.
+            </p>
+            <div className="mt-9 flex flex-wrap items-center gap-4">
+              <LinkButton href="/contact">
+                Start your assessment <ArrowRight className="h-4 w-4" aria-hidden />
+              </LinkButton>
+              <LinkButton href="/method" variant="ghost">
+                See how we work
+              </LinkButton>
+            </div>
+            <p className="mt-10 max-w-xl text-sm leading-relaxed text-warm-dim">
+              {site.promise}
+            </p>
           </div>
-          <Reveal delay={0.2} className="relative">
+          <div className="relative">
             <Surface blob="a" className="grain relative overflow-hidden p-6 sm:p-8">
               <SystemsDiagram className="h-auto w-full" />
             </Surface>
-          </Reveal>
+          </div>
         </div>
       </section>
 
@@ -328,6 +320,26 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 5.5 — Mid-page CTA */}
+      <section className="mx-auto max-w-6xl px-6 py-10">
+        <Reveal>
+          <div className="flex flex-col items-start justify-between gap-6 rounded-[2rem] border border-cyan-core/30 bg-gradient-to-r from-cyan-faint to-transparent p-8 sm:flex-row sm:items-center sm:p-10">
+            <div>
+              <h2 className="display text-2xl text-warm-white sm:text-3xl">
+                See what you could reclaim — free, in about five minutes.
+              </h2>
+              <p className="mt-2 max-w-xl text-sm leading-relaxed text-warm-mist">
+                No account, no obligation. You&apos;ll see the hours, the tools, and where to start —
+                whether or not we ever speak.
+              </p>
+            </div>
+            <LinkButton href="/contact" className="shrink-0">
+              Start the assessment <ArrowRight className="h-4 w-4" aria-hidden />
+            </LinkButton>
+          </div>
+        </Reveal>
+      </section>
+
       {/* 6 — Security-first */}
       <section className="relative" aria-labelledby="security-heading">
         <CurveDivider />
@@ -523,8 +535,8 @@ export default function HomePage() {
             <SectionHeading
               id="os-heading"
               eyebrow="BSTS OS"
-              title="A live example of what we build for you."
-              lede="Assessments, roadmaps, projects, risks, automations, and decisions in one connected workspace — this is the same kind of operations dashboard BSTS builds for clients, running our own practice. Click through the interactive demo (fictional data) to see the caliber of what you would own."
+              title="An example of what we build for you."
+              lede="Assessments, roadmaps, projects, risks, automations, and decisions in one connected workspace — the same kind of operations dashboard BSTS builds for clients. Click through the interactive demo (fictional data) to see the caliber of what you would own."
             />
             <Reveal delay={0.15}>
               <div className="mt-8 flex flex-wrap gap-4">
@@ -593,7 +605,7 @@ export default function HomePage() {
             center
             eyebrow="Start here"
             title="Tell us how your operation actually runs."
-            lede="The BSTS technology assessment takes about ten minutes. It costs nothing, commits you to nothing, and even if we never speak again, the act of answering it tends to clarify what your stack needs."
+            lede="The BSTS technology assessment takes about five minutes. It costs nothing, commits you to nothing, and even if we never speak again, the act of answering it tends to clarify what your stack needs."
           />
           <Reveal delay={0.15}>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">

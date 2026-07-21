@@ -4,8 +4,13 @@ import { useEffect, useRef } from "react";
 
 /**
  * Site-wide animated background: a drifting node network with faded falling
- * binary. Fixed, full-viewport, behind all content, non-interactive, and it
- * respects prefers-reduced-motion (draws a still frame instead of animating).
+ * binary. Fixed, full-viewport, behind all content, non-interactive.
+ *
+ * Performance & accessibility:
+ * - prefers-reduced-motion: draws ONE static frame and never schedules another
+ *   (no loop, no flicker, no battery cost).
+ * - Pauses entirely when the tab is hidden (visibilitychange).
+ * - Caps node count and link distance hard on small screens.
  */
 export function NetworkBackground() {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -15,7 +20,6 @@ export function NetworkBackground() {
     if (!canvas) return;
     const context = canvas.getContext("2d");
     if (!context) return;
-    // Non-null typed locals so the animation closures type-check cleanly.
     const cv: HTMLCanvasElement = canvas;
     const cx: CanvasRenderingContext2D = context;
 
@@ -29,6 +33,8 @@ export function NetworkBackground() {
     let w = 0;
     let h = 0;
     let raf = 0;
+    let running = false;
+    let linkDist = 124;
     let nodes: { x: number; y: number; vx: number; vy: number }[] = [];
     let drops: number[] = [];
     let chars: string[] = [];
@@ -40,7 +46,12 @@ export function NetworkBackground() {
       cv.width = w * dpr;
       cv.height = h * dpr;
       cx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.max(24, Math.min(104, Math.floor((w * h) / 16000)));
+      // Fewer nodes and shorter links on small screens — the pairwise loop is
+      // O(n²), so this is where the phone cost lives.
+      const small = w < 640;
+      linkDist = small ? 96 : 124;
+      const maxNodes = small ? 38 : 104;
+      const count = Math.max(20, Math.min(maxNodes, Math.floor((w * h) / 18000)));
       nodes = [];
       for (let i = 0; i < count; i++) {
         nodes.push({
@@ -57,9 +68,10 @@ export function NetworkBackground() {
         drops.push(Math.random() * h);
         chars.push(Math.random() < 0.5 ? "0" : "1");
       }
+      if (reduced) render(false); // repaint the static frame on resize
     }
 
-    function frame() {
+    function render(animate: boolean) {
       cx.clearRect(0, 0, w, h);
 
       // Faded falling binary (background layer)
@@ -70,34 +82,36 @@ export function NetworkBackground() {
         cx.fillStyle = "rgba(143,220,215,0.30)";
         cx.fillText(chars[j], x, y);
         cx.fillStyle = "rgba(99,199,194,0.14)";
-        cx.fillText(Math.random() < 0.5 ? "0" : "1", x, y - stepx);
+        cx.fillText(chars[j], x, y - stepx);
         cx.fillStyle = "rgba(99,199,194,0.07)";
-        cx.fillText(Math.random() < 0.5 ? "0" : "1", x, y - stepx * 2);
-        if (!reduced) drops[j] += 0.5 + (j % 3) * 0.18;
-        if (Math.random() < 0.03) chars[j] = Math.random() < 0.5 ? "0" : "1";
-        if (drops[j] > h + stepx * 2) {
-          drops[j] = -Math.random() * 160;
-          chars[j] = Math.random() < 0.5 ? "0" : "1";
+        cx.fillText(chars[j], x, y - stepx * 2);
+        if (animate) {
+          drops[j] += 0.5 + (j % 3) * 0.18;
+          if (Math.random() < 0.03) chars[j] = Math.random() < 0.5 ? "0" : "1";
+          if (drops[j] > h + stepx * 2) {
+            drops[j] = -Math.random() * 160;
+            chars[j] = Math.random() < 0.5 ? "0" : "1";
+          }
         }
       }
 
       // Node network (foreground layer)
-      for (let i = 0; i < nodes.length; i++) {
-        const n = nodes[i];
-        if (!reduced) {
+      if (animate) {
+        for (let i = 0; i < nodes.length; i++) {
+          const n = nodes[i];
           n.x += n.vx;
           n.y += n.vy;
+          if (n.x < 0 || n.x > w) n.vx *= -1;
+          if (n.y < 0 || n.y > h) n.vy *= -1;
         }
-        if (n.x < 0 || n.x > w) n.vx *= -1;
-        if (n.y < 0 || n.y > h) n.vy *= -1;
       }
       for (let a = 0; a < nodes.length; a++) {
         for (let b = a + 1; b < nodes.length; b++) {
           const dx = nodes[a].x - nodes[b].x;
           const dy = nodes[a].y - nodes[b].y;
           const d = Math.sqrt(dx * dx + dy * dy);
-          if (d < 124) {
-            cx.strokeStyle = `rgba(99,199,194,${0.11 * (1 - d / 124)})`;
+          if (d < linkDist) {
+            cx.strokeStyle = `rgba(99,199,194,${0.11 * (1 - d / linkDist)})`;
             cx.lineWidth = 1;
             cx.beginPath();
             cx.moveTo(nodes[a].x, nodes[a].y);
@@ -108,14 +122,26 @@ export function NetworkBackground() {
       }
       for (let k = 0; k < nodes.length; k++) {
         const m = nodes[k];
-        const md = Math.hypot(m.x - mouse.x, m.y - mouse.y);
+        const md = animate ? Math.hypot(m.x - mouse.x, m.y - mouse.y) : 9999;
         cx.fillStyle = `rgba(99,199,194,${md < 150 ? 0.9 : 0.48})`;
         cx.beginPath();
         cx.arc(m.x, m.y, md < 150 ? 2.2 : 1.4, 0, 6.2832);
         cx.fill();
       }
+    }
 
-      raf = requestAnimationFrame(frame);
+    function loop() {
+      render(true);
+      raf = requestAnimationFrame(loop);
+    }
+    function start() {
+      if (running || reduced) return;
+      running = true;
+      loop();
+    }
+    function stop() {
+      running = false;
+      cancelAnimationFrame(raf);
     }
 
     const onMove = (e: PointerEvent) => {
@@ -126,17 +152,27 @@ export function NetworkBackground() {
       mouse.x = -9999;
       mouse.y = -9999;
     };
+    const onVisibility = () => {
+      if (document.hidden) stop();
+      else start();
+    };
 
     resize();
-    frame();
+    if (reduced) {
+      render(false); // one static frame, no loop
+    } else {
+      start();
+    }
     window.addEventListener("resize", resize);
     window.addEventListener("pointermove", onMove);
     window.addEventListener("pointerleave", onLeave);
+    document.addEventListener("visibilitychange", onVisibility);
     return () => {
-      cancelAnimationFrame(raf);
+      stop();
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerleave", onLeave);
+      document.removeEventListener("visibilitychange", onVisibility);
     };
   }, []);
 

@@ -149,15 +149,15 @@ function summaryText(dx: Diagnosis, answers: Answers): string {
     `Industry: ${industryLabel(dx.industry)}`,
     `Goal: ${GOAL_FRAME[dx.goal].label}`,
     note ? `In their words: "${note}"` : ``,
-    `AI & Automation Readiness: ${dx.overall}/100 (confidence ${dx.confidence}%)`,
-    `Estimated time reclaimable: ~${dx.hoursPerWeek} hrs/week (~${usd(dx.annualCost)}/yr in labor)`,
+    `AI & Automation Readiness: ${dx.overall}/100 (rules-based estimate)`,
+    `Estimated time reclaimable: ~${dx.hoursPerWeek} hrs/week (rough est. ≈ ${usd(dx.annualCost)}/yr at ~$38/hr blended)`,
     `Data sensitivity: ${dx.dataSensitivity}`,
     ``,
     `Maturity:`,
     ...DIMENSION_ORDER.map((d) => `  ${DIMENSION_LABELS[d]}: ${s[d]}`),
     ``,
     `Opportunities & risks detected:`,
-    ...patterns.map((p) => `  [${KIND_LABEL[p.kind]} · ${p.confidence}%] ${p.name} — ${p.description}`),
+    ...patterns.map((p) => `  [${KIND_LABEL[p.kind]}] ${p.name} — ${p.description}`),
     ``,
     `Recommended AI fit:`,
     ...ind.aiFit.map((t) => `  • ${t}`),
@@ -183,6 +183,7 @@ export function DiagnosticReport({
   const patterns = detectPatterns(dx, answers);
   const topPatterns = patterns.slice(0, 6);
   const actions = topActions(dx);
+  const note = noteOf(answers);
   const showSecurity = dx.dataSensitivity === "regulated" || dx.dataSensitivity === "sensitive";
 
   const [name, setName] = useState("");
@@ -236,8 +237,8 @@ export function DiagnosticReport({
               <div className="flex items-center gap-1.5 text-sm text-warm-dim">
                 <Gauge className="h-4 w-4 text-cyan-core" aria-hidden /> Readiness
               </div>
-              <div className="display text-xl text-warm-white">AI & Automation</div>
-              <div className="mt-1 text-xs text-cyan-soft">Confidence {dx.confidence}%</div>
+              <div className="display text-xl text-warm-white">AI &amp; Automation</div>
+              <div className="mt-1 text-xs text-warm-dim">a rules-based read of your answers</div>
             </div>
           </div>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -252,16 +253,25 @@ export function DiagnosticReport({
               <div className="flex items-center gap-2 text-xs tracking-[0.14em] text-warm-dim uppercase">
                 <DollarSign className="h-4 w-4 text-gold-soft" aria-hidden /> That&apos;s worth
               </div>
-              <div className="display mt-1.5 text-2xl text-warm-white">{usd(dx.annualCost)}/yr</div>
-              <div className="mt-1 text-xs text-warm-dim">in recovered labor time</div>
+              <div className="display mt-1.5 text-2xl text-warm-white">≈ {usd(dx.annualCost)}/yr</div>
+              <div className="mt-1 text-xs text-warm-dim">rough estimate · ~$38/hr blended</div>
             </div>
           </div>
         </div>
         <p className="mt-6 leading-relaxed text-warm-mist">
           <span className="text-warm-white">{goal.label}:</span> {goal.line}{" "}
-          These numbers are estimates from your answers — a starting picture, not a bill. Here&apos;s
-          where the time is hiding and exactly what to do about it.
+          These are rough estimates from your answers — assuming a blended ~$38/hr and that about
+          half of manual time is realistically automatable. A starting picture, not a bill. Here&apos;s
+          where the time is hiding and what to do about it.
         </p>
+        {note ? (
+          <div className="mt-5 rounded-2xl border border-edge bg-graphite/60 p-4">
+            <div className="text-[0.62rem] font-semibold tracking-[0.14em] text-warm-dim uppercase">
+              In your words
+            </div>
+            <p className="mt-1.5 text-sm leading-relaxed text-warm-mist">&ldquo;{note}&rdquo;</p>
+          </div>
+        ) : null}
       </div>
 
       {/* Maturity breakdown */}
@@ -289,8 +299,8 @@ export function DiagnosticReport({
             <Sparkles className="h-4 w-4 text-cyan-core" aria-hidden /> What we spotted
           </div>
           <p className="mt-2 text-sm leading-relaxed text-warm-mist">
-            BSTS read the relationships across your answers — not just single scores — to find the
-            highest-payoff moves. Each is ranked by how confident we are it applies to you.
+            We matched your answers against the patterns we see most often across businesses like
+            yours. Several can be true at once — each is ranked by how strongly your answers match it.
           </p>
           <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2">
             {topPatterns.map((p, i) => (
@@ -449,6 +459,11 @@ export function DiagnosticReport({
                 Something went wrong sending that. Please try again in a moment.
               </p>
             ) : null}
+            <p className="mt-4 text-xs leading-relaxed text-warm-dim">
+              Your results and details go straight to BSTS via our form provider (Web3Forms) — used
+              only to reply to you, never sold or shared further. Nothing leaves your browser until
+              you choose to send.
+            </p>
           </>
         )}
       </div>
