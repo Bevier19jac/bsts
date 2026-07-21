@@ -82,30 +82,30 @@ function PatternCard({ p, i }: { p: DetectedPattern; i: number }) {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, delay: 0.05 * i }}
-      className="rounded-2xl border border-edge bg-graphite/60 p-5"
+      className="overflow-hidden rounded-2xl border border-edge bg-graphite/60 p-5"
     >
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex items-center gap-2.5">
-          <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full border ${style.chip}`}>
-            <Icon className="h-4 w-4" aria-hidden />
-          </span>
-          <div>
-            <div className="display text-base leading-tight text-warm-white">{p.name}</div>
+      <div className="flex items-start gap-3">
+        <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full border ${style.chip}`}>
+          <Icon className="h-4 w-4" aria-hidden />
+        </span>
+        <div className="min-w-0 flex-1">
+          <div className="display text-base leading-tight text-warm-white break-words">{p.name}</div>
+          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
             <span
-              className={`mt-1 inline-block rounded-full border px-2 py-0.5 text-[0.62rem] font-semibold tracking-[0.12em] uppercase ${style.chip}`}
+              className={`inline-block rounded-full border px-2 py-0.5 text-[0.62rem] font-semibold tracking-[0.12em] uppercase ${style.chip}`}
             >
               {KIND_LABEL[p.kind]}
             </span>
+            {p.payoff ? (
+              <span className="inline-flex max-w-full items-center gap-1 rounded-full border border-edge bg-obsidian-deep/50 px-2.5 py-0.5 text-[0.68rem] leading-tight text-warm-mist">
+                <span className="text-[0.58rem] font-semibold tracking-[0.1em] text-warm-dim uppercase">Payoff</span>
+                <span className="min-w-0 break-words text-cyan-soft">{p.payoff}</span>
+              </span>
+            ) : null}
           </div>
         </div>
-        {p.payoff ? (
-          <div className="shrink-0 text-right">
-            <div className="text-[0.6rem] tracking-wide text-warm-dim uppercase">Payoff</div>
-            <div className="text-xs leading-tight text-cyan-soft">{p.payoff}</div>
-          </div>
-        ) : null}
       </div>
-      <p className="mt-3 text-sm leading-relaxed text-warm-mist">{p.description}</p>
+      <p className="mt-3 text-sm leading-relaxed text-warm-mist break-words">{p.description}</p>
       <div className="mt-3 rounded-xl border border-edge/70 bg-obsidian-deep/40 p-3">
         <div className="text-[0.62rem] font-semibold tracking-[0.14em] text-warm-dim uppercase">
           Why this matters
