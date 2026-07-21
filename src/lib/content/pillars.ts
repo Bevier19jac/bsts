@@ -30,7 +30,7 @@ export const pillars: Pillar[] = [
     summary:
       "Most technology projects fail by replacing too much. We start by mapping what you already run, what it costs, and what it quietly does well — then we protect it.",
     detail:
-      "A BSTS engagement never opens with a rebuild pitch. It opens with an honest inventory: your property-management system, your point of sale, your booking engine, your spreadsheets, your inbox rules. We document how work actually flows through them, identify the systems that are earning their keep, and design around them instead of over them. The result is a modernization strategy measured in weeks of disruption avoided, not licenses sold.",
+      "A BSTS engagement never opens with a rebuild pitch. It opens with an honest inventory: the system you run your operation on, your point of sale or billing, your scheduling and job tracking, your spreadsheets, your inbox rules — whether you run a clinic, a job site, a storefront, or a services firm. We document how work actually flows through them, identify the systems that are earning their keep, and design around them instead of over them. The result is a modernization strategy measured in weeks of disruption avoided, not licenses sold.",
     examples: [
       "Full-stack inventory and data-flow mapping",
       "Cost-of-ownership and contract review",
@@ -43,12 +43,12 @@ export const pillars: Pillar[] = [
     title: "Connect what is disconnected",
     promiseLine: "Integration & data unification",
     summary:
-      "Re-keying the same reservation into three systems is not a staffing problem — it is an integration problem. We make your existing systems talk to each other.",
+      "Re-keying the same customer record into three systems is not a staffing problem — it is an integration problem. We make your existing systems talk to each other.",
     detail:
       "Disconnected systems tax every shift: double entry, version conflicts, reporting by copy-paste. We build the connective tissue — secure APIs, event syncs, and shared data models — so a record entered once appears everywhere it is needed. Where vendors expose APIs we use them; where they do not, we design resilient, auditable bridges rather than brittle hacks.",
     examples: [
-      "PMS ↔ POS ↔ CRM synchronization",
-      "Unified guest, client, or customer profile across tools",
+      "Your core systems synchronized — CRM, billing, scheduling, inventory",
+      "One unified customer, client, or patient profile across tools",
       "Reporting pipelines that end copy-paste consolidation",
     ],
   },
@@ -62,7 +62,7 @@ export const pillars: Pillar[] = [
     detail:
       "We identify the workflows your team performs on autopilot — confirmations, reconciliations, schedule builds, status chasing — and convert them into monitored, reversible automations. Every automation ships with a clear owner, a visible audit trail, and a manual override. Automation at BSTS means your staff does more meaningful work, not that your operation runs unattended.",
     examples: [
-      "Guest and client communication sequences",
+      "Customer, lead, and patient communication sequences",
       "Nightly reconciliation and exception reports",
       "Task routing with human review at every decision point",
     ],

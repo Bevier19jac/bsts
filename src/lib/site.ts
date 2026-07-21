@@ -25,6 +25,7 @@ export const navLinks = [
 export const footerLinks = {
   company: [
     { href: "/about", label: "About" },
+    { href: "/capabilities", label: "Capability Statement" },
     { href: "/method", label: "The BSTS Method" },
     { href: "/security", label: "Security" },
     { href: "/insights", label: "Insights" },

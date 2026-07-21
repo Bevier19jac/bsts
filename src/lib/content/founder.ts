@@ -12,6 +12,7 @@ export const founder = {
     "AWS Certified AI Practitioner",
   ],
   experience: [
+    "Service-Disabled Veteran-Owned Small Business (SDVOSB)",
     "Federal cybersecurity experience",
     "U.S. Army veteran and senior operational leader",
     "M1A2 SEP v3 Abrams Tank Master Gunner",

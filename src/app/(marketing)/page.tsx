@@ -1,5 +1,17 @@
 import Link from "next/link";
-import { ArrowRight, Lock, MonitorCog, Puzzle } from "lucide-react";
+import {
+  ArrowRight,
+  BarChart3,
+  Bot,
+  FileText,
+  Lock,
+  MessagesSquare,
+  MonitorCog,
+  Puzzle,
+  RefreshCw,
+  ShieldCheck,
+  Workflow,
+} from "lucide-react";
 import { LinkButton } from "@/components/ui/Button";
 import { Atmosphere } from "@/components/ui/Atmosphere";
 import { Surface } from "@/components/ui/Surface";
@@ -26,7 +38,9 @@ export default function HomePage() {
         <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-14 px-6 pt-16 pb-20 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:pt-24">
           <div>
             <Reveal>
-              <p className="eyebrow">Strategic technology transformation · Secure AI</p>
+              <p className="eyebrow">
+                Service-Disabled Veteran-Owned · Secure AI &amp; Automation
+              </p>
             </Reveal>
             <Reveal delay={0.08}>
               <h1 className="display mt-6 text-4xl leading-[1.08] sm:text-5xl md:text-6xl">
@@ -36,8 +50,10 @@ export default function HomePage() {
             </Reveal>
             <Reveal delay={0.16}>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-warm-mist">
-                {site.subline} BSTS is an independent firm for organizations that
-                want their technology transformed — not replaced.
+                Reclaim the hours your team loses to manual work, connect the tools
+                that don&apos;t talk to each other, and secure the whole thing —
+                without ripping out what already works. An independent AI &amp;
+                automation firm for small and mid-sized organizations.
               </p>
             </Reveal>
             <Reveal delay={0.24}>
@@ -149,6 +165,77 @@ export default function HomePage() {
             </div>
           </Reveal>
         </ul>
+      </section>
+
+      {/* 3.5 — Concrete AI automations */}
+      <section className="relative mx-auto max-w-6xl px-6 py-16" aria-labelledby="automations-heading">
+        <SectionHeading
+          id="automations-heading"
+          eyebrow="AI that does the work, not the talking"
+          title="The automations we actually build."
+          lede="Not slideware — working systems. These are the highest-ROI automations we deploy across industries, each keeping a human at the decision point where judgment matters."
+        />
+        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            {
+              icon: MessagesSquare,
+              title: "AI request triage",
+              body: "An AI layer reads incoming email, forms, and messages — routes them, drafts replies, and flags only what needs you.",
+              replaces: "Replaces: the inbox that eats your morning",
+            },
+            {
+              icon: FileText,
+              title: "AI documents & quotes",
+              body: "Turn a short intake into finished proposals, quotes, and contracts in your own template — in seconds, not hours.",
+              replaces: "Replaces: rebuilding the same doc every time",
+            },
+            {
+              icon: Bot,
+              title: "AI assistant on your knowledge",
+              body: "A private assistant that answers staff and customer questions from your own policies, manuals, and past work — 24/7.",
+              replaces: "Replaces: answering the same question twice",
+            },
+            {
+              icon: RefreshCw,
+              title: "Connected data flow",
+              body: "Stop re-typing. A record entered once appears everywhere it is needed, automatically, with an audit trail.",
+              replaces: "Replaces: copy-paste between systems",
+            },
+            {
+              icon: BarChart3,
+              title: "Reports that build themselves",
+              body: "Live dashboards assembled from your systems, plus alerts the moment a number crosses a line you care about.",
+              replaces: "Replaces: the Monday spreadsheet ritual",
+            },
+            {
+              icon: Workflow,
+              title: "Follow-up on autopilot",
+              body: "Every lead, invoice, and hand-off gets a timely, automated nudge — so nothing quietly slips through the cracks.",
+              replaces: "Replaces: revenue lost to 'we forgot'",
+            },
+          ].map((card, i) => {
+            const Icon = card.icon;
+            return (
+              <Reveal key={card.title} delay={staggerDelay(i % 3)}>
+                <Surface quiet blob={(["a", "b", "c"] as const)[i % 3]} className="h-full p-6">
+                  <Icon className="h-6 w-6 text-cyan-core" aria-hidden />
+                  <h3 className="mt-4 text-lg font-semibold text-warm-white">{card.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-warm-mist">{card.body}</p>
+                  <p className="mt-4 text-xs font-medium tracking-wide text-gold-soft">
+                    {card.replaces}
+                  </p>
+                </Surface>
+              </Reveal>
+            );
+          })}
+        </div>
+        <Reveal delay={0.15} className="mt-8">
+          <p className="max-w-2xl text-sm leading-relaxed text-warm-dim">
+            Every automation is built on a secure foundation and documented so it stays
+            yours — and every one starts with the free assessment, so you see the ROI before
+            a dollar is spent.
+          </p>
+        </Reveal>
       </section>
 
       {/* 4 — The BSTS Method */}
@@ -384,6 +471,51 @@ export default function HomePage() {
         <CurveDivider flip />
       </section>
 
+      {/* 8.5 — Risk reversal */}
+      <section className="relative mx-auto max-w-6xl px-6 py-16" aria-labelledby="derisk-heading">
+        <SectionHeading
+          id="derisk-heading"
+          eyebrow="A new firm, so we earn it"
+          title="How we take the risk off the table."
+          lede="You should not have to take a leap of faith to work with a technology partner. The engagement is built so you can judge us early, cheaply, and on real results."
+        />
+        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+          {[
+            {
+              icon: Workflow,
+              title: "A working pilot before any big commitment",
+              body: "The third stage of every engagement is a small, high-visibility pilot in production. You judge us on shipped software by week six — not a strategy deck.",
+            },
+            {
+              icon: FileText,
+              title: "Fixed, written scope",
+              body: "Every engagement is scoped in writing and measured against criteria agreed before work begins. You approve the outcome and the number up front — no surprise invoices.",
+            },
+            {
+              icon: ShieldCheck,
+              title: "No lock-in, ever",
+              body: "No licenses, no commissions, no proprietary trap. Everything we deliver is documented and handover-ready — if we ever part ways, your stack stays yours, connected and understood.",
+            },
+            {
+              icon: Lock,
+              title: "Secure from day one",
+              body: "Security is a property of every engagement, not a phase at the end. Your data stays inside agreed boundaries and a human approves consequential actions.",
+            },
+          ].map((card, i) => {
+            const Icon = card.icon;
+            return (
+              <Reveal key={card.title} delay={staggerDelay(i % 2)}>
+                <Surface quiet blob={(["b", "a", "c", "b"] as const)[i]} className="h-full p-7">
+                  <Icon className="h-6 w-6 text-gold-soft" aria-hidden />
+                  <h3 className="mt-4 text-lg font-semibold text-warm-white">{card.title}</h3>
+                  <p className="mt-3 leading-relaxed text-warm-mist">{card.body}</p>
+                </Surface>
+              </Reveal>
+            );
+          })}
+        </div>
+      </section>
+
       {/* 9 — BSTS OS preview */}
       <section className="mx-auto max-w-6xl px-6 py-16" aria-labelledby="os-heading">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
@@ -391,8 +523,8 @@ export default function HomePage() {
             <SectionHeading
               id="os-heading"
               eyebrow="BSTS OS"
-              title="The operating system behind every engagement."
-              lede="Assessments, roadmaps, projects, risks, automations, and decisions — one connected workspace, the same discipline we bring to your stack applied to our own. Explore the interactive demonstration with fictional data."
+              title="A live example of what we build for you."
+              lede="Assessments, roadmaps, projects, risks, automations, and decisions in one connected workspace — this is the same kind of operations dashboard BSTS builds for clients, running our own practice. Click through the interactive demo (fictional data) to see the caliber of what you would own."
             />
             <Reveal delay={0.15}>
               <div className="mt-8 flex flex-wrap gap-4">

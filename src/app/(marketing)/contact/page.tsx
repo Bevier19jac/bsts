@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Atmosphere } from "@/components/ui/Atmosphere";
 import { DiagnosticFlow } from "@/components/diagnostic/DiagnosticFlow";
+import { DirectContact } from "@/components/marketing/DirectContact";
 
 export const metadata: Metadata = {
   title: "AI & Automation Assessment",
@@ -14,6 +15,14 @@ export default function ContactPage() {
       <Atmosphere variant="quiet" />
       <div className="relative mx-auto max-w-3xl px-6 pt-24 pb-20 sm:pt-28">
         <DiagnosticFlow />
+        <div className="mt-6 flex items-center gap-4" aria-hidden>
+          <span className="h-px flex-1 bg-edge" />
+          <span className="text-xs tracking-[0.14em] text-warm-dim uppercase">or</span>
+          <span className="h-px flex-1 bg-edge" />
+        </div>
+        <div className="mt-6">
+          <DirectContact />
+        </div>
       </div>
     </section>
   );
