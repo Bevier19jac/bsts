@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Check, ChevronDown, Clock, Sparkles } from "lucide-react";
 import type { Answers } from "@/lib/diagnostic/types";
@@ -13,6 +13,15 @@ export function DiagnosticFlow() {
   const [answers, setAnswers] = useState<Answers>({});
   const [stepId, setStepId] = useState<string | null>(null);
   const [done, setDone] = useState(false);
+  const topRef = useRef<HTMLDivElement>(null);
+
+  // Keep the current question (or the report) snapped to the top of the
+  // viewport, just below the fixed header — so it always feels like one
+  // question at a time, especially on phones.
+  useEffect(() => {
+    if (!started) return;
+    topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [stepId, done, started]);
 
   const applicable = applicableQuestions(answers);
   const total = applicable.length;
@@ -134,7 +143,11 @@ export function DiagnosticFlow() {
 
   // ── Report ─────────────────────────────────────────────────────
   if (done) {
-    return <DiagnosticReport diagnosis={diagnose(answers)} answers={answers} onRestart={restart} />;
+    return (
+      <div ref={topRef} className="scroll-mt-24">
+        <DiagnosticReport diagnosis={diagnose(answers)} answers={answers} onRestart={restart} />
+      </div>
+    );
   }
 
   // ── Question ───────────────────────────────────────────────────
@@ -150,7 +163,7 @@ export function DiagnosticFlow() {
         : singleValue.length > 0;
 
   return (
-    <div className="surface rounded-[2rem] p-6 sm:p-9">
+    <div ref={topRef} className="surface scroll-mt-24 rounded-[2rem] p-6 sm:p-9">
       {/* Progress */}
       <div className="flex items-center justify-between gap-4">
         <button
