@@ -34,12 +34,22 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.2fr_1fr]">
           <div>
             <Reveal>
-              <h2 id="founder-story" className="display text-2xl text-warm-white sm:text-3xl">
-                {founder.name}
-                <span className="mt-1 block text-base font-normal text-warm-dim">
-                  {founder.role}
-                </span>
-              </h2>
+              <div className="flex items-center gap-5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/jacob-bevier.jpg"
+                  alt="Jacob Bevier, Founder & Principal of BSTS"
+                  width={112}
+                  height={112}
+                  className="h-24 w-24 shrink-0 rounded-2xl border border-edge object-cover ring-1 ring-gold-core/25 sm:h-28 sm:w-28"
+                />
+                <h2 id="founder-story" className="display text-2xl text-warm-white sm:text-3xl">
+                  {founder.name}
+                  <span className="mt-1 block text-base font-normal text-warm-dim">
+                    {founder.role}
+                  </span>
+                </h2>
+              </div>
             </Reveal>
             <div className="mt-6 space-y-5">
               {founder.narrative.map((para, i) => (
