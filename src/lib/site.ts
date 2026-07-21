@@ -16,13 +16,10 @@ export const site = {
 } as const;
 
 export const navLinks = [
+  { href: "/", label: "Home" },
   { href: "/solutions", label: "Solutions" },
   { href: "/industries", label: "Industries" },
-  { href: "/method", label: "Method" },
-  { href: "/security", label: "Security" },
   { href: "/about", label: "About" },
-  { href: "/insights", label: "Insights" },
-  { href: "/os", label: "BSTS OS" },
 ] as const;
 
 export const footerLinks = {

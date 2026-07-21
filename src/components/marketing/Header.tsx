@@ -21,10 +21,7 @@ export function Header() {
 
         <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
           {navLinks.map((link) => {
-            const active =
-              link.href === "/os"
-                ? pathname.startsWith("/os")
-                : pathname === link.href || pathname === `${link.href}/`;
+            const active = pathname === link.href || pathname === `${link.href}/`;
             return (
               <Link
                 key={link.href}
