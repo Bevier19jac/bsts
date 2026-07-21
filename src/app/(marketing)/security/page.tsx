@@ -64,21 +64,21 @@ export default function SecurityPage() {
           <div className="relative overflow-hidden rounded-[2rem] border border-edge">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/abrams.jpg"
-              alt="M1 Abrams main battle tank — representing hardened security"
-              className="h-64 w-full -scale-x-100 object-cover sm:h-80"
+              src="/founder-abrams.jpg"
+              alt="Founder Jacob Bevier with an M1 Abrams tank during U.S. Army service"
+              className="h-72 w-full object-cover object-center sm:h-[26rem]"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-obsidian-deep via-obsidian-deep/75 to-transparent" />
-            <div className="absolute inset-0 flex flex-col justify-center gap-3 p-8 sm:p-12">
+            <div className="absolute inset-0 bg-gradient-to-t from-obsidian-deep via-obsidian-deep/45 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 p-6 sm:p-10">
               <span className="inline-flex w-fit items-center gap-2 rounded-full border border-gold-core/40 bg-gold-core/10 px-3 py-1 text-[0.62rem] font-semibold tracking-[0.16em] text-gold-soft uppercase">
                 Service-Disabled Veteran-Owned
               </span>
-              <h2 className="display max-w-lg text-2xl text-warm-white sm:text-4xl">
+              <h2 className="display mt-3 max-w-lg text-2xl text-warm-white sm:text-4xl">
                 Hardened like it&apos;s under armor.
               </h2>
-              <p className="max-w-md text-sm leading-relaxed text-warm-mist">
-                Discipline earned in service, applied to your technology — security is the floor
-                everything else stands on.
+              <p className="mt-2 max-w-lg text-sm leading-relaxed text-warm-mist">
+                Founder Jacob Bevier — U.S. Army, M1A2 Abrams Master Gunner. The same discipline,
+                held to the same standard, applied to your technology.
               </p>
             </div>
           </div>
