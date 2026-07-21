@@ -8,7 +8,7 @@ export const site = {
   tagline: "Technology built around your business.",
   subline: "Secure AI. Intelligent automation. Connected digital experiences.",
   promise:
-    "Keep what works. Connect what is disconnected. Automate what is repetitive. Build what is missing. Secure the foundation.",
+    "Keep what works, connect what is disconnected, automate what is repetitive, build what is missing, and secure the foundation.",
   url: "https://bsts.pages.dev",
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "",
   description:
