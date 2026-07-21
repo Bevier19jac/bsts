@@ -30,6 +30,41 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <div className="mx-auto max-w-6xl px-6 pb-12">
+        <Reveal>
+          <div className="surface grid grid-cols-1 gap-8 rounded-[2rem] p-6 sm:p-8 md:grid-cols-[auto_1fr] md:items-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/crew.jpg"
+              alt="Jacob Bevier's U.S. Army tank crew in front of an M1 Abrams"
+              className="mx-auto h-72 w-auto rounded-2xl border border-edge object-cover sm:h-80"
+            />
+            <div>
+              <p className="text-[0.62rem] font-semibold tracking-[0.18em] text-gold-soft uppercase">
+                The standard, carried over
+              </p>
+              <h2 className="display mt-2 text-2xl text-warm-white sm:text-3xl">
+                Before BSTS: a crew, a tank, and a hard standard.
+              </h2>
+              <p className="mt-3 max-w-xl leading-relaxed text-warm-mist">
+                On an Abrams, every system has a checklist and a person accountable for it, and
+                nothing rolls out until it works under pressure. That discipline didn&apos;t retire —
+                it&apos;s the same standard BSTS holds your technology to.
+              </p>
+              <div className="mt-5 flex items-center gap-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/tank-night.jpg"
+                  alt="An M1 Abrams at dusk"
+                  className="h-16 w-16 rounded-lg border border-edge object-cover"
+                />
+                <span className="text-xs text-warm-dim">Tank in the night.</span>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+
       <section className="mx-auto max-w-6xl px-6" aria-labelledby="founder-story">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.2fr_1fr]">
           <div>
