@@ -33,9 +33,9 @@ export const footerLinks = {
   ],
   work: [
     { href: "/solutions", label: "Solutions" },
-    { href: "/industries", label: "Industries" },
-    { href: "/industries/hospitality", label: "Hospitality" },
-    { href: "/os", label: "BSTS OS" },
+    { href: "/capabilities", label: "Capabilities" },
+    { href: "/insights", label: "Insights" },
+    { href: "/contact", label: "Contact" },
   ],
   legal: [
     { href: "/privacy", label: "Privacy" },
