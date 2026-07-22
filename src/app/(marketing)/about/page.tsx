@@ -36,23 +36,23 @@ export default function AboutPage() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/crew.jpg"
-              alt="Founder Jacob Bevier's U.S. Army tank crew in front of an M1 Abrams at dusk"
-              className="h-72 w-full object-cover object-[50%_30%] opacity-[0.55] sm:h-[24rem]"
+              alt="Founder Jacob Bevier with his U.S. Army unit and an M1 Abrams at dusk"
+              className="h-72 w-full object-cover object-[50%_28%] sm:h-[24rem]"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-obsidian-deep via-obsidian-deep/85 to-obsidian-deep/40" />
-            <div className="absolute inset-0 bg-obsidian-deep/25" />
+            <div className="absolute inset-0 bg-gradient-to-r from-obsidian-deep via-obsidian-deep/70 to-obsidian-deep/10" />
+            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-obsidian-deep to-transparent" />
             <div className="absolute inset-0 flex items-end p-6 sm:p-10">
               <div className="max-w-xl">
                 <p className="text-[0.62rem] font-semibold tracking-[0.18em] text-gold-soft uppercase">
-                  The standard, carried over
+                  Service-Disabled Veteran-Owned
                 </p>
                 <h2 className="display mt-3 text-2xl text-warm-white sm:text-4xl">
-                  Before BSTS: a crew, a tank, and a hard standard.
+                  Standards that carry over.
                 </h2>
-                <p className="mt-3 max-w-lg text-sm leading-relaxed text-warm-mist sm:text-base">
-                  On an M1A2 Abrams, every system has a checklist and a name attached to it, and
-                  nothing rolls out until it works under pressure. That discipline didn&apos;t
-                  retire — it is the standard BSTS holds your technology to.
+                <p className="mt-3 max-w-md text-sm leading-relaxed text-warm-mist sm:text-base">
+                  Founder Jacob Bevier is a U.S. Army veteran. The standard he built
+                  there — methodical, accountable, tested before it ships — is the one
+                  BSTS brings to your technology.
                 </p>
               </div>
             </div>

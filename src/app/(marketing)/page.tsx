@@ -19,7 +19,6 @@ import { staggerDelay } from "@/components/motion/stagger";
 import { PointerHalo } from "@/components/marketing/PointerHalo";
 import { SystemsDiagram } from "@/components/marketing/SystemsDiagram";
 import { pillars } from "@/lib/content/pillars";
-import { methodStages } from "@/lib/content/method";
 import { founder } from "@/lib/content/founder";
 import { site } from "@/lib/site";
 
@@ -76,21 +75,21 @@ export default function HomePage() {
               id="difference-heading"
               eyebrow="The BSTS difference"
               title="We make what you already own work harder."
-              lede="Most firms earn their keep convincing you to start over. We earn ours by right-sizing the fix — connecting, automating, and securing the systems your team already knows, and replacing something only when replacement genuinely wins."
+              lede="Most firms earn their keep convincing you to start over. We earn ours making what you already run work harder — and replace something only when replacement genuinely wins."
             />
             <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
               {[
                 {
                   title: "No rip-and-replace reflex",
-                  body: "Every recommendation carries a written reason. A system that works, integrates, and is secure enough to keep — stays. We right-size the fix; target overkill is just wasted rounds.",
+                  body: "Every recommendation carries a written reason. What works, integrates, and is secure enough to keep — stays. Target overkill is just wasted rounds.",
                 },
                 {
                   title: "No licenses, no commissions",
-                  body: "BSTS resells nothing. Our only incentive is the one you set: an operation that runs smoother than it did last quarter.",
+                  body: "BSTS resells nothing. Our only incentive is the one you set — an operation that runs smoother than last quarter.",
                 },
                 {
                   title: "Portable by design",
-                  body: "Everything we deliver is documented and handover-ready. If we ever part ways, your stack stays yours — connected, automated, and understood.",
+                  body: "Everything we deliver is documented and handover-ready. If we ever part ways, your stack stays yours.",
                 },
               ].map((card, i) => (
                 <Reveal key={card.title} delay={staggerDelay(i)}>
@@ -200,16 +199,20 @@ export default function HomePage() {
               title="Five stages. A working pilot by week six."
               lede="You judge us on shipped software, not a strategy deck — with a fixed, written scope agreed before work begins, and no lock-in, ever."
             />
-            <ol className="mt-12 grid grid-cols-1 gap-4 lg:grid-cols-5">
-              {methodStages.map((stage, i) => (
-                <Reveal as="li" key={stage.number} delay={staggerDelay(i)}>
+            <ol className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+              {[
+                { n: "01", name: "Listen", dur: "Week 1", line: "We map how your operation actually runs." },
+                { n: "02", name: "Map", dur: "Weeks 2–3", line: "Keep, connect, automate, build, or secure — each with a reason." },
+                { n: "03", name: "Prove", dur: "Weeks 4–6", line: "One small pilot, live in production." },
+                { n: "04", name: "Build", dur: "Roadmap-paced", line: "Short cycles, a demo at the end of each." },
+                { n: "05", name: "Steward", dur: "Ongoing", line: "We maintain it — or hand it cleanly to your team." },
+              ].map((stage, i) => (
+                <Reveal as="li" key={stage.n} delay={staggerDelay(i)}>
                   <div className="surface-quiet blob-b h-full p-6">
-                    <p className="display text-2xl text-gold-soft">{stage.number}</p>
+                    <p className="display text-2xl text-gold-soft">{stage.n}</p>
                     <h3 className="mt-2 font-semibold text-warm-white">{stage.name}</h3>
-                    <p className="text-xs text-warm-dim">{stage.duration}</p>
-                    <p className="mt-3 text-sm leading-relaxed text-warm-mist">
-                      {stage.summary}
-                    </p>
+                    <p className="text-xs text-warm-dim">{stage.dur}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-warm-mist">{stage.line}</p>
                   </div>
                 </Reveal>
               ))}
@@ -235,15 +238,9 @@ export default function HomePage() {
               id="founder-heading"
               eyebrow="Who you work with"
               title="Led by a practitioner, not a sales team."
-              lede="A Master Gunner is the soldier who certifies the tank's weapon system works before the crew stakes their lives on it. Jacob Bevier brought that bar home — trained in both AI and cybersecurity, he signs off on every BSTS engagement personally."
+              lede="Every BSTS engagement is led personally by founder Jacob Bevier — trained in both artificial intelligence and cybersecurity, a U.S. Army veteran, and Service-Disabled Veteran-Owned. No account managers, no handoffs."
               gold
             />
-            <Reveal delay={0.12}>
-              <blockquote className="mt-8 border-l-2 border-gold-core/50 pl-5 text-lg leading-relaxed text-warm-white">
-                Zero rounds fired without a verified target. Zero systems shipped
-                without a verified control.
-              </blockquote>
-            </Reveal>
             <Reveal delay={0.18}>
               <div className="mt-8">
                 <LinkButton href="/about" variant="ghost">
