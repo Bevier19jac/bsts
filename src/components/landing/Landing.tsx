@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -10,7 +11,6 @@ import { Reveal } from "@/components/motion/Reveal";
 import { staggerDelay } from "@/components/motion/stagger";
 import { PointerHalo } from "@/components/marketing/PointerHalo";
 import { SystemsDiagram } from "@/components/marketing/SystemsDiagram";
-import { TankEmblem } from "@/components/ui/TankEmblem";
 import { TracerRule } from "@/components/ui/TracerRule";
 import { AssessmentForm } from "@/components/assessment/AssessmentForm";
 import { pillars } from "@/lib/content/pillars";
@@ -80,14 +80,15 @@ export function Landing() {
           </Reveal>
           <Reveal delay={0.08}>
             <h1 className="display mx-auto mt-5 max-w-3xl text-4xl leading-[1.08] sm:text-5xl md:text-6xl">
-              Technology built around{" "}
-              <span className="text-cyan-soft">your business.</span>
+              A force multiplier for the team{" "}
+              <span className="text-cyan-soft">you already have.</span>
             </h1>
           </Reveal>
           <Reveal delay={0.16}>
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-warm-mist">
-              {site.subline} One page tells the whole story — and the
-              assessment that starts the work is right here on it.
+              Technology built around your business — secure AI, intelligent
+              automation, and connected systems, not a rip-and-replace. The
+              assessment that starts the work is right here on this page.
             </p>
           </Reveal>
           <Reveal delay={0.22}>
@@ -96,10 +97,26 @@ export function Landing() {
             </p>
           </Reveal>
           <Reveal delay={0.26}>
-            {/* The tank fires; its tracer becomes the rule under the headline. */}
-            <div className="mx-auto mt-7 flex max-w-2xl items-start px-2">
-              <TankEmblem className="h-16 w-auto shrink-0" />
-              <div className="tracer-line mt-[26px] min-w-0 flex-1" aria-hidden="true" />
+            {/* The Abrams fires; its tracer becomes the rule under the headline. */}
+            <div className="mx-auto mt-6 flex max-w-4xl items-start">
+              <Image
+                src="/abrams.webp"
+                alt="Slate-grey main battle tank in side profile — the mark of a veteran-owned firm"
+                width={1280}
+                height={731}
+                priority
+                className="w-full max-w-md shrink-0 sm:max-w-lg"
+                style={{
+                  maskImage:
+                    "radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%)",
+                  WebkitMaskImage:
+                    "radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%)",
+                }}
+              />
+              <div
+                className="tracer-line -ml-14 hidden min-w-0 flex-1 sm:mt-[calc(0.43*32rem*731/1280)] sm:block"
+                aria-hidden="true"
+              />
             </div>
           </Reveal>
           <Reveal delay={0.28}>
@@ -201,10 +218,11 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
           </h2>
           <TracerRule />
           <p className="mt-5 leading-relaxed text-warm-mist">
-            Most consultancies earn their keep by convincing you to start
-            over. We earn ours by making what you already own work harder —
-            connecting it, automating around it, and securing it. Replacement
-            is a last resort, recommended only with a written reason.
+            The whole idea is amplification, not replacement. We make your
+            existing people and tools measurably more capable — keeping what
+            works, connecting what&apos;s siloed, and taking the repetitive
+            busywork off your team&apos;s plate. Replacement is a last resort,
+            recommended only with a written reason.
           </p>
           <ul className="mt-6 space-y-3">
             {[
@@ -223,6 +241,27 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
           <SystemsDiagram className="h-auto w-full" />
         </Surface>
       </div>
+
+      {/* SDVOSB block — precise status wording; upgrade only after VetCert issuance */}
+      <Reveal delay={0.08}>
+        <Surface blob="b" className="mt-12 grid grid-cols-1 items-center gap-6 border-gold-core/35 p-7 sm:p-8 lg:grid-cols-[auto_1fr]">
+          <div className="flex items-center gap-4">
+            <span aria-hidden className="display text-4xl text-gold-soft">★</span>
+            <div>
+              <p className="text-sm font-semibold tracking-[0.14em] text-gold-soft uppercase">
+                SDVOSB
+              </p>
+              <p className="text-xs text-warm-dim">Principal-led · U.S.-based</p>
+            </div>
+          </div>
+          <p className="text-sm leading-relaxed text-warm-mist">
+            Service-Disabled Veteran-Owned Small Business — SBA VetCert
+            certification in progress. Upon certification, BSTS will be
+            eligible for SDVOSB set-aside and sole-source federal contracting.
+            Discipline earned in service, applied to your technology.
+          </p>
+        </Surface>
+      </Reveal>
 
       <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
         {pillars.map((p, i) => {
