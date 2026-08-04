@@ -22,33 +22,33 @@
       #0b0e13;
   }
   .eyebrow {
-    position: absolute; top: 84px; left: 0; right: 0; text-align: center;
-    font-family: Inter, sans-serif; font-size: 21px; letter-spacing: 0.24em;
+    position: absolute; top: 58px; left: 0; right: 0; text-align: center;
+    font-family: Inter, sans-serif; font-size: 19px; letter-spacing: 0.24em;
     color: #8fd8d4; text-transform: uppercase;
   }
-  .tank { position: absolute; top: 200px; left: -100px; height: 260px; width: auto;
-    -webkit-mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%);
-    mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%);
-  }
   .name {
-    position: absolute; top: 272px; left: 0; right: 0; text-align: center;
-    font-family: Fraunces, serif; font-weight: 640; font-size: 28px;
+    position: absolute; top: 116px; left: 0; right: 0; text-align: center;
+    font-family: Fraunces, serif; font-weight: 640; font-size: 34px;
     letter-spacing: 0.085em; text-transform: uppercase; white-space: nowrap;
     background-image: linear-gradient(180deg, #f8f3e8 0%, #eee0c4 52%, #d3ab61 100%);
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
-  .line {
-    position: absolute; top: 318px; left: 260px; right: 212px; height: 3px; border-radius: 999px;
-    background: linear-gradient(90deg, rgba(221,196,145,0.8), rgba(221,196,145,0.4));
+  .tank { position: absolute; top: 205px; left: -60px; height: 300px; width: auto;
+    -webkit-mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%);
+    mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%);
   }
   .flash {
-    position: absolute; top: 306px; left: 236px; width: 46px; height: 26px; border-radius: 999px;
+    position: absolute; top: 328px; left: 336px; width: 50px; height: 28px; border-radius: 999px;
     background: radial-gradient(ellipse at 30% 50%, #ffe9b8 0%, rgba(255,217,138,0.7) 40%, rgba(255,217,138,0) 100%);
   }
-  .dart { position: absolute; top: 286px; right: 56px; width: 150px; }
+  .line {
+    position: absolute; top: 341px; left: 362px; width: 360px; height: 3px; border-radius: 999px;
+    background: linear-gradient(90deg, rgba(221,196,145,0.85), rgba(221,196,145,0.45));
+  }
+  .dart { position: absolute; top: 309px; left: 756px; width: 150px; }
   .dart .label {
     display: block; text-align: center; font-family: Fraunces, serif; font-weight: 700;
-    font-size: 24px; letter-spacing: 0.22em; color: #ddc491; margin-bottom: 8px;
+    font-size: 24px; letter-spacing: 0.22em; color: #ddc491; margin-bottom: 9px;
   }
   .rod { position: relative; display: block; width: 130px; height: 7px; margin: 0 auto;
     background: linear-gradient(90deg, #caa15a, #ffd98a); border-radius: 2px;
@@ -62,16 +62,17 @@
     background: #c69a55; clip-path: polygon(100% 27%, 0 0, 45% 50%, 0 100%, 100% 73%);
   }
   .tagline {
-    position: absolute; top: 420px; left: 0; right: 0; text-align: center;
-    font-family: Fraunces, serif; font-weight: 480; font-size: 46px; color: #f2efe8;
+    position: absolute; top: 400px; left: 480px; right: 40px; text-align: center;
+    font-family: Fraunces, serif; font-weight: 480; font-size: 40px; color: #f2efe8;
+    line-height: 1.25;
   }
   .tagline .accent { color: #8fd8d4; }
 </style>
 </head>
 <body>
   <p class="eyebrow">Secure AI &middot; Intelligent Automation &middot; Connected Systems</p>
-  <img class="tank" src="public/abrams.webp">
   <p class="name">Bevier Strategic Technology Solutions</p>
+  <img class="tank" src="public/abrams.webp">
   <span class="flash"></span>
   <span class="line"></span>
   <span class="dart"><span class="label">BSTS</span><span class="rod"></span></span>
