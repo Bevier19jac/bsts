@@ -337,36 +337,36 @@ body {
 /* Ground walk → climb rear deck → cross deck → mount turret → drop in */
 @keyframes troop-run {
   0% {
-    transform: translate(-70px, 120px);
+    transform: translate(-134px, 120px);
     opacity: 0;
   }
   4% {
     opacity: 1;
   }
   44% {
-    transform: translate(-12px, 120px);
+    transform: translate(-76px, 120px);
   }
   58% {
-    transform: translate(20px, 82px);
+    transform: translate(-44px, 82px);
   }
   62% {
-    transform: translate(20px, 82px);
+    transform: translate(-44px, 82px);
   }
   78% {
-    transform: translate(90px, 82px);
+    transform: translate(26px, 82px);
   }
   84% {
-    transform: translate(120px, 27px);
+    transform: translate(56px, 27px);
   }
   90% {
-    transform: translate(122px, 27px);
+    transform: translate(58px, 27px);
   }
   94% {
-    transform: translate(124px, 55px);
+    transform: translate(60px, 55px);
     opacity: 1;
   }
   100% {
-    transform: translate(124px, 100px);
+    transform: translate(60px, 100px);
     opacity: 0;
   }
 }
