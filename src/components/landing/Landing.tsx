@@ -84,7 +84,7 @@ export function Landing() {
           <Reveal delay={0.08}>
             {/* Volley lockup: tank hard left, company name centered over the
                 tracer, BSTS arrives as the round itself. */}
-            <div className="mt-5 flex w-full items-start" aria-hidden="true">
+            <div className="relative left-1/2 mt-5 flex w-screen -translate-x-1/2 items-start" aria-hidden="true">
               <Image
                 src="/abrams.webp"
                 alt=""
@@ -100,7 +100,10 @@ export function Landing() {
                 }}
               />
               <div className="relative -ml-10 hidden min-w-0 flex-1 sm:mt-[calc(0.43*24rem*731/1280)] sm:block lg:mt-[calc(0.43*28rem*731/1280)]">
-                <p className="absolute -top-10 right-36 left-0 truncate text-center text-[0.9rem] font-bold tracking-[0.04em] text-warm-white uppercase lg:-top-11 lg:text-[1.1rem] lg:tracking-[0.05em] xl:-top-12 xl:text-[1.42rem] xl:tracking-[0.06em]">
+                <p
+                  className="absolute -top-10 right-32 left-[-9rem] text-center font-bold tracking-[0.05em] whitespace-nowrap text-warm-white uppercase lg:-top-12 lg:left-[-13rem]"
+                  style={{ fontSize: "clamp(0.72rem, 1.5vw, 1.5rem)" }}
+                >
                   Bevier Strategic Technology Solutions
                 </p>
                 <div className="tracer-shot mr-44" />
