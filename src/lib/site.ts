@@ -15,33 +15,28 @@ export const site = {
     "BSTS is a boutique technology transformation and secure AI implementation firm. We build around the systems you already run — secure AI, intelligent automation, and connected digital experiences.",
 } as const;
 
+/**
+ * The site is a single landing page with tabs; navigation points at tab
+ * anchors on "/" rather than separate routes.
+ */
 export const navLinks = [
-  { href: "/solutions", label: "Solutions" },
-  { href: "/industries", label: "Industries" },
-  { href: "/method", label: "Method" },
-  { href: "/security", label: "Security" },
-  { href: "/about", label: "About" },
-  { href: "/insights", label: "Insights" },
-  { href: "/os", label: "BSTS OS" },
+  { href: "/#services", label: "Services" },
+  { href: "/#method", label: "How we work" },
+  { href: "/#about", label: "About" },
 ] as const;
 
 export const footerLinks = {
-  company: [
-    { href: "/about", label: "About" },
-    { href: "/method", label: "The BSTS Method" },
-    { href: "/security", label: "Security" },
-    { href: "/insights", label: "Insights" },
-  ],
-  work: [
-    { href: "/solutions", label: "Solutions" },
-    { href: "/industries", label: "Industries" },
-    { href: "/industries/hospitality", label: "Hospitality" },
-    { href: "/os", label: "BSTS OS" },
+  explore: [
+    { href: "/#overview", label: "Overview" },
+    { href: "/#services", label: "Services" },
+    { href: "/#method", label: "How we work" },
+    { href: "/#about", label: "About" },
+    { href: "/#assessment", label: "Assessment" },
+    { href: "/os", label: "BSTS OS demo" },
   ],
   legal: [
     { href: "/privacy", label: "Privacy" },
     { href: "/terms", label: "Terms" },
-    { href: "/contact", label: "Contact" },
   ],
 } as const;
 

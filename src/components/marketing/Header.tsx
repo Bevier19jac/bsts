@@ -1,16 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { navLinks } from "@/lib/site";
 import { Wordmark } from "@/components/ui/Logo";
 
+/**
+ * Single-page navigation: links target tab anchors on the landing page
+ * (e.g. /#services). The landing component listens for hash changes.
+ */
 export function Header() {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
@@ -20,28 +22,17 @@ export function Header() {
         </Link>
 
         <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
-          {navLinks.map((link) => {
-            const active =
-              link.href === "/os"
-                ? pathname.startsWith("/os")
-                : pathname === link.href || pathname === `${link.href}/`;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                aria-current={active ? "page" : undefined}
-                className={`rounded-full px-3.5 py-2 text-sm transition-colors ${
-                  active
-                    ? "bg-graphite-2 text-cyan-soft"
-                    : "text-warm-mist hover:text-warm-white"
-                }`}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="rounded-full px-3.5 py-2 text-sm text-warm-mist transition-colors hover:text-warm-white"
+            >
+              {link.label}
+            </Link>
+          ))}
           <Link
-            href="/contact"
+            href="/#assessment"
             className="ml-2 rounded-full bg-cyan-core px-4.5 py-2 text-sm font-medium text-obsidian-deep transition-colors hover:bg-cyan-soft"
           >
             Start an assessment
@@ -85,7 +76,7 @@ export function Header() {
               ))}
               <li className="mt-2">
                 <Link
-                  href="/contact"
+                  href="/#assessment"
                   onClick={() => setOpen(false)}
                   className="block rounded-2xl bg-cyan-core px-4 py-3 text-center font-medium text-obsidian-deep"
                 >

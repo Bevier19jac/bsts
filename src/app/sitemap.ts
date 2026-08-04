@@ -5,25 +5,14 @@ import { site } from "@/lib/site";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = [
-    "",
-    "/solutions",
-    "/industries",
-    "/industries/hospitality",
-    "/method",
-    "/security",
-    "/about",
-    "/insights",
-    "/contact",
-    "/os",
-    "/privacy",
-    "/terms",
-  ].map((path) => ({
+  // Single-page site: the landing page carries all primary content in tabs.
+  const staticRoutes = ["", "/os", "/privacy", "/terms"].map((path) => ({
     url: `${site.url}${path}/`,
     changeFrequency: "monthly" as const,
     priority: path === "" ? 1 : 0.7,
   }));
 
+  // Article pages still exist and remain linkable/sharable.
   const articleRoutes = articles.map((a) => ({
     url: `${site.url}/insights/${a.slug}/`,
     lastModified: a.published,

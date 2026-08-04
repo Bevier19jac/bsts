@@ -6,7 +6,7 @@ export function Footer() {
   return (
     <footer className="relative mt-24 border-t border-edge/50 bg-obsidian-deep">
       <div className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.6fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-3">
               <LogoMark className="h-9 w-9" />
@@ -22,8 +22,7 @@ export function Footer() {
             </p>
           </div>
 
-          <FooterColumn title="Company" links={footerLinks.company} />
-          <FooterColumn title="Work" links={footerLinks.work} />
+          <FooterColumn title="Explore" links={footerLinks.explore} />
           <FooterColumn title="Legal" links={footerLinks.legal} />
         </div>
 

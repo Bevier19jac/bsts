@@ -44,3 +44,15 @@ Initial same-day build.
 
 - Zero-secret architecture: no backend, no cookies, no persistent browser
   storage, schema-validated JSON import, no third-party runtime scripts.
+
+## [0.2.0] — 2026-08-03
+
+### Changed
+
+- Restructured as a **single-page landing experience**: one page with five
+  tabs (Overview, Services, How we work, About, Assessment) and the
+  technology assessment inline. Header and footer navigate via tab anchors
+  (e.g. `/#assessment`); deep links land on the right tab.
+- Sitemap trimmed to the landing page, BSTS OS demo, and legal pages.
+- Former standalone routes remain live and shareable but are no longer in
+  primary navigation.
