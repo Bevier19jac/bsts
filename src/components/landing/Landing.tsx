@@ -100,7 +100,7 @@ export function Landing() {
                 }}
               />
               <div className="relative -ml-10 hidden min-w-0 flex-1 sm:mt-[calc(0.43*24rem*731/1280)] sm:block lg:mt-[calc(0.43*28rem*731/1280)]">
-                <p className="absolute -top-9 right-36 left-0 truncate text-center text-[0.8rem] font-bold tracking-[0.06em] text-warm-white uppercase lg:-top-10 lg:text-[0.95rem] lg:tracking-[0.08em] xl:text-[1.1rem] xl:tracking-[0.1em]">
+                <p className="absolute -top-10 right-36 left-0 truncate text-center text-[0.9rem] font-bold tracking-[0.04em] text-warm-white uppercase lg:-top-11 lg:text-[1.1rem] lg:tracking-[0.05em] xl:-top-12 xl:text-[1.42rem] xl:tracking-[0.06em]">
                   Bevier Strategic Technology Solutions
                 </p>
                 <div className="tracer-shot mr-44" />

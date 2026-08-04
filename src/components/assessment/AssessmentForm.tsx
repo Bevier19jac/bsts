@@ -22,7 +22,10 @@ import {
   type AssessmentData,
 } from "@/lib/assessment";
 
-const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "";
+const contactEmail =
+  process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "bevier19jacob@gmail.com";
+// Optional free static-form endpoint (web3forms.com). Public by design.
+const formKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
 
 const inputClass =
   "w-full rounded-2xl border border-edge bg-graphite px-4 py-3 text-warm-white placeholder:text-warm-dim/70 focus:border-cyan-core/70 focus:outline-none focus-visible:outline-2 focus-visible:outline-cyan-core";
@@ -30,6 +33,9 @@ const inputClass =
 export function AssessmentForm() {
   const [step, setStep] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [sendState, setSendState] = useState<
+    "idle" | "sending" | "sent" | "error"
+  >("idle");
 
   const {
     register,
@@ -90,6 +96,30 @@ export function AssessmentForm() {
     a.download = "bsts-technology-assessment.json";
     a.click();
     URL.revokeObjectURL(url);
+  }
+
+  async function submitToBsts() {
+    const ok = await trigger();
+    if (!ok) return;
+    const data = getValues();
+    setSendState("sending");
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: formKey,
+          subject: `Technology assessment — ${data.organization}`,
+          from_name: data.name,
+          email: data.email,
+          message: formatSummary(data),
+        }),
+      });
+      const json = (await res.json()) as { success?: boolean };
+      setSendState(res.ok && json.success ? "sent" : "error");
+    } catch {
+      setSendState("error");
+    }
   }
 
   async function openMailto() {
@@ -353,7 +383,21 @@ export function AssessmentForm() {
                 )}
 
                 <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                  {contactEmail ? (
+                  {formKey ? (
+                    <button
+                      type="button"
+                      onClick={submitToBsts}
+                      disabled={sendState === "sending" || sendState === "sent"}
+                      className="btn-primary-form disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      <Mail className="h-4 w-4" aria-hidden />
+                      {sendState === "sending"
+                        ? "Sending…"
+                        : sendState === "sent"
+                          ? "Sent to BSTS"
+                          : "Send to BSTS"}
+                    </button>
+                  ) : contactEmail ? (
                     <button type="button" onClick={openMailto} className="btn-primary-form">
                       <Mail className="h-4 w-4" aria-hidden />
                       Open in your email app
@@ -373,8 +417,26 @@ export function AssessmentForm() {
                   </button>
                 </div>
 
+                {sendState === "sent" ? (
+                  <p role="status" className="mt-4 text-sm font-medium text-ok">
+                    Your assessment is in our inbox — we&apos;ll reply to the
+                    email you provided, usually within one business day.
+                  </p>
+                ) : null}
+                {sendState === "error" ? (
+                  <p role="alert" className="mt-4 text-sm text-alert">
+                    That didn&apos;t go through. Please try again, or use copy /
+                    download and email it to {contactEmail || "us"} directly.
+                  </p>
+                ) : null}
                 <p className="mt-5 text-xs leading-relaxed text-warm-dim" aria-live="polite">
-                  {contactEmail ? (
+                  {formKey ? (
+                    <>
+                      &quot;Send to BSTS&quot; delivers your answers directly to
+                      our inbox over an encrypted connection. Nothing else is
+                      collected, and nothing is sent until you press it.
+                    </>
+                  ) : contactEmail ? (
                     <>
                       &quot;Open in your email app&quot; composes a message to{" "}
                       <span className="text-warm-mist">{contactEmail}</span> using

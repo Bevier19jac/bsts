@@ -10,7 +10,7 @@ export const site = {
   promise:
     "Keep what works. Connect what is disconnected. Automate what is repetitive. Build what is missing. Secure the foundation.",
   url: "https://bevierstrategic.pages.dev",
-  contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "",
+  contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "bevier19jacob@gmail.com",
   description:
     "BSTS is a veteran-owned technology transformation and secure AI implementation firm. We build around the systems you already run — secure AI, intelligent automation, and connected systems.",
 } as const;
