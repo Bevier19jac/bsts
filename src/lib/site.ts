@@ -43,3 +43,6 @@ export const footerLinks = {
 /** Compliance-safe disclaimer used wherever frameworks are referenced. */
 export const frameworkDisclaimer =
   "References to security frameworks such as NIST CSF 2.0, SOC 2, and OWASP describe the practices that inform our methodology. They do not imply certification, accreditation, endorsement, or an audit opinion.";
+
+/** Primary call-to-action target — the assessment tab on the landing page. */
+export const assessmentCta = { href: "/#assessment", label: "Start an assessment" } as const;

@@ -38,13 +38,19 @@ export function Landing() {
   // Sync with the URL hash so header/footer links and shared URLs land on
   // the right tab (e.g. /#assessment).
   useEffect(() => {
-    const applyHash = () => {
+    const applyHash = (scroll: boolean) => {
       const h = window.location.hash.replace("#", "");
-      if (isTabId(h)) setTab(h);
+      if (isTabId(h)) {
+        setTab(h);
+        if (scroll) {
+          panelRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
+        }
+      }
     };
-    applyHash();
-    window.addEventListener("hashchange", applyHash);
-    return () => window.removeEventListener("hashchange", applyHash);
+    applyHash(false);
+    const onHashChange = () => applyHash(true);
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
 
   const select = useCallback((id: TabId) => {

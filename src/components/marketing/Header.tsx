@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { navLinks } from "@/lib/site";
+import { assessmentCta, navLinks } from "@/lib/site";
 import { Wordmark } from "@/components/ui/Logo";
 
 /**
@@ -23,20 +23,20 @@ export function Header() {
 
         <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
           {navLinks.map((link) => (
-            <Link
+            <a
               key={link.href}
               href={link.href}
               className="rounded-full px-3.5 py-2 text-sm text-warm-mist transition-colors hover:text-warm-white"
             >
               {link.label}
-            </Link>
+            </a>
           ))}
-          <Link
-            href="/#assessment"
+          <a
+            href={assessmentCta.href}
             className="ml-2 rounded-full bg-cyan-core px-4.5 py-2 text-sm font-medium text-obsidian-deep transition-colors hover:bg-cyan-soft"
           >
-            Start an assessment
-          </Link>
+            {assessmentCta.label}
+          </a>
         </nav>
 
         <button
@@ -65,23 +65,23 @@ export function Header() {
             <ul className="flex flex-col">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <Link
+                  <a
                     href={link.href}
                     onClick={() => setOpen(false)}
                     className="block rounded-2xl px-4 py-3 text-warm-mist hover:bg-graphite-2 hover:text-warm-white"
                   >
                     {link.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
               <li className="mt-2">
-                <Link
-                  href="/#assessment"
+                <a
+                  href={assessmentCta.href}
                   onClick={() => setOpen(false)}
                   className="block rounded-2xl bg-cyan-core px-4 py-3 text-center font-medium text-obsidian-deep"
                 >
-                  Start an assessment
-                </Link>
+                  {assessmentCta.label}
+                </a>
               </li>
             </ul>
           </motion.nav>

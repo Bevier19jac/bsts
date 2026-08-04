@@ -54,12 +54,21 @@ function FooterColumn({
       <ul className="mt-4 space-y-2.5">
         {links.map((link) => (
           <li key={link.href}>
-            <Link
-              href={link.href}
-              className="text-sm text-warm-mist transition-colors hover:text-cyan-soft"
-            >
-              {link.label}
-            </Link>
+            {link.href.includes("#") ? (
+              <a
+                href={link.href}
+                className="text-sm text-warm-mist transition-colors hover:text-cyan-soft"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                href={link.href}
+                className="text-sm text-warm-mist transition-colors hover:text-cyan-soft"
+              >
+                {link.label}
+              </Link>
+            )}
           </li>
         ))}
       </ul>
