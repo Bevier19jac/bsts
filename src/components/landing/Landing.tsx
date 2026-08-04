@@ -10,6 +10,8 @@ import { Reveal } from "@/components/motion/Reveal";
 import { staggerDelay } from "@/components/motion/stagger";
 import { PointerHalo } from "@/components/marketing/PointerHalo";
 import { SystemsDiagram } from "@/components/marketing/SystemsDiagram";
+import { TankEmblem } from "@/components/ui/TankEmblem";
+import { TracerRule } from "@/components/ui/TracerRule";
 import { AssessmentForm } from "@/components/assessment/AssessmentForm";
 import { pillars } from "@/lib/content/pillars";
 import { methodStages } from "@/lib/content/method";
@@ -71,6 +73,11 @@ export function Landing() {
           <Reveal>
             <p className="eyebrow">Boutique technology transformation · Secure AI</p>
           </Reveal>
+          <Reveal delay={0.04}>
+            <p className="mt-4 inline-block rounded-full border border-gold-core/45 bg-gold-faint px-4 py-1.5 text-[0.7rem] font-semibold tracking-[0.14em] text-gold-soft">
+              U.S. ARMY VETERAN-OWNED &amp; LED · SDVOSB CERTIFICATION IN PROGRESS
+            </p>
+          </Reveal>
           <Reveal delay={0.08}>
             <h1 className="display mx-auto mt-5 max-w-3xl text-4xl leading-[1.08] sm:text-5xl md:text-6xl">
               Technology built around{" "}
@@ -87,6 +94,13 @@ export function Landing() {
             <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-gold-soft">
               {site.promise}
             </p>
+          </Reveal>
+          <Reveal delay={0.26}>
+            {/* The tank fires; its tracer becomes the rule under the headline. */}
+            <div className="mx-auto mt-7 flex max-w-2xl items-start px-2">
+              <TankEmblem className="h-16 w-auto shrink-0" />
+              <div className="tracer-line mt-[26px] min-w-0 flex-1" aria-hidden="true" />
+            </div>
           </Reveal>
           <Reveal delay={0.28}>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
@@ -185,6 +199,7 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
           <h2 className="display text-3xl text-warm-white sm:text-4xl">
             Your existing systems are an asset, not an embarrassment.
           </h2>
+          <TracerRule />
           <p className="mt-5 leading-relaxed text-warm-mist">
             Most consultancies earn their keep by convincing you to start
             over. We earn ours by making what you already own work harder —
@@ -319,6 +334,7 @@ function MethodPanel({ select }: { select: (id: TabId) => void }) {
       <h2 className="display text-3xl text-warm-white sm:text-4xl">
         Five stages. A working pilot by week six.
       </h2>
+      <TracerRule />
       <p className="mt-4 max-w-3xl leading-relaxed text-warm-mist">
         No black-box discovery phases, no strategy decks that never ship. The
         method is public because we are happy to be held to it — and the
@@ -401,6 +417,7 @@ function AboutPanel({ select }: { select: (id: TabId) => void }) {
           <h2 className="display text-3xl text-warm-white sm:text-4xl">
             Led by a practitioner, not a sales team.
           </h2>
+          <TracerRule />
           <div className="mt-6 space-y-5">
             {founder.narrative.map((para, i) => (
               <Reveal key={i} delay={staggerDelay(i, 0.06)}>
@@ -462,6 +479,7 @@ function AssessmentPanel() {
       <h2 className="display text-center text-3xl text-warm-white sm:text-4xl">
         The technology assessment.
       </h2>
+      <TracerRule className="mx-auto mt-4 max-w-[14rem]" />
       <p className="mt-4 text-center leading-relaxed text-warm-mist">
         Ten minutes, no jargon required. Your answers are processed in your
         browser and are not transmitted anywhere until you explicitly choose

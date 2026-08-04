@@ -31,6 +31,9 @@ automated test (`src/test/claims.test.ts`).
 | "Responsible AI" | Framework informing methodology | Backed by concrete boundary commitments on /security. |
 | A future SOC 2 attestation for BSTS itself | Future objective | Not claimed anywhere; would require an independent CPA firm. |
 | Client case studies with measured results | Future objective | None exist; Solara House is labeled "CONCEPT DEMONSTRATION — NOT A CLIENT CASE STUDY" everywhere it appears. |
+| "U.S. Army Veteran-Owned & Led" | Founder experience | Factual ownership statement. |
+| "SDVOSB certification in progress" | Future objective | Application in progress with SBA VetCert per founder. Must be updated to the certified designation ONLY after SBA VetCert issuance, or removed if not granted. |
+| "SDVOSB certified" / "Certified SDVOSB" | Prohibited claim (until VetCert issuance) | Never appears affirmatively while certification is pending; test-enforced. |
 | "NIST certified" | Prohibited claim | Never appears affirmatively; test-enforced. |
 | "SOC 2 certified" / "SOC 2 compliant" | Prohibited claim | Appears only inside disavowals/educational corrections; test-enforced. |
 | "ISO certified" | Prohibited claim | Never appears; test-enforced. |

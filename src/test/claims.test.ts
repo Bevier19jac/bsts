@@ -23,6 +23,11 @@ const PROHIBITED = [
   "guaranteed secure",
   "graduate-level completion",
   "graduate-level coursework",
+  // SDVOSB is "certification in progress" until SBA VetCert issuance —
+  // the certified designation must not be claimed before then.
+  "sdvosb certified",
+  "sdvosb-certified",
+  "certified sdvosb",
 ];
 
 /** Lines that quote prohibited phrases in order to disavow them. */

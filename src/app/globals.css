@@ -225,6 +225,73 @@ body {
   text-underline-offset: 3px;
 }
 
+/* ---------------------------------------------------------------------------
+   Tracer motif — title underlines styled as the tracer of a fired round.
+--------------------------------------------------------------------------- */
+.tracer-line {
+  position: relative;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-gold-soft) 65%, transparent),
+    color-mix(in srgb, var(--color-gold-soft) 6%, transparent)
+  );
+  overflow: visible;
+}
+.tracer-line::after {
+  content: "";
+  position: absolute;
+  top: -2.5px;
+  left: -6%;
+  width: 34px;
+  height: 7px;
+  border-radius: 999px;
+  background: radial-gradient(
+    ellipse 70% 50% at 72% 50%,
+    #ffd98a 0%,
+    rgba(255, 217, 138, 0.5) 45%,
+    rgba(255, 217, 138, 0) 100%
+  );
+  animation: tracer-fire 3s cubic-bezier(0.25, 0.6, 0.35, 1) infinite;
+}
+@keyframes tracer-fire {
+  0% {
+    left: -6%;
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.85;
+  }
+  100% {
+    left: 102%;
+    opacity: 0;
+  }
+}
+.tracer-round {
+  animation: tracer-recoil 3s ease-out infinite;
+}
+@keyframes tracer-recoil {
+  0% {
+    transform: translateX(-60px);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  60% {
+    transform: translateX(30px);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(80px);
+    opacity: 0;
+  }
+}
+
 /* BSTS OS density */
 .os-card {
   padding: 1.4rem;
