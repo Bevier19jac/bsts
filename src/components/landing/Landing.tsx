@@ -433,6 +433,38 @@ function AboutPanel({ select }: { select: (id: TabId) => void }) {
         ))}
       </div>
 
+      {/* Service record — personal archive, treated to match the theme */}
+      <Reveal delay={0.08}>
+        <div className="mt-12">
+          <h3 className="text-center text-xs font-semibold tracking-[0.18em] text-gold-soft uppercase">
+            From the motor pool to the server room
+          </h3>
+          <div className="mx-auto mt-6 flex max-w-3xl flex-wrap items-start justify-center gap-6">
+            {[
+              { src: "/service/crew.webp", alt: "Jacob Bevier's tank crew seated in front of an M1 Abrams", caption: "The crew" },
+              { src: "/service/gun-tube.webp", alt: "Jacob Bevier seated on the main gun tube of an Abrams tank in the desert", caption: "On the gun tube" },
+              { src: "/service/winter-tank.webp", alt: "Jacob Bevier on an Abrams tank in falling snow", caption: "All conditions" },
+            ].map((ph, i) => (
+              <figure key={ph.src} className="w-[13rem]">
+                <Image
+                  src={ph.src}
+                  alt={ph.alt}
+                  width={412}
+                  height={412}
+                  className={`${["blob-a", "blob-b", "blob-c"][i]} w-full border border-edge/70 object-cover`}
+                />
+                <figcaption className="mt-2 text-center text-xs text-warm-dim">
+                  {ph.caption}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <p className="mt-4 text-center text-[0.68rem] text-warm-dim">
+            Personal service archive — U.S. Army, armor.
+          </p>
+        </div>
+      </Reveal>
+
       <Reveal delay={0.1}>
         <p className="mt-10 text-center text-sm text-warm-dim">
           Curious how we run engagements internally?{" "}
