@@ -421,6 +421,61 @@ body {
   clip-path: polygon(100% 18%, 0 0, 42% 50%, 0 100%, 100% 82%);
 }
 
+/* Discarding sabot petals — peel away early in flight, revealing the dart */
+.sabot-petal {
+  position: absolute;
+  left: 13%;
+  width: 24px;
+  height: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transform-origin: left center;
+  background: linear-gradient(180deg, #eccb87 0%, #b58a45 100%);
+}
+.petal-a {
+  top: -6px;
+  border-radius: 999px 999px 0 999px;
+  animation: petal-up 0.85s cubic-bezier(0.2, 0.6, 0.5, 1) 0.78s;
+}
+.petal-b {
+  top: 0;
+  border-radius: 0 999px 999px 999px;
+  animation: petal-down 0.85s cubic-bezier(0.2, 0.6, 0.5, 1) 0.84s;
+}
+.petal-c {
+  top: -3px;
+  left: 17%;
+  width: 18px;
+  border-radius: 999px 999px 0 999px;
+  animation: petal-up 0.75s cubic-bezier(0.2, 0.6, 0.5, 1) 0.9s;
+}
+@keyframes petal-up {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(58px, -34px) rotate(-55deg);
+  }
+}
+@keyframes petal-down {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(50px, 30px) rotate(45deg);
+  }
+}
+
 /* Impact flash just before the case base of the round */
 .impact-pop {
   position: absolute;

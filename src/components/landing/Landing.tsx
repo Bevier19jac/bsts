@@ -84,14 +84,14 @@ export function Landing() {
           <Reveal delay={0.08}>
             {/* Volley lockup: centered with the page; muzzle meets the B,
                 tracer underlines the name, sabot dart lands after SOLUTIONS */}
-            <div className="relative mx-auto mt-16 hidden w-fit sm:block" aria-hidden="true">
+            <div className="relative mx-auto mt-20 hidden w-fit sm:block" aria-hidden="true">
               <Image
                 src="/abrams.webp"
                 alt=""
                 width={1280}
                 height={731}
                 priority
-                className="absolute top-[-2.3rem] right-[calc(100%-0.75rem)] h-44 w-auto max-w-none"
+                className="absolute top-[-3.6rem] right-[calc(100%-2.25rem)] h-56 w-auto max-w-none"
                 style={{
                   maskImage:
                     "radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%)",
@@ -106,6 +106,9 @@ export function Landing() {
                 Bevier Strategic Technology Solutions
               </p>
               <div className="tracer-shot mt-2">
+                <span className="sabot-petal petal-a" />
+                <span className="sabot-petal petal-b" />
+                <span className="sabot-petal petal-c" />
                 <span className="impact-pop" />
                 <span className="bsts-burst bsts-sabot display absolute top-[-14px] left-full ml-4 inline-flex items-center px-4 text-base font-bold tracking-[0.14em]">
                   BSTS
