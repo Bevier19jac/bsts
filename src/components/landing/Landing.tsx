@@ -430,9 +430,9 @@ function AboutPanel({ select }: { select: (id: TabId) => void }) {
           </h3>
           <div className="mx-auto mt-6 flex max-w-3xl flex-wrap items-start justify-center gap-6">
             {[
-              { src: "/service/crew.webp", alt: "Jacob Bevier's tank crew seated in front of an M1 Abrams", caption: "The crew" },
-              { src: "/service/gun-tube.webp", alt: "Jacob Bevier seated on the main gun tube of an Abrams tank in the desert", caption: "On the gun tube" },
-              { src: "/service/winter-tank.webp", alt: "Jacob Bevier on an Abrams tank in falling snow", caption: "All conditions" },
+              { src: "/service/crew.webp", alt: "Jacob Bevier's tank crew seated in front of an M1 Abrams" },
+              { src: "/service/gun-tube.webp", alt: "Jacob Bevier seated on the main gun tube of an Abrams tank in the desert" },
+              { src: "/service/winter-tank.webp", alt: "Jacob Bevier on an Abrams tank in falling snow" },
             ].map((ph, i) => (
               <figure key={ph.src} className="w-[13rem]">
                 <Image
@@ -442,9 +442,6 @@ function AboutPanel({ select }: { select: (id: TabId) => void }) {
                   height={412}
                   className={`${["blob-a", "blob-b", "blob-c"][i]} w-full border border-edge/70 object-cover`}
                 />
-                <figcaption className="mt-2 text-center text-xs text-warm-dim">
-                  {ph.caption}
-                </figcaption>
               </figure>
             ))}
           </div>
