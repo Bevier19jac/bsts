@@ -279,7 +279,7 @@ body {
    Under reduced motion the global rules collapse these to their final
    states instantly (fill-forwards), so nothing is hidden from anyone. */
 .tracer-shot {
-  position: relative;
+  position: absolute;
   height: 2px;
   border-radius: 999px;
   background: linear-gradient(
@@ -388,43 +388,46 @@ body {
   border-left: 24px solid #d8ae62;
   filter: drop-shadow(0 0 10px rgba(255, 217, 138, 0.45));
 }
-/* Sabot dart: rear fins, slender body, long ogive nose */
-.bsts-sabot {
-  height: 30px;
-  border-radius: 2px;
-  background: linear-gradient(180deg, #ffeec4 0%, #ffd98a 45%, #d8ae62 100%);
-  color: var(--color-obsidian-deep);
+/* Lawn-dart penetrator: long slender rod, sharp tip, rear fins.
+   BSTS sits atop the rod (label span in markup). */
+.bsts-dart {
+  position: relative;
+  display: block;
+  width: 126px;
+  height: 6px;
+  border-radius: 3px 0 0 3px;
+  background: linear-gradient(180deg, #ffe9b8 0%, #ecc27a 45%, #c69a55 100%);
   box-shadow:
-    0 0 14px rgba(255, 217, 138, 0.5),
-    0 0 38px rgba(255, 217, 138, 0.25);
+    0 0 12px rgba(255, 217, 138, 0.55),
+    0 0 34px rgba(255, 217, 138, 0.25);
 }
-.bsts-sabot::after {
+.bsts-dart::after {
   content: "";
   position: absolute;
   left: 100%;
-  top: 0;
+  top: -2px;
   width: 0;
   height: 0;
-  border-top: 15px solid transparent;
-  border-bottom: 15px solid transparent;
-  border-left: 30px solid #d8ae62;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 26px solid #d8ae62;
   filter: drop-shadow(0 0 8px rgba(255, 217, 138, 0.45));
 }
-.bsts-sabot::before {
+.bsts-dart::before {
   content: "";
   position: absolute;
   right: 100%;
-  top: -3px;
-  width: 15px;
-  height: 36px;
+  top: -8px;
+  width: 20px;
+  height: 22px;
   background: #c69a55;
-  clip-path: polygon(100% 18%, 0 0, 42% 50%, 0 100%, 100% 82%);
+  clip-path: polygon(100% 27%, 0 0, 45% 50%, 0 100%, 100% 73%);
 }
 
 /* Discarding sabot petals — peel away early in flight, revealing the dart */
 .sabot-petal {
   position: absolute;
-  left: 13%;
+  left: 88%;
   width: 24px;
   height: 8px;
   opacity: 0;
@@ -435,19 +438,19 @@ body {
 .petal-a {
   top: -6px;
   border-radius: 999px 999px 0 999px;
-  animation: petal-up 0.85s cubic-bezier(0.2, 0.6, 0.5, 1) 0.78s;
+  animation: petal-up 0.85s cubic-bezier(0.2, 0.6, 0.5, 1) 1.32s;
 }
 .petal-b {
   top: 0;
   border-radius: 0 999px 999px 999px;
-  animation: petal-down 0.85s cubic-bezier(0.2, 0.6, 0.5, 1) 0.84s;
+  animation: petal-down 0.85s cubic-bezier(0.2, 0.6, 0.5, 1) 1.38s;
 }
 .petal-c {
   top: -3px;
-  left: 17%;
+  left: 92%;
   width: 18px;
   border-radius: 999px 999px 0 999px;
-  animation: petal-up 0.75s cubic-bezier(0.2, 0.6, 0.5, 1) 0.9s;
+  animation: petal-up 0.75s cubic-bezier(0.2, 0.6, 0.5, 1) 1.44s;
 }
 @keyframes petal-up {
   0% {
@@ -459,7 +462,7 @@ body {
   }
   100% {
     opacity: 0;
-    transform: translate(58px, -34px) rotate(-55deg);
+    transform: translate(-36px, -34px) rotate(-60deg);
   }
 }
 @keyframes petal-down {
@@ -472,7 +475,7 @@ body {
   }
   100% {
     opacity: 0;
-    transform: translate(50px, 30px) rotate(45deg);
+    transform: translate(-32px, 30px) rotate(50deg);
   }
 }
 

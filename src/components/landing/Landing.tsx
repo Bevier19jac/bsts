@@ -82,16 +82,17 @@ export function Landing() {
             </p>
           </Reveal>
           <Reveal delay={0.08}>
-            {/* Volley lockup: centered with the page; muzzle meets the B,
-                tracer underlines the name, sabot dart lands after SOLUTIONS */}
-            <div className="relative mx-auto mt-20 hidden w-fit sm:block" aria-hidden="true">
+            {/* Volley stage: symmetric — the tank's visible left inset from
+                the stage edge equals the dart tip's right inset. Geometry
+                verified against rendered pixel measurements. */}
+            <div className="relative mt-16 hidden h-72 lg:block" aria-hidden="true">
               <Image
                 src="/abrams.webp"
                 alt=""
                 width={1280}
                 height={731}
                 priority
-                className="absolute top-[-3.6rem] right-[calc(100%-2.25rem)] h-56 w-auto max-w-none"
+                className="absolute top-0 left-0 h-72 w-auto max-w-none"
                 style={{
                   maskImage:
                     "radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%)",
@@ -100,24 +101,27 @@ export function Landing() {
                 }}
               />
               <p
-                className="font-bold tracking-[0.08em] whitespace-nowrap text-warm-white uppercase"
-                style={{ fontSize: "clamp(0.95rem, 1.7vw, 1.5rem)" }}
+                className="absolute top-[72px] right-0 left-0 text-center font-bold tracking-[0.1em] whitespace-nowrap text-warm-white uppercase"
+                style={{ fontSize: "clamp(1rem, 2vw, 1.65rem)" }}
               >
                 Bevier Strategic Technology Solutions
               </p>
-              <div className="tracer-shot mt-2">
+              <div className="tracer-shot top-[123px] right-[14.5rem] left-[27.1rem]">
                 <span className="sabot-petal petal-a" />
                 <span className="sabot-petal petal-b" />
                 <span className="sabot-petal petal-c" />
                 <span className="impact-pop" />
-                <span className="bsts-burst bsts-sabot display absolute top-[-14px] left-full ml-4 inline-flex items-center px-4 text-base font-bold tracking-[0.14em]">
+              </div>
+              <span className="bsts-burst absolute top-[96px] right-20 flex flex-col items-center">
+                <span className="display text-lg leading-none font-bold tracking-[0.22em] text-gold-soft">
                   BSTS
                 </span>
-              </div>
+                <span className="bsts-dart mt-1.5" />
+              </span>
             </div>
             <p className="sr-only">Bevier Strategic Technology Solutions — BSTS</p>
             {/* Mobile: static lockup, no animation surface */}
-            <p className="mt-3 text-[0.68rem] font-bold tracking-[0.22em] text-warm-white uppercase sm:hidden">
+            <p className="mt-3 text-[0.68rem] font-bold tracking-[0.22em] text-warm-white uppercase lg:hidden">
               Bevier Strategic Technology Solutions ·{" "}
               <span className="text-gold-soft">BSTS</span>
             </p>

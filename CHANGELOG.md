@@ -56,3 +56,30 @@ Initial same-day build.
 - Sitemap trimmed to the landing page, BSTS OS demo, and legal pages.
 - Former standalone routes remain live and shareable but are no longer in
   primary navigation.
+
+## [0.3.0] — 2026-08-04
+
+### Added
+
+- **Veteran identity system**: founder's Abrams render in the hero;
+  APFSDS firing sequence on page load (muzzle flash → tracer directly off
+  the gun tube underlining the company name → discarding sabot petals
+  after SOLUTIONS → BSTS revealed atop a finned lawn-dart penetrator with
+  impact flash); tracer-rule motif under panel headings; service-photo
+  gallery ("From the physical battlefield to the digital battleplan");
+  professional founder headshot; SDVOSB star block with precise
+  "certification in progress" wording (claims-audit enforced).
+- **Direct assessment delivery**: one-click "Send to BSTS" via Web3Forms
+  (free tier) with sending/sent/error states; mailto fallback;
+  copy/download retained. No secrets — the access key is a public
+  routing token.
+- "How we work" restored as a standalone page; landing tabs reduced to
+  Overview / Services / About / Assessment.
+
+### Changed
+
+- All BSTS self-descriptions de-boutiqued ("veteran-owned technology
+  transformation and secure AI implementation firm"); hero eyebrow now
+  "Secure AI · Intelligent Automation · Connected Systems".
+- Experience credential: "17+ years of federal experience as a civilian
+  and senior operational leader."
