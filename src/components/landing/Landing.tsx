@@ -82,16 +82,16 @@ export function Landing() {
             </p>
           </Reveal>
           <Reveal delay={0.08}>
-            {/* Volley lockup: tank hard left, company name centered over the
-                tracer, BSTS arrives as the round itself. */}
-            <div className="relative left-1/2 mt-5 flex w-screen -translate-x-1/2 items-start" aria-hidden="true">
+            {/* Volley lockup: centered with the page; muzzle meets the B,
+                tracer underlines the name, sabot dart lands after SOLUTIONS */}
+            <div className="relative mx-auto mt-16 hidden w-fit sm:block" aria-hidden="true">
               <Image
                 src="/abrams.webp"
                 alt=""
                 width={1280}
                 height={731}
                 priority
-                className="w-full max-w-xs shrink-0 sm:max-w-sm lg:max-w-md"
+                className="absolute top-[-2.3rem] right-[calc(100%-0.75rem)] h-44 w-auto max-w-none"
                 style={{
                   maskImage:
                     "radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%)",
@@ -99,15 +99,15 @@ export function Landing() {
                     "radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%)",
                 }}
               />
-              <div className="relative -ml-10 hidden min-w-0 flex-1 sm:mt-[calc(0.43*24rem*731/1280)] sm:block lg:mt-[calc(0.43*28rem*731/1280)]">
-                <p
-                  className="absolute -top-10 right-32 left-[-9rem] text-center font-bold tracking-[0.05em] whitespace-nowrap text-warm-white uppercase lg:-top-12 lg:left-[-13rem]"
-                  style={{ fontSize: "clamp(0.72rem, 1.5vw, 1.5rem)" }}
-                >
-                  Bevier Strategic Technology Solutions
-                </p>
-                <div className="tracer-shot mr-44" />
-                <span className="bsts-burst bsts-round display absolute top-[-18px] right-7 inline-flex items-center px-4 text-xl font-bold tracking-[0.12em]">
+              <p
+                className="font-bold tracking-[0.08em] whitespace-nowrap text-warm-white uppercase"
+                style={{ fontSize: "clamp(0.95rem, 1.7vw, 1.5rem)" }}
+              >
+                Bevier Strategic Technology Solutions
+              </p>
+              <div className="tracer-shot mt-2">
+                <span className="impact-pop" />
+                <span className="bsts-burst bsts-sabot display absolute top-[-14px] left-full ml-4 inline-flex items-center px-4 text-base font-bold tracking-[0.14em]">
                   BSTS
                 </span>
               </div>
