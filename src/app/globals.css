@@ -296,149 +296,6 @@ body {
   animation: tracer-recoil 3s ease-out infinite;
 }
 
-/* Crew mount sequence: a stylized soldier silhouette walks up on the far
-   side of the tank, climbs the rear deck, crosses to the turret, and drops
-   in through the hatch — then the volley fires. Layered BEHIND the tank
-   image so the hull naturally occludes him. Under reduced motion the whole
-   sequence collapses to its final state (soldier inside, opacity 0). */
-.troop {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-70px, 120px);
-  animation: troop-run 5s linear 0.2s forwards;
-}
-.troop-svg {
-  display: block;
-  overflow: visible;
-}
-.t-body {
-  fill: #414e5b;
-}
-.t-arm,
-.t-leg {
-  fill: none;
-  stroke: #414e5b;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transform-box: view-box;
-}
-.t-arm {
-  stroke-width: 5;
-  transform-origin: 24px 24px;
-}
-.t-leg {
-  stroke-width: 6;
-  transform-origin: 23px 49px;
-}
-/* Ground walk → climb rear deck → cross deck → mount turret → drop in */
-@keyframes troop-run {
-  0% {
-    transform: translate(-134px, 120px);
-    opacity: 0;
-  }
-  4% {
-    opacity: 1;
-  }
-  44% {
-    transform: translate(-76px, 120px);
-  }
-  58% {
-    transform: translate(-44px, 82px);
-  }
-  62% {
-    transform: translate(-44px, 82px);
-  }
-  78% {
-    transform: translate(26px, 82px);
-  }
-  84% {
-    transform: translate(56px, 27px);
-  }
-  90% {
-    transform: translate(58px, 27px);
-  }
-  94% {
-    transform: translate(60px, 55px);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(60px, 100px);
-    opacity: 0;
-  }
-}
-.t-leg-front {
-  animation:
-    t-swing 0.5s ease-in-out 0.2s 4 alternate,
-    t-climb-leg-front 0.5s ease-in-out 2.4s,
-    t-swing 0.45s ease-in-out 3.1s 2 alternate,
-    t-climb-leg-front 0.45s ease-in-out 4.2s;
-}
-.t-leg-back {
-  animation:
-    t-swing-r 0.5s ease-in-out 0.2s 4 alternate,
-    t-climb-leg-back 0.5s ease-in-out 2.4s,
-    t-swing-r 0.45s ease-in-out 3.1s 2 alternate,
-    t-climb-leg-back 0.45s ease-in-out 4.2s;
-}
-.t-arm-front {
-  animation:
-    t-swing-r 0.5s ease-in-out 0.2s 4 alternate,
-    t-climb-arm-front 0.5s ease-in-out 2.4s,
-    t-swing-r 0.45s ease-in-out 3.1s 2 alternate,
-    t-climb-arm-front 0.45s ease-in-out 4.2s;
-}
-.t-arm-back {
-  animation:
-    t-swing 0.5s ease-in-out 0.2s 4 alternate,
-    t-climb-arm-back 0.5s ease-in-out 2.4s,
-    t-swing 0.45s ease-in-out 3.1s 2 alternate,
-    t-climb-arm-back 0.45s ease-in-out 4.2s;
-}
-@keyframes t-swing {
-  from {
-    transform: rotate(26deg);
-  }
-  to {
-    transform: rotate(-26deg);
-  }
-}
-@keyframes t-swing-r {
-  from {
-    transform: rotate(-26deg);
-  }
-  to {
-    transform: rotate(26deg);
-  }
-}
-@keyframes t-climb-leg-front {
-  50%,
-  100% {
-    transform: rotate(-48deg);
-  }
-}
-@keyframes t-climb-leg-back {
-  50%,
-  100% {
-    transform: rotate(18deg);
-  }
-}
-@keyframes t-climb-arm-front {
-  50%,
-  100% {
-    transform: rotate(-95deg);
-  }
-}
-@keyframes t-climb-arm-back {
-  50%,
-  100% {
-    transform: rotate(-70deg);
-  }
-}
-
 /* One-shot hero volley: line pre-drawn, round travels once, BSTS bursts in.
    Under reduced motion the global rules collapse these to their final
    states instantly (fill-forwards), so nothing is hidden from anyone. */
@@ -468,7 +325,7 @@ body {
     rgba(255, 217, 138, 0.75) 40%,
     rgba(255, 217, 138, 0) 100%
   );
-  animation: muzzle-flash 0.4s ease-out 5.05s;
+  animation: muzzle-flash 0.4s ease-out 0.45s;
 }
 @keyframes muzzle-flash {
   0% {
@@ -499,7 +356,7 @@ body {
     rgba(255, 217, 138, 0.5) 45%,
     rgba(255, 217, 138, 0) 100%
   );
-  animation: tracer-shot-fire 1.5s cubic-bezier(0.3, 0.5, 0.4, 1) 5.1s forwards;
+  animation: tracer-shot-fire 1.5s cubic-bezier(0.3, 0.5, 0.4, 1) 0.5s forwards;
 }
 @keyframes tracer-shot-fire {
   0% {
@@ -520,7 +377,7 @@ body {
 .bsts-burst {
   opacity: 0;
   transform: scale(0.25);
-  animation: bsts-burst 0.65s cubic-bezier(0.2, 1.5, 0.4, 1) 6.45s forwards;
+  animation: bsts-burst 0.65s cubic-bezier(0.2, 1.5, 0.4, 1) 1.85s forwards;
 }
 
 /* BSTS enveloped by the projectile: a glowing gold round carrying the mark,
@@ -607,8 +464,8 @@ body {
   );
   filter: blur(1px);
   animation:
-    ember-in 0.6s ease-out 5.15s forwards,
-    ember-flicker 2.4s ease-in-out 5.75s infinite alternate;
+    ember-in 0.6s ease-out 0.55s forwards,
+    ember-flicker 2.4s ease-in-out 1.15s infinite alternate;
 }
 @keyframes ember-in {
   from {
@@ -640,8 +497,8 @@ body {
   pointer-events: none;
   opacity: 0;
   animation:
-    streaks-in 0.5s ease-out 6.65s forwards,
-    streaks-drift 1.5s ease-in-out 7.15s infinite alternate;
+    streaks-in 0.5s ease-out 2.05s forwards,
+    streaks-drift 1.5s ease-in-out 2.55s infinite alternate;
 }
 .dart-motion::before,
 .dart-motion::after {
@@ -714,19 +571,19 @@ body {
 .petal-a {
   top: -6px;
   border-radius: 999px 999px 0 999px;
-  animation: petal-up 0.85s cubic-bezier(0.2, 0.6, 0.5, 1) 6.16s;
+  animation: petal-up 0.85s cubic-bezier(0.2, 0.6, 0.5, 1) 1.56s;
 }
 .petal-b {
   top: 0;
   border-radius: 0 999px 999px 999px;
-  animation: petal-down 0.85s cubic-bezier(0.2, 0.6, 0.5, 1) 6.22s;
+  animation: petal-down 0.85s cubic-bezier(0.2, 0.6, 0.5, 1) 1.62s;
 }
 .petal-c {
   top: -3px;
   left: 104.5%;
   width: 18px;
   border-radius: 999px 999px 0 999px;
-  animation: petal-up 0.75s cubic-bezier(0.2, 0.6, 0.5, 1) 6.28s;
+  animation: petal-up 0.75s cubic-bezier(0.2, 0.6, 0.5, 1) 1.68s;
 }
 @keyframes petal-up {
   0% {
@@ -772,7 +629,7 @@ body {
     rgba(255, 217, 138, 0.7) 45%,
     rgba(255, 217, 138, 0) 100%
   );
-  animation: muzzle-flash 0.45s ease-out 6.3s;
+  animation: muzzle-flash 0.45s ease-out 1.7s;
 }
 
 /* Tracer tail streaming behind the base */
