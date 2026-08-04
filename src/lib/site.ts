@@ -38,10 +38,10 @@ const vetCertCopy: Record<
       "BSTS is service-disabled veteran-owned and led. An application for federal SDVOSB certification has been submitted through SBA VetCert and is pending review.",
   },
   certified: {
-    badge: "Service-Disabled Veteran-Owned Small Business · SBA VetCert certified",
+    badge: "SBA-certified Service-Disabled Veteran-Owned Small Business",
     heading: "SDVOSB",
     explanation:
-      "BSTS is an SBA VetCert-certified Service-Disabled Veteran-Owned Small Business, eligible for SDVOSB set-aside and sole-source federal contracting.",
+      "BSTS is an SBA-certified Service-Disabled Veteran-Owned Small Business, eligible for SDVOSB set-aside and sole-source federal contracting.",
   },
 };
 
@@ -134,6 +134,7 @@ export const offers = [
 export const navLinks = [
   { href: "/#services", label: "Services" },
   { href: "/method", label: "How we work" },
+  { href: "/government", label: "Government" },
   { href: "/#about", label: "About" },
 ] as const;
 
@@ -142,6 +143,7 @@ export const footerLinks = {
     { href: "/#overview", label: "Overview" },
     { href: "/#services", label: "Services" },
     { href: "/method", label: "How we work" },
+    { href: "/government", label: "Government" },
     { href: "/#about", label: "About" },
     { href: "/#assessment", label: "Assessment" },
     { href: "/os", label: "BSTS OS demo" },
@@ -172,3 +174,49 @@ export const assessmentCta = {
  */
 export const sensitiveDataNotice =
   "Please describe systems and workflows in plain language only. Do not include passwords, API keys, security secrets, classified or controlled unclassified information, protected health information, payment-card data, or confidential customer records.";
+
+/* ------------------------------------------------------------------ */
+/* Federal / government-business configuration                         */
+/* ------------------------------------------------------------------ */
+
+/** Sensitive-information warning for the federal contact form. */
+export const federalSensitiveNotice =
+  "Do not submit classified information, controlled unclassified information, procurement-sensitive information, source-selection information, passwords, credentials, protected health information, or other sensitive records through this form.";
+
+/** Full federal disclaimer for the Government page and capability statement. */
+export const federalDisclaimerFull =
+  "Military and federal experience described on this site reflects the founder's individual background and does not imply endorsement by the U.S. Army, Department of Defense, Department of Transportation, Small Business Administration, or any government agency. References to federal acquisition programs and security frameworks describe potential engagement paths and methodology; eligibility depends on current registrations, certifications, solicitation requirements, and contracting-officer determinations.";
+
+/**
+ * Acquisition profile. PUBLIC RULE: fields with empty values are HIDDEN on
+ * the public site — never rendered as placeholder text of any kind.
+ * Fill each value only when the real identifier is issued and verified
+ * (see FEDERAL_LAUNCH_CHECKLIST.md for the founder's action list).
+ */
+export const acquisition = {
+  fields: [
+    { label: "Legal business name", value: "Bevier Strategic Technology Solutions" },
+    { label: "Business status", value: "Service-disabled veteran-owned and led" },
+    { label: "Service area", value: "United States · remote-capable delivery" },
+    { label: "SAM registration", value: "" }, // e.g. "Active" — only when true
+    { label: "UEI", value: "" },
+    { label: "CAGE code", value: "" },
+    { label: "Primary NAICS", value: "" }, // e.g. "541511, 541512, 541519, 541690"
+    { label: "PSC codes", value: "" },
+    { label: "Business contact", value: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "bevier19jacob@gmail.com" },
+  ],
+  /**
+   * Honest high-level status line shown while identifiers above are unissued.
+   * Remove (set to "") once SAM/UEI/CAGE are live and displayed.
+   */
+  statusLine:
+    "Business formation and federal registrations are in progress. Identifiers (SAM, UEI, CAGE) will be published here as they are issued.",
+} as const;
+
+/** Only the acquisition fields that have real values — for public rendering. */
+export function visibleAcquisitionFields() {
+  return acquisition.fields.filter((f) => f.value.trim() !== "");
+}
+
+/** Capability statement route (print-friendly; browser print → PDF). */
+export const capabilityStatementPath = "/government/capability-statement";

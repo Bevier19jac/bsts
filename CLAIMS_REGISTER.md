@@ -54,3 +54,13 @@ Any new public claim must be added to this register with a classification
 before it ships. Any change to founder-credential wording requires updating
 `src/lib/content/founder.ts` and this file together — the automated test
 checks the mandated phrases exist.
+
+## Federal / Government page additions (v0.5.0)
+
+| Claim | Status | Rule |
+| --- | --- | --- |
+| Federal capabilities (AI governance, knowledge systems, evidence automation, workflow automation) | Capability descriptions | Presented as capabilities and representative deliverables — never as past performance or contract history. |
+| Founder military/federal background | Founder experience | Always labeled founder experience; never "BSTS past performance". No unit insignia, seals, or endorsement implied. |
+| Acquisition identifiers (SAM, UEI, CAGE, NAICS, PSC) | Unissued — hidden | Empty config values are hidden from the public page; no placeholder text permitted (test-enforced). |
+| "Guaranteed award", "prequalified", "cleared company", "FedRAMP certified", "CMMC certified", "sole-source provider", "contract-ready", "preferred government vendor" | Prohibited | Banned site-wide by the automated claims audit. |
+| "SBA-certified…" / "eligible for SDVOSB set-aside" | Config-gated | Exist only in the certified-state branch of src/lib/site.ts; appear publicly only when vetCertStatus === "certified" (test-enforced). |

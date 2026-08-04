@@ -37,6 +37,30 @@ const PROHIBITED = [
   // Degree wording: the verified credential is "Bachelor of Science in
   // Computer Science with a Cybersecurity major" — never the shorthand.
   "bachelor of science in cybersecurity,",
+  // Federal claims that must never appear anywhere.
+  "guaranteed award",
+  "preferred government vendor",
+  "prequalified",
+  "sole-source provider",
+  "cleared company",
+  "contract-ready",
+  "fedramp certified",
+  "fedramp-certified",
+  "fedramp authorized",
+  "cmmc certified",
+  "cmmc-certified",
+];
+
+/**
+ * Phrases allowed ONLY inside src/lib/site.ts (the certified-state config
+ * branch). Anywhere else they would hard-code certification status.
+ */
+const PROHIBITED_OUTSIDE_CONFIG = [
+  "sba-certified",
+  "sba certified",
+  "vetcert certified",
+  "vetcert-certified",
+  "eligible for sdvosb set-aside",
 ];
 
 /** Lines that quote prohibited phrases in order to disavow them. */
@@ -106,6 +130,32 @@ describe("claims audit", () => {
     );
     expect(founderSource).toContain("CompTIA Security+");
     expect(founderSource).toContain("AWS Certified AI Practitioner");
+  });
+
+  it("keeps certified-state wording confined to the site.ts config branch", () => {
+    const offenders: string[] = [];
+    for (const file of files) {
+      if (file.endsWith("lib/site.ts")) continue;
+      const text = readFileSync(file, "utf8").toLowerCase();
+      for (const phrase of PROHIBITED_OUTSIDE_CONFIG) {
+        if (text.includes(phrase)) offenders.push(`${file} — "${phrase}"`);
+      }
+    }
+    expect(offenders).toEqual([]);
+  });
+
+  it("shows no public placeholder identifiers", () => {
+    // Word-bounded so code comments explaining the rule don't trip it, but
+    // any rendered string value would.
+    const placeholders = [/["'>]\s*tbd\s*["'<]/, /\[insert/, /xxxxx/, /000000/, /coming soon/];
+    const offenders: string[] = [];
+    for (const file of files) {
+      const text = readFileSync(file, "utf8").toLowerCase();
+      for (const p of placeholders) {
+        if (p.test(text)) offenders.push(`${file} — ${p}`);
+      }
+    }
+    expect(offenders).toEqual([]);
   });
 
   it("keeps SDVOSB / VetCert public wording centralized in site.ts", () => {

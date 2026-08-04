@@ -737,6 +737,165 @@ body {
 }
 
 /* Reduced motion — kill decorative animation entirely */
+/* ---------------------------------------------------------------------------
+   Capability statement — a light, letter-sized printable document rendered
+   as a white sheet on screen and a clean one-pager in print.
+--------------------------------------------------------------------------- */
+.capstat {
+  background: #ffffff;
+  color: #16202b;
+  border-radius: 1rem;
+  padding: 2.2rem 2.4rem;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  box-shadow: 0 24px 60px -30px rgb(0 0 0 / 0.65);
+}
+.cs-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  border-bottom: 2px solid #c9a869;
+  padding-bottom: 0.9rem;
+}
+.cs-mark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #a07f3f;
+  font-size: 0.8rem;
+}
+.cs-name {
+  font-family: var(--font-display);
+  font-weight: 640;
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+  color: #101820;
+  margin-top: 0.15rem;
+}
+.cs-badge {
+  margin-top: 0.3rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b5836;
+}
+.cs-contact {
+  text-align: right;
+  font-size: 0.72rem;
+  color: #3c4a59;
+  white-space: nowrap;
+}
+.capstat section {
+  margin-top: 0.95rem;
+}
+.cs-h2 {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #a07f3f;
+  margin-bottom: 0.35rem;
+}
+.cs-h3 {
+  font-size: 0.78rem;
+  font-weight: 650;
+  color: #101820;
+  margin-bottom: 0.2rem;
+}
+.cs-body {
+  color: #2c3a48;
+}
+.cs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem 1.4rem;
+}
+.cs-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1.4rem;
+}
+.cs-list {
+  list-style: disc;
+  padding-left: 1rem;
+  color: #2c3a48;
+}
+.cs-list li {
+  margin-bottom: 0.12rem;
+}
+.cs-note {
+  margin-top: 0.35rem;
+  font-size: 0.68rem;
+  color: #5a6a7a;
+}
+.cs-foot {
+  margin-top: 1rem;
+  border-top: 1px solid #d7ccb4;
+  padding-top: 0.6rem;
+  font-size: 0.62rem;
+  color: #5a6a7a;
+}
+@media (max-width: 640px) {
+  .cs-grid,
+  .cs-cols {
+    grid-template-columns: 1fr;
+  }
+  .cs-head {
+    flex-direction: column;
+  }
+  .cs-contact {
+    text-align: left;
+  }
+}
+@media print {
+  header,
+  footer,
+  .no-print,
+  .skip-link {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+  }
+  .capstat {
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+    font-size: 9pt;
+    line-height: 1.32;
+  }
+  .cs-name {
+    font-size: 15pt;
+  }
+  .capstat section {
+    margin-top: 0.55rem;
+  }
+  .cs-head {
+    padding-bottom: 0.5rem;
+  }
+  .cs-list li {
+    margin-bottom: 0.04rem;
+  }
+  .cs-foot {
+    margin-top: 0.5rem;
+    font-size: 6.6pt;
+  }
+  .cs-page {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: none !important;
+  }
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  @page {
+    size: letter;
+    margin: 0.55in;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

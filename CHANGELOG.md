@@ -113,3 +113,27 @@ Initial same-day build.
 - Accessibility: one logical H1 on every page, roving-focus arrow-key tab
   navigation, native disclosures, favicon added, canonical URLs.
 - New LAUNCH_CHECKLIST.md manual production test checklist.
+
+## 0.5.0 — Government / federal business development section
+
+- New "Government" navigation entry (desktop, mobile, footer, sitemap) and
+  a dedicated /government page: federal hero, positioning for agencies and
+  primes, four core capabilities (AI readiness & governance, secure
+  knowledge systems, cybersecurity & evidence automation, mission workflow
+  automation) each with outcome, representative deliverables, disclosure
+  for more, and an honest boundary statement.
+- "Why BSTS" founder-value section, three federal engagement paths, and a
+  configuration-driven Acquisition Profile that HIDES unissued identifiers
+  (no public placeholders) with an honest status line.
+- Print-friendly one-page capability statement at
+  /government/capability-statement (browser print → PDF; letter-sized,
+  verified single page).
+- Federal contact form: organization/opportunity types, CUI/classified
+  warning, honeypot, honest delivery states.
+- Claims audit extended: certified-state wording confined to site.ts,
+  federal prohibited phrases (guaranteed award, prequalified, cleared
+  company, FedRAMP/CMMC certified, …), public-placeholder scan; 11 new
+  tests (38 total).
+- Share card (og.png) recomposed: fully centered lockup.
+- FEDERAL_LAUNCH_CHECKLIST.md documents every founder action (LLC, EIN,
+  SAM, UEI, CAGE, VetCert, NAICS/PSC) and where each value gets entered.
