@@ -393,19 +393,8 @@ function AboutPanel({ select }: { select: (id: TabId) => void }) {
           </div>
         </div>
         <Surface blob="a" className="h-fit p-7">
-          <div className="flex items-center gap-5">
-            <Image
-              src="/founder.webp"
-              alt="Jacob Bevier, Founder & Principal of BSTS"
-              width={480}
-              height={480}
-              className="blob-c h-24 w-24 shrink-0 border border-gold-core/40 object-cover"
-            />
-            <div>
-              <p className="font-semibold text-warm-white">{founder.name}</p>
-              <p className="text-sm text-warm-dim">{founder.role}</p>
-            </div>
-          </div>
+          <p className="font-semibold text-warm-white">{founder.name}</p>
+          <p className="text-sm text-warm-dim">{founder.role}</p>
           <ul className="mt-4 space-y-2.5">
             {[...founder.credentials, ...founder.experience].map((c) => (
               <li key={c} className="flex gap-3 text-sm leading-relaxed text-warm-mist">

@@ -12,8 +12,8 @@ export const founder = {
     "AWS Certified AI Practitioner",
   ],
   experience: [
-    "Federal cybersecurity experience",
-    "U.S. Army veteran and senior operational leader",
+    "17+ years of federal experience as a civilian and senior operational leader",
+    "U.S. Army veteran",
     "Veteran-owned and led · SDVOSB certification in progress",
   ],
   narrative: [
