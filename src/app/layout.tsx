@@ -28,11 +28,20 @@ export const metadata: Metadata = {
     title: `${site.shortName} — ${site.tagline}`,
     description: site.subline,
     url: site.url,
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: `${site.name} — an Abrams tank firing a tracer that underlines the company name, with the tagline "A force multiplier for the team you already have."`,
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: `${site.shortName} — ${site.tagline}`,
     description: site.subline,
+    images: ["/og.png"],
   },
   robots: { index: true, follow: true },
   // Relative canonical: each statically exported page resolves its own URL
