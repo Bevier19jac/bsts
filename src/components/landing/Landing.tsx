@@ -396,8 +396,8 @@ function AboutPanel({ select }: { select: (id: TabId) => void }) {
           <Image
             src="/founder.webp"
             alt="Jacob Bevier, Founder & Principal of BSTS, in a navy suit"
-            width={854}
-            height={682}
+            width={760}
+            height={785}
             className="blob-b w-full border border-gold-core/30 object-cover"
           />
           <p className="mt-5 font-semibold text-warm-white">{founder.name}</p>
