@@ -28,7 +28,7 @@ export default function HospitalityPage() {
           </Reveal>
           <div className="mt-6 flex items-start gap-4">
             <Sunrise className="mt-3 hidden h-9 w-9 shrink-0 text-gold-soft sm:block" aria-hidden />
-            <SectionHeading
+            <SectionHeading as="h1"
               eyebrow="Boutique hospitality"
               title={`${solara.name}: one fictional hotel, the whole approach.`}
               lede={solara.descriptor}

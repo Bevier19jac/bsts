@@ -23,11 +23,20 @@ const PROHIBITED = [
   "guaranteed secure",
   "graduate-level completion",
   "graduate-level coursework",
-  // SDVOSB is "certification in progress" until SBA VetCert issuance —
-  // the certified designation must not be claimed before then.
+  // SDVOSB language: no certified designation before SBA VetCert issuance,
+  // and no "in progress" phrasing before the application is actually filed.
+  // Public wording derives from vetCertStatus in src/lib/site.ts only.
   "sdvosb certified",
   "sdvosb-certified",
   "certified sdvosb",
+  "sdvosb certification in progress",
+  "certification in progress",
+  // Absolute delivery-time claims are replaced by qualified language.
+  "weeks, not quarters",
+  "weeks — not quarters",
+  // Degree wording: the verified credential is "Bachelor of Science in
+  // Computer Science with a Cybersecurity major" — never the shorthand.
+  "bachelor of science in cybersecurity,",
 ];
 
 /** Lines that quote prohibited phrases in order to disavow them. */
@@ -93,10 +102,25 @@ describe("claims audit", () => {
     );
     expect(founderSource).toContain("Master of Science in Artificial Intelligence");
     expect(founderSource).toContain(
-      "Bachelor of Science in Cybersecurity, Magna Cum Laude",
+      "Bachelor of Science in Computer Science with a Cybersecurity major, Magna Cum Laude",
     );
     expect(founderSource).toContain("CompTIA Security+");
     expect(founderSource).toContain("AWS Certified AI Practitioner");
+  });
+
+  it("keeps SDVOSB / VetCert public wording centralized in site.ts", () => {
+    // Outside site.ts (the single source of truth) and this test, source
+    // files must not hand-roll SDVOSB status wording.
+    const offenders = files.filter((f) => {
+      if (f.endsWith("lib/site.ts")) return false;
+      const text = readFileSync(f, "utf8").toLowerCase();
+      return (
+        text.includes("vetcert application") ||
+        text.includes("sdvosb certification will be pursued") ||
+        text.includes("sba vetcert certified")
+      );
+    });
+    expect(offenders).toEqual([]);
   });
 
   it("labels the Solara House demonstration as not a client case study", () => {

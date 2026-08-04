@@ -22,6 +22,7 @@ export default function IndustriesPage() {
         <Atmosphere variant="quiet" />
         <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-16">
           <SectionHeading
+            as="h1"
             eyebrow="Industries"
             title="Small teams. Enterprise-shaped problems."
             lede="The pattern repeats across sectors: capable people, decent tools, and no connective tissue between them. We bring the same keep-connect-automate-build-secure discipline to each industry — translated into its vocabulary."

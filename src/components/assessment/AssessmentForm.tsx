@@ -17,13 +17,14 @@ import {
   budgetOptions,
   formatSummary,
   industryOptions,
+  preliminaryRead,
   steps,
   timelineOptions,
   type AssessmentData,
 } from "@/lib/assessment";
+import { site } from "@/lib/site";
 
-const contactEmail =
-  process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "bevier19jacob@gmail.com";
+const contactEmail = site.contactEmail;
 // Optional free static-form endpoint (web3forms.com). Public by design.
 const formKey =
   process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "4a21a788-0e18-450a-a32a-5b3cae2c8986";
@@ -54,9 +55,12 @@ export function AssessmentForm() {
   // Recomputed whenever the step changes; answers are frozen while on review
   // (editing requires going back, which changes `step` and re-renders).
   let summary = "";
+  let read: ReturnType<typeof preliminaryRead> | null = null;
   if (isReview) {
     try {
-      summary = formatSummary(getValues());
+      const values = getValues();
+      summary = formatSummary(values);
+      read = preliminaryRead(values);
     } catch {
       summary = "";
     }
@@ -102,6 +106,15 @@ export function AssessmentForm() {
   async function submitToBsts() {
     const ok = await trigger();
     if (!ok) return;
+    // Honeypot: invisible to people, filled only by naive bots. If it has a
+    // value we silently succeed without transmitting anything.
+    const honeypot = document.getElementById(
+      "bsts-website-2",
+    ) as HTMLInputElement | null;
+    if (honeypot?.value) {
+      setSendState("sent");
+      return;
+    }
     const data = getValues();
     setSendState("sending");
     try {
@@ -114,6 +127,7 @@ export function AssessmentForm() {
           from_name: data.name,
           email: data.email,
           message: formatSummary(data),
+          botcheck: false,
         }),
       });
       const json = (await res.json()) as { success?: boolean };
@@ -168,6 +182,16 @@ export function AssessmentForm() {
       </p>
 
       <form noValidate onSubmit={(e) => e.preventDefault()}>
+        {/* Honeypot field — hidden from people and assistive tech. */}
+        <input
+          type="text"
+          id="bsts-website-2"
+          name="bsts-website-2"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="hidden"
+        />
         <AnimatePresence mode="wait" initial={false}>
           <motion.fieldset
             key={step}
@@ -281,7 +305,7 @@ export function AssessmentForm() {
               <div className="mt-6 grid grid-cols-1 gap-5">
                 <Field
                   label="What systems do you run today?"
-                  hint="Name the tools if you can; describe them if you can't. Spreadsheets and inboxes count."
+                  hint="Name the tools if you can; describe them if you can't. Spreadsheets and inboxes count. Plain descriptions only — no passwords, secrets, or regulated data."
                   error={errors.systems?.message}
                   id="systems"
                 >
@@ -347,6 +371,35 @@ export function AssessmentForm() {
 
             {isReview ? (
               <div className="mt-6">
+                {read ? (
+                  <div className="mb-6 rounded-3xl border border-cyan-core/30 bg-cyan-faint p-5">
+                    <p className="text-[0.65rem] font-semibold tracking-[0.16em] text-cyan-soft uppercase">
+                      Preliminary read — generated in your browser
+                    </p>
+                    <dl className="mt-3 space-y-3 text-sm leading-relaxed">
+                      <div>
+                        <dt className="font-semibold text-warm-white">Primary opportunity</dt>
+                        <dd className="mt-0.5 text-warm-mist">{read.opportunity}</dd>
+                      </div>
+                      <div>
+                        <dt className="font-semibold text-warm-white">Likely starting path</dt>
+                        <dd className="mt-0.5 text-warm-mist">{read.path}</dd>
+                      </div>
+                      <div>
+                        <dt className="font-semibold text-warm-white">One thing to consider</dt>
+                        <dd className="mt-0.5 text-warm-mist">{read.consideration}</dd>
+                      </div>
+                      <div>
+                        <dt className="font-semibold text-warm-white">Recommended next step</dt>
+                        <dd className="mt-0.5 text-warm-mist">{read.nextStep}</dd>
+                      </div>
+                    </dl>
+                    <p className="mt-3 border-t border-cyan-core/20 pt-3 text-xs leading-relaxed text-warm-dim">
+                      This is an automated orientation based only on your
+                      answers — not a completed professional assessment.
+                    </p>
+                  </div>
+                ) : null}
                 <label htmlFor="summary" className="text-sm font-medium text-warm-mist">
                   Your answers, ready to send
                 </label>
@@ -420,8 +473,9 @@ export function AssessmentForm() {
 
                 {sendState === "sent" ? (
                   <p role="status" className="mt-4 text-sm font-medium text-ok">
-                    Your assessment is in our inbox — we&apos;ll reply to the
-                    email you provided, usually within one business day.
+                    Your assessment is in our inbox. {site.responsePromise}{" "}
+                    We&apos;ll reply to the email you provided with a concrete
+                    reaction and a suggested next step.
                   </p>
                 ) : null}
                 {sendState === "error" ? (

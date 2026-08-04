@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   assessmentSchema,
   formatSummary,
+  preliminaryRead,
   steps,
   type AssessmentData,
 } from "@/lib/assessment";
@@ -9,12 +10,12 @@ import {
 const validData: AssessmentData = {
   name: "Avery Example",
   email: "avery@example.com",
-  organization: "Example House",
-  industry: "Boutique hospitality",
+  organization: "Example Logistics Co.",
+  industry: "Transportation & logistics",
   website: "example.com",
   problem:
-    "Reservations are re-keyed across three systems and preferences live in one spreadsheet.",
-  systems: "PMS, POS, booking engine, spreadsheets",
+    "Jobs are re-keyed across three systems and dispatch details live in one spreadsheet.",
+  systems: "CRM, accounting platform, dispatch spreadsheet, shared inbox",
   outcome: "One record entered once, flowing everywhere it is needed.",
   timeline: "Within 3 months",
   budget: "Prefer not to say yet",
@@ -65,13 +66,52 @@ describe("formatSummary", () => {
     const summary = formatSummary(validData);
     expect(summary).toContain("Avery Example");
     expect(summary).toContain("avery@example.com");
-    expect(summary).toContain("Example House");
-    expect(summary).toContain("Boutique hospitality");
+    expect(summary).toContain("Example Logistics Co.");
+    expect(summary).toContain("Transportation & logistics");
     expect(summary).toContain("Within 3 months");
     expect(summary).toContain(validData.problem);
   });
 
   it("renders a dash for a blank website", () => {
     expect(formatSummary({ ...validData, website: "" })).toContain("Website: —");
+  });
+});
+
+describe("preliminaryRead", () => {
+  it("identifies integration as the opportunity for re-keying answers", () => {
+    const read = preliminaryRead(validData);
+    expect(read.opportunity).toMatch(/Integration/);
+    expect(read.path).toMatch(/Assessment/);
+    expect(read.nextStep.length).toBeGreaterThan(10);
+  });
+
+  it("flags security when compliance pressure appears", () => {
+    const read = preliminaryRead({
+      ...validData,
+      problem:
+        "We face a compliance audit and our access reviews are handled from memory across tools.",
+      systems: "Ticketing system, HR platform, audit evidence folder",
+      outcome: "Pass the audit with a written security baseline.",
+    });
+    expect(read.consideration).toMatch(/boundaries|compliance/i);
+  });
+
+  it("suggests a larger path when budget and timeline support it", () => {
+    const read = preliminaryRead({
+      ...validData,
+      budget: "$75k+",
+      timeline: "As soon as practical",
+    });
+    expect(read.path).toMatch(/Transformation/);
+  });
+
+  it("falls back to clarity-first when no signal is present", () => {
+    const read = preliminaryRead({
+      ...validData,
+      problem: "Things feel slower than they should be lately overall.",
+      systems: "A few tools we can list on a call together.",
+      outcome: "General improvement across the board this year.",
+    });
+    expect(read.opportunity).toMatch(/Clarity first/);
   });
 });

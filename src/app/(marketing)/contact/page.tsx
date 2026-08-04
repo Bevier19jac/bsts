@@ -17,6 +17,7 @@ export default function ContactPage() {
         <Atmosphere variant="quiet" />
         <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-12">
           <SectionHeading
+            as="h1"
             eyebrow="Contact"
             title="The technology assessment."
             lede="Ten minutes, no jargon required. Your answers are processed in your browser and are not transmitted anywhere until you explicitly choose to send them. Even if we never speak, answering these questions tends to clarify what your stack actually needs."

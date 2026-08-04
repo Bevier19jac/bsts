@@ -7,6 +7,7 @@ export function SectionHeading({
   gold = false,
   center = false,
   id,
+  as: Heading = "h2",
 }: {
   eyebrow: string;
   title: string;
@@ -14,16 +15,18 @@ export function SectionHeading({
   gold?: boolean;
   center?: boolean;
   id?: string;
+  /** Pass "h1" for the page-opening heading so every page has one logical H1. */
+  as?: "h1" | "h2";
 }) {
   return (
     <Reveal className={`max-w-3xl ${center ? "mx-auto text-center" : ""}`}>
       <p className={`eyebrow ${gold ? "eyebrow-gold" : ""}`}>{eyebrow}</p>
-      <h2
+      <Heading
         id={id}
         className="display mt-4 text-3xl leading-tight text-warm-white sm:text-4xl md:text-[2.6rem]"
       >
         {title}
-      </h2>
+      </Heading>
       {lede ? (
         <p className="mt-5 text-lg leading-relaxed text-warm-mist">{lede}</p>
       ) : null}

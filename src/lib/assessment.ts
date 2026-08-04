@@ -1,11 +1,15 @@
 import { z } from "zod";
 
 export const industryOptions = [
-  "Boutique hospitality",
+  "Government contracting / government-facing software",
   "Professional services",
+  "Transportation & logistics",
+  "Healthcare-adjacent technology",
+  "Software & technology",
+  "Manufacturing",
+  "Hospitality",
   "Local commerce & retail",
   "Field & trade services",
-  "Health-adjacent practice",
   "Nonprofit / civic",
   "Other",
 ] as const;
@@ -105,6 +109,96 @@ export const steps: Array<{
     fields: ["consent"],
   },
 ];
+
+/* ------------------------------------------------------------------ */
+/* Preliminary read — computed in the browser from the answers.        */
+/* Clearly labeled as preliminary, never as a completed assessment.    */
+/* ------------------------------------------------------------------ */
+
+export type PreliminaryRead = {
+  opportunity: string;
+  path: string;
+  consideration: string;
+  nextStep: string;
+};
+
+const SIGNALS: Array<{ key: string; patterns: RegExp; opportunity: string }> = [
+  {
+    key: "connect",
+    patterns:
+      /re-?key|re-?typ|double entry|copy[- ]?paste|disconnect|doesn'?t talk|don'?t talk|sync|silo|export|spread across|three systems|two systems/i,
+    opportunity:
+      "Integration — your answers point at disconnected systems taxing daily work. Connecting existing tools is usually the highest-leverage first move.",
+  },
+  {
+    key: "automate",
+    patterns:
+      /manual|repetitive|every (day|week|month)|by hand|chas(e|ing)|remind|follow[- ]?up|reconcil|schedul|approval|status update|data entry/i,
+    opportunity:
+      "Automation — a repetitive, rule-following workflow shows up in your answers. That is the classic candidate for a monitored, reversible automation.",
+  },
+  {
+    key: "ai",
+    patterns: /\bai\b|assistant|draft|summar|chatbot|knowledge base|llm|gpt/i,
+    opportunity:
+      "Secure AI — you're describing work that AI can assist with. The implementation question is boundaries: what data it sees and who approves its output.",
+  },
+  {
+    key: "secure",
+    patterns:
+      /secur|complian|audit|hipaa|cmmc|soc ?2|nist|fedramp|cui\b|phi\b|breach|access review|password|permission/i,
+    opportunity:
+      "Security foundation — compliance or security pressure appears in your answers. A written baseline usually needs to precede new automation or AI.",
+  },
+];
+
+/**
+ * A deterministic, client-side preliminary read of the answers. This is a
+ * useful orientation, not a professional assessment — the UI labels it so.
+ */
+export function preliminaryRead(data: AssessmentData): PreliminaryRead {
+  const text = `${data.problem} ${data.systems} ${data.outcome}`;
+  const scores = SIGNALS.map((s) => ({
+    s,
+    hits: (text.match(new RegExp(s.patterns.source, "gi")) ?? []).length,
+  })).sort((a, b) => b.hits - a.hits);
+
+  const top = scores[0];
+  const opportunity =
+    top.hits > 0
+      ? top.s.opportunity
+      : "Clarity first — your answers don't point at a single obvious lever yet, which is exactly what a structured assessment is for.";
+
+  const researching = data.timeline === "Just researching";
+  const budget = data.budget ?? "Prefer not to say yet";
+  let path: string;
+  if (researching || budget === "Prefer not to say yet" || budget === "Under $10k") {
+    path =
+      "AI & Automation Assessment — map the workflows and technology first, so any build that follows is aimed at the right target.";
+  } else if (budget === "$10k – $25k") {
+    path =
+      "AI & Automation Assessment, likely followed by a 30-Day Automation Sprint on the highest-value workflow it identifies.";
+  } else {
+    path =
+      "An assessment-led Secure AI Transformation — phased delivery across the keep / connect / automate / build / secure lanes.";
+  }
+
+  const securityHits = scores.find((x) => x.s.key === "secure")?.hits ?? 0;
+  const consideration =
+    securityHits > 0
+      ? "Data boundaries and compliance obligations should be written down before any new integration or AI touches production data."
+      : /spreadsheet|excel|inbox|email/i.test(data.systems)
+        ? "Spreadsheets and inboxes are workable sources of truth, but their data hygiene usually needs attention before automation is layered on."
+        : "Whether your current vendors expose usable APIs will shape the effort — that's one of the first things an assessment verifies.";
+
+  return {
+    opportunity,
+    path,
+    consideration,
+    nextStep:
+      "Send your answers and we'll reply with a short, concrete reaction — including whether BSTS is the right fit at all.",
+  };
+}
 
 /** Human-readable plain-text summary — used for clipboard and mailto body. */
 export function formatSummary(data: AssessmentData): string {

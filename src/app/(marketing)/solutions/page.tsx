@@ -22,6 +22,7 @@ export default function SolutionsPage() {
         <Atmosphere variant="quiet" />
         <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-16">
           <SectionHeading
+            as="h1"
             eyebrow="Solutions"
             title="Five lanes of work, one honest sentence."
             lede={site.promise}

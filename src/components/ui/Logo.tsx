@@ -35,13 +35,10 @@ export function Wordmark() {
   return (
     <span className="flex items-center gap-3">
       <LogoMark />
-      <span className="flex flex-col leading-none">
-        <span className="text-[0.95rem] font-semibold tracking-[0.18em] text-warm-white">
-          BSTS
-        </span>
-        <span className="mt-1 hidden text-[0.6rem] tracking-[0.14em] text-warm-dim uppercase sm:block">
-          Bevier Strategic Technology Solutions
-        </span>
+      {/* Header identity stays compact — the full company name has one strong
+          treatment in the hero composition; repeating it here dilutes both. */}
+      <span className="text-[0.95rem] font-semibold tracking-[0.18em] text-warm-white">
+        BSTS
       </span>
     </span>
   );

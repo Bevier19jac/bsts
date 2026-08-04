@@ -11,6 +11,7 @@ export default function PrivacyPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 pt-8 pb-20">
       <SectionHeading
+            as="h1"
         eyebrow="Legal"
         title="Privacy Policy"
         lede="Plain-language first, legally reviewed later. This policy describes how this website actually behaves today."

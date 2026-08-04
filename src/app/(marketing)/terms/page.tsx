@@ -12,6 +12,7 @@ export default function TermsPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 pt-8 pb-20">
       <SectionHeading
+            as="h1"
         eyebrow="Legal"
         title="Terms of Use"
         lede="The rules for using this website and its demonstration environment, stated as plainly as we can manage."

@@ -83,3 +83,33 @@ Initial same-day build.
   "Secure AI · Intelligent Automation · Connected Systems".
 - Experience credential: "17+ years of federal experience as a civilian
   and senior operational leader."
+
+## 0.4.0 — Production-quality final pass
+
+- Hero compressed ~30%: headline and primary CTA now inside the first
+  viewport at 1366×768; tank repositioned hard-left so the centered
+  wordmark is fully underlined by the tracer from the muzzle; new
+  intentional mobile composition (uncropped tank + centered lockup).
+- Brand repetition reduced: header carries the compact BSTS mark only; the
+  hero holds the single full-name treatment.
+- SDVOSB language corrected and centralized: `vetCertStatus` in
+  src/lib/site.ts ("planned" / "submitted" / "certified") drives all public
+  wording; "certification in progress" is now a prohibited phrase until an
+  application is actually filed (claims-audit enforced).
+- Founder credentials exact: "Bachelor of Science in Computer Science with
+  a Cybersecurity major, Magna Cum Laude"; combat veteran, First Sergeant,
+  Senior Instructor, Abrams Tank Master Gunner; buyer-benefit framing.
+- Services rewritten cross-industry (CRM, ERP, ticketing, approval
+  workflows, compliance evidence); hospitality detail lives only inside the
+  labeled Solara House demonstration; per-pillar outcome line, realistic
+  example, and accessible "Good fit when…" disclosures.
+- Three commercial engagement offers (Assessment / 30-Day Sprint / Secure
+  AI Transformation) with centralized pricing language.
+- Assessment: sensitive-data notice, honeypot anti-spam, browser-computed
+  preliminary read on review (labeled as preliminary), centralized
+  response-time promise, broader industry list.
+- Timeline claims qualified ("can often be delivered in weeks, with scope
+  and dependencies defined upfront"); claims audit extended.
+- Accessibility: one logical H1 on every page, roving-focus arrow-key tab
+  navigation, native disclosures, favicon added, canonical URLs.
+- New LAUNCH_CHECKLIST.md manual production test checklist.

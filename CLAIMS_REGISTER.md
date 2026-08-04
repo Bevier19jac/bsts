@@ -19,7 +19,7 @@ automated test (`src/test/claims.test.ts`).
 | Claim (public wording) | Classification | Notes |
 | --- | --- | --- |
 | Master of Science in Artificial Intelligence | Verified credential | Exact wording mandated. Never "graduate-level completion/coursework". |
-| Bachelor of Science in Cybersecurity, Magna Cum Laude | Verified credential | Exact wording mandated. |
+| Bachelor of Science in Computer Science with a Cybersecurity major, Magna Cum Laude | Verified credential | Exact wording mandated by the founder. Never shorten to "BS in Cybersecurity" — test-enforced. |
 | CompTIA Security+ | Verified credential | Founder-held. Text display only until badge verification (see `public/badges/README.md`). |
 | AWS Certified AI Practitioner | Verified credential | Founder-held. Text display only until badge verification. |
 | Federal cybersecurity experience | Founder experience | Site carries an explicit "does not imply federal endorsement" note (About page). |
@@ -32,8 +32,8 @@ automated test (`src/test/claims.test.ts`).
 | A future SOC 2 attestation for BSTS itself | Future objective | Not claimed anywhere; would require an independent CPA firm. |
 | Client case studies with measured results | Future objective | None exist; Solara House is labeled "CONCEPT DEMONSTRATION — NOT A CLIENT CASE STUDY" everywhere it appears. |
 | "U.S. Army Veteran-Owned & Led" | Founder experience | Factual ownership statement. |
-| "SDVOSB certification in progress" | Future objective | Application in progress with SBA VetCert per founder. Must be updated to the certified designation ONLY after SBA VetCert issuance, or removed if not granted. |
-| "SDVOSB certified" / "Certified SDVOSB" | Prohibited claim (until VetCert issuance) | Never appears affirmatively while certification is pending; test-enforced. |
+| "Service-disabled veteran-owned and led · SBA VetCert application planned" | Current status | The SBA VetCert application has NOT yet been filed (LLC registration pending), so "in progress"/"pending" language is prohibited. Status is centralized as vetCertStatus in src/lib/site.ts — change it to "submitted" only after the application is actually filed, and to "certified" only after issuance. |
+| "SDVOSB certified" / "Certified SDVOSB" / "SDVOSB certification in progress" | Prohibited claims (until the corresponding milestone) | Never appear affirmatively before the milestone is real; test-enforced. |
 | "NIST certified" | Prohibited claim | Never appears affirmatively; test-enforced. |
 | "SOC 2 certified" / "SOC 2 compliant" | Prohibited claim | Appears only inside disavowals/educational corrections; test-enforced. |
 | "ISO certified" | Prohibited claim | Never appears; test-enforced. |

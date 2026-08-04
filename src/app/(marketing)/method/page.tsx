@@ -21,6 +21,7 @@ export default function MethodPage() {
         <Atmosphere variant="quiet" />
         <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-16">
           <SectionHeading
+            as="h1"
             eyebrow="The BSTS Method"
             title="A method public enough to be held against us."
             lede="Technology consulting fails most often in the gap between the strategy deck and the first working thing. The BSTS Method closes that gap on a schedule: by week six of a standard engagement, something real is running in production and you have judged it."

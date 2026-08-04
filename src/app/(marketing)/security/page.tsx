@@ -52,6 +52,7 @@ export default function SecurityPage() {
         <Atmosphere variant="quiet" />
         <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-16">
           <SectionHeading
+            as="h1"
             eyebrow="Security"
             title="The foundation everything else stands on."
             lede="Security at BSTS is not a service tier — it is a property of every engagement. Here is what that means in practice, in language precise enough to survive an audit of its wording."

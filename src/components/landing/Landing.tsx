@@ -16,7 +16,14 @@ import { AssessmentForm } from "@/components/assessment/AssessmentForm";
 import { pillars } from "@/lib/content/pillars";
 import { founder } from "@/lib/content/founder";
 import { solara, solaraLabel } from "@/lib/content/solara";
-import { frameworkDisclaimer, site } from "@/lib/site";
+import {
+  federalDisclaimer,
+  frameworkDisclaimer,
+  offers,
+  sensitiveDataNotice,
+  site,
+  vetCert,
+} from "@/lib/site";
 
 const TABS = [
   { id: "overview", label: "Overview" },
@@ -72,27 +79,27 @@ export function Landing() {
       {/* Compact hero */}
       <section className="relative isolate overflow-hidden">
         <Atmosphere />
-        <div className="relative mx-auto max-w-6xl px-6 pt-10 pb-10 text-center sm:pt-14">
+        <div className="relative mx-auto max-w-6xl px-6 pt-6 pb-8 text-center sm:pt-8 lg:pt-4">
           <Reveal>
             <p className="eyebrow">Secure AI · Intelligent Automation · Connected Systems</p>
           </Reveal>
           <Reveal delay={0.04}>
-            <p className="mt-4 inline-block rounded-full border border-gold-core/45 bg-gold-faint px-4 py-1.5 text-[0.7rem] font-semibold tracking-[0.14em] text-gold-soft">
-              U.S. ARMY VETERAN-OWNED &amp; LED · SDVOSB CERTIFICATION IN PROGRESS
+            <p className="mt-3 inline-block rounded-full border border-gold-core/45 bg-gold-faint px-4 py-1.5 text-[0.7rem] font-semibold tracking-[0.14em] text-gold-soft uppercase">
+              {vetCert.badge}
             </p>
           </Reveal>
           <Reveal delay={0.08}>
             {/* Volley stage: symmetric — the tank's visible left inset from
                 the stage edge equals the dart tip's right inset. Geometry
                 verified against rendered pixel measurements. */}
-            <div className="relative mt-16 hidden h-72 lg:block" aria-hidden="true">
+            <div className="relative mt-3 hidden h-72 lg:block" aria-hidden="true">
               <Image
                 src="/abrams.webp"
                 alt=""
                 width={1280}
                 height={731}
                 priority
-                className="absolute top-0 left-[-6.5rem] h-72 w-auto max-w-none"
+                className="absolute top-0 left-[-16rem] h-72 w-auto max-w-none"
                 style={{
                   maskImage:
                     "radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%)",
@@ -106,7 +113,7 @@ export function Landing() {
               >
                 Bevier Strategic Technology Solutions
               </p>
-              <div className="tracer-shot top-[123px] right-[11.5rem] left-[20.6rem]">
+              <div className="tracer-shot top-[123px] right-[11.5rem] left-[11.4rem]">
                 <span className="muzzle-ember" />
                 <span className="sabot-petal petal-a" />
                 <span className="sabot-petal petal-b" />
@@ -126,37 +133,60 @@ export function Landing() {
               </span>
             </div>
             <p className="sr-only">Bevier Strategic Technology Solutions — BSTS</p>
-            {/* Mobile: static lockup, no animation surface */}
-            <p className="brand-wordmark mt-3 text-[0.7rem] uppercase lg:hidden">
-              Bevier Strategic Technology Solutions ·{" "}
-              <span className="text-gold-soft">BSTS</span>
-            </p>
+            {/* Mobile & tablet: compact static composition — the same tank,
+                wordmark, and round, without the animation surface. */}
+            <div className="mt-5 lg:hidden" aria-hidden="true">
+              <Image
+                src="/abrams.webp"
+                alt=""
+                width={1280}
+                height={731}
+                priority
+                className="mx-auto h-32 w-auto sm:h-40"
+                style={{
+                  maskImage:
+                    "radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%)",
+                  WebkitMaskImage:
+                    "radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%)",
+                }}
+              />
+              <p className="brand-wordmark mt-2 text-[0.72rem] uppercase sm:text-[0.85rem]">
+                Bevier Strategic Technology Solutions
+              </p>
+              <span className="mx-auto mt-2 flex max-w-[15rem] items-center gap-2 sm:max-w-[18rem]">
+                <span className="h-0.5 flex-1 rounded-full bg-gradient-to-r from-gold-soft/70 to-gold-soft/25" />
+                <span className="display text-[0.7rem] font-bold tracking-[0.22em] text-gold-soft">
+                  BSTS
+                </span>
+              </span>
+            </div>
           </Reveal>
           <Reveal delay={0.16}>
-            <h1 className="display mx-auto mt-6 max-w-3xl text-4xl leading-[1.08] sm:text-5xl md:text-6xl">
+            <h1 className="display mx-auto mt-5 max-w-3xl text-4xl leading-[1.08] sm:text-5xl lg:-mt-16">
               A force multiplier for the team{" "}
               <span className="text-cyan-soft">you already have.</span>
             </h1>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-warm-mist">
-              Technology built around your business — secure AI, intelligent
-              automation, and connected systems, not a rip-and-replace. The
-              assessment that starts the work is right here on this page.
+            <p className="mx-auto mt-3 max-w-2xl leading-relaxed text-warm-mist sm:text-lg">
+              BSTS helps growing and regulated organizations connect
+              disconnected systems, automate repetitive work, and implement
+              secure AI — without replacing the tools and teams that already
+              work.
             </p>
           </Reveal>
           <Reveal delay={0.24}>
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-gold-soft">
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-gold-soft">
               {site.promise}
             </p>
           </Reveal>
           <Reveal delay={0.28}>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-4">
               <button type="button" onClick={() => select("assessment")} className="btn-primary-form px-7 py-3 text-base">
-                Start the assessment <ArrowRight className="h-4 w-4" aria-hidden />
+                Start Your Technology Assessment <ArrowRight className="h-4 w-4" aria-hidden />
               </button>
               <button type="button" onClick={() => select("services")} className="btn-ghost-form">
-                See what we do
+                See What We Do
               </button>
             </div>
           </Reveal>
@@ -170,14 +200,30 @@ export function Landing() {
           aria-label="Page sections"
           className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-1.5 rounded-full border border-edge/70 bg-obsidian/85 p-1.5 backdrop-blur-xl"
         >
-          {TABS.map((t) => (
+          {TABS.map((t, i) => (
             <button
               key={t.id}
               role="tab"
               id={`tab-${t.id}`}
               aria-selected={tab === t.id}
               aria-controls={`panel-${t.id}`}
+              tabIndex={tab === t.id ? 0 : -1}
               onClick={() => select(t.id)}
+              onKeyDown={(e) => {
+                // Roving-focus arrow navigation per the WAI-ARIA tabs pattern.
+                const order = TABS.map((x) => x.id);
+                let target: TabId | null = null;
+                if (e.key === "ArrowRight") target = order[(i + 1) % order.length];
+                if (e.key === "ArrowLeft")
+                  target = order[(i - 1 + order.length) % order.length];
+                if (e.key === "Home") target = order[0];
+                if (e.key === "End") target = order[order.length - 1];
+                if (target) {
+                  e.preventDefault();
+                  select(target);
+                  document.getElementById(`tab-${target}`)?.focus();
+                }
+              }}
               className={`rounded-full px-4 py-2 text-sm transition-colors ${
                 tab === t.id
                   ? t.id === "assessment"
@@ -206,10 +252,10 @@ export function Landing() {
             role="tabpanel"
             id={`panel-${tab}`}
             aria-labelledby={`tab-${tab}`}
-            initial={{ opacity: 0, y: 14 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18 }}
           >
             {tab === "overview" ? <OverviewPanel select={select} /> : null}
             {tab === "services" ? <ServicesPanel select={select} /> : null}
@@ -219,6 +265,59 @@ export function Landing() {
         </AnimatePresence>
       </div>
     </>
+  );
+}
+
+/** The three commercial entry points — professional, not a price menu. */
+function EngagementOffers({ select }: { select: (id: TabId) => void }) {
+  return (
+    <section className="mt-14" aria-labelledby="offers-heading">
+      <h2 id="offers-heading" className="display text-center text-2xl text-warm-white sm:text-3xl">
+        Three ways to begin.
+      </h2>
+      <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-relaxed text-warm-mist">
+        Every engagement is scoped in writing, principal-led, and measured
+        against criteria agreed before work begins.
+      </p>
+      <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-3">
+        {offers.map((o, i) => (
+          <Reveal key={o.slug} delay={staggerDelay(i)}>
+            <Surface
+              quiet
+              blob={(["a", "b", "c"] as const)[i]}
+              className={`flex h-full flex-col p-7 ${i === 0 ? "border-cyan-core/40" : ""}`}
+            >
+              <p className="text-[0.65rem] font-semibold tracking-[0.16em] text-warm-dim uppercase">
+                {i === 0 ? "Start here" : i === 1 ? "First win" : "Full engagement"}
+              </p>
+              <h3 className="mt-2 text-lg font-semibold text-warm-white">{o.name}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-cyan-soft">
+                {o.positioning}
+              </p>
+              <ul className="mt-4 flex-1 space-y-2">
+                {o.deliverables.map((d) => (
+                  <li key={d} className="flex gap-2.5 text-sm leading-relaxed text-warm-mist">
+                    <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-core" />
+                    {d}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-5 border-t border-edge/50 pt-4 text-sm text-gold-soft">
+                {o.priceLine}
+              </p>
+              <button
+                type="button"
+                onClick={() => select("assessment")}
+                className="btn-ghost-form mt-4 justify-center"
+              >
+                {i === 2 ? "Begin with the assessment" : "Start the conversation"}
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </button>
+            </Surface>
+          </Reveal>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -263,7 +362,7 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
           <ul className="mt-6 space-y-3">
             {[
               "No rip-and-replace reflex — every recommendation carries a reason",
-              "Connection and automation land in weeks, not quarters",
+              "Focused automations can often be delivered in weeks, with scope and dependencies defined upfront",
               "No licenses sold, no vendor commissions taken",
             ].map((line) => (
               <li key={line} className="flex gap-3 text-sm leading-relaxed text-warm-mist">
@@ -278,24 +377,28 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
         </Surface>
       </div>
 
-      {/* SDVOSB block — precise status wording; upgrade only after VetCert issuance */}
+      {/* Veteran-ownership block — wording derives from the centralized
+          VetCert status in site.ts and upgrades automatically. */}
       <Reveal delay={0.08}>
         <Surface blob="b" className="mt-12 grid grid-cols-1 items-center gap-6 border-gold-core/35 p-7 sm:p-8 lg:grid-cols-[auto_1fr]">
           <div className="flex items-center gap-4">
             <span aria-hidden className="display text-4xl text-gold-soft">★</span>
             <div>
               <p className="text-sm font-semibold tracking-[0.14em] text-gold-soft uppercase">
-                SDVOSB
+                {vetCert.heading}
               </p>
               <p className="text-xs text-warm-dim">Principal-led · U.S.-based</p>
             </div>
           </div>
-          <p className="text-sm leading-relaxed text-warm-mist">
-            Service-Disabled Veteran-Owned Small Business — SBA VetCert
-            certification in progress. Upon certification, BSTS will be
-            eligible for SDVOSB set-aside and sole-source federal contracting.
-            Discipline earned in service, applied to your technology.
-          </p>
+          <div>
+            <p className="text-sm leading-relaxed text-warm-mist">
+              {vetCert.explanation} Discipline earned in service, applied to
+              your technology.
+            </p>
+            <p className="mt-2 text-xs leading-relaxed text-warm-dim">
+              {federalDisclaimer}
+            </p>
+          </div>
         </Surface>
       </Reveal>
 
@@ -320,7 +423,9 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
         })}
       </div>
 
-      <PanelCta select={select} />
+      <EngagementOffers select={select} />
+
+      <PanelCta select={select} label="Start Your Technology Assessment" />
     </div>
   );
 }
@@ -346,7 +451,14 @@ function ServicesPanel({ select }: { select: (id: TabId) => void }) {
                   <p className="mt-1.5 text-xs tracking-[0.14em] text-gold-soft uppercase">
                     {p.promiseLine}
                   </p>
+                  <p className="mt-3 text-sm font-medium leading-relaxed text-cyan-soft">
+                    {p.outcome}
+                  </p>
                   <p className="mt-3 text-sm leading-relaxed text-warm-mist">{p.detail}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-warm-dim">
+                    <span className="font-semibold text-warm-mist">For example: </span>
+                    {p.example}
+                  </p>
                 </div>
                 <div className="surface-quiet rounded-3xl p-5">
                   <h3 className="text-[0.65rem] font-semibold tracking-[0.16em] text-warm-dim uppercase">
@@ -360,12 +472,39 @@ function ServicesPanel({ select }: { select: (id: TabId) => void }) {
                       </li>
                     ))}
                   </ul>
+                  {/* Native disclosure: keyboard- and touch-operable, correct
+                      expanded/collapsed semantics, nothing essential hidden. */}
+                  <details className="group mt-4 border-t border-edge/50 pt-3">
+                    <summary className="cursor-pointer list-none rounded-lg text-sm font-medium text-cyan-soft transition-colors hover:text-cyan-core focus-visible:outline-2 focus-visible:outline-cyan-core">
+                      <span aria-hidden className="mr-1.5 inline-block transition-transform duration-200 group-open:rotate-90">
+                        ›
+                      </span>
+                      Good fit when…
+                    </summary>
+                    <ul className="mt-2.5 space-y-2">
+                      {p.goodFit.map((g) => (
+                        <li key={g} className="flex gap-2.5 text-sm leading-relaxed text-warm-mist">
+                          <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-core" />
+                          {g}
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      type="button"
+                      onClick={() => select("assessment")}
+                      className="mt-3 text-sm text-cyan-soft underline underline-offset-4 hover:text-cyan-core"
+                    >
+                      Sound familiar? Start the assessment
+                    </button>
+                  </details>
                 </div>
               </Surface>
             </Reveal>
           );
         })}
       </div>
+
+      <EngagementOffers select={select} />
 
       {/* Solara concept — labeled */}
       <Reveal delay={0.1}>
@@ -515,6 +654,9 @@ function AssessmentPanel() {
         browser and are not transmitted anywhere until you explicitly choose
         to send them. Even if we never speak, answering these questions tends
         to clarify what your stack actually needs.
+      </p>
+      <p className="mx-auto mt-3 max-w-2xl text-center text-xs leading-relaxed text-warm-dim">
+        {sensitiveDataNotice}
       </p>
       <div className="mt-8">
         <AssessmentForm />

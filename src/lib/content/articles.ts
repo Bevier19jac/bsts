@@ -61,7 +61,7 @@ export const articles: Article[] = [
       { type: "h2", text: "What “keep and connect” looks like in practice" },
       {
         type: "p",
-        text: "Consider a common pattern we see in boutique hospitality and professional services alike: a core operational system that works, a billing or point-of-sale system that works, and a staff that spends hours daily re-keying between them. The replacement pitch says: unify on one platform. The keep-and-connect answer says: the two systems already expose enough of an interface to synchronize the records that matter, and the re-keying disappears in weeks — not quarters — for a fraction of the cost and none of the retraining.",
+        text: "Consider a common pattern across professional services, logistics, and hospitality alike: a core operational system that works, a billing or accounting system that works, and a staff that spends hours daily re-keying between them. The replacement pitch says: unify on one platform. The keep-and-connect answer says: the two systems already expose enough of an interface to synchronize the records that matter, and the re-keying can often be eliminated in weeks rather than quarters — for a fraction of the cost and none of the retraining — once scope and dependencies are defined upfront.",
       },
       {
         type: "p",

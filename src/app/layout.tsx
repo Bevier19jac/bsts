@@ -35,6 +35,9 @@ export const metadata: Metadata = {
     description: site.subline,
   },
   robots: { index: true, follow: true },
+  // Relative canonical: each statically exported page resolves its own URL
+  // against metadataBase, so moving to a custom domain is a one-line change.
+  alternates: { canonical: "./" },
 };
 
 export const viewport: Viewport = {

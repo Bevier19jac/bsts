@@ -27,6 +27,7 @@ export default function InsightsPage() {
         <Atmosphere variant="quiet" />
         <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-16">
           <SectionHeading
+            as="h1"
             eyebrow="Insights"
             title="Thinking you can act on before you ever hire us."
             lede="We publish the same advice we give in engagements. If an article saves you from a bad platform migration or an overreaching AI purchase, it has done its job — whether or not we ever meet."
