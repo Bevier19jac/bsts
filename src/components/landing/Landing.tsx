@@ -99,7 +99,7 @@ export function Landing() {
                 width={1280}
                 height={731}
                 priority
-                className="absolute top-0 left-[-16rem] h-72 w-auto max-w-none"
+                className="absolute top-0 left-[-10rem] h-72 w-auto max-w-none"
                 style={{
                   maskImage:
                     "radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%)",
@@ -113,7 +113,7 @@ export function Landing() {
               >
                 Bevier Strategic Technology Solutions
               </p>
-              <div className="tracer-shot top-[123px] right-[11.5rem] left-[11.4rem]">
+              <div className="tracer-shot top-[123px] right-[11.5rem] left-[17.4rem]">
                 <span className="muzzle-ember" />
                 <span className="sabot-petal petal-a" />
                 <span className="sabot-petal petal-b" />

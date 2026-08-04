@@ -288,7 +288,9 @@ body {
     opacity: 0.85;
   }
   100% {
-    left: 102%;
+    /* End inside the rule (round width = 34px) so the traveling glow never
+       extends the page's scroll width on narrow viewports. */
+    left: calc(100% - 34px);
     opacity: 0;
   }
 }
