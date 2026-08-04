@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, Lock } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Atmosphere } from "@/components/ui/Atmosphere";
 import { Surface } from "@/components/ui/Surface";
 import { Reveal } from "@/components/motion/Reveal";
@@ -14,7 +14,6 @@ import { SystemsDiagram } from "@/components/marketing/SystemsDiagram";
 import { TracerRule } from "@/components/ui/TracerRule";
 import { AssessmentForm } from "@/components/assessment/AssessmentForm";
 import { pillars } from "@/lib/content/pillars";
-import { methodStages } from "@/lib/content/method";
 import { founder } from "@/lib/content/founder";
 import { solara, solaraLabel } from "@/lib/content/solara";
 import { frameworkDisclaimer, site } from "@/lib/site";
@@ -22,7 +21,6 @@ import { frameworkDisclaimer, site } from "@/lib/site";
 const TABS = [
   { id: "overview", label: "Overview" },
   { id: "services", label: "Services" },
-  { id: "method", label: "How we work" },
   { id: "about", label: "About" },
   { id: "assessment", label: "Assessment" },
 ] as const;
@@ -42,6 +40,11 @@ export function Landing() {
   useEffect(() => {
     const applyHash = (scroll: boolean) => {
       const h = window.location.hash.replace("#", "");
+      if (h === "method") {
+        // "How we work" lives on its own page now.
+        window.location.replace("/method/");
+        return;
+      }
       if (isTabId(h)) {
         setTab(h);
         if (scroll) {
@@ -71,7 +74,7 @@ export function Landing() {
         <Atmosphere />
         <div className="relative mx-auto max-w-6xl px-6 pt-10 pb-10 text-center sm:pt-14">
           <Reveal>
-            <p className="eyebrow">Boutique technology transformation · Secure AI</p>
+            <p className="eyebrow">Secure AI · Intelligent Automation · Connected Systems</p>
           </Reveal>
           <Reveal delay={0.04}>
             <p className="mt-4 inline-block rounded-full border border-gold-core/45 bg-gold-faint px-4 py-1.5 text-[0.7rem] font-semibold tracking-[0.14em] text-gold-soft">
@@ -158,6 +161,12 @@ export function Landing() {
               {t.label}
             </button>
           ))}
+          <a
+            href="/method/"
+            className="rounded-full px-4 py-2 text-sm text-warm-mist transition-colors hover:text-warm-white"
+          >
+            How we work
+          </a>
         </div>
       </div>
 
@@ -176,7 +185,6 @@ export function Landing() {
           >
             {tab === "overview" ? <OverviewPanel select={select} /> : null}
             {tab === "services" ? <ServicesPanel select={select} /> : null}
-            {tab === "method" ? <MethodPanel select={select} /> : null}
             {tab === "about" ? <AboutPanel select={select} /> : null}
             {tab === "assessment" ? <AssessmentPanel /> : null}
           </motion.div>
@@ -361,87 +369,6 @@ function ServicesPanel({ select }: { select: (id: TabId) => void }) {
       </Reveal>
 
       <PanelCta select={select} />
-    </div>
-  );
-}
-
-/* ------------------------------ Method + Security ------------------------------ */
-
-function MethodPanel({ select }: { select: (id: TabId) => void }) {
-  return (
-    <div>
-      <h2 className="display text-3xl text-warm-white sm:text-4xl">
-        Five stages. A working pilot by week six.
-      </h2>
-      <TracerRule />
-      <p className="mt-4 max-w-3xl leading-relaxed text-warm-mist">
-        No black-box discovery phases, no strategy decks that never ship. The
-        method is public because we are happy to be held to it — and the
-        assessment on this page is genuinely stage one.
-      </p>
-
-      <ol className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-5">
-        {methodStages.map((stage, i) => (
-          <Reveal as="li" key={stage.number} delay={staggerDelay(i)}>
-            <div className="surface-quiet blob-b h-full p-6">
-              <p className="display text-2xl text-gold-soft">{stage.number}</p>
-              <h3 className="mt-2 font-semibold text-warm-white">{stage.name}</h3>
-              <p className="text-xs text-warm-dim">{stage.duration}</p>
-              <p className="mt-3 text-sm leading-relaxed text-warm-mist">{stage.summary}</p>
-              <p className="mt-4 border-t border-edge/40 pt-3 text-xs leading-relaxed text-warm-dim">
-                <span className="font-semibold text-gold-soft">You receive: </span>
-                {stage.deliverable}
-              </p>
-            </div>
-          </Reveal>
-        ))}
-      </ol>
-
-      <div className="mt-14 grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <div>
-          <h2 className="display text-2xl text-warm-white sm:text-3xl">
-            Security first, honestly stated.
-          </h2>
-          <p className="mt-4 leading-relaxed text-warm-mist">
-            Our practice is NIST-aligned and informed by NIST CSF 2.0, OWASP
-            secure-development guidance, and Zero Trust principles. For teams
-            headed toward SOC 2, we provide readiness support — and we are
-            precise that readiness is not certification.
-          </p>
-          <ul className="mt-6 space-y-3">
-            {[
-              "Identity, access, and least-privilege review on every engagement",
-              "Encryption in transit and at rest as a default, not an upsell",
-              "A written incident-response starting point your team has actually read",
-              "Responsible AI boundaries: private data stays private, humans approve actions",
-            ].map((item) => (
-              <li key={item} className="flex gap-3 text-sm leading-relaxed text-warm-mist">
-                <Lock className="mt-0.5 h-4 w-4 shrink-0 text-cyan-core" aria-hidden />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <Surface blob="c" className="h-fit p-7">
-          <h3 className="text-xs font-semibold tracking-[0.16em] text-warm-dim uppercase">
-            Plain-language claims policy
-          </h3>
-          <dl className="mt-4 space-y-4 text-sm">
-            {[
-              ["We say", "NIST-aligned · SOC 2 readiness support · OWASP-informed"],
-              ["We never say", "certified · compliant · government approved · guaranteed secure"],
-              ["Because", "framework references describe our methodology — they do not imply certification, endorsement, or an audit opinion."],
-            ].map(([term, def]) => (
-              <div key={term}>
-                <dt className="font-semibold text-gold-soft">{term}</dt>
-                <dd className="mt-1 leading-relaxed text-warm-mist">{def}</dd>
-              </div>
-            ))}
-          </dl>
-        </Surface>
-      </div>
-
-      <PanelCta select={select} label="Start stage one now" />
     </div>
   );
 }

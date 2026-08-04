@@ -12,7 +12,7 @@ export const site = {
   url: "https://bevierstrategic.pages.dev",
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "",
   description:
-    "BSTS is a boutique technology transformation and secure AI implementation firm. We build around the systems you already run — secure AI, intelligent automation, and connected digital experiences.",
+    "BSTS is a veteran-owned technology transformation and secure AI implementation firm. We build around the systems you already run — secure AI, intelligent automation, and connected systems.",
 } as const;
 
 /**
@@ -21,7 +21,7 @@ export const site = {
  */
 export const navLinks = [
   { href: "/#services", label: "Services" },
-  { href: "/#method", label: "How we work" },
+  { href: "/method", label: "How we work" },
   { href: "/#about", label: "About" },
 ] as const;
 
@@ -29,7 +29,7 @@ export const footerLinks = {
   explore: [
     { href: "/#overview", label: "Overview" },
     { href: "/#services", label: "Services" },
-    { href: "/#method", label: "How we work" },
+    { href: "/method", label: "How we work" },
     { href: "/#about", label: "About" },
     { href: "/#assessment", label: "Assessment" },
     { href: "/os", label: "BSTS OS demo" },

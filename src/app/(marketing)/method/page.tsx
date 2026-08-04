@@ -78,7 +78,7 @@ export default function MethodPage() {
         />
         <Reveal delay={0.12}>
           <div className="mt-9">
-            <LinkButton href="/contact">
+            <LinkButton href="/#assessment">
               Begin the assessment <ArrowRight className="h-4 w-4" aria-hidden />
             </LinkButton>
           </div>
