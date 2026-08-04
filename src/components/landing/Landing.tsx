@@ -120,19 +120,19 @@ export function Landing() {
                 }}
               />
               <p
-                className="brand-wordmark absolute top-[70px] left-[15.5rem] whitespace-nowrap uppercase"
+                className="brand-wordmark absolute top-[70px] right-0 left-0 text-center whitespace-nowrap uppercase"
                 style={{ fontSize: "clamp(1rem, 2vw, 1.65rem)" }}
               >
                 Bevier Strategic Technology Solutions
               </p>
-              <div className="tracer-shot top-[123px] right-[8rem] left-[24.6rem]">
+              <div className="tracer-shot top-[123px] right-[11.5rem] left-[24.6rem]">
                 <span className="muzzle-ember" />
                 <span className="sabot-petal petal-a" />
                 <span className="sabot-petal petal-b" />
                 <span className="sabot-petal petal-c" />
                 <span className="impact-pop" />
               </div>
-              <span className="bsts-burst absolute top-[96px] right-[-1rem] flex flex-col items-center">
+              <span className="bsts-burst absolute top-[96px] right-4 flex flex-col items-center">
                 <span className="display text-lg leading-none font-bold tracking-[0.22em] text-gold-soft">
                   BSTS
                 </span>
