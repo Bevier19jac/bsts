@@ -86,6 +86,25 @@ export function Landing() {
                 the stage edge equals the dart tip's right inset. Geometry
                 verified against rendered pixel measurements. */}
             <div className="relative mt-16 hidden h-72 lg:block" aria-hidden="true">
+              {/* Crew mount: silhouette walks up behind the tank, climbs in,
+                  hatch swallows him — then the main gun fires the volley. */}
+              <span className="troop">
+                <svg viewBox="0 0 44 96" width="32" height="70" className="troop-svg">
+                  <path className="t-arm t-arm-back" d="M23 25 L20 37 L25 45" />
+                  <path className="t-leg t-leg-back" d="M22 50 L22 69 L22 89 L28 91" />
+                  <path
+                    className="t-body"
+                    d="M24 1 Q15 1 15 10 L14 12 Q24 15 34 12 L33 10 Q33 1 24 1 Z"
+                  />
+                  <circle className="t-body" cx="24" cy="13" r="4.6" />
+                  <path
+                    className="t-body"
+                    d="M20 18 Q29 17 29 24 L29 48 Q24 51 19 48 L18 40 Q13 38 13 30 Q13 24 18 24 Q18 20 20 18 Z"
+                  />
+                  <path className="t-leg t-leg-front" d="M25 50 L25 69 L25 89 L31 91" />
+                  <path className="t-arm t-arm-front" d="M25 25 L28 37 L24 45" />
+                </svg>
+              </span>
               <Image
                 src="/abrams.webp"
                 alt=""
@@ -101,19 +120,19 @@ export function Landing() {
                 }}
               />
               <p
-                className="brand-wordmark absolute top-[70px] right-0 left-0 text-center whitespace-nowrap uppercase"
+                className="brand-wordmark absolute top-[70px] left-[15.5rem] whitespace-nowrap uppercase"
                 style={{ fontSize: "clamp(1rem, 2vw, 1.65rem)" }}
               >
                 Bevier Strategic Technology Solutions
               </p>
-              <div className="tracer-shot top-[123px] right-[12.5rem] left-[24.6rem]">
+              <div className="tracer-shot top-[123px] right-[8rem] left-[24.6rem]">
                 <span className="muzzle-ember" />
                 <span className="sabot-petal petal-a" />
                 <span className="sabot-petal petal-b" />
                 <span className="sabot-petal petal-c" />
                 <span className="impact-pop" />
               </div>
-              <span className="bsts-burst absolute top-[96px] right-12 flex flex-col items-center">
+              <span className="bsts-burst absolute top-[96px] right-[-1rem] flex flex-col items-center">
                 <span className="display text-lg leading-none font-bold tracking-[0.22em] text-gold-soft">
                   BSTS
                 </span>
