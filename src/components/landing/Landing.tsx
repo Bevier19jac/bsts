@@ -100,8 +100,9 @@ export function Landing() {
             </p>
           </Reveal>
           <Reveal delay={0.26}>
-            {/* The Abrams fires; its tracer becomes the rule under the headline. */}
-            <div className="mx-auto mt-6 flex max-w-4xl items-start">
+            {/* The Abrams fires once: the tracer underlines the company name,
+                and BSTS bursts in where the round lands. */}
+            <div className="mx-auto mt-6 flex max-w-5xl items-start">
               <Image
                 src="/abrams.webp"
                 alt="Slate-grey main battle tank in side profile — the mark of a veteran-owned firm"
@@ -117,10 +118,23 @@ export function Landing() {
                 }}
               />
               <div
-                className="tracer-line -ml-14 hidden min-w-0 flex-1 sm:mt-[calc(0.43*32rem*731/1280)] sm:block"
+                className="relative -ml-14 hidden min-w-0 flex-1 sm:mt-[calc(0.43*32rem*731/1280)] sm:block"
                 aria-hidden="true"
-              />
+              >
+                <p className="absolute -top-6 right-24 left-6 truncate text-center text-[0.68rem] font-medium tracking-[0.2em] text-warm-mist uppercase">
+                  Bevier Strategic Technology Solutions
+                </p>
+                <div className="tracer-shot mr-24" />
+                <span className="bsts-burst display absolute -top-5 right-0 text-3xl font-semibold tracking-[0.14em] text-gold-soft">
+                  BSTS
+                </span>
+              </div>
             </div>
+            {/* Mobile: static lockup, no animation surface */}
+            <p className="mt-4 text-[0.68rem] font-medium tracking-[0.28em] text-warm-mist uppercase sm:hidden">
+              Bevier Strategic Technology Solutions ·{" "}
+              <span className="text-gold-soft">BSTS</span>
+            </p>
           </Reveal>
           <Reveal delay={0.28}>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">

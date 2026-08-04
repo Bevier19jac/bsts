@@ -274,6 +274,77 @@ body {
 .tracer-round {
   animation: tracer-recoil 3s ease-out infinite;
 }
+
+/* One-shot hero volley: line pre-drawn, round travels once, BSTS bursts in.
+   Under reduced motion the global rules collapse these to their final
+   states instantly (fill-forwards), so nothing is hidden from anyone. */
+.tracer-shot {
+  position: relative;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-gold-soft) 70%, transparent),
+    color-mix(in srgb, var(--color-gold-soft) 10%, transparent)
+  );
+}
+.tracer-shot::after {
+  content: "";
+  position: absolute;
+  top: -2.5px;
+  left: -4%;
+  width: 34px;
+  height: 7px;
+  border-radius: 999px;
+  opacity: 0;
+  background: radial-gradient(
+    ellipse 70% 50% at 72% 50%,
+    #ffd98a 0%,
+    rgba(255, 217, 138, 0.5) 45%,
+    rgba(255, 217, 138, 0) 100%
+  );
+  animation: tracer-shot-fire 1.5s cubic-bezier(0.3, 0.5, 0.4, 1) 0.5s forwards;
+}
+@keyframes tracer-shot-fire {
+  0% {
+    left: -4%;
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% - 18px);
+    opacity: 0;
+  }
+}
+.bsts-burst {
+  opacity: 0;
+  transform: scale(0.25);
+  animation: bsts-burst 0.65s cubic-bezier(0.2, 1.5, 0.4, 1) 1.85s forwards;
+}
+@keyframes bsts-burst {
+  0% {
+    opacity: 0;
+    transform: scale(0.25);
+    text-shadow: 0 0 42px rgba(255, 217, 138, 1);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.18);
+    text-shadow:
+      0 0 34px rgba(255, 217, 138, 0.95),
+      0 0 70px rgba(255, 217, 138, 0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    text-shadow: 0 0 16px rgba(255, 217, 138, 0.35);
+  }
+}
 @keyframes tracer-recoil {
   0% {
     transform: translateX(-60px);
