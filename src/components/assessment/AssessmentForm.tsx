@@ -25,7 +25,8 @@ import {
 const contactEmail =
   process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "bevier19jacob@gmail.com";
 // Optional free static-form endpoint (web3forms.com). Public by design.
-const formKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
+const formKey =
+  process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "4a21a788-0e18-450a-a32a-5b3cae2c8986";
 
 const inputClass =
   "w-full rounded-2xl border border-edge bg-graphite px-4 py-3 text-warm-white placeholder:text-warm-dim/70 focus:border-cyan-core/70 focus:outline-none focus-visible:outline-2 focus-visible:outline-cyan-core";
