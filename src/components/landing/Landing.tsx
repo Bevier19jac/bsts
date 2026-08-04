@@ -426,7 +426,7 @@ function AboutPanel({ select }: { select: (id: TabId) => void }) {
       <Reveal delay={0.08}>
         <div className="mt-12">
           <h3 className="text-center text-xs font-semibold tracking-[0.18em] text-gold-soft uppercase">
-            From the motor pool to the server room
+            From the physical battlefield to the digital battleplan
           </h3>
           <div className="mx-auto mt-6 flex max-w-3xl flex-wrap items-start justify-center gap-6">
             {[
