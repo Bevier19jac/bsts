@@ -82,34 +82,16 @@ export function Landing() {
             </p>
           </Reveal>
           <Reveal delay={0.08}>
-            <h1 className="display mx-auto mt-5 max-w-3xl text-4xl leading-[1.08] sm:text-5xl md:text-6xl">
-              A force multiplier for the team{" "}
-              <span className="text-cyan-soft">you already have.</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={0.16}>
-            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-warm-mist">
-              Technology built around your business — secure AI, intelligent
-              automation, and connected systems, not a rip-and-replace. The
-              assessment that starts the work is right here on this page.
-            </p>
-          </Reveal>
-          <Reveal delay={0.22}>
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-gold-soft">
-              {site.promise}
-            </p>
-          </Reveal>
-          <Reveal delay={0.26}>
-            {/* The Abrams fires once: the tracer underlines the company name,
-                and BSTS bursts in where the round lands. */}
-            <div className="mx-auto mt-6 flex max-w-5xl items-start">
+            {/* Volley lockup: tank hard left, company name centered over the
+                tracer, BSTS arrives as the round itself. */}
+            <div className="mt-5 flex w-full items-start" aria-hidden="true">
               <Image
                 src="/abrams.webp"
-                alt="Slate-grey main battle tank in side profile — the mark of a veteran-owned firm"
+                alt=""
                 width={1280}
                 height={731}
                 priority
-                className="w-full max-w-md shrink-0 sm:max-w-lg"
+                className="w-full max-w-xs shrink-0 sm:max-w-sm lg:max-w-md"
                 style={{
                   maskImage:
                     "radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%)",
@@ -117,23 +99,39 @@ export function Landing() {
                     "radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%)",
                 }}
               />
-              <div
-                className="relative -ml-14 hidden min-w-0 flex-1 sm:mt-[calc(0.43*32rem*731/1280)] sm:block"
-                aria-hidden="true"
-              >
-                <p className="absolute -top-6 right-24 left-6 truncate text-center text-[0.62rem] font-semibold tracking-[0.08em] text-warm-white uppercase lg:text-[0.72rem] lg:tracking-[0.2em]">
+              <div className="relative -ml-10 hidden min-w-0 flex-1 sm:mt-[calc(0.43*24rem*731/1280)] sm:block lg:mt-[calc(0.43*28rem*731/1280)]">
+                <p className="absolute -top-9 right-36 left-0 truncate text-center text-[0.8rem] font-bold tracking-[0.06em] text-warm-white uppercase lg:-top-10 lg:text-[0.95rem] lg:tracking-[0.08em] xl:text-[1.1rem] xl:tracking-[0.1em]">
                   Bevier Strategic Technology Solutions
                 </p>
-                <div className="tracer-shot mr-24" />
-                <span className="bsts-burst display absolute -top-5 right-0 text-3xl font-semibold tracking-[0.14em] text-gold-soft">
+                <div className="tracer-shot mr-44" />
+                <span className="bsts-burst bsts-round display absolute top-[-18px] right-7 inline-flex items-center px-4 text-xl font-bold tracking-[0.12em]">
                   BSTS
                 </span>
               </div>
             </div>
+            <p className="sr-only">Bevier Strategic Technology Solutions — BSTS</p>
             {/* Mobile: static lockup, no animation surface */}
-            <p className="mt-4 text-[0.68rem] font-medium tracking-[0.28em] text-warm-mist uppercase sm:hidden">
+            <p className="mt-3 text-[0.68rem] font-bold tracking-[0.22em] text-warm-white uppercase sm:hidden">
               Bevier Strategic Technology Solutions ·{" "}
               <span className="text-gold-soft">BSTS</span>
+            </p>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <h1 className="display mx-auto mt-6 max-w-3xl text-4xl leading-[1.08] sm:text-5xl md:text-6xl">
+              A force multiplier for the team{" "}
+              <span className="text-cyan-soft">you already have.</span>
+            </h1>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-warm-mist">
+              Technology built around your business — secure AI, intelligent
+              automation, and connected systems, not a rip-and-replace. The
+              assessment that starts the work is right here on this page.
+            </p>
+          </Reveal>
+          <Reveal delay={0.24}>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-gold-soft">
+              {site.promise}
             </p>
           </Reveal>
           <Reveal delay={0.28}>

@@ -358,6 +358,52 @@ body {
   transform: scale(0.25);
   animation: bsts-burst 0.65s cubic-bezier(0.2, 1.5, 0.4, 1) 1.85s forwards;
 }
+
+/* BSTS enveloped by the projectile: a glowing gold round carrying the mark,
+   with a tracer tail streaming behind it. */
+.bsts-round {
+  height: 38px;
+  border-radius: 6px 0 0 6px; /* flat base of the round */
+  background: linear-gradient(
+    180deg,
+    #ffeec4 0%,
+    #ffd98a 42%,
+    #d8ae62 100%
+  );
+  color: var(--color-obsidian-deep);
+  box-shadow:
+    0 0 16px rgba(255, 217, 138, 0.55),
+    0 0 44px rgba(255, 217, 138, 0.28);
+}
+/* Ogive nose — the round points in the direction of travel */
+.bsts-round::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-top: 19px solid transparent;
+  border-bottom: 19px solid transparent;
+  border-left: 24px solid #d8ae62;
+  filter: drop-shadow(0 0 10px rgba(255, 217, 138, 0.45));
+}
+/* Tracer tail streaming behind the base */
+.bsts-round::before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  margin-top: -4px;
+  width: 64px;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 217, 138, 0),
+    rgba(255, 217, 138, 0.85)
+  );
+}
 @keyframes bsts-burst {
   0% {
     opacity: 0;
