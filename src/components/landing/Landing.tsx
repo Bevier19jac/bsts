@@ -92,7 +92,7 @@ export function Landing() {
                 width={1280}
                 height={731}
                 priority
-                className="absolute top-0 left-0 h-72 w-auto max-w-none"
+                className="absolute top-0 left-[-2.5rem] h-72 w-auto max-w-none"
                 style={{
                   maskImage:
                     "radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%)",
@@ -101,27 +101,33 @@ export function Landing() {
                 }}
               />
               <p
-                className="absolute top-[72px] right-0 left-0 text-center font-bold tracking-[0.1em] whitespace-nowrap text-warm-white uppercase"
+                className="brand-wordmark absolute top-[70px] right-0 left-0 text-center whitespace-nowrap uppercase"
                 style={{ fontSize: "clamp(1rem, 2vw, 1.65rem)" }}
               >
                 Bevier Strategic Technology Solutions
               </p>
-              <div className="tracer-shot top-[123px] right-[14.5rem] left-[27.1rem]">
+              <div className="tracer-shot top-[123px] right-[12.5rem] left-[24.6rem]">
+                <span className="muzzle-ember" />
                 <span className="sabot-petal petal-a" />
                 <span className="sabot-petal petal-b" />
                 <span className="sabot-petal petal-c" />
                 <span className="impact-pop" />
               </div>
-              <span className="bsts-burst absolute top-[96px] right-20 flex flex-col items-center">
+              <span className="bsts-burst absolute top-[96px] right-12 flex flex-col items-center">
                 <span className="display text-lg leading-none font-bold tracking-[0.22em] text-gold-soft">
                   BSTS
                 </span>
-                <span className="bsts-dart mt-1.5" />
+                <span className="relative mt-1.5">
+                  <span className="bsts-dart" />
+                  <span className="dart-motion">
+                    <i />
+                  </span>
+                </span>
               </span>
             </div>
             <p className="sr-only">Bevier Strategic Technology Solutions — BSTS</p>
             {/* Mobile: static lockup, no animation surface */}
-            <p className="mt-3 text-[0.68rem] font-bold tracking-[0.22em] text-warm-white uppercase lg:hidden">
+            <p className="brand-wordmark mt-3 text-[0.7rem] uppercase lg:hidden">
               Bevier Strategic Technology Solutions ·{" "}
               <span className="text-gold-soft">BSTS</span>
             </p>
