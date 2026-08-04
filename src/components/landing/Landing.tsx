@@ -121,7 +121,7 @@ export function Landing() {
                 className="relative -ml-14 hidden min-w-0 flex-1 sm:mt-[calc(0.43*32rem*731/1280)] sm:block"
                 aria-hidden="true"
               >
-                <p className="absolute -top-6 right-24 left-6 truncate text-center text-[0.68rem] font-medium tracking-[0.2em] text-warm-mist uppercase">
+                <p className="absolute -top-6 right-24 left-6 truncate text-center text-[0.62rem] font-semibold tracking-[0.08em] text-warm-white uppercase lg:text-[0.72rem] lg:tracking-[0.2em]">
                   Bevier Strategic Technology Solutions
                 </p>
                 <div className="tracer-shot mr-24" />

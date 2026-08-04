@@ -284,9 +284,41 @@ body {
   border-radius: 999px;
   background: linear-gradient(
     90deg,
-    color-mix(in srgb, var(--color-gold-soft) 70%, transparent),
-    color-mix(in srgb, var(--color-gold-soft) 10%, transparent)
+    color-mix(in srgb, var(--color-gold-soft) 75%, transparent),
+    color-mix(in srgb, var(--color-gold-soft) 38%, transparent)
   );
+}
+/* Muzzle flash at the moment of firing */
+.tracer-shot::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: -14px;
+  width: 30px;
+  height: 16px;
+  border-radius: 999px;
+  opacity: 0;
+  background: radial-gradient(
+    ellipse at 30% 50%,
+    #ffe9b8 0%,
+    rgba(255, 217, 138, 0.75) 40%,
+    rgba(255, 217, 138, 0) 100%
+  );
+  animation: muzzle-flash 0.4s ease-out 0.45s;
+}
+@keyframes muzzle-flash {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
 }
 .tracer-shot::after {
   content: "";
