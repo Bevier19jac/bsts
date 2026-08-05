@@ -157,6 +157,37 @@ body {
   );
 }
 
+/* Hydration-independent hero entrance: pure CSS, starts at first paint.
+   Used by the Government hero so headline and CTAs are readable without
+   waiting for JavaScript. Reduced motion collapses these instantly via the
+   global rules (duration + delay zeroed). */
+.hero-rise {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: hero-rise 0.35s cubic-bezier(0.21, 0.65, 0.36, 1) forwards;
+}
+.hero-rise-1 {
+  animation-delay: 0.06s;
+}
+.hero-rise-2 {
+  animation-delay: 0.12s;
+}
+.hero-rise-3 {
+  animation-delay: 0.18s;
+}
+.hero-rise-4 {
+  animation-delay: 0.24s;
+}
+.hero-rise-5 {
+  animation-delay: 0.3s;
+}
+@keyframes hero-rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Static binary code field — scattered 0s and 1s, faint by design.
    Masked so the page center (where copy lives) stays quiet. */
 .code-field {
@@ -793,10 +824,13 @@ body {
 }
 .cs-badge {
   margin-top: 0.3rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
+  /* Slightly smaller + tighter tracking and nowrap so the full VetCert
+     status stays on one line at letter width. */
+  font-size: 0.63rem;
+  letter-spacing: 0.045em;
   text-transform: uppercase;
   color: #6b5836;
+  white-space: nowrap;
 }
 .cs-contact {
   text-align: right;

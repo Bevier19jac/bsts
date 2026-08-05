@@ -35,23 +35,23 @@ export default function GovernmentPage() {
       <section className="relative isolate overflow-hidden">
         <Atmosphere variant="gold" />
         <div className="relative mx-auto max-w-6xl px-6 pt-10 pb-12 text-center sm:pt-12">
-          <Reveal quick>
+          <div className="hero-rise">
             <p className="eyebrow eyebrow-gold">
               Federal Missions · Secure AI · Operational Modernization
             </p>
-          </Reveal>
-          <Reveal quick delay={0.04}>
+          </div>
+          <div className="hero-rise hero-rise-1">
             <p className="mt-4 inline-block rounded-full border border-gold-core/45 bg-gold-faint px-4 py-1.5 text-[0.7rem] font-semibold tracking-[0.14em] text-gold-soft uppercase">
               {vetCert.badge}
             </p>
-          </Reveal>
-          <Reveal quick delay={0.08}>
+          </div>
+          <div className="hero-rise hero-rise-2">
             <h1 className="display mx-auto mt-6 max-w-3xl text-4xl leading-[1.1] sm:text-5xl">
               Secure AI and automation built for{" "}
               <span className="text-cyan-soft">mission execution.</span>
             </h1>
-          </Reveal>
-          <Reveal quick delay={0.12}>
+          </div>
+          <div className="hero-rise hero-rise-3">
             <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-warm-mist">
               BSTS helps federal agencies and government contractors identify
               responsible AI use cases, automate document-heavy workflows,
@@ -59,13 +59,13 @@ export default function GovernmentPage() {
               technology with security, governance, and documentation built
               in.
             </p>
-          </Reveal>
-          <Reveal quick delay={0.16}>
+          </div>
+          <div className="hero-rise hero-rise-4">
             <p className="mx-auto mt-3 max-w-2xl text-sm tracking-[0.08em] text-gold-soft uppercase">
               Operational discipline. Technical depth. Principal-led delivery.
             </p>
-          </Reveal>
-          <Reveal quick delay={0.2}>
+          </div>
+          <div className="hero-rise hero-rise-5">
             <div className="mt-7 flex flex-wrap items-center justify-center gap-4">
               <LinkButton href="#federal-contact">
                 Request a Capability Briefing <ArrowRight className="h-4 w-4" aria-hidden />
@@ -77,7 +77,7 @@ export default function GovernmentPage() {
                 View Core Capabilities
               </LinkButton>
             </div>
-          </Reveal>
+          </div>
         </div>
       </section>
 
