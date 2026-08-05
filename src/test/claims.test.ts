@@ -37,8 +37,13 @@ const PROHIBITED = [
   // Degree wording: the verified credential is "Bachelor of Science in
   // Computer Science with a Cybersecurity major" — never the shorthand.
   "bachelor of science in cybersecurity,",
+  // Experience wording: only the approved 16-year statement is permitted.
+  "17+ years",
+  "17 years",
+  "federal experience as a civilian",
   // Federal claims that must never appear anywhere.
   "guaranteed award",
+  "guaranteed delivery",
   "preferred government vendor",
   "prequalified",
   "sole-source provider",
@@ -130,6 +135,9 @@ describe("claims audit", () => {
     );
     expect(founderSource).toContain("CompTIA Security+");
     expect(founderSource).toContain("AWS Certified AI Practitioner");
+    expect(founderSource).toContain(
+      "More than 16 years serving federal missions through military leadership and civilian cybersecurity work.",
+    );
   });
 
   it("keeps certified-state wording confined to the site.ts config branch", () => {

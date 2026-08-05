@@ -188,6 +188,27 @@ export const federalDisclaimerFull =
   "Military and federal experience described on this site reflects the founder's individual background and does not imply endorsement by the U.S. Army, Department of Defense, Department of Transportation, Small Business Administration, or any government agency. References to federal acquisition programs and security frameworks describe potential engagement paths and methodology; eligibility depends on current registrations, certifications, solicitation requirements, and contracting-officer determinations.";
 
 /**
+ * Business-formation status. Update to "formed" ONLY after the state filing
+ * is approved and the exact legal entity name is confirmed — the public
+ * label and displayed name switch automatically.
+ */
+export type FormationStatus = "pre_formation" | "formed";
+export const formationStatus: FormationStatus = "pre_formation";
+
+/**
+ * Federal-facing contact. Until a verified business-domain email exists,
+ * this stays empty and public federal surfaces point to the Government
+ * contact page instead of printing a personal address prominently. The
+ * private form-delivery destination is configured server-side at the form
+ * provider and is not exposed here.
+ */
+export const federalContactEmail =
+  process.env.NEXT_PUBLIC_FEDERAL_CONTACT_EMAIL ?? "";
+export const federalContactDisplay =
+  federalContactEmail ||
+  `${site.url.replace("https://", "")}/government`;
+
+/**
  * Acquisition profile. PUBLIC RULE: fields with empty values are HIDDEN on
  * the public site — never rendered as placeholder text of any kind.
  * Fill each value only when the real identifier is issued and verified
@@ -195,7 +216,12 @@ export const federalDisclaimerFull =
  */
 export const acquisition = {
   fields: [
-    { label: "Legal business name", value: "Bevier Strategic Technology Solutions" },
+    // Pre-formation: "Company name" — the legal-entity label appears only
+    // once the filing is approved and site.legalName is verified.
+    {
+      pre_formation: { label: "Company name", value: site.name },
+      formed: { label: "Legal business name", value: site.legalName },
+    }[formationStatus],
     { label: "Business status", value: "Service-disabled veteran-owned and led" },
     { label: "Service area", value: "United States · remote-capable delivery" },
     { label: "SAM registration", value: "" }, // e.g. "Active" — only when true
@@ -203,7 +229,7 @@ export const acquisition = {
     { label: "CAGE code", value: "" },
     { label: "Primary NAICS", value: "" }, // e.g. "541511, 541512, 541519, 541690"
     { label: "PSC codes", value: "" },
-    { label: "Business contact", value: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "bevier19jacob@gmail.com" },
+    { label: "Contact", value: federalContactDisplay },
   ],
   /**
    * Honest high-level status line shown while identifiers above are unissued.

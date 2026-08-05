@@ -81,7 +81,7 @@ Initial same-day build.
 - All BSTS self-descriptions de-boutiqued ("veteran-owned technology
   transformation and secure AI implementation firm"); hero eyebrow now
   "Secure AI · Intelligent Automation · Connected Systems".
-- Experience credential: "17+ years of federal experience as a civilian
+- Experience credential (superseded in v0.5.1): "more than 16 years serving federal missions" (formerly worded as civilian
   and senior operational leader."
 
 ## 0.4.0 — Production-quality final pass
@@ -137,3 +137,24 @@ Initial same-day build.
 - Share card (og.png) recomposed: fully centered lockup.
 - FEDERAL_LAUNCH_CHECKLIST.md documents every founder action (LLC, EIN,
   SAM, UEI, CAGE, VetCert, NAICS/PSC) and where each value gets entered.
+
+## 0.5.1 — Corrective QA pass
+
+- Experience wording corrected everywhere to the approved statement:
+  "More than 16 years serving federal missions through military
+  leadership and civilian cybersecurity work." Old "17+ years" phrasing
+  is now test-banned.
+- Formation status centralized (formationStatus: pre_formation | formed).
+  Pre-formation shows "Company name" with no LLC claim; "Legal business
+  name" appears only once the filing is approved (test-enforced).
+- Federal contact display centralized: until a business-domain email is
+  configured, the capability statement and acquisition profile show
+  "Contact: bevierstrategic.pages.dev/government" instead of a personal
+  Gmail address; the federal form's failure text no longer prints it.
+- Government hero entrance sped up (quick reveal variant): H1 readable
+  ~750ms from navigation start including hydration, CTAs ~880ms.
+  Homepage animations untouched.
+- Reduced motion now snaps all Reveal content to visible instantly (no
+  0.7s fade).
+- 41 unit tests, 27 browser QA checks, one-page print verified in both
+  browser-margin modes.

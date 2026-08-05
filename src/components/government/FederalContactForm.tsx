@@ -238,8 +238,9 @@ export function FederalContactForm() {
         ) : null}
         {sendState === "error" ? (
           <p role="alert" className="mt-4 text-sm text-alert">
-            That didn&apos;t go through. Please try again, or copy the summary
-            and email it to {site.contactEmail} directly.
+            That didn&apos;t go through. Please try again in a moment — or use
+            Copy summary and send it via the email option on the Assessment
+            page.
           </p>
         ) : null}
         <p className="mt-5 text-xs leading-relaxed text-warm-dim">

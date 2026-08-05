@@ -19,7 +19,7 @@ export const founder = {
   ],
   experience: [
     "U.S. Army combat veteran — First Sergeant, Senior Instructor, and Abrams Tank Master Gunner",
-    "17+ years of federal experience as a civilian and senior operational leader",
+    "More than 16 years serving federal missions through military leadership and civilian cybersecurity work.",
     "Federal cybersecurity and enterprise stakeholder experience",
     vetCert.badge,
   ],

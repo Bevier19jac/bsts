@@ -4,6 +4,8 @@ import { federalCapabilities, federalPositioning } from "@/lib/content/federal";
 import { founder } from "@/lib/content/founder";
 import {
   acquisition,
+  federalContactDisplay,
+  federalContactEmail,
   federalDisclaimerFull,
   site,
   vetCert,
@@ -44,8 +46,8 @@ export default function CapabilityStatementPage() {
             <p className="cs-badge">{vetCert.badge}</p>
           </div>
           <div className="cs-contact">
-            <p>{site.contactEmail}</p>
-            <p>{site.url.replace("https://", "")}</p>
+            <p>Contact: {federalContactDisplay}</p>
+            {federalContactEmail ? <p>{site.url.replace("https://", "")}</p> : null}
           </div>
         </div>
 
@@ -86,7 +88,7 @@ export default function CapabilityStatementPage() {
                 <li key={c}>{c}</li>
               ))}
               <li>U.S. Army combat veteran — First Sergeant, Senior Instructor, Abrams Tank Master Gunner</li>
-              <li>17+ years of federal experience as a civilian and senior operational leader</li>
+              <li>More than 16 years serving federal missions through military leadership and civilian cybersecurity work.</li>
             </ul>
           </section>
         </div>

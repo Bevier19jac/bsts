@@ -133,7 +133,7 @@ export const federalWhy = {
     },
     {
       title: "Federal fluency",
-      body: "Federal cybersecurity and enterprise stakeholder experience — 17+ years of federal experience as a civilian and senior operational leader. BSTS speaks both program-office and engineering.",
+      body: "More than 16 years serving federal missions through military leadership and civilian cybersecurity work. Add enterprise stakeholder experience, and BSTS speaks both program-office and engineering.",
     },
     {
       title: "Honest engineering",

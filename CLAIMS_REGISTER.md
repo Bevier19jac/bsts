@@ -64,3 +64,11 @@ checks the mandated phrases exist.
 | Acquisition identifiers (SAM, UEI, CAGE, NAICS, PSC) | Unissued — hidden | Empty config values are hidden from the public page; no placeholder text permitted (test-enforced). |
 | "Guaranteed award", "prequalified", "cleared company", "FedRAMP certified", "CMMC certified", "sole-source provider", "contract-ready", "preferred government vendor" | Prohibited | Banned site-wide by the automated claims audit. |
 | "SBA-certified…" / "eligible for SDVOSB set-aside" | Config-gated | Exist only in the certified-state branch of src/lib/site.ts; appear publicly only when vetCertStatus === "certified" (test-enforced). |
+
+## v0.5.1 corrective pass
+
+| Claim | Status | Rule |
+| --- | --- | --- |
+| "More than 16 years serving federal missions through military leadership and civilian cybersecurity work." | Approved experience statement | The ONLY permitted experience-duration wording. "17+ years" / "17 years" / "federal experience as a civilian" are test-banned. Military and civilian service are described together without implying all years were civilian federal employment. |
+| "Company name: Bevier Strategic Technology Solutions" | Pre-formation label | While formationStatus = "pre_formation", the public label is "Company name" and no "LLC" appears. "Legal business name" + the exact registered name appear only after the filing is approved and formationStatus = "formed" (test-enforced). |
+| Federal contact display | Config-driven | Until NEXT_PUBLIC_FEDERAL_CONTACT_EMAIL is set, federal surfaces show "Contact: bevierstrategic.pages.dev/government" instead of printing a personal address prominently. |

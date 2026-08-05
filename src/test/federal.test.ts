@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 import {
   acquisition,
+  federalContactDisplay,
+  federalContactEmail,
+  formationStatus,
+  site,
   vetCert,
   vetCertStatus,
   visibleAcquisitionFields,
@@ -58,6 +62,45 @@ describe("acquisition profile hides unissued fields", () => {
   it("contains no placeholder-looking values", () => {
     for (const f of visibleAcquisitionFields()) {
       expect(f.value.toLowerCase()).not.toMatch(/tbd|insert|pending|xxxx|000000/);
+    }
+  });
+});
+
+describe("formation status → public labeling", () => {
+  it("uses a valid configured status", () => {
+    expect(["pre_formation", "formed"]).toContain(formationStatus);
+  });
+
+  it("labels the company correctly for the current status", () => {
+    const nameField = acquisition.fields[0];
+    if (formationStatus === "pre_formation") {
+      expect(nameField.label).toBe("Company name");
+      expect(nameField.value).toBe(site.name);
+      // No LLC claim and no legal-entity label before the filing is approved.
+      expect(nameField.value).not.toMatch(/\bLLC\b/i);
+      for (const f of visibleAcquisitionFields()) {
+        expect(f.label).not.toBe("Legal business name");
+        expect(f.value).not.toMatch(/\bLLC\b/i);
+      }
+      expect(acquisition.statusLine.length).toBeGreaterThan(10);
+    } else {
+      expect(nameField.label).toBe("Legal business name");
+      expect(nameField.value).toBe(site.legalName);
+    }
+  });
+});
+
+describe("federal contact display", () => {
+  it("never prints the personal address when no federal email is configured", () => {
+    if (!federalContactEmail) {
+      expect(federalContactDisplay).toBe(
+        `${site.url.replace("https://", "")}/government`,
+      );
+      const contact = visibleAcquisitionFields().find((f) => f.label === "Contact");
+      expect(contact?.value).toBe(federalContactDisplay);
+      expect(contact?.value).not.toContain("@gmail.com");
+    } else {
+      expect(federalContactDisplay).toBe(federalContactEmail);
     }
   });
 });

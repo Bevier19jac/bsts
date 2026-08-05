@@ -35,23 +35,23 @@ export default function GovernmentPage() {
       <section className="relative isolate overflow-hidden">
         <Atmosphere variant="gold" />
         <div className="relative mx-auto max-w-6xl px-6 pt-10 pb-12 text-center sm:pt-12">
-          <Reveal>
+          <Reveal quick>
             <p className="eyebrow eyebrow-gold">
               Federal Missions · Secure AI · Operational Modernization
             </p>
           </Reveal>
-          <Reveal delay={0.04}>
+          <Reveal quick delay={0.04}>
             <p className="mt-4 inline-block rounded-full border border-gold-core/45 bg-gold-faint px-4 py-1.5 text-[0.7rem] font-semibold tracking-[0.14em] text-gold-soft uppercase">
               {vetCert.badge}
             </p>
           </Reveal>
-          <Reveal delay={0.08}>
+          <Reveal quick delay={0.08}>
             <h1 className="display mx-auto mt-6 max-w-3xl text-4xl leading-[1.1] sm:text-5xl">
               Secure AI and automation built for{" "}
               <span className="text-cyan-soft">mission execution.</span>
             </h1>
           </Reveal>
-          <Reveal delay={0.12}>
+          <Reveal quick delay={0.12}>
             <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-warm-mist">
               BSTS helps federal agencies and government contractors identify
               responsible AI use cases, automate document-heavy workflows,
@@ -60,12 +60,12 @@ export default function GovernmentPage() {
               in.
             </p>
           </Reveal>
-          <Reveal delay={0.16}>
+          <Reveal quick delay={0.16}>
             <p className="mx-auto mt-3 max-w-2xl text-sm tracking-[0.08em] text-gold-soft uppercase">
               Operational discipline. Technical depth. Principal-led delivery.
             </p>
           </Reveal>
-          <Reveal delay={0.2}>
+          <Reveal quick delay={0.2}>
             <div className="mt-7 flex flex-wrap items-center justify-center gap-4">
               <LinkButton href="#federal-contact">
                 Request a Capability Briefing <ArrowRight className="h-4 w-4" aria-hidden />
