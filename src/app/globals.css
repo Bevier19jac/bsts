@@ -157,6 +157,24 @@ body {
   );
 }
 
+/* Static binary code field — scattered 0s and 1s, faint by design.
+   Masked so the page center (where copy lives) stays quiet. */
+.code-field {
+  background-image: url("/code-field.svg");
+  background-size: 420px 420px;
+  opacity: 0.75;
+  mask-image: radial-gradient(
+    ellipse 62% 58% at 50% 42%,
+    transparent 30%,
+    black 78%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 62% 58% at 50% 42%,
+    transparent 30%,
+    black 78%
+  );
+}
+
 /* Fine grain to keep large dark fields from banding */
 .grain::after {
   content: "";
@@ -861,7 +879,9 @@ body {
   .capstat {
     box-shadow: none;
     border-radius: 0;
-    padding: 0;
+    /* Real inner margins even if the browser's print dialog is set to
+       "Margins: None" — don't depend on @page alone. */
+    padding: 0.3in 0.35in;
     font-size: 9pt;
     line-height: 1.32;
   }
@@ -892,7 +912,7 @@ body {
   }
   @page {
     size: letter;
-    margin: 0.55in;
+    margin: 0.35in;
   }
 }
 

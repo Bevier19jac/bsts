@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { assessmentCta, navLinks } from "@/lib/site";
@@ -10,9 +11,27 @@ import { Wordmark } from "@/components/ui/Logo";
 /**
  * Single-page navigation: links target tab anchors on the landing page
  * (e.g. /#services). The landing component listens for hash changes.
+ * The current page/tab is always highlighted (aria-current) so visitors
+ * never have to guess where they are.
  */
 export function Header() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const [hash, setHash] = useState("");
+
+  useEffect(() => {
+    const sync = () => setHash(window.location.hash);
+    sync();
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, [pathname]);
+
+  const isActive = (href: string) => {
+    if (href.startsWith("/#")) {
+      return pathname === "/" && hash === href.slice(1);
+    }
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
@@ -26,7 +45,12 @@ export function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="rounded-full px-3.5 py-2 text-sm text-warm-mist transition-colors hover:text-warm-white"
+              aria-current={isActive(link.href) ? "page" : undefined}
+              className={`rounded-full px-3.5 py-2 text-sm transition-colors ${
+                isActive(link.href)
+                  ? "bg-graphite-2 font-medium text-cyan-soft"
+                  : "text-warm-mist hover:text-warm-white"
+              }`}
             >
               {link.label}
             </a>
@@ -68,7 +92,12 @@ export function Header() {
                   <a
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="block rounded-2xl px-4 py-3 text-warm-mist hover:bg-graphite-2 hover:text-warm-white"
+                    aria-current={isActive(link.href) ? "page" : undefined}
+                    className={`block rounded-2xl px-4 py-3 ${
+                      isActive(link.href)
+                        ? "bg-graphite-2 font-medium text-cyan-soft"
+                        : "text-warm-mist hover:bg-graphite-2 hover:text-warm-white"
+                    }`}
                   >
                     {link.label}
                   </a>

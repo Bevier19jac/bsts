@@ -15,6 +15,9 @@ export function Atmosphere({ variant = "default" }: { variant?: "default" | "gol
         className={`${variant === "gold" ? "glow-gold" : "glow-cyan"} animate-drift-slow absolute top-1/3 -right-40 h-[40rem] w-[40rem] rounded-full opacity-50`}
       />
       <div className="glow-gold animate-drift absolute -bottom-52 left-1/4 h-[30rem] w-[30rem] rounded-full opacity-40" />
+      {/* Static binary field — quiet 0s and 1s in the brand palette. Kept
+          faint and masked away from the center so copy stays clean. */}
+      <div className="code-field absolute inset-0" />
     </div>
   );
 }

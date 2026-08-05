@@ -41,6 +41,10 @@ function isTabId(v: string): v is TabId {
 export function Landing() {
   const [tab, setTab] = useState<TabId>("overview");
   const panelRef = useRef<HTMLDivElement>(null);
+  // Non-sticky scroll anchor: the tab bar itself is position:sticky, so its
+  // rect sits near the viewport top once stuck and scrollIntoView on it
+  // becomes a no-op — leaving the visitor stranded mid-page on tab switch.
+  const anchorRef = useRef<HTMLDivElement>(null);
 
   // Sync with the URL hash so header/footer links and shared URLs land on
   // the right tab (e.g. /#assessment).
@@ -55,7 +59,7 @@ export function Landing() {
       if (isTabId(h)) {
         setTab(h);
         if (scroll) {
-          panelRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
+          anchorRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
         }
       }
     };
@@ -69,7 +73,10 @@ export function Landing() {
     setTab(id);
     // Keep the URL shareable without adding history entries per click.
     window.history.replaceState(null, "", `#${id}`);
-    panelRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
+    // replaceState doesn't fire hashchange — notify listeners (header nav
+    // highlights the active section from this).
+    window.dispatchEvent(new Event("hashchange"));
+    anchorRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
   }, []);
 
   return (
@@ -193,12 +200,15 @@ export function Landing() {
         </div>
       </section>
 
-      {/* Tab bar */}
-      <div ref={panelRef} className="sticky top-20 z-40 scroll-mt-24 px-4">
+      {/* Non-sticky scroll target for tab switches */}
+      <div ref={anchorRef} aria-hidden className="h-0 scroll-mt-24" />
+      {/* Tab bar — sits flush under the header when stuck, with an
+          unmistakable filled pill on the active section. */}
+      <div ref={panelRef} className="sticky top-[4.35rem] z-40 px-4">
         <div
           role="tablist"
           aria-label="Page sections"
-          className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-1.5 rounded-full border border-edge/70 bg-obsidian/85 p-1.5 backdrop-blur-xl"
+          className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-1.5 rounded-full border border-edge/70 bg-obsidian/90 p-1.5 shadow-[0_10px_34px_-12px_rgba(0,0,0,0.7)] backdrop-blur-xl"
         >
           {TABS.map((t, i) => (
             <button
@@ -226,9 +236,7 @@ export function Landing() {
               }}
               className={`rounded-full px-4 py-2 text-sm transition-colors ${
                 tab === t.id
-                  ? t.id === "assessment"
-                    ? "bg-cyan-core font-medium text-obsidian-deep"
-                    : "bg-graphite-2 text-cyan-soft"
+                  ? "bg-cyan-core font-semibold text-obsidian-deep"
                   : "text-warm-mist hover:text-warm-white"
               }`}
             >
