@@ -32,7 +32,7 @@ automated test (`src/test/claims.test.ts`).
 | A future SOC 2 attestation for BSTS itself | Future objective | Not claimed anywhere; would require an independent CPA firm. |
 | Client case studies with measured results | Future objective | None exist; Solara House is labeled "CONCEPT DEMONSTRATION — NOT A CLIENT CASE STUDY" everywhere it appears. |
 | "U.S. Army Veteran-Owned & Led" | Founder experience | Factual ownership statement. |
-| "Service-disabled veteran-owned and led · SBA VetCert application planned" | Current status | The SBA VetCert application has NOT yet been filed (LLC registration pending), so "in progress"/"pending" language is prohibited. Status is centralized as vetCertStatus in src/lib/site.ts — change it to "submitted" only after the application is actually filed, and to "certified" only after issuance. |
+| "Service-Disabled Veteran-Owned & Operated · SBA VetCert application planned" | Current status | The SBA VetCert application has NOT yet been filed (LLC registration pending), so "in process"/"in progress"/"pending" language is prohibited — all three imply a filing exists. Status is centralized as vetCertStatus in src/lib/site.ts — change it to "submitted" only after the application is actually filed, and to "certified" only after issuance. Test-enforced in `federal.test.ts`. |
 | "SDVOSB certified" / "Certified SDVOSB" / "SDVOSB certification in progress" | Prohibited claims (until the corresponding milestone) | Never appear affirmatively before the milestone is real; test-enforced. |
 | "NIST certified" | Prohibited claim | Never appears affirmatively; test-enforced. |
 | "SOC 2 certified" / "SOC 2 compliant" | Prohibited claim | Appears only inside disavowals/educational corrections; test-enforced. |
@@ -42,11 +42,32 @@ automated test (`src/test/claims.test.ts`).
 | "Guaranteed secure" | Prohibited claim | Never appears; test-enforced. |
 | Invented testimonials, client logos, revenue, or metrics | Prohibited claim | None exist anywhere on the site; Solara House carries no invented numbers. |
 
+## Repositioning additions (v0.6.0 — Secure the data / Enable the AI / Prove the controls)
+
+| Claim | Classification | Rule |
+| --- | --- | --- |
+| "BSTS does not issue SOC 2 reports. SOC 2 examinations and attestation reports are performed by qualified independent CPA firms." | Mandatory boundary | Centralized as `soc2Boundary` in `src/lib/content/positioning.ts`. **Every page that markets SOC 2 work must render this boundary** (directly, or via `frameworkDisclaimer`, which contains it) — test-enforced. |
+| "SOC 2 readiness", "control mapping", "evidence preparation", "gap assessment", "remediation tracking" | Permitted service language | Describes preparation work only. Never "audit", "attestation", "certification", or "opinion". |
+| "We issue SOC 2" / "our SOC 2 audit" / "SOC 2 auditor" / "we certify" / "BSTS certifies" | Prohibited claim | Test-enforced. |
+| "NIST AI RMF alignment" | Framework informing methodology | Alignment describes methodology. NIST does not certify against the AI RMF; "NIST AI RMF certified" is prohibited and test-enforced. |
+| "HIPAA compliant" / "ISO 27001 certified" / "GDPR certified" | Prohibited claim | BSTS provides mapping and implementation support only; these phrases are test-enforced prohibitions. |
+| Framework list (SOC 2, NIST CSF 2.0, NIST SP 800-53, NIST AI RMF, ISO/IEC 27001, HIPAA, NIST SP 800-171, CMMC, CJIS, FedRAMP-related) | Framework informing methodology | Every entry must be qualified with readiness / mapping / alignment / implementation-support / preparation language — test-enforced. Accompanied by an explicit "BSTS is not an accreditation body, a certification body, or an audit firm" disclaimer. |
+| Continuous assurance platform (system evidence → control validation → framework mapping → drift detection → remediation → audit-ready evidence) | Future objective | A product **direction**, never described in the present tense. The public page must carry `assuranceRoadmapNote` ("not a product available today") — test-enforced. Present-tense platform phrasing ("our platform monitors", "our SaaS platform") is a prohibited claim. |
+| SBIR / STTR research direction | Future objective | Stated as an intent to compete when eligible. Must carry the explicit disclaimer that BSTS **has not received an SBIR or STTR award**, is not performing under any federal innovation program, and that no agency has reviewed or endorsed the research direction — test-enforced. |
+| "SBIR award" / "SBIR-funded" / "awarded SBIR" / "Phase I award" | Prohibited claim | Test-enforced. |
+| Three primary service areas (Secure AI & Automation, AI Security & Governance, SOC 2 & Compliance Readiness) | Positioning | Structure is test-enforced so the three-pillar hierarchy cannot silently drift. |
+| Four-stage engagement model (Discover, Implement, Govern, Assure) | Positioning | Test-enforced. |
+| Abrams firing sequence as brand identity | Brand | The four stages (M1 Abrams / Main-gun firing / Sabot separation / Tracer to target → Disciplined system / Precise action / Controlled delivery / Measurable effect) are test-enforced so the identity is not quietly dropped in a future edit. |
+
 ## Standing disclaimer (verbatim, shipped in the footer and legal pages)
 
-> References to security frameworks such as NIST CSF 2.0, SOC 2, and OWASP
-> describe the practices that inform our methodology. They do not imply
-> certification, accreditation, endorsement, or an audit opinion.
+> References to security and AI frameworks such as SOC 2, NIST CSF 2.0,
+> NIST SP 800-53, the NIST AI Risk Management Framework, ISO/IEC 27001,
+> HIPAA, and CMMC describe the practices that inform our methodology and the
+> requirements we help clients prepare for. They do not imply certification,
+> accreditation, endorsement, or an audit opinion. BSTS does not issue SOC 2
+> reports — SOC 2 examinations and attestation reports are performed by
+> qualified independent CPA firms.
 
 ## Change control
 

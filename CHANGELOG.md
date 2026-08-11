@@ -2,6 +2,73 @@
 
 All notable changes to the BSTS site + BSTS OS project.
 
+## [0.6.0] — 2026-08-11
+
+Strategic repositioning: **Secure the data. Enable the AI. Prove the controls.**
+
+BSTS is no longer presented as a general AI automation consultancy. The site
+now positions the firm at the intersection of AI, automation, cybersecurity,
+AI governance, compliance, and continuous assurance, aimed at organizations
+of roughly 20–250 people.
+
+### Added
+
+- `src/lib/content/positioning.ts` — single source for the three service
+  areas, buyer-language triggers, the four-stage engagement model, the
+  Value/Risk/Controls/Assurance gate, the continuous assurance pipeline, the
+  common control framework, advisor referral content, the federal R&D
+  thesis, and the Abrams firing-sequence brand definition.
+- `/assurance` — the differentiator page. Contrast against questionnaire-and-
+  screenshot compliance, the six-step evidence pipeline, the common control
+  framework (one control mapped to many frameworks), and an explicit note
+  that the platform is a direction rather than a shipping product.
+- `/advisors` — referral field guide for consultants, fractional executives,
+  CPAs, MSPs, and attorneys: the recognition list, what BSTS would do for
+  their client, what happens after an introduction, and how BSTS complements
+  rather than competes with their relationship.
+- **"You may need BSTS if…"** section on the homepage — eight triggers written
+  in the client's own voice, each mapped to a service area.
+- **The firing sequence as explained brand identity** (`FiringSequence.tsx`
+  plus `.sequence-rail` CSS): M1 Abrams → main-gun firing → sabot separation
+  → tracer to target, communicating disciplined system → precise action →
+  controlled delivery → measurable effect. The tracer terminates in the
+  cyan "proof" accent, tying the mark to the third line of the positioning.
+- `founder.arc` — the technology → cybersecurity → AI → governance → secure
+  implementation path, rendered on the About tab.
+- 12 new automated claims tests (41 → 53 total).
+
+### Changed
+
+- Homepage hero is now the strategic line, color-coded across three lines,
+  with the Abrams/wordmark/tracer lockup preserved pixel-for-pixel.
+- Three primary service areas replace the five pillars as the top-level
+  hierarchy; the five delivery lanes survive as implementation detail on
+  `/method` and `/solutions`.
+- `/method` restructured around Discover → Implement → Govern → Assure.
+- `/government` gains a federal continuous-assurance section and an SBIR/STTR
+  research direction that explicitly disclaims any award.
+- Veteran wording moves to "Service-Disabled Veteran-Owned & Operated"
+  throughout, still driven by `vetCertStatus`.
+- Navigation, footer (now four columns), sitemap, metadata, and JSON-LD
+  updated for the new page set and keyword set.
+- Offers reframed to Discover / Implement / Govern & Assure.
+
+### Fixed
+
+- Capability-statement sheet no longer forces horizontal scroll on phones:
+  `.cs-badge` nowrap (which keeps the VetCert badge on one line at letter
+  width) is now released below 640px. Print geometry is unaffected.
+
+### Claims
+
+- New mandatory boundary: **BSTS does not issue SOC 2 reports.** Enforced by
+  a test that fails any page marketing SOC 2 work without rendering it.
+- New prohibitions: SOC 2 attestation/auditor language, framework
+  certification claims, SBIR/STTR award claims, and present-tense continuous
+  assurance platform claims.
+- "In process" / "in progress" VetCert wording is prohibited while the status
+  is `planned`, because both imply a filing that does not yet exist.
+
 ## [0.1.0] — 2026-07-19
 
 Initial same-day build.

@@ -20,9 +20,10 @@ export const metadata: Metadata = {
 };
 
 const DIFFERENTIATORS = [
-  "Service-disabled veteran-owned and led · principal-led delivery",
-  "Human-supervised AI with security and documentation from project initiation",
+  `${vetCert.short} · principal-led delivery`,
+  "Secure AI by design — data boundaries, access, and logging decided before implementation",
   "Federal cybersecurity and enterprise stakeholder experience",
+  "Control mapping and evidence preparation across the frameworks that apply",
   "No vendor commissions · no automatic rip-and-replace recommendation",
 ];
 

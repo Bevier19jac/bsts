@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { footerLinks, frameworkDisclaimer, site } from "@/lib/site";
+import { footerLinks, frameworkDisclaimer, site, vetCert } from "@/lib/site";
 import { LogoMark } from "@/components/ui/Logo";
 
 export function Footer() {
   return (
     <footer className="relative mt-24 border-t border-edge/50 bg-obsidian-deep">
       <div className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.6fr_1fr_1fr]">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.6fr_1fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-3">
               <LogoMark className="h-9 w-9" />
@@ -14,15 +14,23 @@ export function Footer() {
                 BSTS
               </p>
             </div>
+            <p className="display mt-4 text-lg leading-snug text-warm-white">
+              Secure the data.
+              <br />
+              Enable the AI.
+              <br />
+              <span className="text-gold-soft">Prove the controls.</span>
+            </p>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-warm-dim">
               {site.name}. {site.subline}
             </p>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-warm-dim">
-              {site.promise}
+            <p className="mt-4 max-w-xs text-xs tracking-[0.12em] text-gold-soft uppercase">
+              {vetCert.short}
             </p>
           </div>
 
           <FooterColumn title="Explore" links={footerLinks.explore} />
+          <FooterColumn title="More" links={footerLinks.more} />
           <FooterColumn title="Legal" links={footerLinks.legal} />
         </div>
 

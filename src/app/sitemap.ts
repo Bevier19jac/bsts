@@ -9,15 +9,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/method",
+    "/assurance",
+    "/advisors",
     "/government",
     "/government/capability-statement",
+    "/insights",
     "/os",
     "/privacy",
     "/terms",
   ].map((path) => ({
     url: `${site.url}${path}/`,
     changeFrequency: "monthly" as const,
-    priority: path === "" ? 1 : path === "/government" ? 0.9 : 0.7,
+    priority:
+      path === ""
+        ? 1
+        : path === "/government" || path === "/assurance"
+          ? 0.9
+          : path === "/advisors" || path === "/method"
+            ? 0.8
+            : 0.7,
   }));
 
   // Article pages still exist and remain linkable/sharable.

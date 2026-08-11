@@ -11,15 +11,18 @@ export function Surface({
   blob = "round",
   quiet = false,
   className = "",
+  id,
 }: {
   children: ReactNode;
   blob?: Blob;
   quiet?: boolean;
   className?: string;
+  /** Optional anchor target, for deep links into a specific panel. */
+  id?: string;
 }) {
   const radius = blob === "round" ? "rounded-[2rem]" : `blob-${blob}`;
   return (
-    <div className={`${quiet ? "surface-quiet" : "surface"} ${radius} ${className}`}>
+    <div id={id} className={`${quiet ? "surface-quiet" : "surface"} ${radius} ${className}`}>
       {children}
     </div>
   );

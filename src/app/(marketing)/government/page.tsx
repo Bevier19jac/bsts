@@ -14,6 +14,7 @@ import {
   federalPositioning,
   federalWhy,
 } from "@/lib/content/federal";
+import { assuranceVision, rdThesis } from "@/lib/content/positioning";
 import {
   acquisition,
   capabilityStatementPath,
@@ -25,7 +26,15 @@ import {
 export const metadata: Metadata = {
   title: { absolute: "Government | Secure AI, Automation & Cybersecurity | BSTS" },
   description:
-    "BSTS supports federal agencies and government contractors with secure AI implementation, AI governance, workflow automation, knowledge systems, cybersecurity documentation, and principal-led modernization.",
+    "BSTS supports federal agencies and government contractors with secure AI implementation, AI governance, workflow automation, NIST-aligned cybersecurity documentation, compliance readiness, and principal-led modernization. Service-disabled veteran-owned and operated.",
+  keywords: [
+    "federal secure AI",
+    "government AI governance",
+    "NIST cybersecurity consulting",
+    "federal workflow automation",
+    "SDVOSB technology",
+    "government compliance readiness",
+  ],
 };
 
 export default function GovernmentPage() {
@@ -215,6 +224,68 @@ export default function GovernmentPage() {
             </Reveal>
           ))}
         </div>
+      </section>
+
+      {/* Continuous assurance — the federal framing of the differentiator */}
+      <section
+        className="mx-auto mt-16 max-w-6xl px-6"
+        aria-labelledby="fed-assurance-heading"
+      >
+        <Surface blob="c" className="border-cyan-core/30 p-7 sm:p-9">
+          <p className="eyebrow">Compliance posture</p>
+          <h2
+            id="fed-assurance-heading"
+            className="display mt-3 max-w-3xl text-2xl text-warm-white sm:text-3xl"
+          >
+            {assuranceVision}
+          </h2>
+          <TracerRule />
+          <p className="mt-5 max-w-3xl leading-relaxed text-warm-mist">
+            Federal compliance produces enormous volumes of attestation and
+            comparatively little continuously verified evidence. BSTS applies
+            the same discipline to government work that it applies commercially:
+            define the control once, map it to every framework that asks for it,
+            and build the evidence path at the same time as the capability
+            rather than reconstructing it before an assessment.
+          </p>
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-warm-mist">
+            In practice that means control mapping and implementation support
+            across NIST SP 800-53, NIST SP 800-171, the NIST Cybersecurity
+            Framework, the NIST AI Risk Management Framework, and CMMC
+            readiness — with evidence collection automated wherever the
+            environment supports it.
+          </p>
+          <div className="mt-6">
+            <LinkButton href="/assurance" variant="ghost">
+              See the continuous assurance model
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </LinkButton>
+          </div>
+        </Surface>
+      </section>
+
+      {/* Research direction — explicitly not an award, not a program */}
+      <section
+        className="mx-auto mt-16 max-w-6xl px-6"
+        aria-labelledby="rd-heading"
+      >
+        <Surface quiet blob="a" className="p-7 sm:p-9">
+          <p className="text-[0.65rem] font-semibold tracking-[0.16em] text-gold-soft uppercase">
+            {rdThesis.heading}
+          </p>
+          <h2
+            id="rd-heading"
+            className="display mt-3 max-w-3xl text-2xl text-warm-white"
+          >
+            {rdThesis.thesis}
+          </h2>
+          <p className="mt-5 max-w-3xl leading-relaxed text-warm-mist">
+            {rdThesis.body}
+          </p>
+          <p className="mt-5 max-w-3xl border-t border-edge/50 pt-5 text-xs leading-relaxed text-warm-dim">
+            {rdThesis.disclaimer}
+          </p>
+        </Surface>
       </section>
 
       {/* Acquisition profile */}

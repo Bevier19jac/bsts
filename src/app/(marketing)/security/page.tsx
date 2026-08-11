@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowRight, FileCheck2, KeyRound, Radar, ShieldCheck } from "lucide-react";
+import { ArrowRight, Bot, FileCheck2, KeyRound, Radar, ShieldCheck } from "lucide-react";
 import { Atmosphere } from "@/components/ui/Atmosphere";
 import { Surface } from "@/components/ui/Surface";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -7,6 +7,7 @@ import { CurveDivider } from "@/components/ui/CurveDivider";
 import { Reveal } from "@/components/motion/Reveal";
 import { staggerDelay } from "@/components/motion/stagger";
 import { LinkButton } from "@/components/ui/Button";
+import { soc2Boundary } from "@/lib/content/positioning";
 import { frameworkDisclaimer } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -34,7 +35,12 @@ const practices = [
   {
     icon: FileCheck2,
     title: "SOC 2 readiness support",
-    body: "For organizations heading toward a SOC 2 examination, we provide readiness support: mapping controls to the Trust Services Criteria, closing gaps, and building evidence-collection habits. Readiness is preparation for an audit performed by an independent CPA firm — it is not the audit, and it is not certification.",
+    body: `For organizations heading toward a SOC 2 examination, we provide readiness support: mapping controls to the Trust Services Criteria, closing gaps, and building evidence-collection habits. Readiness is preparation, not the examination itself. ${soc2Boundary}`,
+  },
+  {
+    icon: Bot,
+    title: "AI governance before AI deployment",
+    body: "Before an AI capability ships, we answer the same questions every time: what data it touches, where that data travels, which model or provider sees it, what is retained, what could be used for training, who has access, what requires human approval, and what gets logged. Where it is useful, that work aligns to the NIST AI Risk Management Framework — alignment being a description of methodology, not a certification.",
   },
 ];
 

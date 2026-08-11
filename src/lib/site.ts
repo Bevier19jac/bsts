@@ -23,23 +23,28 @@ export const vetCertStatus: VetCertStatus = "planned";
 
 const vetCertCopy: Record<
   VetCertStatus,
-  { badge: string; heading: string; explanation: string }
+  { badge: string; heading: string; explanation: string; short: string }
 > = {
   planned: {
-    badge: "Service-disabled veteran-owned and led · SBA VetCert application planned",
-    heading: "Veteran-owned & led",
+    badge:
+      "Service-Disabled Veteran-Owned & Operated · SBA VetCert application planned",
+    heading: "Veteran-owned & operated",
+    short: "Service-Disabled Veteran-Owned & Operated",
     explanation:
-      "BSTS is service-disabled veteran-owned and led. Federal SDVOSB certification will be pursued through SBA VetCert following company registration.",
+      "BSTS is service-disabled veteran-owned and operated, and is led day to day by its founder. Federal SDVOSB certification will be pursued through SBA VetCert following company registration.",
   },
   submitted: {
-    badge: "Service-disabled veteran-owned and led · SBA VetCert application pending",
-    heading: "Veteran-owned & led",
+    badge:
+      "Service-Disabled Veteran-Owned & Operated · SBA VetCert application pending",
+    heading: "Veteran-owned & operated",
+    short: "Service-Disabled Veteran-Owned & Operated",
     explanation:
-      "BSTS is service-disabled veteran-owned and led. An application for federal SDVOSB certification has been submitted through SBA VetCert and is pending review.",
+      "BSTS is service-disabled veteran-owned and operated. An application for federal SDVOSB certification has been submitted through SBA VetCert and is pending review.",
   },
   certified: {
     badge: "SBA-certified Service-Disabled Veteran-Owned Small Business",
     heading: "SDVOSB",
+    short: "SBA-certified Service-Disabled Veteran-Owned Small Business",
     explanation:
       "BSTS is an SBA-certified Service-Disabled Veteran-Owned Small Business, eligible for SDVOSB set-aside and sole-source federal contracting.",
   },
@@ -56,10 +61,11 @@ export const site = {
   shortName: "BSTS",
   /** Legal entity — update when the LLC registration completes. */
   legalName: "Bevier Strategic Technology Solutions",
-  tagline: "Technology built around your business.",
-  subline: "Secure AI. Intelligent automation. Connected digital experiences.",
+  tagline: "Secure the data. Enable the AI. Prove the controls.",
+  subline:
+    "Secure AI · Intelligent automation · Cybersecurity · Compliance readiness",
   promise:
-    "Keep what works. Connect what is disconnected. Automate what is repetitive. Build what is missing. Secure the foundation.",
+    "Keep what works. Connect what is disconnected. Automate what is repetitive. Govern what is risky. Prove what you claim.",
   /** Production URL — change once when moving to the custom domain. */
   url: "https://bevierstrategic.pages.dev",
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "bevier19jacob@gmail.com",
@@ -70,7 +76,7 @@ export const site = {
   /** Response-time promise shown after a successful submission. Keep honest. */
   responsePromise: "We typically reply within two business days.",
   description:
-    "BSTS is a veteran-owned technology consultancy for growing and regulated organizations — secure AI implementation, intelligent automation, and connected systems, built around the tools and teams that already work.",
+    "BSTS is a veteran-owned consultancy at the intersection of AI, automation, cybersecurity, and compliance. We help growing organizations adopt AI securely, automate high-value workflows, govern how AI touches sensitive data, and build the controls and evidence that customer security reviews and SOC 2 readiness demand.",
 } as const;
 
 /* ------------------------------------------------------------------ */
@@ -87,37 +93,41 @@ export const pricing = {
 export const offers = [
   {
     slug: "assessment-offer",
-    name: "AI & Automation Assessment",
-    positioning: "Know what to automate before you invest.",
+    name: "AI, Security & Automation Assessment",
+    stage: "Discover",
+    positioning: "Know what to automate, what to secure, and in what order.",
     deliverables: [
-      "Workflow map and technology inventory",
-      "AI and automation opportunity analysis with risk observations",
-      "Prioritized recommendations and a 90-day roadmap",
-      "Budget ranges and an executive briefing",
+      "Workflow map, systems inventory, and data-flow review",
+      "AI use-case and shadow-AI review with risk observations",
+      "Compliance obligations in scope and control gaps identified",
+      "Prioritized 90-day roadmap, budget ranges, and an executive briefing",
     ],
     priceLine: pricing.assessment,
   },
   {
     slug: "sprint-offer",
-    name: "30-Day Automation Sprint",
+    name: "30-Day Secure Automation Sprint",
+    stage: "Implement",
     positioning: "Move one high-value process from manual to operational.",
     deliverables: [
-      "One defined workflow, built as a working automation, integration, or internal tool",
-      "Security boundaries and testing before it touches real data",
-      "Documentation and staff handoff",
-      "Post-launch support window",
+      "One defined workflow built as a working automation, integration, or internal tool",
+      "Data boundaries and security testing before it touches real records",
+      "Human approval on consequential actions, with logging built in",
+      "Documentation, staff handoff, and a post-launch support window",
     ],
     priceLine: pricing.sprint,
   },
   {
     slug: "transformation-offer",
-    name: "Secure AI Transformation",
+    name: "Governance & Assurance Program",
+    stage: "Govern & Assure",
     positioning:
-      "For organizations requiring multiple integrations, AI capabilities, governance controls, or phased modernization.",
+      "For organizations facing SOC 2, a customer security review, or AI adoption at scale.",
     deliverables: [
-      "Assessment-led roadmap across keep, connect, automate, build, and secure",
-      "Phased delivery in short cycles with a demo at every step",
-      "Governance, documentation, and security review throughout",
+      "AI governance and security policy set with named control owners",
+      "Control inventory mapped across the frameworks that apply to you",
+      "Gap remediation tracking and evidence organization",
+      "Audit-readiness maintained between cycles, with evidence automated where systems allow",
     ],
     priceLine: pricing.transformation,
   },
@@ -132,20 +142,26 @@ export const offers = [
  * anchors on "/" rather than separate routes.
  */
 export const navLinks = [
-  { href: "/#services", label: "Services" },
-  { href: "/method", label: "How we work" },
+  { href: "/#services", label: "What we do" },
+  { href: "/assurance", label: "Continuous assurance" },
   { href: "/government", label: "Government" },
-  { href: "/#about", label: "About" },
+  { href: "/advisors", label: "For advisors" },
 ] as const;
 
 export const footerLinks = {
   explore: [
     { href: "/#overview", label: "Overview" },
-    { href: "/#services", label: "Services" },
+    { href: "/#services", label: "What we do" },
     { href: "/method", label: "How we work" },
+    { href: "/assurance", label: "Continuous assurance" },
+    { href: "/#assessment", label: "Start an assessment" },
+  ],
+  more: [
     { href: "/government", label: "Government" },
+    { href: "/advisors", label: "For advisors" },
+    { href: "/security", label: "Security practice" },
     { href: "/#about", label: "About" },
-    { href: "/#assessment", label: "Assessment" },
+    { href: "/insights", label: "Insights" },
     { href: "/os", label: "BSTS OS demo" },
   ],
   legal: [
@@ -156,7 +172,7 @@ export const footerLinks = {
 
 /** Compliance-safe disclaimer used wherever frameworks are referenced. */
 export const frameworkDisclaimer =
-  "References to security frameworks such as NIST CSF 2.0, SOC 2, and OWASP describe the practices that inform our methodology. They do not imply certification, accreditation, endorsement, or an audit opinion.";
+  "References to security and AI frameworks such as SOC 2, NIST CSF 2.0, NIST SP 800-53, the NIST AI Risk Management Framework, ISO/IEC 27001, HIPAA, and CMMC describe the practices that inform our methodology and the requirements we help clients prepare for. They do not imply certification, accreditation, endorsement, or an audit opinion. BSTS does not issue SOC 2 reports — SOC 2 examinations and attestation reports are performed by qualified independent CPA firms.";
 
 /** Federal-experience disclaimer used near veteran/federal references. */
 export const federalDisclaimer =
@@ -165,7 +181,7 @@ export const federalDisclaimer =
 /** Primary call-to-action target — the assessment tab on the landing page. */
 export const assessmentCta = {
   href: "/#assessment",
-  label: "Start your assessment",
+  label: "Start with an assessment",
 } as const;
 
 /**

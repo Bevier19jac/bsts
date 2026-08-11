@@ -899,6 +899,14 @@ body {
   .cs-contact {
     text-align: left;
   }
+  /* The nowrap above keeps the VetCert badge on one line at letter width
+     (screen and print). On a phone that same rule would push the sheet
+     wider than the viewport, so let it wrap here — the printed artifact
+     is unaffected because print uses letter geometry, not this breakpoint. */
+  .cs-badge,
+  .cs-contact {
+    white-space: normal;
+  }
 }
 @media print {
   header,
@@ -950,9 +958,93 @@ body {
   }
 }
 
+/* ---------------------------------------------------------------------------
+   Firing-sequence rail — the BSTS mark as an explanatory diagram.
+   A tracer line leaves the muzzle and carries four nodes to the impact
+   point. Decorative only: every label beneath it is real text.
+--------------------------------------------------------------------------- */
+
+.sequence-rail {
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-gold-soft) 80%, transparent),
+    color-mix(in srgb, var(--color-gold-soft) 30%, transparent)
+  );
+  /* Drawn from the muzzle outward, once, when the section is reached. */
+  transform-origin: left center;
+  animation: sequence-rail-draw 1.1s cubic-bezier(0.3, 0.5, 0.4, 1) both;
+}
+
+/* Muzzle flash at the firing end of the rail. */
+.sequence-rail::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: -14px;
+  width: 30px;
+  height: 16px;
+  border-radius: 999px;
+  opacity: 0;
+  background: radial-gradient(
+    ellipse at 30% 50%,
+    #ffe9b8 0%,
+    rgba(255, 217, 138, 0.75) 40%,
+    rgba(255, 217, 138, 0) 100%
+  );
+  animation: muzzle-flash 0.4s ease-out both;
+}
+
+.sequence-node {
+  position: absolute;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  margin-left: -4.5px;
+  border-radius: 999px;
+  background: var(--color-gold-soft);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-gold-core) 18%, transparent);
+  transform: translateY(-50%);
+}
+
+/* The impact end reads as the effect, so it takes the cyan "proof" accent. */
+.sequence-node-impact {
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  background: var(--color-cyan-core);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-cyan-core) 20%, transparent);
+}
+
+@keyframes sequence-rail-draw {
+  from {
+    transform: scaleX(0);
+    opacity: 0.2;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* Reduced motion: the rail is simply present, fully drawn. */
+.sequence-rail-static,
+.sequence-rail-static::before {
+  animation: none;
+  opacity: 1;
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .sequence-rail,
+  .sequence-rail::before {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
   *,
   *::before,

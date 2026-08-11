@@ -24,16 +24,46 @@ export const founder = {
     vetCert.badge,
   ],
   narrative: [
-    "BSTS exists because most small and mid-sized organizations are told they have two options: keep struggling with disconnected tools, or sign up for a rip-and-replace project that consumes a year and a budget. Neither is true.",
-    "Jacob founded BSTS to offer a third path — engagements that start from what already works, connect it, automate around it, and secure it. His formal training spans both sides of the modern technology question: a Master of Science in Artificial Intelligence and a Bachelor of Science in Computer Science with a Cybersecurity major, earned Magna Cum Laude. That pairing is deliberate. AI implemented without security discipline is a liability; security that blocks useful automation is a tax. BSTS practices both together.",
-    "Before founding BSTS, Jacob served as a U.S. Army combat veteran and senior operational leader — First Sergeant, Senior Instructor, and Abrams Tank Master Gunner — then worked in federal cybersecurity: environments where systems must work under pressure, documentation is not optional, and trust is earned through verification. He holds CompTIA Security+ and AWS Certified AI Practitioner certifications.",
-    "For a client, that background translates directly: requirements in writing before work begins, honest risk calls, clear communication with every stakeholder, secure implementation, documentation and training as part of the work — and a bias toward finishing the mission, not extending the engagement.",
+    "Most organizations adopting AI right now are being served by one of two kinds of firm: automation shops that can build the workflow but have not thought hard about the data moving through it, or security and compliance practices that can write the policy but cannot build anything. The gap between them is where the expensive mistakes happen.",
+    "Jacob founded BSTS to work in that gap. His formal training deliberately spans both sides: a Master of Science in Artificial Intelligence and a Bachelor of Science in Computer Science with a Cybersecurity major, earned Magna Cum Laude. AI implemented without security discipline is a liability. Security that blocks useful automation is a tax. Doing both well requires understanding both, and most people specialize in one.",
+    "Before founding BSTS, Jacob served as a U.S. Army combat veteran and senior operational leader — First Sergeant, Senior Instructor, and Abrams Tank Master Gunner — then moved into federal cybersecurity. Those are environments where systems have to work under pressure, where documentation is not optional, and where nobody takes your word for it: a control counts when you can demonstrate it. That standard is the one BSTS applies to commercial work. He holds CompTIA Security+ and AWS Certified AI Practitioner certifications.",
+    "For a client, the background translates into specifics: requirements in writing before work begins, honest risk calls even when they shrink the engagement, data-flow questions asked before implementation rather than after, documentation and training delivered as part of the work — and a bias toward finishing the mission rather than extending the contract.",
     "BSTS is deliberately lean and principal-led. Every engagement is run by the founder, scoped in writing, and measured against criteria agreed before work begins.",
   ],
+  /**
+   * The path that produced the positioning. Each step is factual and
+   * derives from the credentials and experience listed above — no new
+   * claims are introduced here.
+   */
+  arc: {
+    heading: "Technology → cybersecurity → AI → governance → secure implementation",
+    steps: [
+      {
+        label: "Technical systems",
+        body: "Military technical and gunnery systems, where precision and repeatable procedure are the job.",
+      },
+      {
+        label: "Cybersecurity",
+        body: "Federal cybersecurity work and a Computer Science degree with a Cybersecurity major.",
+      },
+      {
+        label: "Artificial intelligence",
+        body: "A Master of Science in Artificial Intelligence, plus hands-on AI development.",
+      },
+      {
+        label: "Risk & governance",
+        body: "Security-framework exposure and risk management across federal and enterprise stakeholders.",
+      },
+      {
+        label: "Secure implementation",
+        body: "Building the thing — with the data boundaries, controls, and evidence designed in.",
+      },
+    ],
+  },
   principles: [
     {
       title: "Precision over promises",
-      body: "We say NIST-aligned, not NIST certified. We say SOC 2 readiness support, not SOC 2 compliant. If a claim cannot survive an audit of its wording, we do not make it.",
+      body: "We say NIST-aligned, not NIST certified. We say SOC 2 readiness support, not SOC 2 compliant — and we say plainly that a CPA firm, not BSTS, performs the examination. If a claim cannot survive an audit of its wording, we do not make it.",
     },
     {
       title: "Working software over slideware",

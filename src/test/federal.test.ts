@@ -20,19 +20,33 @@ describe("VetCert status → public language mapping", () => {
   });
 
   it("never uses certified wording unless the status is certified", () => {
-    const wording = `${vetCert.badge} ${vetCert.heading} ${vetCert.explanation}`.toLowerCase();
+    const wording =
+      `${vetCert.badge} ${vetCert.heading} ${vetCert.short} ${vetCert.explanation}`.toLowerCase();
     if (vetCertStatus !== "certified") {
       expect(wording).not.toContain("certified small business");
       expect(wording).not.toContain("sba-certified");
       expect(wording).not.toMatch(/\bsdvosb\b(?! certification will be pursued)/);
-      expect(wording).toContain("veteran-owned and led");
+      // Approved ownership wording — veteran-owned AND operated.
+      expect(wording).toContain("veteran-owned & operated");
+      expect(wording).toContain("veteran-owned and operated");
+    }
+  });
+
+  it("never claims the application is filed before it is", () => {
+    // "in process" / "in progress" both imply a filing exists. Only the
+    // "submitted" and "certified" states may imply an active application.
+    const wording =
+      `${vetCert.badge} ${vetCert.short} ${vetCert.explanation}`.toLowerCase();
+    if (vetCertStatus === "planned") {
+      expect(wording).not.toMatch(/in process|in progress|pending|submitted|under review/);
+      expect(wording).toContain("planned");
     }
   });
 
   it("maps each status to the mandated public phrasing", () => {
     if (vetCertStatus === "planned") {
       expect(vetCert.badge).toBe(
-        "Service-disabled veteran-owned and led · SBA VetCert application planned",
+        "Service-Disabled Veteran-Owned & Operated · SBA VetCert application planned",
       );
     }
     if (vetCertStatus === "submitted") {
@@ -42,6 +56,15 @@ describe("VetCert status → public language mapping", () => {
       expect(vetCert.badge).toBe(
         "SBA-certified Service-Disabled Veteran-Owned Small Business",
       );
+    }
+  });
+
+  it("exposes a short ownership label for compact surfaces", () => {
+    expect(vetCert.short.length).toBeGreaterThan(10);
+    // The short label must never carry certification status wording unless
+    // the certificate is actually in hand.
+    if (vetCertStatus !== "certified") {
+      expect(vetCert.short.toLowerCase()).not.toContain("certified");
     }
   });
 });

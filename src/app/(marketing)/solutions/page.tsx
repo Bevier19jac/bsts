@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Atmosphere } from "@/components/ui/Atmosphere";
 import { Surface } from "@/components/ui/Surface";
@@ -7,12 +8,12 @@ import { Reveal } from "@/components/motion/Reveal";
 import { staggerDelay } from "@/components/motion/stagger";
 import { LinkButton } from "@/components/ui/Button";
 import { pillars } from "@/lib/content/pillars";
-import { site } from "@/lib/site";
+import { frameworkDisclaimer, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Solutions",
+  title: "Delivery Lanes",
   description:
-    "Five lanes of work — keep, connect, automate, build, secure. Stack assessment, systems integration, intelligent automation, custom software with responsible AI, and NIST-aligned security.",
+    "How BSTS organizes implementation work — keep, connect, automate, build, secure. The delivery detail beneath Secure AI & Automation, AI Security & Governance, and SOC 2 & Compliance Readiness.",
 };
 
 export default function SolutionsPage() {
@@ -20,13 +21,28 @@ export default function SolutionsPage() {
     <>
       <section className="relative isolate overflow-hidden">
         <Atmosphere variant="quiet" />
-        <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-16">
+        <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-10">
           <SectionHeading
             as="h1"
-            eyebrow="Solutions"
+            eyebrow="Delivery lanes"
             title="Five lanes of work, one honest sentence."
             lede={site.promise}
           />
+          <Reveal delay={0.1}>
+            <p className="mt-6 max-w-3xl text-sm leading-relaxed text-warm-mist">
+              These are the lanes implementation work runs in — the detail
+              underneath the three things BSTS is engaged to do.{" "}
+              <Link
+                href="/#services"
+                className="text-cyan-soft underline underline-offset-4 hover:text-cyan-core"
+              >
+                Secure AI &amp; Automation, AI Security &amp; Governance, and
+                SOC 2 &amp; Compliance Readiness
+              </Link>{" "}
+              are the engagements; these five are how the building actually
+              gets organized.
+            </p>
+          </Reveal>
         </div>
       </section>
 
@@ -100,11 +116,14 @@ export default function SolutionsPage() {
         />
         <Reveal delay={0.12}>
           <div className="mt-9">
-            <LinkButton href="/contact">
+            <LinkButton href="/#assessment">
               Start the assessment <ArrowRight className="h-4 w-4" aria-hidden />
             </LinkButton>
           </div>
         </Reveal>
+        <p className="mx-auto mt-10 max-w-3xl text-left text-xs leading-relaxed text-warm-dim">
+          {frameworkDisclaimer}
+        </p>
       </section>
     </>
   );

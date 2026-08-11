@@ -4,18 +4,30 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Quote } from "lucide-react";
 import { Atmosphere } from "@/components/ui/Atmosphere";
 import { Surface } from "@/components/ui/Surface";
 import { Reveal } from "@/components/motion/Reveal";
 import { staggerDelay } from "@/components/motion/stagger";
 import { PointerHalo } from "@/components/marketing/PointerHalo";
 import { SystemsDiagram } from "@/components/marketing/SystemsDiagram";
+import { FiringSequence } from "@/components/marketing/FiringSequence";
 import { TracerRule } from "@/components/ui/TracerRule";
 import { AssessmentForm } from "@/components/assessment/AssessmentForm";
-import { pillars } from "@/lib/content/pillars";
 import { founder } from "@/lib/content/founder";
 import { solara, solaraLabel } from "@/lib/content/solara";
+import {
+  aiApproach,
+  assuranceVision,
+  engagementNote,
+  engagementStages,
+  forceMultiplier,
+  idealClient,
+  serviceAreas,
+  soc2Boundary,
+  strategicSummary,
+  triggers,
+} from "@/lib/content/positioning";
 import {
   federalDisclaimer,
   frameworkDisclaimer,
@@ -27,7 +39,7 @@ import {
 
 const TABS = [
   { id: "overview", label: "Overview" },
-  { id: "services", label: "Services" },
+  { id: "services", label: "What we do" },
   { id: "about", label: "About" },
   { id: "assessment", label: "Assessment" },
 ] as const;
@@ -37,6 +49,38 @@ type TabId = (typeof TABS)[number]["id"];
 function isTabId(v: string): v is TabId {
   return TABS.some((t) => t.id === v);
 }
+
+/**
+ * Accent rotation for the three service areas — cyan, gold, cyan.
+ * Class strings are written out in full (never composed at runtime) so
+ * Tailwind's static scanner generates every variant used here.
+ */
+const AREA_ACCENT = [
+  {
+    text: "text-cyan-core",
+    soft: "text-cyan-soft",
+    bg: "bg-cyan-faint",
+    dot: "bg-cyan-core",
+    hover: "hover:border-cyan-core/50",
+    radius: "blob-a",
+  },
+  {
+    text: "text-gold-core",
+    soft: "text-gold-soft",
+    bg: "bg-gold-faint",
+    dot: "bg-gold-core",
+    hover: "hover:border-gold-core/50",
+    radius: "blob-b",
+  },
+  {
+    text: "text-cyan-core",
+    soft: "text-cyan-soft",
+    bg: "bg-cyan-faint",
+    dot: "bg-cyan-core",
+    hover: "hover:border-cyan-core/50",
+    radius: "blob-c",
+  },
+] as const;
 
 export function Landing() {
   const [tab, setTab] = useState<TabId>("overview");
@@ -88,7 +132,7 @@ export function Landing() {
         <Atmosphere />
         <div className="relative mx-auto max-w-6xl px-6 pt-6 pb-8 text-center sm:pt-8 lg:pt-4">
           <Reveal>
-            <p className="eyebrow">Secure AI · Intelligent Automation · Connected Systems</p>
+            <p className="eyebrow">{site.subline}</p>
           </Reveal>
           <Reveal delay={0.04}>
             <p className="mt-3 inline-block rounded-full border border-gold-core/45 bg-gold-faint px-4 py-1.5 text-[0.7rem] font-semibold tracking-[0.14em] text-gold-soft uppercase">
@@ -168,32 +212,31 @@ export function Landing() {
               </span>
             </div>
           </Reveal>
+
+          {/* The strategic line — the company in three sentences. */}
           <Reveal delay={0.16}>
-            <h1 className="display mx-auto mt-5 max-w-3xl text-4xl leading-[1.08] sm:text-5xl lg:-mt-16">
-              A force multiplier for the team{" "}
-              <span className="text-cyan-soft">you already have.</span>
+            <h1 className="display mx-auto mt-5 max-w-3xl text-[2rem] leading-[1.1] sm:text-[2.75rem] lg:-mt-12 lg:text-[3rem]">
+              <span className="block text-warm-white">Secure the data.</span>
+              <span className="block text-cyan-soft">Enable the AI.</span>
+              <span className="block text-gold-soft">Prove the controls.</span>
             </h1>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mx-auto mt-3 max-w-2xl leading-relaxed text-warm-mist sm:text-lg">
-              BSTS helps growing and regulated organizations connect
-              disconnected systems, automate repetitive work, and implement
-              secure AI — without replacing the tools and teams that already
-              work.
-            </p>
-          </Reveal>
-          <Reveal delay={0.24}>
-            <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-gold-soft">
-              {site.promise}
+            <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-warm-mist sm:text-lg">
+              {strategicSummary}
             </p>
           </Reveal>
           <Reveal delay={0.28}>
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-4">
-              <button type="button" onClick={() => select("assessment")} className="btn-primary-form px-7 py-3 text-base">
-                Start Your Technology Assessment <ArrowRight className="h-4 w-4" aria-hidden />
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+              <button
+                type="button"
+                onClick={() => select("assessment")}
+                className="btn-primary-form px-7 py-3 text-base"
+              >
+                Start With an Assessment <ArrowRight className="h-4 w-4" aria-hidden />
               </button>
               <button type="button" onClick={() => select("services")} className="btn-ghost-form">
-                See What We Do
+                Explore BSTS
               </button>
             </div>
           </Reveal>
@@ -276,10 +319,167 @@ export function Landing() {
   );
 }
 
+/* ---------------------------- Shared blocks ---------------------------- */
+
+/** The three service areas as primary cards — the 10-second explanation. */
+function ServiceCards({ select }: { select: (id: TabId) => void }) {
+  return (
+    <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+      {serviceAreas.map((a, i) => {
+        const Icon = a.icon;
+        const accent = AREA_ACCENT[i];
+        return (
+          <Reveal key={a.slug} delay={staggerDelay(i)}>
+            <button
+              type="button"
+              onClick={() => select("services")}
+              className={`surface ${accent.radius} ${accent.hover} flex h-full w-full flex-col p-7 text-left transition-colors`}
+            >
+              <span className={`w-fit rounded-full ${accent.bg} p-2.5`}>
+                <Icon className={`h-6 w-6 ${accent.text}`} aria-hidden />
+              </span>
+              <h3 className="mt-4 text-lg font-semibold text-warm-white">{a.title}</h3>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-warm-mist">
+                {a.cardLine}
+              </p>
+              <span
+                className={`mt-4 inline-flex items-center gap-1.5 text-sm font-medium ${accent.soft}`}
+              >
+                What this looks like
+                <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+              </span>
+            </button>
+          </Reveal>
+        );
+      })}
+    </div>
+  );
+}
+
+/**
+ * "You may need BSTS if…" — the recognition section.
+ *
+ * This is written entirely in the client's voice on purpose. A referral
+ * partner who does not understand AI engineering should still be able to
+ * recognize one of these sentences when a client says it out loud.
+ */
+function TriggerSection({ select }: { select: (id: TabId) => void }) {
+  return (
+    <section className="mt-16" aria-labelledby="triggers-heading">
+      <div className="text-center">
+        <p className="eyebrow">Recognize the moment</p>
+        <h2
+          id="triggers-heading"
+          className="display mt-3 text-3xl text-warm-white sm:text-4xl"
+        >
+          You may need BSTS if…
+        </h2>
+        <TracerRule className="mx-auto mt-4 max-w-[16rem]" />
+        <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-warm-mist">
+          These are the sentences that start almost every engagement. If one of
+          them sounds like something you have said in the last six months,
+          there is a conversation worth having.
+        </p>
+      </div>
+
+      <ul className="mt-9 grid grid-cols-1 gap-4 md:grid-cols-2">
+        {triggers.map((t, i) => (
+          <Reveal as="li" key={t.quote} delay={staggerDelay(i % 2)}>
+            <div className="surface-quiet flex h-full gap-4 rounded-[1.75rem] p-6">
+              <Quote
+                className="mt-0.5 h-5 w-5 shrink-0 text-gold-core/70"
+                aria-hidden
+              />
+              <div>
+                <p className="leading-relaxed text-warm-white">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <p className="mt-3 text-xs font-semibold tracking-[0.12em] text-cyan-soft uppercase">
+                  {t.area}
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        ))}
+      </ul>
+
+      <div className="mt-8 text-center">
+        <button
+          type="button"
+          onClick={() => select("assessment")}
+          className="btn-primary-form px-7 py-3 text-base"
+        >
+          That sounds familiar — start here
+          <ArrowRight className="h-4 w-4" aria-hidden />
+        </button>
+        <p className="mt-4 text-sm text-warm-dim">
+          Advising clients rather than running one?{" "}
+          <Link
+            href="/advisors"
+            className="text-cyan-soft underline underline-offset-4 hover:text-cyan-core"
+          >
+            The advisor field guide
+          </Link>{" "}
+          covers the same triggers from your side of the table.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/** DISCOVER → IMPLEMENT → GOVERN → ASSURE */
+function EngagementLadder() {
+  return (
+    <section className="mt-16" aria-labelledby="engagement-heading">
+      <div className="text-center">
+        <p className="eyebrow">How engagements work</p>
+        <h2
+          id="engagement-heading"
+          className="display mt-3 text-3xl text-warm-white sm:text-4xl"
+        >
+          Discover. Implement. Govern. Assure.
+        </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-warm-mist">
+          Each stage stands on its own. Most organizations start with the first
+          one and decide from there — nothing here requires committing to the
+          whole ladder up front.
+        </p>
+      </div>
+
+      <ol className="mt-9 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {engagementStages.map((s, i) => {
+          const Icon = s.icon;
+          return (
+            <Reveal as="li" key={s.key} delay={staggerDelay(i)}>
+              <Surface quiet blob={(["a", "b", "c", "a"] as const)[i]} className="h-full p-6">
+                <div className="flex items-center gap-3">
+                  <span className="display text-2xl text-gold-soft">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <Icon className="h-5 w-5 text-cyan-core" aria-hidden />
+                </div>
+                <h3 className="mt-3 text-base font-semibold tracking-[0.1em] text-warm-white uppercase">
+                  {s.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-cyan-soft">{s.oneLine}</p>
+                <p className="mt-3 text-sm leading-relaxed text-warm-mist">{s.body}</p>
+              </Surface>
+            </Reveal>
+          );
+        })}
+      </ol>
+
+      <p className="mx-auto mt-6 max-w-3xl text-center text-sm leading-relaxed text-warm-dim">
+        {engagementNote}
+      </p>
+    </section>
+  );
+}
+
 /** The three commercial entry points — professional, not a price menu. */
 function EngagementOffers({ select }: { select: (id: TabId) => void }) {
   return (
-    <section className="mt-14" aria-labelledby="offers-heading">
+    <section className="mt-16" aria-labelledby="offers-heading">
       <h2 id="offers-heading" className="display text-center text-2xl text-warm-white sm:text-3xl">
         Three ways to begin.
       </h2>
@@ -296,7 +496,7 @@ function EngagementOffers({ select }: { select: (id: TabId) => void }) {
               className={`flex h-full flex-col p-7 ${i === 0 ? "border-cyan-core/40" : ""}`}
             >
               <p className="text-[0.65rem] font-semibold tracking-[0.16em] text-warm-dim uppercase">
-                {i === 0 ? "Start here" : i === 1 ? "First win" : "Full engagement"}
+                {o.stage}
               </p>
               <h3 className="mt-2 text-lg font-semibold text-warm-white">{o.name}</h3>
               <p className="mt-1.5 text-sm leading-relaxed text-cyan-soft">
@@ -331,7 +531,7 @@ function EngagementOffers({ select }: { select: (id: TabId) => void }) {
 
 function PanelCta({
   select,
-  label = "Start the assessment",
+  label = "Start with an assessment",
 }: {
   select: (id: TabId) => void;
   label?: string;
@@ -354,41 +554,63 @@ function PanelCta({
 function OverviewPanel({ select }: { select: (id: TabId) => void }) {
   return (
     <div>
-      <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.1fr_1fr]">
-        <div>
-          <h2 className="display text-3xl text-warm-white sm:text-4xl">
-            Your existing systems are an asset, not an embarrassment.
-          </h2>
-          <TracerRule />
-          <p className="mt-5 leading-relaxed text-warm-mist">
-            The whole idea is amplification, not replacement. We make your
-            existing people and tools measurably more capable — keeping what
-            works, connecting what&apos;s siloed, and taking the repetitive
-            busywork off your team&apos;s plate. Replacement is a last resort,
-            recommended only with a written reason.
-          </p>
-          <ul className="mt-6 space-y-3">
-            {[
-              "No rip-and-replace reflex — every recommendation carries a reason",
-              "Focused automations can often be delivered in weeks, with scope and dependencies defined upfront",
-              "No licenses sold, no vendor commissions taken",
-            ].map((line) => (
-              <li key={line} className="flex gap-3 text-sm leading-relaxed text-warm-mist">
+      {/* Three pillars, immediately. */}
+      <ServiceCards select={select} />
+
+      {/* Who it's for */}
+      <Reveal delay={0.06}>
+        <Surface quiet blob="b" className="mt-12 grid grid-cols-1 gap-6 p-7 sm:p-8 lg:grid-cols-[1.15fr_1fr]">
+          <div>
+            <h2 className="display text-2xl text-warm-white sm:text-3xl">
+              {idealClient.headline}
+            </h2>
+            <TracerRule />
+            <p className="mt-5 text-sm leading-relaxed text-warm-mist">
+              {idealClient.body}
+            </p>
+          </div>
+          <ul className="grid grid-cols-1 gap-2.5 self-center">
+            {idealClient.signals.map((s) => (
+              <li key={s} className="flex gap-3 text-sm leading-relaxed text-warm-mist">
                 <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-cyan-core" aria-hidden />
-                {line}
+                {s}
               </li>
             ))}
           </ul>
-        </div>
-        <Surface blob="a" className="grain relative overflow-hidden p-6 sm:p-8">
-          <SystemsDiagram className="h-auto w-full" />
         </Surface>
-      </div>
+      </Reveal>
+
+      {/* The recognition section */}
+      <TriggerSection select={select} />
+
+      {/* Force multiplier — the preserved brand idea */}
+      <section className="mt-16" aria-labelledby="approach-heading">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.1fr_1fr]">
+          <div>
+            <h2 id="approach-heading" className="display text-3xl text-warm-white sm:text-4xl">
+              {forceMultiplier.heading}
+            </h2>
+            <TracerRule />
+            <p className="mt-5 leading-relaxed text-warm-mist">{forceMultiplier.body}</p>
+            <ul className="mt-6 space-y-3">
+              {forceMultiplier.commitments.map((line) => (
+                <li key={line} className="flex gap-3 text-sm leading-relaxed text-warm-mist">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-cyan-core" aria-hidden />
+                  {line}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <Surface blob="a" className="grain relative overflow-hidden p-6 sm:p-8">
+            <SystemsDiagram className="h-auto w-full" />
+          </Surface>
+        </div>
+      </section>
 
       {/* Veteran-ownership block — wording derives from the centralized
           VetCert status in site.ts and upgrades automatically. */}
       <Reveal delay={0.08}>
-        <Surface blob="b" className="mt-12 grid grid-cols-1 items-center gap-6 border-gold-core/35 p-7 sm:p-8 lg:grid-cols-[auto_1fr]">
+        <Surface blob="b" className="mt-14 grid grid-cols-1 items-center gap-6 border-gold-core/35 p-7 sm:p-8 lg:grid-cols-[auto_1fr]">
           <div className="flex items-center gap-4">
             <span aria-hidden className="display text-4xl text-gold-soft">★</span>
             <div>
@@ -410,30 +632,38 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
         </Surface>
       </Reveal>
 
-      <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
-        {pillars.map((p, i) => {
-          const Icon = p.icon;
-          return (
-            <Reveal key={p.slug} delay={staggerDelay(i)}>
-              <button
-                type="button"
-                onClick={() => select("services")}
-                className="surface-quiet blob-b block h-full w-full p-5 text-left transition-colors hover:border-cyan-core/50"
-              >
-                <Icon className="h-5 w-5 text-cyan-core" aria-hidden />
-                <p className="mt-3 text-sm font-semibold text-warm-white">{p.title}</p>
-                <p className="mt-1.5 text-xs leading-relaxed text-warm-dim">
-                  {p.promiseLine}
-                </p>
-              </button>
-            </Reveal>
-          );
-        })}
-      </div>
+      {/* The mark, explained — the tank is brand identity, not decoration. */}
+      <FiringSequence />
+
+      {/* Engagement ladder */}
+      <EngagementLadder />
+
+      {/* Continuous assurance teaser → dedicated page */}
+      <Reveal delay={0.08}>
+        <Surface
+          blob="c"
+          className="mt-16 border-cyan-core/30 p-8 text-center sm:p-10"
+        >
+          <p className="eyebrow">Where this is going</p>
+          <h2 className="display mx-auto mt-3 max-w-3xl text-2xl text-warm-white sm:text-3xl">
+            {assuranceVision}
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-warm-mist">
+            Most compliance still runs on questionnaires, spreadsheets, and
+            screenshots taken the week before the audit. We think the evidence
+            should come from the systems themselves — and we build toward that
+            in every engagement.
+          </p>
+          <Link href="/assurance" className="btn-ghost-form mt-6 inline-flex">
+            See the continuous assurance model
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
+        </Surface>
+      </Reveal>
 
       <EngagementOffers select={select} />
 
-      <PanelCta select={select} label="Start Your Technology Assessment" />
+      <PanelCta select={select} label="Start With an Assessment" />
     </div>
   );
 }
@@ -443,68 +673,99 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
 function ServicesPanel({ select }: { select: (id: TabId) => void }) {
   return (
     <div>
-      <div className="space-y-6">
-        {pillars.map((p, i) => {
-          const Icon = p.icon;
+      <div className="text-center">
+        <p className="eyebrow">What we do</p>
+        <h2 className="display mt-3 text-3xl text-warm-white sm:text-4xl">
+          Three problems. One lifecycle.
+        </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-warm-mist">
+          Secure the data. Enable the AI. Prove the controls. These are not
+          three separate products — they are the order in which the work has to
+          happen for any of it to hold up.
+        </p>
+      </div>
+
+      <div className="mt-10 space-y-6">
+        {serviceAreas.map((a, i) => {
+          const Icon = a.icon;
+          const accent = AREA_ACCENT[i];
           return (
-            <Reveal key={p.slug} delay={staggerDelay(Math.min(i, 2))}>
-              <Surface blob={(["a", "b", "c"] as const)[i % 3]} className="grid grid-cols-1 gap-6 p-7 sm:p-8 lg:grid-cols-[1.2fr_1fr]">
+            <Reveal key={a.slug} delay={staggerDelay(Math.min(i, 2))}>
+              <Surface
+                id={a.slug}
+                blob={(["a", "b", "c"] as const)[i % 3]}
+                className="scroll-mt-32 grid grid-cols-1 gap-6 p-7 sm:p-8 lg:grid-cols-[1.2fr_1fr]"
+              >
                 <div>
                   <div className="flex items-center gap-3">
-                    <span className="rounded-full bg-cyan-faint p-2">
-                      <Icon className="h-5 w-5 text-cyan-core" aria-hidden />
+                    <span className={`rounded-full ${accent.bg} p-2`}>
+                      <Icon className={`h-5 w-5 ${accent.text}`} aria-hidden />
                     </span>
-                    <h2 className="text-lg font-semibold text-warm-white">{p.title}</h2>
+                    <h3 className="text-lg font-semibold text-warm-white">{a.title}</h3>
                   </div>
-                  <p className="mt-1.5 text-xs tracking-[0.14em] text-gold-soft uppercase">
-                    {p.promiseLine}
+                  {/* The problem in the client's own words. */}
+                  <p className="mt-4 border-l-2 border-gold-core/50 pl-4 text-sm leading-relaxed text-warm-white italic">
+                    &ldquo;{a.customerProblem}&rdquo;
                   </p>
-                  <p className="mt-3 text-sm font-medium leading-relaxed text-cyan-soft">
-                    {p.outcome}
+                  <p className={`mt-4 text-sm font-medium leading-relaxed ${accent.soft}`}>
+                    {a.positioning}
                   </p>
-                  <p className="mt-3 text-sm leading-relaxed text-warm-mist">{p.detail}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-warm-dim">
-                    <span className="font-semibold text-warm-mist">For example: </span>
-                    {p.example}
-                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-warm-mist">{a.detail}</p>
+
+                  {a.discipline ? (
+                    <div className="mt-5 rounded-2xl border border-edge/60 bg-obsidian/40 p-5">
+                      <h4 className="text-[0.65rem] font-semibold tracking-[0.16em] text-gold-soft uppercase">
+                        {a.discipline.heading}
+                      </h4>
+                      <ul className="mt-3 space-y-2">
+                        {a.discipline.items.map((q) => (
+                          <li
+                            key={q}
+                            className="flex gap-2.5 text-sm leading-relaxed text-warm-mist"
+                          >
+                            <span
+                              aria-hidden
+                              className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-core"
+                            />
+                            {q}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+
+                  {a.boundary ? (
+                    <p className="mt-4 text-xs leading-relaxed text-warm-dim">
+                      <span className="font-semibold text-warm-mist">
+                        Where the line is:{" "}
+                      </span>
+                      {a.boundary}
+                    </p>
+                  ) : null}
                 </div>
-                <div className="surface-quiet rounded-3xl p-5">
-                  <h3 className="text-[0.65rem] font-semibold tracking-[0.16em] text-warm-dim uppercase">
+
+                <div className="surface-quiet h-fit rounded-3xl p-5">
+                  <h4 className="text-[0.65rem] font-semibold tracking-[0.16em] text-warm-dim uppercase">
                     Typical work
-                  </h3>
+                  </h4>
                   <ul className="mt-3 space-y-2.5">
-                    {p.examples.map((ex) => (
-                      <li key={ex} className="flex gap-2.5 text-sm leading-relaxed text-warm-mist">
-                        <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-core" />
-                        {ex}
+                    {a.work.map((w) => (
+                      <li key={w} className="flex gap-2.5 text-sm leading-relaxed text-warm-mist">
+                        <span
+                          aria-hidden
+                          className={`mt-2 h-1.5 w-1.5 shrink-0 rounded-full ${accent.dot}`}
+                        />
+                        {w}
                       </li>
                     ))}
                   </ul>
-                  {/* Native disclosure: keyboard- and touch-operable, correct
-                      expanded/collapsed semantics, nothing essential hidden. */}
-                  <details className="group mt-4 border-t border-edge/50 pt-3">
-                    <summary className="cursor-pointer list-none rounded-lg text-sm font-medium text-cyan-soft transition-colors hover:text-cyan-core focus-visible:outline-2 focus-visible:outline-cyan-core">
-                      <span aria-hidden className="mr-1.5 inline-block transition-transform duration-200 group-open:rotate-90">
-                        ›
-                      </span>
-                      Good fit when…
-                    </summary>
-                    <ul className="mt-2.5 space-y-2">
-                      {p.goodFit.map((g) => (
-                        <li key={g} className="flex gap-2.5 text-sm leading-relaxed text-warm-mist">
-                          <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-core" />
-                          {g}
-                        </li>
-                      ))}
-                    </ul>
-                    <button
-                      type="button"
-                      onClick={() => select("assessment")}
-                      className="mt-3 text-sm text-cyan-soft underline underline-offset-4 hover:text-cyan-core"
-                    >
-                      Sound familiar? Start the assessment
-                    </button>
-                  </details>
+                  <button
+                    type="button"
+                    onClick={() => select("assessment")}
+                    className="mt-4 border-t border-edge/50 pt-3 text-sm text-cyan-soft underline underline-offset-4 hover:text-cyan-core"
+                  >
+                    Sound familiar? Start the assessment
+                  </button>
                 </div>
               </Surface>
             </Reveal>
@@ -512,11 +773,62 @@ function ServicesPanel({ select }: { select: (id: TabId) => void }) {
         })}
       </div>
 
+      {/* VALUE → RISK → CONTROLS → ASSURANCE */}
+      <section className="mt-16" aria-labelledby="ai-approach-heading">
+        <div className="text-center">
+          <p className="eyebrow">How we approach AI</p>
+          <h2
+            id="ai-approach-heading"
+            className="display mt-3 text-3xl text-warm-white sm:text-4xl"
+          >
+            Value. Risk. Controls. Assurance.
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-warm-mist">
+            Every AI use case runs this gate before anything reaches production.
+            Skipping a step does not make the project faster — it moves the cost
+            to a worse moment.
+          </p>
+        </div>
+        <ol className="mt-9 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {aiApproach.map((s, i) => (
+            <Reveal as="li" key={s.step} delay={staggerDelay(i)}>
+              <Surface quiet blob={(["a", "b", "c", "a"] as const)[i]} className="h-full p-6">
+                <p className="display text-3xl text-gold-soft">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <h3 className="mt-2 text-base font-semibold tracking-[0.12em] text-warm-white uppercase">
+                  {s.step}
+                </h3>
+                <p className="mt-2 text-sm font-medium leading-relaxed text-cyan-soft">
+                  {s.question}
+                </p>
+                <p className="mt-2.5 text-sm leading-relaxed text-warm-mist">{s.body}</p>
+              </Surface>
+            </Reveal>
+          ))}
+        </ol>
+      </section>
+
+      {/* SOC 2 boundary, stated plainly and unmissably. */}
+      <Reveal delay={0.06}>
+        <Surface quiet className="mt-10 border-gold-core/30 p-6 sm:p-7">
+          <p className="text-[0.65rem] font-semibold tracking-[0.16em] text-gold-soft uppercase">
+            An important distinction
+          </p>
+          <p className="mt-2.5 text-sm leading-relaxed text-warm-mist">
+            {soc2Boundary} BSTS prepares your organization for that
+            examination — scoping, controls, gaps, remediation, and evidence.
+            We are not a party to the auditor&apos;s opinion, and we will tell
+            you plainly which parts of the process we can and cannot influence.
+          </p>
+        </Surface>
+      </Reveal>
+
       <EngagementOffers select={select} />
 
       {/* Solara concept — labeled */}
       <Reveal delay={0.1}>
-        <div className="mt-12">
+        <div className="mt-14">
           <p className="inline-block rounded-full border border-gold-core/40 bg-gold-faint px-4 py-1.5 text-[0.68rem] font-semibold tracking-[0.16em] text-gold-soft">
             {solaraLabel}
           </p>
@@ -556,7 +868,7 @@ function AboutPanel({ select }: { select: (id: TabId) => void }) {
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.2fr_1fr]">
         <div>
           <h2 className="display text-3xl text-warm-white sm:text-4xl">
-            Led by a practitioner, not a sales team.
+            An unusual intersection, built on purpose.
           </h2>
           <TracerRule />
           <div className="mt-6 space-y-5">
@@ -592,7 +904,30 @@ function AboutPanel({ select }: { select: (id: TabId) => void }) {
         </Surface>
       </div>
 
-      <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2">
+      {/* The path — technology → cybersecurity → AI → governance */}
+      <Reveal delay={0.06}>
+        <div className="mt-14">
+          <h3 className="text-center text-xs font-semibold tracking-[0.18em] text-gold-soft uppercase">
+            {founder.arc.heading}
+          </h3>
+          <ol className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            {founder.arc.steps.map((s, i) => (
+              <li
+                key={s.label}
+                className="surface-quiet rounded-2xl p-5"
+              >
+                <p className="display text-lg text-cyan-soft">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <p className="mt-1.5 text-sm font-semibold text-warm-white">{s.label}</p>
+                <p className="mt-1.5 text-xs leading-relaxed text-warm-dim">{s.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </Reveal>
+
+      <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-2">
         {founder.principles.map((p, i) => (
           <Reveal key={p.title} delay={staggerDelay(i % 2)}>
             <Surface quiet blob={(["a", "b", "c", "a"] as const)[i]} className="h-full p-7">
@@ -606,7 +941,7 @@ function AboutPanel({ select }: { select: (id: TabId) => void }) {
 
       {/* Service record — personal archive, treated to match the theme */}
       <Reveal delay={0.08}>
-        <div className="mt-12">
+        <div className="mt-14">
           <h3 className="text-center text-xs font-semibold tracking-[0.18em] text-gold-soft uppercase">
             From the physical battlefield to the digital battleplan
           </h3>
@@ -654,7 +989,7 @@ function AssessmentPanel() {
   return (
     <div className="mx-auto max-w-3xl">
       <h2 className="display text-center text-3xl text-warm-white sm:text-4xl">
-        The technology assessment.
+        The assessment.
       </h2>
       <TracerRule className="mx-auto mt-4 max-w-[14rem]" />
       <p className="mt-4 text-center leading-relaxed text-warm-mist">
