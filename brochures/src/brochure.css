@@ -581,3 +581,76 @@ ul.ticks.tight li {
 .center {
   text-align: center;
 }
+
+
+/* ---------------------------------------------------------------------------
+   Hero identity block — big chrome wordmark, star-and-tracer rule.
+   Built for matte: the metal ramp stops short of paper white at both ends so
+   the letterforms keep an edge instead of blowing out, and a dark underlay
+   keeps them separated from the panel behind.
+--------------------------------------------------------------------------- */
+
+.mark-hero {
+  font-family: "Inter", sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.055em;
+  line-height: 0.95;
+  background: linear-gradient(
+    174deg,
+    #ffffff 0%,
+    #eef2f6 14%,
+    #b9c4cf 31%,
+    #ffffff 47%,
+    #dbe3ea 56%,
+    #8c98a5 74%,
+    #cfd8e0 90%,
+    #f4f7fa 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* A hair of dark relief under the metal — reads as edge, not as a shadow. */
+  filter: drop-shadow(0 0.012in 0.012in rgba(0, 0, 0, 0.55));
+}
+
+.mark-hero-sub {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  color: var(--cyan-soft);
+}
+
+/* Gold star sitting on a tracer rule — the small repeating brand device. */
+.star-rule {
+  display: flex;
+  align-items: center;
+  gap: 0.07in;
+}
+.star-rule .sr-line {
+  flex: 1;
+  height: 0.026in;
+  border-radius: 999px;
+}
+.star-rule .sr-line.l {
+  background: linear-gradient(90deg, rgba(201,168,105,0) 0%, var(--gold) 100%);
+}
+.star-rule .sr-line.r {
+  background: linear-gradient(90deg, var(--gold) 0%, rgba(201,168,105,0) 100%);
+}
+.star-rule svg { display: block; flex-shrink: 0; }
+
+/* Ground-plane wash under the hero tank so the reflection has something to
+   sit on rather than floating in the panel. */
+.ground {
+  position: absolute;
+  left: -0.34in;
+  right: -0.34in;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse 60% 100% at 50% 50%,
+    rgba(120, 148, 178, 0.16) 0%,
+    rgba(90, 116, 145, 0.07) 45%,
+    rgba(18, 24, 32, 0) 78%
+  );
+}

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 200" width="460" height="200">
+<!--
+  BSTS muzzle blast envelope.
+
+  No sabot petals. At a quarter-inch on paper they never stopped reading as
+  debris, so the mark is now the blast itself: a bright lance leaving the
+  tube and running downrange into the tracer.
+
+  Units are 1/100 inch. Sized to sit over abrams-hero.png drawn 3.40in wide,
+  where the measured muzzle is at 94.0% width / 38.2% height = (319.6, 96.9)
+  in this coordinate space when the SVG is drawn at the same width and origin.
+-->
+<defs>
+  <!-- Core of the blast: white-hot at the tube, cooling forward. -->
+  <linearGradient id="lance" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0"    stop-color="#fff6df" stop-opacity="0"/>
+    <stop offset="0.16" stop-color="#fffdf6" stop-opacity="0.96"/>
+    <stop offset="0.34" stop-color="#ffeec4"/>
+    <stop offset="0.62" stop-color="#ffc978" stop-opacity="0.80"/>
+    <stop offset="0.86" stop-color="#e9994a" stop-opacity="0.34"/>
+    <stop offset="1"    stop-color="#c9762f" stop-opacity="0"/>
+  </linearGradient>
+  <!-- Warm envelope around the core — this is the "blast", kept as one
+       clean lens shape rather than scattered flame tongues. -->
+  <radialGradient id="envelope" cx="0.22" cy="0.5" r="0.72">
+    <stop offset="0"    stop-color="#ffe6b4" stop-opacity="0.62"/>
+    <stop offset="0.34" stop-color="#ffb85f" stop-opacity="0.34"/>
+    <stop offset="0.68" stop-color="#e07b2a" stop-opacity="0.12"/>
+    <stop offset="1"    stop-color="#b85e1c" stop-opacity="0"/>
+  </radialGradient>
+  <!-- Tight incandescent bulb right at the tube mouth. -->
+  <radialGradient id="mouth" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0"    stop-color="#ffffff"/>
+    <stop offset="0.34" stop-color="#fff4d8" stop-opacity="0.92"/>
+    <stop offset="0.72" stop-color="#ffcf87" stop-opacity="0.30"/>
+    <stop offset="1"    stop-color="#ffb85f" stop-opacity="0"/>
+  </radialGradient>
+  <!-- Tracer continuing downrange out of the blast. -->
+  <linearGradient id="tracer" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0"    stop-color="#ffd89a" stop-opacity="0.9"/>
+    <stop offset="0.45" stop-color="#f6dcae"/>
+    <stop offset="1"    stop-color="#fffaf0"/>
+  </linearGradient>
+  <linearGradient id="tracerSoft" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0"   stop-color="#ffcf87" stop-opacity="0.28"/>
+    <stop offset="1"   stop-color="#ffe9c4" stop-opacity="0.16"/>
+  </linearGradient>
+</defs>
+
+<!-- warm envelope -->
+<ellipse cx="352" cy="96.9" rx="62" ry="19" fill="url(#envelope)"/>
+<!-- the lance: a long tapering flame leaving the tube -->
+<path d="M 318 96.9
+         L 336 89.6 L 372 92.4 L 410 95.6 L 430 96.9
+         L 410 98.2 L 372 101.4 L 336 104.2 Z"
+      fill="url(#lance)"/>
+<!-- hot mouth -->
+<ellipse cx="325" cy="96.9" rx="15" ry="8.4" fill="url(#mouth)"/>
+<!-- tracer running on out of frame -->
+<path d="M 404 94.6 L 460 94.0 L 460 99.8 L 404 99.2 Z" fill="url(#tracerSoft)"/>
+<path d="M 404 95.9 L 460 95.5 L 460 98.3 L 404 97.9 Z" fill="url(#tracer)"/>
+</svg>

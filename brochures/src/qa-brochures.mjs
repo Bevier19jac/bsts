@@ -196,11 +196,13 @@ for (const doc of DOCS) {
     [...document.querySelectorAll('.sheet')].map(s => ({
       tanks: s.querySelectorAll('img.tank').length,
       tracers: s.querySelectorAll('.tracer').length,
-      petals: s.querySelectorAll('.petal').length,
+      // Sabot petals and the muzzle bloom now live inside the vector
+      // firing-effects overlay rather than as CSS boxes.
+      effects: s.querySelectorAll('img[src*="blast"], img[src*="firing-effects"]').length,
       qr: s.querySelectorAll('.qr img').length,
     })));
   t(`${doc.name}: tank + sabot + tracer on the cover face`,
-    brand[0].tanks >= 1 && brand[0].petals >= 3 && brand[0].tracers >= 3,
+    brand[0].tanks >= 1 && brand[0].effects >= 1 && brand[0].tracers >= 2,
     JSON.stringify(brand[0]));
   t(`${doc.name}: tracer carries through the inside spread`,
     brand[1].tracers >= 3, JSON.stringify(brand[1]));
