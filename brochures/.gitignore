@@ -1,0 +1,3 @@
+# Preview renders are regenerable with `node src/render.mjs` — keep the
+# approved PDFs in version control, not the review images.
+out/*.png

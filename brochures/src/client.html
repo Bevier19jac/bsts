@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BSTS Client Capabilities Brochure</title>
+<link rel="stylesheet" href="brochure.css">
+<style>
+  /* OUTSIDE face L->R: inner flap (3.625) / back cover (3.6875) / FRONT (3.6875) */
+  .o1 { left: var(--bleed);                  width: 3.625in;  }
+  .o2 { left: calc(var(--bleed) + 3.625in);  width: 3.6875in; }
+  .o3 { left: calc(var(--bleed) + 7.3125in); width: 3.6875in; }
+  .fo1 { left: calc(var(--bleed) + 3.625in); }
+  .fo2 { left: calc(var(--bleed) + 7.3125in); }
+
+  /* INSIDE face L->R: 3.6875 / 3.6875 / 3.625 */
+  .i1 { left: var(--bleed);                  width: 3.6875in; }
+  .i2 { left: calc(var(--bleed) + 3.6875in); width: 3.6875in; }
+  .i3 { left: calc(var(--bleed) + 7.375in);  width: 3.625in;  }
+  .fi1 { left: calc(var(--bleed) + 3.6875in); }
+  .fi2 { left: calc(var(--bleed) + 7.375in); }
+
+  /* Inside panels clear the full-width header band. */
+  .inside-panel { padding-top: 1.52in; }
+
+  .spreadband { position: absolute; left: var(--bleed); width: var(--trim-w); }
+
+  /* Bottom block inside a panel — pinned by flex, never absolutely placed,
+     so overflow is detectable rather than silently overlapping. */
+  .foot { margin-top: auto; padding-top: .14in; }
+  .foot .foot-rule { height:.011in; background:var(--edge); margin-bottom:.13in; }
+</style>
+</head>
+<body>
+
+<!-- ======================================================================
+     SHEET 1 — OUTSIDE   [inner flap] [back cover] [FRONT COVER]
+     ====================================================================== -->
+<section class="sheet">
+  <div class="bed"></div>
+
+  <!-- ---------------- Inner flap: problem recognition ---------------- -->
+  <div class="panel o1">
+    <p class="eyebrow">Start here</p>
+    <h2 class="panel-title sm" style="margin-top:.09in">
+      Is your technology working for your business — or is your business
+      working around your technology?
+    </h2>
+    <div class="tracer" style="width:1.5in;margin:.14in 0 .15in"></div>
+
+    <p class="body sm" style="color:var(--dim)">
+      Most of the organizations we work with recognize themselves in at least
+      three of these.
+    </p>
+
+    <ul class="ticks" style="margin-top:.14in">
+      <li>Your people spend hours a week on repetitive administrative work.</li>
+      <li>Information is copied by hand between systems that do not talk.</li>
+      <li>Employees are already using ChatGPT, Copilot, Claude, or Gemini.</li>
+      <li>You want AI capability but not at the cost of exposing sensitive data.</li>
+      <li>A customer is asking for your SOC&nbsp;2 report.</li>
+      <li>Security questionnaires are getting harder to answer honestly.</li>
+      <li>You have security policies but could not prove the controls operate.</li>
+      <li>Growth is outpacing your security and technology governance.</li>
+      <li>You are moving toward larger customers or government work.</li>
+    </ul>
+
+    <div class="foot">
+      <div class="band">
+        <p style="font-size:7pt;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-soft)">
+          BSTS operates where
+        </p>
+        <p class="display" style="font-size:12.5pt;line-height:1.2;margin-top:.06in">
+          AI <span style="color:var(--gold)">+</span>
+          automation <span style="color:var(--gold)">+</span>
+          security <span style="color:var(--gold)">+</span>
+          compliance
+        </p>
+        <p style="font-size:8.6pt;color:var(--cyan-soft);font-weight:600;margin-top:.04in">
+          come together.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------------- Back cover ---------------- -->
+  <div class="panel o2" style="padding-top:.34in">
+    <p class="eyebrow gold">Next step</p>
+    <h2 class="panel-title" style="margin-top:.09in;font-size:14pt">
+      What problem should we solve first?
+    </h2>
+    <div class="tracer" style="width:1.9in;margin:.12in 0 .13in"></div>
+
+    <p class="body sm">BSTS begins with discovery, not a predetermined technology.</p>
+    <ul class="ticks gold" style="margin-top:.10in">
+      <li>If AI does not solve the problem, we do not force AI into it.</li>
+      <li>If automation creates value, we implement it securely.</li>
+      <li>If control gaps exist, we build a practical path to closing them.</li>
+    </ul>
+
+    <!-- Continuous assurance lives here rather than on the inside spread:
+         it is the "where this is going" note, and it reads best immediately
+         before the call to action. -->
+    <div class="card quiet" style="margin-top:.14in;padding:.11in .12in">
+      <p class="eyebrow gold" style="font-size:7pt">Beyond check-the-box compliance</p>
+      <p class="display" style="font-size:11pt;margin-top:.05in">Continuous assurance</p>
+      <p style="font-size:8pt;line-height:1.33;color:var(--body);margin-top:.05in">
+        Moving from documenting that controls exist toward demonstrating that
+        controls actually work.
+      </p>
+      <p style="font-size:7.3pt;line-height:1.34;color:var(--cyan-soft);font-weight:600;margin-top:.06in">
+        System evidence <span style="color:var(--gold)">→</span>
+        control validation <span style="color:var(--gold)">→</span>
+        framework mapping <span style="color:var(--gold)">→</span>
+        drift detection <span style="color:var(--gold)">→</span>
+        remediation <span style="color:var(--gold)">→</span>
+        audit-ready evidence
+      </p>
+      <p class="legal" style="margin-top:.06in">
+        A direction BSTS is building toward, not a product available today.
+      </p>
+    </div>
+
+    <div class="card cyan" style="margin-top:.12in;padding:.11in .13in">
+      <p class="display" style="font-size:12pt;line-height:1.16">
+        Start with a discovery conversation.
+      </p>
+    </div>
+
+    <div class="foot">
+      <div class="qr" style="margin-bottom:.12in">
+        <img src="../assets/qr-bsts.png" alt="QR code to bsts.pages.dev">
+        <div>
+          <p class="qr-t" style="margin-bottom:.035in">Capabilities, engagement<br>detail, and contact.</p>
+          <p class="qr-u">bsts.pages.dev</p>
+        </div>
+      </div>
+      <div class="foot-rule"></div>
+      <p class="mark" style="font-size:10.5pt">BSTS</p>
+      <p class="mark-sub" style="margin-top:.04in">Bevier Strategic Technology Solutions</p>
+      <p class="vet" style="margin-top:.09in">Service-Disabled Veteran-Owned &amp; Operated</p>
+      <p class="legal" style="margin-top:.06in">
+        SBA VetCert application planned; BSTS is not currently an SBA-certified
+        SDVOSB. Nothing here implies endorsement by any government agency.
+      </p>
+    </div>
+  </div>
+
+  <!-- ---------------- FRONT COVER ---------------- -->
+  <div class="panel o3">
+    <p class="mark" style="font-size:16pt">BSTS</p>
+    <p class="mark-sub" style="margin-top:.06in">Bevier Strategic Technology Solutions</p>
+
+    <!-- Firing lockup. The tracer leaves the muzzle at the gun-tube
+         centreline and runs left→right out of the composition; the sabot
+         petals peel off just past the muzzle. Nothing crosses a fold. -->
+    <div class="lockup" style="margin:.24in 0 0; height:1.71in">
+      <img class="tank" src="../assets/abrams-print.png" alt=""
+           style="width:3.00in; position:absolute; left:-.10in; top:0">
+      <div class="muzzle" style="left:2.44in; top:.795in; width:.44in; height:.17in"></div>
+      <div class="petal" style="left:2.62in; top:.715in; transform:rotate(-21deg)"></div>
+      <div class="petal" style="left:2.65in; top:.925in; transform:rotate(19deg)"></div>
+      <div class="petal" style="left:2.86in; top:.645in; transform:rotate(-33deg); opacity:.6"></div>
+      <div class="tracer" style="position:absolute; left:2.54in; right:-.34in; top:.862in"></div>
+    </div>
+
+    <div class="promise" style="margin-top:.10in">
+      <div class="l1" style="font-size:23pt">Secure the data.</div>
+      <div class="l2" style="font-size:23pt">Enable the AI.</div>
+      <div class="l3" style="font-size:23pt">Prove the controls.</div>
+    </div>
+
+    <div class="tracer" style="width:2.6in;margin:.15in 0 .16in"></div>
+
+    <p style="font-size:8.6pt;letter-spacing:.04em;color:var(--body);line-height:1.5">
+      Secure AI &nbsp;•&nbsp; Intelligent Automation<br>
+      Cybersecurity &nbsp;•&nbsp; Compliance Readiness
+    </p>
+
+    <p class="body sm" style="margin-top:.14in;color:var(--dim)">
+      For growing organizations adopting AI without losing control of
+      sensitive data, security posture, or compliance obligations.
+    </p>
+
+    <!-- The three service lines, stated on the cover so the reader knows
+         what the firm sells before opening anything. -->
+    <div style="margin-top:.20in">
+      <p class="eyebrow gold">What we do</p>
+      <ul class="ticks gold" style="margin-top:.09in">
+        <li>Secure AI &amp; Automation</li>
+        <li>AI Security &amp; Governance</li>
+        <li>SOC&nbsp;2 &amp; Compliance Readiness</li>
+      </ul>
+    </div>
+
+    <div class="foot">
+      <div class="card gold" style="padding:.13in .15in">
+        <p class="display" style="font-size:13pt;line-height:1.15;color:var(--gold-soft)">
+          Build smarter.<br>Operate securely.
+        </p>
+      </div>
+      <p class="vet block" style="margin-top:.15in">Veteran-Owned &amp; Operated</p>
+      <p class="legal center" style="margin-top:.07in">bsts.pages.dev</p>
+    </div>
+  </div>
+
+  <div class="fold fo1"></div>
+  <div class="fold fo2"></div>
+</section>
+
+<!-- ======================================================================
+     SHEET 2 — INSIDE   [pillar 1] [pillar 2] [pillar 3]
+     ====================================================================== -->
+<section class="sheet">
+  <div class="bed"></div>
+
+  <!-- Full-width header band. The tracer crosses both folds on purpose —
+       it is the device that ties the opened spread together. No text crosses. -->
+  <div class="spreadband" style="top:calc(var(--bleed) + .40in); height:.95in">
+    <!-- Text is laid out in panel-aligned columns so nothing lands on a
+         fold. Only the tracer crosses the folds — by design. -->
+    <div style="position:absolute;left:.30in;width:3.09in;top:0">
+      <p class="display" style="font-size:16pt">Secure AI by design.</p>
+    </div>
+    <div style="position:absolute;left:7.68in;width:3.02in;top:.055in;text-align:right">
+      <p style="font-size:8pt;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)">
+        Three problems &nbsp;·&nbsp; one lifecycle
+      </p>
+    </div>
+    <div class="tracer" style="position:absolute;left:.30in;right:.30in;top:.34in"></div>
+    <div style="position:absolute;left:.30in;width:3.09in;top:.49in">
+      <p class="body sm" style="color:var(--dim)">
+        Security is not a phase at the end of an AI project.
+      </p>
+    </div>
+    <div style="position:absolute;left:3.99in;width:3.09in;top:.49in">
+      <p class="body sm" style="color:var(--dim)">
+        Data boundaries, access, oversight, and evidence are decided before
+        anything is built.
+      </p>
+    </div>
+    <div style="position:absolute;left:7.68in;width:3.02in;top:.49in">
+      <p class="body sm" style="color:var(--dim)">
+        Retrofitting them afterward costs more and proves less.
+      </p>
+    </div>
+  </div>
+
+  <!-- ---------------- Pillar 1 ---------------- -->
+  <div class="panel i1 inside-panel">
+    <p class="eyebrow">01 — Service</p>
+    <h3 class="kicker" style="margin-top:.06in;font-size:10.5pt">Secure AI &amp; Automation</h3>
+    <p class="display" style="font-size:13pt;line-height:1.14;margin-top:.08in">
+      Automate the work.<br>Not the risk.
+    </p>
+    <div class="tracer" style="width:1.2in;margin:.10in 0 .11in"></div>
+
+    <p class="body sm">
+      We find the workflows costing the most hours for the least judgment and
+      automate them. Where a model genuinely improves the outcome we use one;
+      where a deterministic script is better, we build that instead.
+    </p>
+
+    <p class="eyebrow gold" style="font-size:7pt;margin-top:.13in">Typical work</p>
+    <ul class="ticks tight" style="margin-top:.06in">
+      <li>Document and form processing</li>
+      <li>Email and inbox workflows</li>
+      <li>CRM and record synchronization</li>
+      <li>Reporting and reconciliation</li>
+      <li>Knowledge retrieval and secure RAG</li>
+      <li>Workflow orchestration and integrations</li>
+      <li>AI agents, where the guardrails justify one</li>
+    </ul>
+
+    <div class="foot">
+      <div class="card gold" style="padding:.11in .13in">
+        <p class="eyebrow gold" style="font-size:7pt">Answered before we build</p>
+        <ul class="ticks tight gold" style="margin-top:.06in;margin-bottom:-.03in">
+          <li>What data is involved?</li>
+          <li>Where does it travel?</li>
+          <li>Who can access it?</li>
+          <li>Which model or provider processes it?</li>
+          <li>What is retained? Can it be used for training?</li>
+          <li>What is logged?</li>
+          <li>What requires human approval?</li>
+          <li>What regulatory or contractual rules apply?</li>
+          <li>What happens if the AI is wrong?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------------- Pillar 2 ---------------- -->
+  <div class="panel i2 inside-panel">
+    <p class="eyebrow">02 — Service</p>
+    <h3 class="kicker" style="margin-top:.06in;font-size:10.5pt">AI Security &amp; Governance</h3>
+    <p class="display" style="font-size:13pt;line-height:1.14;margin-top:.08in">
+      Use AI with control.
+    </p>
+    <div class="tracer" style="width:1.2in;margin:.10in 0 .11in"></div>
+
+    <p class="body sm">
+      Generative AI arrived in most organizations through individual employees,
+      not procurement. The exposure is real but undocumented. We find out what
+      is actually in use, then build the smallest set of controls that lets
+      useful work continue safely.
+    </p>
+
+    <div class="card quiet" style="margin-top:.12in;padding:.11in .13in">
+      <p class="eyebrow" style="font-size:7pt">The questions leadership cannot answer today</p>
+      <ul class="ticks tight" style="margin-top:.06in;margin-bottom:-.03in">
+        <li>What AI is being used, and by whom?</li>
+        <li>What data is going into it?</li>
+        <li>Which tools and models are approved?</li>
+        <li>Which use cases carry real risk?</li>
+        <li>What requires human oversight?</li>
+        <li>What happens when a system behaves unexpectedly?</li>
+      </ul>
+    </div>
+
+    <p class="eyebrow gold" style="font-size:7pt;margin-top:.13in">Typical work</p>
+    <ul class="ticks tight" style="margin-top:.06in">
+      <li>AI use-case inventory and risk assessment</li>
+      <li>Approved-use and acceptable-use policy</li>
+      <li>Vendor and model risk review</li>
+      <li>Data-flow review and data classification</li>
+      <li>Access-control and DLP recommendations</li>
+      <li>Human-in-the-loop design</li>
+      <li>AI risk register and governance roadmap</li>
+      <li>NIST AI RMF alignment where useful</li>
+    </ul>
+
+    <div class="foot">
+      <div class="foot-rule"></div>
+      <p class="display" style="font-size:11.5pt;color:var(--cyan-soft)">Enable AI safely.</p>
+      <p class="legal" style="margin-top:.05in">
+        Alignment to a framework describes methodology. It is not certification —
+        NIST does not certify consultancies or the organizations they advise.
+      </p>
+    </div>
+  </div>
+
+  <!-- ---------------- Pillar 3 ---------------- -->
+  <div class="panel i3 inside-panel">
+    <p class="eyebrow">03 — Service</p>
+    <h3 class="kicker" style="margin-top:.06in;font-size:10.5pt">SOC&nbsp;2 &amp; Compliance Readiness</h3>
+    <p class="display" style="font-size:13pt;line-height:1.14;margin-top:.08in">
+      When your customer asks: “Can you prove it?”
+    </p>
+    <div class="tracer" style="width:1.2in;margin:.10in 0 .11in"></div>
+
+    <p class="body sm">
+      Growing organizations reach a point where larger customers start
+      requesting SOC&nbsp;2 reports, security questionnaires, control evidence,
+      and vendor security documentation. The work that follows is unglamorous —
+      and entirely doable with a plan.
+    </p>
+
+    <p class="eyebrow gold" style="font-size:7pt;margin-top:.13in">Typical work</p>
+    <ul class="ticks tight" style="margin-top:.06in">
+      <li>Readiness assessment and scoping support</li>
+      <li>Control inventory and control mapping</li>
+      <li>Gap analysis and remediation tracking</li>
+      <li>Evidence requirements and PBC preparation</li>
+      <li>Policy and procedure alignment</li>
+      <li>Control-owner coordination</li>
+      <li>Evidence organization and audit preparation</li>
+      <li>Evidence automation opportunities</li>
+    </ul>
+
+    <div class="card cyan" style="margin-top:.12in;padding:.10in .12in">
+      <p class="eyebrow" style="font-size:7pt">Mapping &amp; readiness support</p>
+      <p style="font-size:7.6pt;line-height:1.35;color:var(--body);margin-top:.05in">
+        SOC&nbsp;2 · NIST CSF 2.0 · NIST SP 800-53 · NIST AI RMF ·
+        ISO/IEC 27001 · HIPAA · CJIS · NIST SP 800-171 · CMMC ·
+        FedRAMP-related environments
+      </p>
+    </div>
+
+    <div class="foot">
+      <div class="card gold" style="padding:.11in .13in">
+        <p style="font-size:7.5pt;line-height:1.36;color:var(--gold-soft);font-weight:600">
+          BSTS does not issue SOC&nbsp;2 reports. SOC&nbsp;2 examinations and
+          attestation reports are performed by qualified independent CPA firms.
+          BSTS prepares your organization for that examination.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fold fi1"></div>
+  <div class="fold fi2"></div>
+</section>
+
+</body>
+</html>

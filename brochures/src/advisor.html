@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BSTS Advisor Referral Field Guide</title>
+<link rel="stylesheet" href="brochure.css">
+<style>
+  /* Same geometry as the client brochure — see brochure.css fold note. */
+  .o1 { left: var(--bleed);                  width: 3.625in;  }
+  .o2 { left: calc(var(--bleed) + 3.625in);  width: 3.6875in; }
+  .o3 { left: calc(var(--bleed) + 7.3125in); width: 3.6875in; }
+  .fo1 { left: calc(var(--bleed) + 3.625in); }
+  .fo2 { left: calc(var(--bleed) + 7.3125in); }
+
+  .i1 { left: var(--bleed);                  width: 3.6875in; }
+  .i2 { left: calc(var(--bleed) + 3.6875in); width: 3.6875in; }
+  .i3 { left: calc(var(--bleed) + 7.375in);  width: 3.625in;  }
+  .fi1 { left: calc(var(--bleed) + 3.6875in); }
+  .fi2 { left: calc(var(--bleed) + 7.375in); }
+
+  .spreadband {
+    position: absolute;
+    left: var(--bleed);
+    width: var(--trim-w);
+  }
+  /* The recognition panel carries eleven quotes; tighten the stack so all
+     of them fit without dropping any or going under 8pt. */
+  .o1 .quote { padding: .068in .12in .068in .24in; margin-bottom: .058in; }
+  .o1 .quote p { font-size: 8.9pt; line-height: 1.28; }
+</style>
+</head>
+<body>
+
+<!-- ======================================================================
+     SHEET 1 — OUTSIDE
+     ====================================================================== -->
+<section class="sheet">
+  <div class="bed"></div>
+
+  <!-- ------- Inner flap: the recognition panel. This is the single most
+       important surface in the whole piece, which is why it sits where the
+       reader's eye lands the instant the cover is lifted. ------- -->
+  <div class="panel o1">
+    <p class="eyebrow gold">The 10-second version</p>
+    <h2 class="display" style="font-size:19pt;line-height:1.1;margin-top:.10in">
+      When your client<br>says…
+    </h2>
+    <div class="tracer" style="width:1.6in;margin:.13in 0 .17in"></div>
+
+    <div class="quote"><p>“We’re wasting too much time doing this manually.”</p></div>
+    <div class="quote"><p>“Everyone here is using AI and I don’t know what they’re putting into it.”</p></div>
+    <div class="quote"><p>“We want to use AI, but I’m worried about our data.”</p></div>
+    <div class="quote"><p>“Our software systems don’t talk to each other.”</p></div>
+    <div class="quote"><p>“A customer just asked us for a SOC&nbsp;2 report.”</p></div>
+    <div class="quote"><p>“These customer security questionnaires are getting ridiculous.”</p></div>
+    <div class="quote"><p>“We’re trying to move into larger customers.”</p></div>
+    <div class="quote"><p>“We’re trying to win government business.”</p></div>
+    <div class="quote"><p>“We don’t have anyone internally who really owns AI governance.”</p></div>
+    <div class="quote"><p>“We have security policies, but I’m not sure we could prove the controls are working.”</p></div>
+    <div class="quote" style="margin-bottom:0"><p>“We know this should be automated, but we don’t know where to start.”</p></div>
+
+    <div class="spacer"></div>
+
+    <div class="band" style="margin-top:.14in">
+      <p class="display center" style="font-size:14pt;line-height:1.14;color:var(--gold-soft)">
+        That’s a BSTS<br>conversation.
+      </p>
+    </div>
+  </div>
+
+  <!-- ------- Back cover ------- -->
+  <div class="panel o2">
+    <p class="eyebrow gold">Before you introduce anyone</p>
+    <h2 class="panel-title" style="margin-top:.09in">
+      You identify the business problem. BSTS helps determine the technology path.
+    </h2>
+    <div class="tracer" style="width:1.9in;margin:.14in 0 .17in"></div>
+
+    <p style="font-size:7pt;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--cyan)">
+      What happens after a referral
+    </p>
+    <div class="chain" style="margin-top:.10in">
+      <div class="link"><span class="lbl" style="min-width:.95in">Discover</span><span class="val">Understand the business problem first.</span></div>
+      <div class="link"><span class="lbl" style="min-width:.95in">Assess</span><span class="val">Process, systems, data, risk, obligations.</span></div>
+      <div class="link"><span class="lbl" style="min-width:.95in">Recommend</span><span class="val">In writing, with reasons.</span></div>
+      <div class="link"><span class="lbl" style="min-width:.95in">Implement</span><span class="val">Only if it makes sense.</span></div>
+    </div>
+
+    <div class="card gold" style="margin-top:.16in;padding:.12in .14in">
+      <p class="display" style="font-size:11.5pt;line-height:1.18;color:var(--gold-soft)">
+        No forced AI.<br>No solution looking for a problem.
+      </p>
+    </div>
+
+    <div class="card cyan" style="margin-top:.13in">
+      <p class="display" style="font-size:12pt;line-height:1.18">
+        Have a client in mind?
+      </p>
+      <p class="body sm" style="margin-top:.06in;color:var(--dim)">
+        Talk to us <em>before</em> you make the introduction. You are putting
+        your own reputation behind it.
+      </p>
+      <p style="font-size:8.6pt;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--cyan-soft);margin-top:.10in">
+        Advisor discovery conversation
+      </p>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="qr" style="margin-bottom:.15in">
+      <img src="../assets/qr-bsts.png" alt="QR code to bsts.pages.dev">
+      <div>
+        <p class="qr-t" style="margin-bottom:.04in">Capabilities, engagement<br>detail, and contact.</p>
+        <p class="qr-u">bsts.pages.dev</p>
+      </div>
+    </div>
+
+    <hr class="rule">
+    <p class="mark" style="font-size:11pt;margin-top:.12in">BSTS</p>
+    <p class="mark-sub" style="margin-top:.045in">Bevier Strategic Technology Solutions</p>
+    <p class="vet" style="margin-top:.10in">Service-Disabled Veteran-Owned &amp; Operated</p>
+    <p class="legal" style="margin-top:.07in">
+      SBA VetCert application planned; BSTS is not currently an SBA-certified
+      SDVOSB. Nothing here implies endorsement by the SBA, the U.S. Army, the
+      Department of Defense, or any government agency.
+    </p>
+  </div>
+
+  <!-- ------- FRONT COVER ------- -->
+  <div class="panel o3">
+    <p class="mark" style="font-size:16pt">BSTS</p>
+    <p class="mark-sub" style="margin-top:.06in">Bevier Strategic Technology Solutions</p>
+
+    <div class="lockup" style="margin:.22in 0 0; height:1.71in">
+      <img class="tank" src="../assets/abrams-print.png" alt=""
+           style="width:3.00in; position:absolute; left:-.10in; top:0">
+      <div class="muzzle" style="left:2.44in; top:.795in; width:.44in; height:.17in"></div>
+      <div class="petal" style="left:2.62in; top:.715in; transform:rotate(-21deg)"></div>
+      <div class="petal" style="left:2.65in; top:.925in; transform:rotate(19deg)"></div>
+      <div class="petal" style="left:2.86in; top:.645in; transform:rotate(-33deg); opacity:.6"></div>
+      <div class="tracer" style="position:absolute; left:2.54in; right:-.34in; top:.862in"></div>
+    </div>
+
+    <div style="height:.10in"></div>
+
+    <div class="promise">
+      <div class="l1" style="font-size:19pt">Secure the data.</div>
+      <div class="l2" style="font-size:19pt">Enable the AI.</div>
+      <div class="l3" style="font-size:19pt">Prove the controls.</div>
+    </div>
+
+    <!-- The line that makes this a different document from the client piece -->
+    <div class="card cyan" style="margin-top:.22in;padding:.14in .15in">
+      <p class="display" style="font-size:14pt;line-height:1.14">
+        A field guide for business advisors
+      </p>
+      <p class="body sm" style="margin-top:.08in;color:var(--dim)">
+        Recognizing when your client may need secure AI, automation,
+        cybersecurity, or compliance support.
+      </p>
+    </div>
+
+    <div class="spacer"></div>
+
+    <p style="font-size:8pt;letter-spacing:.04em;color:var(--dim);line-height:1.45;margin-bottom:.14in">
+      Secure AI &nbsp;•&nbsp; Intelligent Automation &nbsp;•&nbsp;<br>
+      Cybersecurity &nbsp;•&nbsp; Compliance Readiness
+    </p>
+
+    <p class="vet block">Veteran-Owned &amp; Operated</p>
+    <p class="legal center" style="margin-top:.08in">bsts.pages.dev</p>
+  </div>
+
+  <div class="fold fo1"></div>
+  <div class="fold fo2"></div>
+</section>
+
+<!-- ======================================================================
+     SHEET 2 — INSIDE
+     ====================================================================== -->
+<section class="sheet">
+  <div class="bed"></div>
+
+  <!-- Full-width header band, tracer crossing both folds. -->
+  <div class="spreadband" style="top:calc(var(--bleed) + .40in); height:1.28in">
+    <!-- Panel-aligned columns: the statement reads across the opened spread
+         but no line of type lands on a fold. Only the tracer crosses. -->
+    <div style="position:absolute;left:.30in;width:3.09in;top:0">
+      <p class="eyebrow">For consultants · fractional executives</p>
+      <p class="display" style="font-size:14.5pt;line-height:1.16;margin-top:.10in">
+        Good BSTS referrals don’t need to know
+      </p>
+    </div>
+    <div style="position:absolute;left:3.99in;width:3.09in;top:0">
+      <p class="eyebrow">CPAs · MSPs · attorneys · advisors</p>
+      <p class="display" style="font-size:14.5pt;line-height:1.16;margin-top:.10in">
+        what technology they need. They only need
+      </p>
+    </div>
+    <div style="position:absolute;left:7.68in;width:3.02in;top:0">
+      <p class="eyebrow gold" style="text-align:right">The whole job</p>
+      <p class="display" style="font-size:14.5pt;line-height:1.16;margin-top:.10in;color:var(--gold-soft)">
+        a business problem worth solving.
+      </p>
+    </div>
+    <div class="tracer" style="position:absolute;left:.30in;right:.30in;top:1.05in"></div>
+  </div>
+
+  <!-- ------- Panel 3: trigger map ------- -->
+  <div class="panel i1" style="padding-top:2.10in">
+    <p class="eyebrow gold">Keep this near your desk</p>
+    <h3 class="display" style="font-size:14pt;line-height:1.15;margin-top:.08in">
+      What you hear → where BSTS may help
+    </h3>
+
+    <div style="margin-top:.14in">
+      <div class="maprow">
+        <div class="hear">“This process is incredibly manual.”</div>
+        <div class="arrow">→</div>
+        <div class="help">Secure AI &amp; Automation</div>
+      </div>
+      <div class="maprow">
+        <div class="hear">“Our employees are putting company information into AI.”</div>
+        <div class="arrow">→</div>
+        <div class="help">AI Security &amp; Governance</div>
+      </div>
+      <div class="maprow">
+        <div class="hear">“We need SOC&nbsp;2.”</div>
+        <div class="arrow">→</div>
+        <div class="help">SOC&nbsp;2 Readiness</div>
+      </div>
+      <div class="maprow">
+        <div class="hear">“Our customer wants evidence of our cybersecurity controls.”</div>
+        <div class="arrow">→</div>
+        <div class="help">Security &amp; Compliance Readiness</div>
+      </div>
+      <div class="maprow">
+        <div class="hear">“Our systems don’t communicate.”</div>
+        <div class="arrow">→</div>
+        <div class="help">Workflow / System Integration</div>
+      </div>
+      <div class="maprow">
+        <div class="hear">“We want AI, but our data can’t be exposed.”</div>
+        <div class="arrow">→</div>
+        <div class="help">Secure AI Architecture</div>
+      </div>
+      <div class="maprow">
+        <div class="hear">“We’re moving into regulated or government work.”</div>
+        <div class="arrow">→</div>
+        <div class="help">Security / Framework Readiness</div>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+    <p class="legal">
+      You do not need to diagnose the solution. Naming the symptom is enough —
+      scoping is our job, and we do it before anyone is asked to buy anything.
+    </p>
+  </div>
+
+  <!-- ------- Panel 4: who to introduce ------- -->
+  <div class="panel i2" style="padding-top:2.10in">
+    <p class="eyebrow">The profile</p>
+    <h3 class="display" style="font-size:14pt;line-height:1.15;margin-top:.08in">
+      Who should you introduce to BSTS?
+    </h3>
+    <div class="tracer" style="width:1.25in;margin:.12in 0 .14in"></div>
+
+    <p class="body sm">
+      A growing small-to-mid-sized organization, roughly
+      <strong style="color:var(--white)">20–250 employees</strong>, that
+      handles customer, proprietary, or regulated information.
+    </p>
+
+    <div class="card quiet" style="margin-top:.14in;padding:.12in .13in">
+      <p style="font-size:7pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan-soft)">
+        Often missing internally
+      </p>
+      <ul class="ticks tight" style="margin-top:.07in;margin-bottom:-.03in">
+        <li>An AI team</li>
+        <li>A cybersecurity team</li>
+        <li>A compliance function</li>
+      </ul>
+    </div>
+
+    <p style="font-size:7pt;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-soft);margin-top:.16in">
+      Often present
+    </p>
+    <ul class="ticks tight gold" style="margin-top:.07in">
+      <li>Repetitive administrative workflows</li>
+      <li>Disconnected applications</li>
+      <li>Employees experimenting with AI</li>
+      <li>Rising customer security requirements</li>
+      <li>Security questionnaires arriving</li>
+      <li>SOC&nbsp;2 pressure from a large customer</li>
+      <li>Government contracting ambitions</li>
+      <li>Real concern about AI adoption risk</li>
+    </ul>
+
+    <div class="card cyan" style="margin-top:.16in;padding:.12in .13in">
+      <p style="font-size:7pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan-soft)">
+        Common sectors — not a limit
+      </p>
+      <p style="font-size:7.8pt;line-height:1.36;color:var(--body);margin-top:.06in">
+        B2B SaaS · professional services · government contractors ·
+        health technology · regulated technology · any organization holding
+        sensitive customer information
+      </p>
+    </div>
+  </div>
+
+  <!-- ------- Panel 5: what BSTS brings ------- -->
+  <div class="panel i3" style="padding-top:2.10in">
+    <p class="eyebrow gold">What your client gets</p>
+    <h3 class="display" style="font-size:14pt;line-height:1.15;margin-top:.08in">
+      What BSTS brings to the table
+    </h3>
+    <div class="tracer" style="width:1.25in;margin:.12in 0 .15in"></div>
+
+    <div style="margin-bottom:.13in">
+      <p class="kicker" style="font-size:9pt">Secure AI &amp; Automation</p>
+      <p style="font-size:8.4pt;line-height:1.34;color:var(--body);margin-top:.05in">
+        Reduce repetitive work and connect business processes without
+        sacrificing control of company data.
+      </p>
+    </div>
+    <div style="margin-bottom:.13in">
+      <p class="kicker" style="font-size:9pt">AI Security &amp; Governance</p>
+      <p style="font-size:8.4pt;line-height:1.34;color:var(--body);margin-top:.05in">
+        Establish responsible boundaries around AI, sensitive information,
+        access, vendors, high-risk use cases, and human oversight.
+      </p>
+    </div>
+    <div>
+      <p class="kicker" style="font-size:9pt">SOC&nbsp;2 &amp; Compliance Readiness</p>
+      <p style="font-size:8.4pt;line-height:1.34;color:var(--body);margin-top:.05in">
+        Prepare controls, evidence, policies, and remediation for rising
+        cybersecurity expectations from customers.
+      </p>
+    </div>
+
+    <div class="card gold" style="margin-top:.17in;padding:.12in .13in">
+      <p style="font-size:7pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft)">
+        Your client relationship comes first
+      </p>
+      <p style="font-size:8.2pt;line-height:1.34;color:var(--body);margin-top:.06in">
+        BSTS works alongside your client’s existing IT team, MSP,
+        cybersecurity provider, CPA or auditor, attorney, business consultant,
+        and fractional executives — complementing those relationships rather
+        than replacing them.
+      </p>
+    </div>
+
+    <div class="spacer"></div>
+
+    <p class="legal">
+      BSTS does not provide accounting, audit, legal, or tax services.
+      BSTS does not issue SOC&nbsp;2 reports. SOC&nbsp;2 examinations and
+      attestation reports are performed by qualified independent CPA firms.
+      BSTS sells no licenses and takes no vendor commissions.
+    </p>
+  </div>
+
+  <div class="fold fi1"></div>
+  <div class="fold fi2"></div>
+</section>
+
+</body>
+</html>

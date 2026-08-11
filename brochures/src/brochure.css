@@ -1,0 +1,583 @@
+/* ==========================================================================
+   BSTS tri-fold brochure system
+   US Letter landscape, two-sided, six panels, roll (letter) fold.
+
+   GEOMETRY — do not change without re-reading the fold note below.
+
+   Trim sheet is 11.000in x 8.500in. Bleed adds 0.125in on every edge, so
+   the PDF page is 11.250in x 8.750in and all trim-space coordinates are
+   offset by the bleed.
+
+   Roll fold: the right-hand panel of the INSIDE face folds in first, so it
+   must be the narrow one. Panel widths across the inside face, left to
+   right, are 3.6875 / 3.6875 / 3.625 (= 11.000). The outside face is the
+   mirror of that, so left to right it runs 3.625 / 3.6875 / 3.6875.
+
+   Resulting panel order (verified by folding simulation in qa-brochures.mjs):
+
+     OUTSIDE face, L->R:  [ inner flap ] [ back cover ] [ FRONT COVER ]
+     INSIDE  face, L->R:  [ panel 3    ] [ panel 4    ] [ panel 5     ]
+
+   The inner flap is the first thing a reader sees when the front cover is
+   lifted, which is why the strongest recognition content lives there.
+
+   PRINT NOTES
+   - Values are tuned for 100lb matte text stock. Blacks are lifted to
+     #121820 rather than true black so large dark fields do not go muddy.
+   - Body text is lighter than the website equivalent because mid-grey on
+     matte loses contrast under toner.
+   - No rule is thinner than 0.75pt. No decorative hairlines.
+   - Gradients are shallow and short; long smooth ramps band on digital presses.
+   ========================================================================== */
+
+:root {
+  --bleed: __BLEED__;
+
+  /* Panel widths (inside face, left to right) */
+  --pw-a: 3.6875in;
+  --pw-b: 3.6875in;
+  --pw-c: 3.625in;
+
+  --trim-w: 11in;
+  --trim-h: 8.5in;
+
+  /* Keep-clear distance from any trim edge or fold */
+  --safe: 0.25in;
+
+  /* Palette — matte-print tuned */
+  --slate: #121820;
+  --slate-2: #19212b;
+  --card: #1d2732;
+  --card-2: #222d3a;
+  --edge: #35424f;
+  --edge-soft: #2a3540;
+
+  --white: #f5f3ed;
+  --body: #dae0e6;
+  --dim: #aab3be;
+  --faint: #8b95a1;
+
+  --cyan: #5fc6c1;
+  --cyan-soft: #93dbd7;
+  --cyan-deep: #2f7f7c;
+  --gold: #c9a869;
+  --gold-soft: #e2ca99;
+  --gold-deep: #8a7038;
+
+  --ink: #0e141b;
+}
+
+@page {
+  size: __PAGE_W__ __PAGE_H__;
+  margin: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/inter.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: block;
+}
+@font-face {
+  font-family: "Fraunces";
+  src: url("../assets/fraunces.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: block;
+}
+
+html,
+body {
+  background: #ffffff;
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  color: var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --------------------------------------------------------------------------
+   Sheet
+   -------------------------------------------------------------------------- */
+
+.sheet {
+  position: relative;
+  width: calc(var(--trim-w) + var(--bleed) * 2);
+  height: calc(var(--trim-h) + var(--bleed) * 2);
+  overflow: hidden;
+  background: var(--slate);
+  page-break-after: always;
+  break-after: page;
+}
+.sheet:last-child {
+  page-break-after: auto;
+  break-after: auto;
+}
+
+/* Artwork bed: full sheet including bleed. */
+.bed {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 85% at 18% 0%, #1a2330 0%, rgba(18, 24, 32, 0) 62%),
+    radial-gradient(110% 80% at 88% 100%, #171f2a 0%, rgba(18, 24, 32, 0) 58%),
+    var(--slate);
+}
+
+/* A panel is positioned in TRIM space; the bleed offset is added here once. */
+.panel {
+  position: absolute;
+  top: var(--bleed);
+  height: var(--trim-h);
+  padding: 0.42in 0.30in 0.36in;
+  display: flex;
+  flex-direction: column;
+}
+/* Panels that touch a trim edge get artwork to the bleed, but their
+   padding still holds content inside the safe area. */
+.panel.edge-left {
+  padding-left: calc(0.30in);
+}
+.panel.edge-right {
+  padding-right: calc(0.30in);
+}
+
+/* Fold separators — printed as a barely-there tonal seam, never a line the
+   reader notices, but enough that a scoring operator can see the intent. */
+.fold {
+  position: absolute;
+  top: 0;
+  width: 0.02in;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.05),
+    rgba(0, 0, 0, 0.16)
+  );
+}
+
+/* --------------------------------------------------------------------------
+   Type
+   -------------------------------------------------------------------------- */
+
+.display {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 640;
+  letter-spacing: 0.005em;
+  color: var(--white);
+}
+
+.eyebrow {
+  font-size: 7pt;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+.eyebrow.gold {
+  color: var(--gold);
+}
+
+.panel-title {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 640;
+  font-size: 15.5pt;
+  line-height: 1.14;
+  color: var(--white);
+}
+.panel-title.sm {
+  font-size: 13pt;
+}
+
+.kicker {
+  font-size: 9.5pt;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cyan-soft);
+}
+
+p.body {
+  font-size: 10pt;
+  line-height: 1.42;
+  color: var(--body);
+}
+p.body.sm {
+  font-size: 9pt;
+  line-height: 1.4;
+}
+
+.legal {
+  font-size: 7.2pt;
+  line-height: 1.34;
+  color: var(--faint);
+}
+
+.rule {
+  flex-shrink: 0;
+  height: 0.011in; /* ~0.8pt */
+  background: var(--edge);
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Tracer — the BSTS device. Always travels left to right.
+   Minimum 2.2pt so it survives toner on matte.
+   -------------------------------------------------------------------------- */
+
+.tracer {
+  position: relative;
+  flex-shrink: 0;
+  height: 0.032in;
+  border-radius: 0.032in;
+  background: linear-gradient(
+    90deg,
+    rgba(226, 202, 153, 0.15) 0%,
+    var(--gold-soft) 22%,
+    var(--gold) 68%,
+    rgba(201, 168, 105, 0.35) 100%
+  );
+}
+/* Bright head at the leading (right) edge. */
+.tracer::after {
+  content: "";
+  position: absolute;
+  right: -0.03in;
+  top: 50%;
+  width: 0.20in;
+  height: 0.075in;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: radial-gradient(
+    ellipse 62% 50% at 74% 50%,
+    #ffe6b4 0%,
+    rgba(226, 202, 153, 0.55) 46%,
+    rgba(226, 202, 153, 0) 100%
+  );
+}
+.tracer.cool::after {
+  background: radial-gradient(
+    ellipse 62% 50% at 74% 50%,
+    #cdf3f0 0%,
+    rgba(95, 198, 193, 0.5) 46%,
+    rgba(95, 198, 193, 0) 100%
+  );
+}
+
+/* Section divider variant */
+.tracer.divider {
+  height: 0.024in;
+  opacity: 0.92;
+}
+
+/* --------------------------------------------------------------------------
+   Firing lockup — tank, muzzle flash, sabot petals, tracer
+   -------------------------------------------------------------------------- */
+
+.lockup {
+  position: relative;
+}
+.lockup img.tank {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Muzzle flash sits at the gun tube tip. Short and restrained — this is a
+   technical mark, not an action shot. */
+.muzzle {
+  position: absolute;
+  border-radius: 999px;
+  background: radial-gradient(
+    ellipse 58% 50% at 32% 50%,
+    #ffeec4 0%,
+    rgba(255, 214, 140, 0.72) 32%,
+    rgba(255, 200, 120, 0.22) 62%,
+    rgba(255, 200, 120, 0) 100%
+  );
+}
+
+/* Discarded sabot petals: three angled shells peeling away just past the
+   muzzle. Recognisable to anyone who knows APFSDS, invisible as "debris"
+   to anyone who does not. */
+.petal {
+  position: absolute;
+  width: 0.165in;
+  height: 0.05in;
+  /* Lit top face, shadowed underside, and a blunt/tapered end pair so the
+     shape reads as a discarding sabot segment rather than a spark. */
+  background: linear-gradient(178deg, #f0d9aa 0%, #c9a869 42%, #7d6231 100%);
+  border-radius: 0.004in 0.022in 0.022in 0.004in;
+  box-shadow: 0 0.004in 0.008in rgba(0, 0, 0, 0.45);
+}
+
+/* --------------------------------------------------------------------------
+   Components
+   -------------------------------------------------------------------------- */
+
+.card {
+  flex-shrink: 0;
+  background: linear-gradient(168deg, var(--card) 0%, var(--card-2) 100%);
+  border: 0.009in solid var(--edge);
+  border-radius: 0.09in;
+  padding: 0.15in 0.16in;
+}
+.card.quiet {
+  background: rgba(29, 39, 50, 0.55);
+  border-color: var(--edge-soft);
+}
+.card.gold {
+  border-color: rgba(201, 168, 105, 0.55);
+}
+.card.cyan {
+  border-color: rgba(95, 198, 193, 0.5);
+}
+
+ul.ticks {
+  list-style: none;
+}
+ul.ticks li {
+  position: relative;
+  padding-left: 0.155in;
+  font-size: 9pt;
+  line-height: 1.34;
+  color: var(--body);
+  margin-bottom: 0.055in;
+}
+ul.ticks li::before {
+  content: "";
+  position: absolute;
+  left: 0.02in;
+  top: 0.055in;
+  width: 0.052in;
+  height: 0.052in;
+  border-radius: 999px;
+  background: var(--cyan);
+}
+ul.ticks.gold li::before {
+  background: var(--gold);
+}
+ul.ticks.tight li {
+  font-size: 8.4pt;
+  line-height: 1.3;
+  margin-bottom: 0.03in;
+}
+
+/* Quotation blocks — client voice */
+.quote {
+  position: relative;
+  padding: 0.10in 0.13in 0.10in 0.26in;
+  background: rgba(29, 39, 50, 0.72);
+  border-left: 0.028in solid var(--gold);
+  border-radius: 0.055in;
+  margin-bottom: 0.085in;
+}
+.quote p {
+  font-size: 9.2pt;
+  line-height: 1.32;
+  color: var(--white);
+  font-style: italic;
+}
+.quote .maps {
+  margin-top: 0.045in;
+  font-size: 7pt;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--cyan-soft);
+  font-style: normal;
+}
+
+/* Numbered step chips */
+.step {
+  display: flex;
+  gap: 0.11in;
+  align-items: flex-start;
+  margin-bottom: 0.085in;
+}
+.step .num {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: var(--gold-soft);
+  line-height: 1;
+  min-width: 0.22in;
+}
+.step .st-t {
+  font-size: 8.6pt;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.step .st-b {
+  font-size: 8.4pt;
+  line-height: 1.32;
+  color: var(--dim);
+  margin-top: 0.018in;
+}
+
+/* Flow chain (VALUE -> RISK -> ...) */
+.chain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.055in;
+}
+.chain .link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.09in;
+}
+.chain .link .lbl {
+  font-size: 8.4pt;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cyan-soft);
+  min-width: 0.86in;
+}
+.chain .link .val {
+  font-size: 8.4pt;
+  line-height: 1.3;
+  color: var(--body);
+}
+.chain .arrow {
+  color: var(--gold);
+  font-size: 7.5pt;
+  line-height: 1;
+  margin-left: 0.05in;
+}
+
+/* Trigger map rows */
+.maprow {
+  display: grid;
+  grid-template-columns: 1fr 0.16in 1fr;
+  align-items: center;
+  gap: 0.05in;
+  padding: 0.075in 0;
+  border-bottom: 0.008in solid var(--edge-soft);
+}
+.maprow:last-child {
+  border-bottom: 0;
+}
+.maprow .hear {
+  font-size: 8.3pt;
+  line-height: 1.28;
+  color: var(--white);
+  font-style: italic;
+}
+.maprow .arrow {
+  color: var(--gold);
+  font-size: 9pt;
+  text-align: center;
+}
+.maprow .help {
+  font-size: 7.4pt;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--cyan-soft);
+  line-height: 1.2;
+}
+
+/* QR block */
+.qr {
+  flex-shrink: 0;
+  display: flex;
+  gap: 0.13in;
+  align-items: center;
+}
+.qr img {
+  width: 0.80in;
+  height: 0.80in;
+  display: block;
+  background: #fff;
+  padding: 0.035in;
+  border-radius: 0.045in;
+}
+.qr .qr-t {
+  font-size: 8.2pt;
+  line-height: 1.32;
+  color: var(--body);
+}
+.qr .qr-u {
+  font-size: 8.6pt;
+  font-weight: 700;
+  color: var(--cyan-soft);
+  letter-spacing: 0.01em;
+}
+
+/* Veteran status lozenge */
+.vet {
+  display: inline-block;
+  border: 0.009in solid rgba(201, 168, 105, 0.6);
+  background: rgba(201, 168, 105, 0.1);
+  border-radius: 999px;
+  padding: 0.045in 0.11in;
+  font-size: 7pt;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+}
+.vet.block {
+  display: block;
+  text-align: center;
+}
+
+/* Wordmark */
+.mark {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  color: var(--white);
+}
+.mark-sub {
+  font-size: 7pt;
+  font-weight: 600;
+  letter-spacing: 0.155em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.spacer {
+  flex: 1;
+}
+
+/* The three-line brand message */
+.promise .l1 {
+  color: var(--white);
+}
+.promise .l2 {
+  color: var(--cyan-soft);
+}
+.promise .l3 {
+  color: var(--gold-soft);
+}
+.promise div {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 640;
+  line-height: 1.1;
+}
+
+/* Callout band */
+.band {
+  flex-shrink: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(95, 198, 193, 0.13) 0%,
+    rgba(201, 168, 105, 0.11) 100%
+  );
+  border: 0.009in solid rgba(95, 198, 193, 0.34);
+  border-radius: 0.09in;
+  padding: 0.13in 0.15in;
+}
+
+.center {
+  text-align: center;
+}
