@@ -18,7 +18,7 @@ import numpy as np
 from PIL import Image
 from pyzbar.pyzbar import decode as qr_decode
 
-OUT = Path("/home/claude/brochures/out")
+OUT = Path(__file__).resolve().parent.parent / "out"
 TRIM_W, TRIM_H, BLEED = 11.0, 8.5, 0.125
 DPI = 300
 EXPECT_URL = "https://bsts.pages.dev/"
