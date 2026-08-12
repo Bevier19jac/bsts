@@ -90,6 +90,18 @@ for (const doc of DOCS) {
   });
   t(`${doc.name}: no dead gaps or ragged panel bottoms`, gaps.length === 0, gaps.slice(0, 5).join(' | '));
 
+  // ---- 2b. Flex spacers are breathing room, not a hole ------------------
+  // A .spacer absorbs whatever is left over, so the dead-gap check above
+  // cannot see it: the void becomes a child with height rather than a gap
+  // between two children. Measure it directly.
+  const voids = await page.evaluate(() =>
+    [...document.querySelectorAll('.spacer')]
+      .map(s => ({ p: s.parentElement.className.trim(), h: s.getBoundingClientRect().height / 96 }))
+      .filter(v => v.h > 0.75)
+      .map(v => `${v.p} spacer ${v.h.toFixed(2)}in`));
+  t(`${doc.name}: no panel pools its slack into one dead band`, voids.length === 0,
+    voids.join(' | '));
+
   // ---- 3. Panel tops align across a face --------------------------------
   const tops = await page.evaluate(() =>
     [...document.querySelectorAll('.sheet')].map(s =>

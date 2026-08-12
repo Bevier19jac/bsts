@@ -466,7 +466,7 @@ ul.ticks.tight li {
   grid-template-columns: 1fr 0.16in 1fr;
   align-items: center;
   gap: 0.05in;
-  padding: 0.075in 0;
+  padding: 0.098in 0;
   border-bottom: 0.008in solid var(--edge-soft);
 }
 .maprow:last-child {
@@ -490,6 +490,34 @@ ul.ticks.tight li {
   text-transform: uppercase;
   color: var(--cyan-soft);
   line-height: 1.2;
+}
+
+/* Numbered engagement path. The rule sits under the text block rather than
+   between rows so the numerals form a clean left column. */
+.stage {
+  display: grid;
+  grid-template-columns: 0.20in 1fr;
+  gap: 0.08in;
+  align-items: start;
+  padding: 0.055in 0;
+  border-bottom: 0.008in solid var(--edge-soft);
+  font-size: 7.9pt;
+  line-height: 1.31;
+  color: var(--body);
+}
+.stage:last-child {
+  border-bottom: 0;
+}
+.stage .n {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 10pt;
+  font-weight: 640;
+  line-height: 1.05;
+  color: var(--gold);
+}
+.stage b {
+  font-weight: 700;
+  color: var(--white);
 }
 
 /* QR block */
@@ -661,4 +689,16 @@ ul.ticks.tight li {
     rgba(90, 116, 145, 0.07) 45%,
     rgba(18, 24, 32, 0) 78%
   );
+}
+
+/* The full company name, not the initialism, is the front-cover focal point. */
+.company-name {
+  font-family: "Inter", sans-serif;
+  font-weight: 800;
+  font-size: 13.2pt;
+  line-height: 1.34;
+  letter-spacing: 0.135em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 0.008in 0.02in rgba(0, 0, 0, 0.5);
 }

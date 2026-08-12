@@ -157,24 +157,38 @@
 
   <!-- ---------------- FRONT COVER ---------------- -->
   <div class="panel o3">
-    <!-- Hero identity: chrome wordmark, star-and-tracer rule, then the
-         tank on a reflective ground with the blast envelope. -->
-    <p class="mark-hero" style="font-size:47pt">BSTS</p>
-    <p class="mark-hero-sub" style="font-size:8.2pt;margin-top:.07in;line-height:1.5">
-      Bevier Strategic<br>Technology Solutions
-    </p>
-    <div class="star-rule" style="margin-top:.11in">
-      <span class="sr-line l"></span><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0.6 L14.5 9.5 L23.4 12 L14.5 14.5 L12 23.4 L9.5 14.5 L0.6 12 L9.5 9.5 Z" fill="#c9a869"/></svg><span class="sr-line r"></span>
+    <!-- Identity block, centred on the FRONT-COVER PANEL's own axis.
+         The full company name carries the weight; BSTS sits above it as the
+         short form rather than dominating it. -->
+    <div style="text-align:center">
+      <p class="mark-hero" style="font-size:38pt">BSTS</p>
+      <p class="company-name" style="margin-top:.10in">
+        Bevier Strategic<br>Technology Solutions
+      </p>
+      <div class="star-rule" style="margin-top:.13in">
+        <span class="sr-line l"></span><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0.6 L14.5 9.5 L23.4 12 L14.5 14.5 L12 23.4 L9.5 14.5 L0.6 12 L9.5 9.5 Z" fill="#c9a869"/></svg><span class="sr-line r"></span>
+      </div>
     </div>
 
-    <div class="lockup" style="margin:.14in 0 0; height:1.82in; overflow:hidden">
-      <div class="ground" style="top:1.253in; height:.34in"></div>
+    <!-- Supporting lockup. Registration is derived, not eyeballed:
+         the tank's muzzle pixel measures at 94.14% / 38.22% of
+         abrams-hero.png, which at width 1.98in puts the bore exit at
+         x 1.924in, y 0.5646in inside this box. blast-envelope.png is
+         authored with its bore axis on the exact vertical centre and its
+         attach point at 15.625% of its width, so placing it at
+         left = 1.924 - 0.15625*2.70 and top = 0.5646 - 0.5*1.501 makes
+         the barrel, the centre of the gas mass and the forward jet share
+         one straight horizontal line at y = 0.5646in. The gun tube runs
+         0.13in INTO the fireball rather than stopping at its edge. The
+         jet bleeds off the outer trim edge; nothing crosses a fold. -->
+    <div class="lockup" style="margin:.22in 0 0; height:1.477in">
+      <div class="ground" style="top:0.869in; height:.28in"></div>
       <img class="tank" src="../assets/abrams-hero.png" alt=""
-           style="width:2.8in; position:absolute; left:-0.22in; top:0">
-      <img src="../assets/blast.svg" alt="" aria-hidden="true"
-           style="position:absolute; left:-0.089in; top:0.040in; width:3.6in; pointer-events:none">
+           style="width:1.98in; position:absolute; left:0.06in; top:0">
+      <img src="../assets/blast-envelope.png" alt="" aria-hidden="true"
+           style="position:absolute; left:1.502in; top:-0.186in; width:2.700in; pointer-events:none">
     </div>
-    <div class="promise" style="margin-top:.10in">
+    <div class="promise" style="margin-top:.16in;text-align:center">
       <div class="l1" style="font-size:20pt">Secure the data.</div>
       <div class="l2" style="font-size:20pt">Enable the AI.</div>
       <div class="l3" style="font-size:20pt">Prove the controls.</div>
