@@ -12,6 +12,7 @@ import { staggerDelay } from "@/components/motion/stagger";
 import { PointerHalo } from "@/components/marketing/PointerHalo";
 import { SystemsDiagram } from "@/components/marketing/SystemsDiagram";
 import { FiringSequence } from "@/components/marketing/FiringSequence";
+import { IdentityLockup } from "@/components/brand/IdentityLockup";
 import { TracerRule } from "@/components/ui/TracerRule";
 import { AssessmentForm } from "@/components/assessment/AssessmentForm";
 import { founder } from "@/lib/content/founder";
@@ -130,104 +131,33 @@ export function Landing() {
       {/* Compact hero */}
       <section className="relative isolate overflow-hidden">
         <Atmosphere />
-        <div className="relative mx-auto max-w-6xl px-6 pt-6 pb-8 text-center sm:pt-8 lg:pt-4">
+        <div className="relative mx-auto max-w-6xl px-6 pt-5 pb-8 text-center sm:pt-6 lg:pt-3">
           <Reveal>
             <p className="eyebrow">{site.subline}</p>
           </Reveal>
+          {/* The printed cover, on screen. Geometry and provenance live in
+              components/brand/lockup.ts. */}
           <Reveal delay={0.04}>
-            <p className="mt-3 inline-block rounded-full border border-gold-core/45 bg-gold-faint px-4 py-1.5 text-[0.7rem] font-semibold tracking-[0.14em] text-gold-soft uppercase">
-              {vetCert.badge}
-            </p>
-          </Reveal>
-          <Reveal delay={0.08}>
-            {/* Volley stage: symmetric — the tank's visible left inset from
-                the stage edge equals the dart tip's right inset. Geometry
-                verified against rendered pixel measurements. */}
-            <div className="relative mt-3 hidden h-72 lg:block" aria-hidden="true">
-              <Image
-                src="/abrams.webp"
-                alt=""
-                width={1280}
-                height={731}
-                priority
-                className="absolute top-0 left-[-10rem] h-72 w-auto max-w-none"
-                style={{
-                  maskImage:
-                    "radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%)",
-                  WebkitMaskImage:
-                    "radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%)",
-                }}
-              />
-              <p
-                className="brand-wordmark absolute top-[70px] right-0 left-0 text-center whitespace-nowrap uppercase"
-                style={{ fontSize: "clamp(1rem, 2vw, 1.65rem)" }}
-              >
-                Bevier Strategic Technology Solutions
-              </p>
-              <div className="tracer-shot top-[123px] right-[11.5rem] left-[17.4rem]">
-                <span className="muzzle-ember" />
-                <span className="sabot-petal petal-a" />
-                <span className="sabot-petal petal-b" />
-                <span className="sabot-petal petal-c" />
-                <span className="impact-pop" />
-              </div>
-              <span className="bsts-burst absolute top-[96px] right-4 flex flex-col items-center">
-                <span className="display text-lg leading-none font-bold tracking-[0.22em] text-gold-soft">
-                  BSTS
-                </span>
-                <span className="relative mt-1.5">
-                  <span className="bsts-dart" />
-                  <span className="dart-motion">
-                    <i />
-                  </span>
-                </span>
-              </span>
-            </div>
-            <p className="sr-only">Bevier Strategic Technology Solutions — BSTS</p>
-            {/* Mobile & tablet: compact static composition — the same tank,
-                wordmark, and round, without the animation surface. */}
-            <div className="mt-5 lg:hidden" aria-hidden="true">
-              <Image
-                src="/abrams.webp"
-                alt=""
-                width={1280}
-                height={731}
-                priority
-                className="mx-auto h-32 w-auto sm:h-40"
-                style={{
-                  maskImage:
-                    "radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%)",
-                  WebkitMaskImage:
-                    "radial-gradient(ellipse 92% 88% at 50% 50%, black 55%, transparent 98%)",
-                }}
-              />
-              <p className="brand-wordmark mt-2 text-[0.72rem] uppercase sm:text-[0.85rem]">
-                Bevier Strategic Technology Solutions
-              </p>
-              <span className="mx-auto mt-2 flex max-w-[15rem] items-center gap-2 sm:max-w-[18rem]">
-                <span className="h-0.5 flex-1 rounded-full bg-gradient-to-r from-gold-soft/70 to-gold-soft/25" />
-                <span className="display text-[0.7rem] font-bold tracking-[0.22em] text-gold-soft">
-                  BSTS
-                </span>
-              </span>
+            <div className="mt-2 sm:mt-3">
+              <IdentityLockup size="hero" priority />
             </div>
           </Reveal>
 
           {/* The strategic line — the company in three sentences. */}
           <Reveal delay={0.16}>
-            <h1 className="display mx-auto mt-5 max-w-3xl text-[2rem] leading-[1.1] sm:text-[2.75rem] lg:-mt-12 lg:text-[3rem]">
+            <h1 className="display mx-auto mt-2 max-w-3xl text-[1.9rem] leading-[1.08] sm:text-[2.5rem] lg:text-[2.75rem]">
               <span className="block text-warm-white">Secure the data.</span>
               <span className="block text-cyan-soft">Enable the AI.</span>
               <span className="block text-gold-soft">Prove the controls.</span>
             </h1>
           </Reveal>
           <Reveal delay={0.2}>
-            <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-warm-mist sm:text-lg">
+            <p className="mx-auto mt-3 max-w-2xl leading-relaxed text-warm-mist sm:text-[1.0625rem]">
               {strategicSummary}
             </p>
           </Reveal>
           <Reveal delay={0.28}>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-4">
               <button
                 type="button"
                 onClick={() => select("assessment")}
@@ -239,6 +169,14 @@ export function Landing() {
                 Explore BSTS
               </button>
             </div>
+          </Reveal>
+          {/* The veteran line sits under the calls to action, where the
+              brochure back panel puts it — credibility that supports the
+              offer rather than competing with the identity block. */}
+          <Reveal delay={0.34}>
+            <p className="mt-5 inline-block rounded-full border border-gold-core/45 bg-gold-faint px-4 py-1.5 text-[0.7rem] font-semibold tracking-[0.14em] text-gold-soft uppercase">
+              {vetCert.badge}
+            </p>
           </Reveal>
         </div>
       </section>

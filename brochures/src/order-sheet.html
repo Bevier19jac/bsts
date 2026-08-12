@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BSTS — print order sheet</title>
+<style>
+  @page { size: 8.5in 11in; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  @font-face { font-family: "Inter"; src: url("../assets/inter.woff2") format("woff2");
+               font-weight: 100 900; font-display: block; }
+  body {
+    width: 8.5in; height: 11in; padding: 0.50in 0.66in;
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    font-size: 10.5pt; line-height: 1.45; color: #14181e; background: #fff;
+    display: flex; flex-direction: column;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  h1 { font-size: 17.5pt; font-weight: 800; letter-spacing: -0.01em; }
+  .sub { font-size: 10pt; color: #55616f; margin-top: 0.04in; }
+  .rule { height: 3px; background: linear-gradient(to right, #b9893c, #e0bd72 55%, #f2dda8);
+          margin: 0.12in 0 0.16in; border-radius: 2px; }
+  h2 { font-size: 8.5pt; font-weight: 800; letter-spacing: 0.12em;
+       text-transform: uppercase; color: #8a6524; margin-bottom: 0.07in; }
+  section { margin-bottom: 0.105in; }
+  table { width: 100%; border-collapse: collapse; }
+  td { padding: 0.032in 0; vertical-align: top; border-bottom: 1px solid #e4e7ec; }
+  td.k { width: 1.9in; color: #55616f; }
+  td.v { font-weight: 600; }
+  .alert { border: 2px solid #14181e; border-radius: 5px; padding: 0.12in 0.15in;
+           background: #f7f4ec; }
+  .alert b { font-size: 11.5pt; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.22in; }
+  .card { border: 1px solid #d6dae0; border-radius: 5px; padding: 0.11in 0.14in; }
+  .card .n { font-size: 8pt; font-weight: 800; letter-spacing: 0.1em;
+             text-transform: uppercase; color: #8a6524; }
+  .card .t { font-weight: 700; margin-top: 0.03in; }
+  .card .d { font-size: 9.5pt; color: #55616f; margin-top: 0.03in; }
+  .fold { display: grid; grid-template-columns: 3.625fr 3.6875fr 3.6875fr;
+          border: 1.5px solid #14181e; border-radius: 4px; overflow: hidden;
+          font-size: 8.5pt; text-align: center; }
+  .fold div { padding: 0.105in 0.04in; border-right: 1.5px dashed #9aa3ae; }
+  .fold div:last-child { border-right: 0; }
+  .fold .lab { font-weight: 700; }
+  .fold .w { color: #6b7684; font-size: 8pt; }
+  .fold.inside { grid-template-columns: 3.6875fr 3.6875fr 3.625fr; }
+  ul { margin: 0.04in 0 0 0.17in; }
+  li { margin-bottom: 0.035in; }
+  .no li { color: #8a2020; }
+  .foot { margin-top: auto; font-size: 8.5pt; color: #6b7684;
+          border-top: 1px solid #e4e7ec; padding-top: 0.1in; }
+  section:last-of-type { margin-bottom: 0; }
+</style>
+</head>
+<body>
+
+<h1>BSTS — print order</h1>
+<div class="sub">Hand this sheet to the counter with the file. Two brochures, one file, two sheets of paper.</div>
+<div class="rule"></div>
+
+<section>
+  <h2>The order</h2>
+  <table>
+    <tr><td class="k">File</td><td class="v">BSTS_BOTH_BROCHURES_OfficeMax.pdf &nbsp;— 4 pages</td></tr>
+    <tr><td class="k">Paper size</td><td class="v">Letter, 11 × 8.5 in — <b>landscape</b></td></tr>
+    <tr><td class="k">Stock</td><td class="v">100 lb matte text (80 lb text is an acceptable substitute; do not use gloss)</td></tr>
+    <tr><td class="k">Colour</td><td class="v">Full colour, both sides</td></tr>
+    <tr><td class="k">Sides</td><td class="v">Double-sided (duplex)</td></tr>
+    <tr><td class="k">Duplex flip</td><td class="v">FLIP ON SHORT EDGE</td></tr>
+    <tr><td class="k">Scaling</td><td class="v">100% / Actual size — do <b>not</b> fit-to-page or shrink to printable area</td></tr>
+    <tr><td class="k">Edge-to-edge</td><td class="v">Borderless / full-bleed if the machine offers it</td></tr>
+    <tr><td class="k">Finishing</td><td class="v">Tri-fold, <b>letter fold (roll fold)</b> — not Z-fold</td></tr>
+  </table>
+</section>
+
+<section>
+  <div class="alert">
+    <b>The one thing that must not be wrong: flip on the SHORT edge.</b><br>
+    Landscape duplex flipped on the long edge prints the inside upside down
+    relative to the outside, and the whole run is scrap. If the form says
+    “head to head” vs “head to toe,” pick the one that keeps both sides
+    reading the same way up in landscape.
+  </div>
+</section>
+
+<section>
+  <h2>What comes out</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="n">Sheet 1 — pages 1 &amp; 2</div>
+      <div class="t">Client Capabilities Brochure</div>
+      <div class="d">For prospective customers.</div>
+    </div>
+    <div class="card">
+      <div class="n">Sheet 2 — pages 3 &amp; 4</div>
+      <div class="t">Advisor Referral Field Guide</div>
+      <div class="d">For consultants, CPAs, MSPs, attorneys.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Fold — letter / roll fold, as printed left to right</h2>
+  <div class="fold">
+    <div><span class="lab">Inner flap</span><br><span class="w">3.625 in</span></div>
+    <div><span class="lab">Back cover</span><br><span class="w">3.6875 in</span></div>
+    <div><span class="lab">FRONT COVER</span><br><span class="w">3.6875 in</span></div>
+  </div>
+  <div style="font-size:8.5pt;color:#6b7684;margin:.05in 0 .09in">
+    Odd pages (outside). Score at 3.625 in and 7.3125 in from the left.
+  </div>
+  <div class="fold inside">
+    <div><span class="lab">Panel 3</span><br><span class="w">3.6875 in</span></div>
+    <div><span class="lab">Panel 4</span><br><span class="w">3.6875 in</span></div>
+    <div><span class="lab">Panel 5</span><br><span class="w">3.625 in</span></div>
+  </div>
+  <div style="font-size:8.5pt;color:#6b7684;margin-top:.06in">
+    Even pages (inside). Score at 3.6875 in and 7.375 in. The narrow panel is
+    the one that rolls in first — it is deliberately 1/16 in short so the fold
+    closes flat.
+  </div>
+</section>
+
+<section>
+  <div class="grid">
+    <div>
+      <h2>Please do</h2>
+      <ul>
+        <li>Print a single proof sheet first and fold it by hand.</li>
+        <li>Check the front cover ends up on the outside right.</li>
+        <li>Keep the dark background rich — no toner-saver / draft mode.</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Please don’t</h2>
+      <ul class="no">
+        <li>Scale, rotate, or “fit to printable area.”</li>
+        <li>Print single-sided or flip on the long edge.</li>
+        <li>Z-fold instead of roll fold.</li>
+        <li>Substitute gloss or cover stock.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="foot">
+  Commercial printer instead of a retail counter? Use
+  <b>BSTS_BOTH_BROCHURES_COMMERCIAL_BLEED.pdf</b> — 11.25 × 8.75 in with
+  0.125 in bleed on all four edges, trimming to 11 × 8.5 in.
+</div>
+
+</body>
+</html>

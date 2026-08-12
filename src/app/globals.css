@@ -223,27 +223,6 @@ body {
   letter-spacing: -0.015em;
 }
 
-/* Brand wordmark — the BSTS logotype. Fraunces at display optical size with
-   a machined gold-metal gradient; treated as the logo, not body copy. */
-.brand-wordmark {
-  font-family: var(--font-display);
-  font-weight: 640;
-  font-variation-settings:
-    "opsz" 72,
-    "SOFT" 0,
-    "WONK" 0;
-  letter-spacing: 0.085em;
-  background-image: linear-gradient(
-    180deg,
-    #f8f3e8 0%,
-    #eee0c4 52%,
-    #d3ab61 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
 .eyebrow {
   font-size: 0.75rem;
   letter-spacing: 0.22em;
@@ -347,88 +326,116 @@ body {
   animation: tracer-recoil 3s ease-out infinite;
 }
 
-/* One-shot hero volley: line pre-drawn, round travels once, BSTS bursts in.
-   Under reduced motion the global rules collapse these to their final
-   states instantly (fill-forwards), so nothing is hidden from anyone. */
-.tracer-shot {
-  position: absolute;
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--color-gold-soft) 75%, transparent),
-    color-mix(in srgb, var(--color-gold-soft) 38%, transparent)
+/* ==========================================================================
+   HERO IDENTITY LOCKUP
+
+   This is the same lockup as the printed brochures, in the same order and
+   the same proportions: chrome BSTS monogram, the full company name set in
+   white, a gold star rule, then the tank firing. The two artifacts have to
+   read as one identity when a prospect holds the brochure and opens the
+   site next to it, so the type treatments below are ported verbatim from
+   brochures/src/brochure.css rather than reinvented.
+
+   The old hero volley — a thin tracer rail with sabot petals and a dart —
+   was removed. It did not survive the brochure design pass and keeping it
+   here would have left the site and the print piece telling two different
+   stories about the same mark.
+   ========================================================================== */
+
+/* Chrome monogram. Machined metal, lit from above. */
+.mark-hero {
+  font-family: var(--font-sans);
+  font-weight: 900;
+  letter-spacing: 0.055em;
+  line-height: 0.95;
+  background-image: linear-gradient(
+    174deg,
+    #ffffff 0%,
+    #eef2f6 14%,
+    #b9c4cf 31%,
+    #ffffff 47%,
+    #dbe3ea 56%,
+    #8c98a5 74%,
+    #cfd8e0 90%,
+    #f4f7fa 100%
   );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* A hair of dark relief under the metal — reads as edge, not as a shadow. */
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.55));
 }
-/* Muzzle flash at the moment of firing */
-.tracer-shot::before {
-  content: "";
-  position: absolute;
-  top: -7px;
-  left: -14px;
-  width: 30px;
-  height: 16px;
+
+/* The full company name, not the initialism, is the focal point. */
+.company-name {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  line-height: 1.34;
+  letter-spacing: 0.135em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Gold star on a tracer rule — the small repeating brand device. */
+.star-rule {
+  display: flex;
+  align-items: center;
+  gap: 0.42rem;
+}
+.star-rule .sr-line {
+  flex: 1;
+  height: 2.5px;
   border-radius: 999px;
-  opacity: 0;
+}
+.star-rule .sr-line.l {
+  background: linear-gradient(90deg, rgba(201, 168, 105, 0) 0%, var(--color-gold-core) 100%);
+}
+.star-rule .sr-line.r {
+  background: linear-gradient(90deg, var(--color-gold-core) 0%, rgba(201, 168, 105, 0) 100%);
+}
+.star-rule svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Ground-plane wash so the tank's reflection has something to sit on. */
+.hero-ground {
+  position: absolute;
+  border-radius: 50%;
   background: radial-gradient(
-    ellipse at 30% 50%,
-    #ffe9b8 0%,
-    rgba(255, 217, 138, 0.75) 40%,
-    rgba(255, 217, 138, 0) 100%
+    ellipse 60% 100% at 50% 50%,
+    rgba(120, 148, 178, 0.16) 0%,
+    rgba(90, 116, 145, 0.07) 45%,
+    rgba(11, 14, 19, 0) 78%
   );
-  animation: muzzle-flash 0.4s ease-out 0.45s;
 }
-@keyframes muzzle-flash {
+
+/* The shot. At rest this is exactly the printed cover; on load the flash
+   blooms once from the bore and settles, so the page still fires without
+   inventing artwork the brochure does not have. Transform-origin is the
+   muzzle end, which is why the bloom grows out of the barrel rather than
+   scaling about the middle of the fireball. */
+.hero-blast {
+  transform-origin: 11.45% 50%;
+  animation: hero-blast-bloom 1.15s cubic-bezier(0.16, 0.9, 0.3, 1) 0.32s both;
+}
+@keyframes hero-blast-bloom {
   0% {
     opacity: 0;
-    transform: scale(0.4);
+    transform: scale(0.34);
+    filter: brightness(1.9);
   }
-  35% {
+  45% {
     opacity: 1;
-    transform: scale(1.25);
+    transform: scale(1.07);
+    filter: brightness(1.25);
   }
   100% {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-}
-.tracer-shot::after {
-  content: "";
-  position: absolute;
-  top: -2.5px;
-  left: -4%;
-  width: 34px;
-  height: 7px;
-  border-radius: 999px;
-  opacity: 0;
-  background: radial-gradient(
-    ellipse 70% 50% at 72% 50%,
-    #ffd98a 0%,
-    rgba(255, 217, 138, 0.5) 45%,
-    rgba(255, 217, 138, 0) 100%
-  );
-  animation: tracer-shot-fire 1.5s cubic-bezier(0.3, 0.5, 0.4, 1) 0.5s forwards;
-}
-@keyframes tracer-shot-fire {
-  0% {
-    left: -4%;
-    opacity: 0;
-  }
-  8% {
     opacity: 1;
+    transform: scale(1);
+    filter: brightness(1);
   }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    left: calc(100% - 18px);
-    opacity: 0;
-  }
-}
-.bsts-burst {
-  opacity: 0;
-  transform: scale(0.25);
-  animation: bsts-burst 0.65s cubic-bezier(0.2, 1.5, 0.4, 1) 1.85s forwards;
 }
 
 /* BSTS enveloped by the projectile: a glowing gold round carrying the mark,
@@ -462,62 +469,10 @@ body {
 }
 /* Lawn-dart penetrator: long slender rod, sharp tip, rear fins.
    BSTS sits atop the rod (label span in markup). */
-.bsts-dart {
-  position: relative;
-  display: block;
-  width: 126px;
-  height: 6px;
-  border-radius: 3px 0 0 3px;
-  background: linear-gradient(180deg, #ffe9b8 0%, #ecc27a 45%, #c69a55 100%);
-  box-shadow:
-    0 0 12px rgba(255, 217, 138, 0.55),
-    0 0 34px rgba(255, 217, 138, 0.25);
-}
-.bsts-dart::after {
-  content: "";
-  position: absolute;
-  left: 100%;
-  top: -2px;
-  width: 0;
-  height: 0;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-left: 26px solid #d8ae62;
-  filter: drop-shadow(0 0 8px rgba(255, 217, 138, 0.45));
-}
-.bsts-dart::before {
-  content: "";
-  position: absolute;
-  right: 100%;
-  top: -8px;
-  width: 20px;
-  height: 22px;
-  background: #c69a55;
-  clip-path: polygon(100% 27%, 0 0, 45% 50%, 0 100%, 100% 73%);
-}
 
 /* Lingering ember at the gun tube after the muzzle flash — a low glow that
    fades in as the flash decays and keeps flickering softly. */
-.muzzle-ember {
-  position: absolute;
-  left: -18px;
-  top: -6px;
-  width: 26px;
-  height: 14px;
-  border-radius: 999px;
-  pointer-events: none;
-  opacity: 0;
-  background: radial-gradient(
-    ellipse at 30% 50%,
-    rgba(255, 196, 110, 0.85) 0%,
-    rgba(255, 170, 80, 0.35) 45%,
-    rgba(255, 170, 80, 0) 75%
-  );
-  filter: blur(1px);
-  animation:
-    ember-in 0.6s ease-out 0.55s forwards,
-    ember-flicker 2.4s ease-in-out 1.15s infinite alternate;
-}
+
 @keyframes ember-in {
   from {
     opacity: 0;
@@ -538,150 +493,10 @@ body {
 }
 
 /* Speed streaks trailing the dart — read as motion after the burst lands. */
-.dart-motion {
-  position: absolute;
-  right: calc(100% + 8px);
-  top: 50%;
-  width: 44px;
-  height: 14px;
-  margin-top: -7px;
-  pointer-events: none;
-  opacity: 0;
-  animation:
-    streaks-in 0.5s ease-out 2.05s forwards,
-    streaks-drift 1.5s ease-in-out 2.55s infinite alternate;
-}
-.dart-motion::before,
-.dart-motion::after {
-  content: "";
-  position: absolute;
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 217, 138, 0) 0%,
-    rgba(255, 217, 138, 0.55) 100%
-  );
-}
-.dart-motion::before {
-  top: 1px;
-  right: 6px;
-  width: 30px;
-}
-.dart-motion::after {
-  bottom: 1px;
-  right: 10px;
-  width: 24px;
-}
-.dart-motion > i {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  width: 44px;
-  height: 2px;
-  margin-top: -1px;
-  border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 217, 138, 0) 0%,
-    rgba(255, 217, 138, 0.75) 100%
-  );
-}
-@keyframes streaks-in {
-  from {
-    opacity: 0;
-    transform: translateX(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-@keyframes streaks-drift {
-  from {
-    opacity: 0.65;
-    transform: translateX(-3px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
 
 /* Discarding sabot petals — peel away early in flight, revealing the dart */
-.sabot-petal {
-  position: absolute;
-  left: 101%;
-  width: 24px;
-  height: 8px;
-  opacity: 0;
-  pointer-events: none;
-  transform-origin: left center;
-  background: linear-gradient(180deg, #eccb87 0%, #b58a45 100%);
-}
-.petal-a {
-  top: -6px;
-  border-radius: 999px 999px 0 999px;
-  animation: petal-up 0.85s cubic-bezier(0.2, 0.6, 0.5, 1) 1.56s;
-}
-.petal-b {
-  top: 0;
-  border-radius: 0 999px 999px 999px;
-  animation: petal-down 0.85s cubic-bezier(0.2, 0.6, 0.5, 1) 1.62s;
-}
-.petal-c {
-  top: -3px;
-  left: 104.5%;
-  width: 18px;
-  border-radius: 999px 999px 0 999px;
-  animation: petal-up 0.75s cubic-bezier(0.2, 0.6, 0.5, 1) 1.68s;
-}
-@keyframes petal-up {
-  0% {
-    opacity: 0;
-    transform: translate(0, 0) rotate(0deg);
-  }
-  12% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-36px, -34px) rotate(-60deg);
-  }
-}
-@keyframes petal-down {
-  0% {
-    opacity: 0;
-    transform: translate(0, 0) rotate(0deg);
-  }
-  12% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-32px, 30px) rotate(50deg);
-  }
-}
 
 /* Impact flash just before the case base of the round */
-.impact-pop {
-  position: absolute;
-  left: 100%;
-  top: -7px;
-  margin-left: -4px;
-  width: 26px;
-  height: 16px;
-  border-radius: 999px;
-  opacity: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    ellipse at 40% 50%,
-    #ffe9b8 0%,
-    rgba(255, 217, 138, 0.7) 45%,
-    rgba(255, 217, 138, 0) 100%
-  );
-  animation: muzzle-flash 0.45s ease-out 1.7s;
-}
 
 /* Tracer tail streaming behind the base */
 .bsts-round::before {
@@ -699,25 +514,7 @@ body {
     rgba(255, 217, 138, 0.85)
   );
 }
-@keyframes bsts-burst {
-  0% {
-    opacity: 0;
-    transform: scale(0.25);
-    text-shadow: 0 0 42px rgba(255, 217, 138, 1);
-  }
-  55% {
-    opacity: 1;
-    transform: scale(1.18);
-    text-shadow:
-      0 0 34px rgba(255, 217, 138, 0.95),
-      0 0 70px rgba(255, 217, 138, 0.5);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-    text-shadow: 0 0 16px rgba(255, 217, 138, 0.35);
-  }
-}
+
 @keyframes tracer-recoil {
   0% {
     transform: translateX(-60px);
