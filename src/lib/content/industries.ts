@@ -97,7 +97,7 @@ export const industries: Industry[] = [
     status: "active",
     headline: "Mission-driven teams doing enterprise work on donated time",
     summary:
-      "Donor records, volunteer scheduling, grant reporting — nonprofits run real operations on improvised stacks. We bring the same keep-connect-automate discipline at a scope sized to nonprofit budgets, with security appropriate to donor data.",
+      "Donor records, volunteer scheduling, grant reporting — nonprofits run real operations on improvised stacks. Same three service areas, scoped to nonprofit budgets, with security appropriate to donor data.",
     pains: [
       "Donor and volunteer data in disconnected spreadsheets",
       "Grant reporting rebuilt from scratch each cycle",

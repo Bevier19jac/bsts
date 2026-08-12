@@ -11,9 +11,9 @@ import { pillars } from "@/lib/content/pillars";
 import { frameworkDisclaimer, site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Delivery Lanes",
+  title: "Inside the Work",
   description:
-    "How BSTS organizes implementation work — keep, connect, automate, build, secure. The delivery detail beneath Secure AI & Automation, AI Security & Governance, and SOC 2 & Compliance Readiness.",
+    "The delivery detail beneath the three BSTS service areas: Secure AI & Automation, AI Security & Governance, and SOC 2 & Compliance Readiness.",
 };
 
 export default function SolutionsPage() {
@@ -24,14 +24,14 @@ export default function SolutionsPage() {
         <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-10">
           <SectionHeading
             as="h1"
-            eyebrow="Delivery lanes"
-            title="Five lanes of work, one honest sentence."
+            eyebrow="Inside the work"
+            title="What the work actually involves."
             lede={site.promise}
           />
           <Reveal delay={0.1}>
             <p className="mt-6 max-w-3xl text-sm leading-relaxed text-warm-mist">
-              These are the lanes implementation work runs in — the detail
-              underneath the three things BSTS is engaged to do.{" "}
+              This is the detail underneath the three things BSTS is engaged
+              to do —{" "}
               <Link
                 href="/#services"
                 className="text-cyan-soft underline underline-offset-4 hover:text-cyan-core"
@@ -39,8 +39,8 @@ export default function SolutionsPage() {
                 Secure AI &amp; Automation, AI Security &amp; Governance, and
                 SOC 2 &amp; Compliance Readiness
               </Link>{" "}
-              are the engagements; these five are how the building actually
-              gets organized.
+              are the engagements. What follows is how the building actually
+              gets organized inside them.
             </p>
           </Reveal>
         </div>
@@ -82,7 +82,7 @@ export default function SolutionsPage() {
                   <div className={flip ? "lg:order-1" : ""}>
                     <div className="surface-quiet blob-c h-full p-6">
                       <h3 className="text-xs font-semibold tracking-[0.18em] text-warm-dim uppercase">
-                        Typical work in this lane
+                        Typical work
                       </h3>
                       <ul className="mt-4 space-y-3">
                         {pillar.examples.map((ex) => (
@@ -111,8 +111,8 @@ export default function SolutionsPage() {
         <SectionHeading
           center
           eyebrow="Where to begin"
-          title="Every lane starts from the same assessment."
-          lede="Ten minutes of honest answers about how your operation runs. We map them to the lanes above and tell you — in writing — what we would keep, connect, automate, build, and secure."
+          title="All three service areas start from the same assessment."
+          lede="Ten minutes of honest answers about how your operation runs. We map them to the three service areas and tell you — in writing — what we would secure, automate, govern, and prepare for examination."
         />
         <Reveal delay={0.12}>
           <div className="mt-9">

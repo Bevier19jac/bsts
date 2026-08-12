@@ -513,9 +513,9 @@ export const rdThesis = {
  * systems a client already runs rather than defaulting to replacement.
  */
 export const forceMultiplier = {
-  heading: "A force multiplier for the team you already have.",
+  heading: "The security and AI team you do not have to hire.",
   body:
-    "The point is amplification, not replacement. Most organizations do not need a new stack — they need the one they have to be connected, secured, and freed from the repetitive work consuming their people. Replacement is a last resort, and it comes with a written reason.",
+    "Most organizations at this size have no AI team, no cybersecurity team, and no compliance function — and no realistic path to hiring all three. They do not need a new stack either. They need the one they have connected, secured, governed, and freed from the repetitive work consuming their people. Replacement is a last resort, and it comes with a written reason.",
   commitments: [
     "No rip-and-replace reflex — every recommendation carries a reason",
     "No licenses sold and no vendor commissions taken",

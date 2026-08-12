@@ -12,7 +12,7 @@ import { solara, solaraLabel } from "@/lib/content/solara";
 export const metadata: Metadata = {
   title: "Hospitality — Solara House concept demonstration",
   description:
-    "A fictional 28-room boutique hotel, walked through the BSTS approach end to end: keep the PMS, connect the stack, automate the repetitive middle, add a drafts-only AI assistant, and secure the foundation.",
+    "A fictional 28-room boutique hotel, walked through the BSTS approach end to end: secure the guest data, automate the repetitive middle, add a drafts-only AI assistant under written boundaries, and build the evidence that the controls hold.",
 };
 
 export default function HospitalityPage() {

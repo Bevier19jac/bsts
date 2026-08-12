@@ -277,6 +277,24 @@ body {
 /* ---------------------------------------------------------------------------
    Tracer motif — title underlines styled as the tracer of a fired round.
 --------------------------------------------------------------------------- */
+/* Section divider. The same tracer, centred and symmetric, used as the seam
+   between major sections of the page. It is the brand's connective device on
+   the printed pieces — a rule leaving the muzzle and crossing the spread — so
+   it does the same job here: it says these sections are one continuous
+   argument, not a stack of unrelated blocks. Decorative only. */
+.tracer-divider {
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(201, 168, 105, 0) 0%,
+    rgba(201, 168, 105, 0.42) 26%,
+    rgba(221, 196, 145, 0.68) 50%,
+    rgba(201, 168, 105, 0.42) 74%,
+    rgba(201, 168, 105, 0) 100%
+  );
+}
+
 .tracer-line {
   position: relative;
   height: 2px;

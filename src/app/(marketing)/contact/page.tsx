@@ -5,7 +5,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { AssessmentForm } from "@/components/assessment/AssessmentForm";
 
 export const metadata: Metadata = {
-  title: "Contact — Technology Assessment",
+  title: "Contact — Start With Discovery",
   description:
     "Start the BSTS technology assessment: ten minutes of honest answers about how your operation runs, processed entirely in your browser until you choose to send.",
 };
@@ -19,7 +19,7 @@ export default function ContactPage() {
           <SectionHeading
             as="h1"
             eyebrow="Contact"
-            title="The technology assessment."
+            title="Start with discovery."
             lede="Ten minutes, no jargon required. Your answers are processed in your browser and are not transmitted anywhere until you explicitly choose to send them. Even if we never speak, answering these questions tends to clarify what your stack actually needs."
           />
         </div>

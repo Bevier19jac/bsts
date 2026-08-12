@@ -67,7 +67,7 @@ export const site = {
   subline:
     "Secure AI · Intelligent Automation · Cybersecurity · Compliance Readiness",
   promise:
-    "Keep what works. Connect what is disconnected. Automate what is repetitive. Govern what is risky. Prove what you claim.",
+    "Secure the data. Enable the AI. Prove the controls. Keep what already works, connect what is disconnected, and automate what is repetitive — without giving up control of company information.",
   /** Production URL — change once when moving to the custom domain. */
   url: "https://bevierstrategic.pages.dev",
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "bevier19jacob@gmail.com",

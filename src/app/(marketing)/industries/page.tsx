@@ -24,8 +24,8 @@ export default function IndustriesPage() {
           <SectionHeading
             as="h1"
             eyebrow="Industries"
-            title="Small teams. Enterprise-shaped problems."
-            lede="The pattern repeats across sectors: capable people, decent tools, and no connective tissue between them. We bring the same keep-connect-automate-build-secure discipline to each industry — translated into its vocabulary."
+            title="Small teams. Enterprise-shaped security and AI problems."
+            lede="The pattern repeats across sectors: capable people, decent tools, sensitive information moving between them by hand, and customers starting to ask how it is protected. The three service areas do not change by industry — only the vocabulary does."
           />
         </div>
       </section>

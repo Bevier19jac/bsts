@@ -518,9 +518,11 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
         </Surface>
       </Reveal>
 
+      <div aria-hidden className="tracer-divider mx-auto mt-16 max-w-3xl" />
       {/* The recognition section */}
       <TriggerSection select={select} />
 
+      <div aria-hidden className="tracer-divider mx-auto mt-16 max-w-3xl" />
       {/* Force multiplier — the preserved brand idea */}
       <section className="mt-16" aria-labelledby="approach-heading">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.1fr_1fr]">
@@ -570,12 +572,14 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
         </Surface>
       </Reveal>
 
+      <div aria-hidden className="tracer-divider mx-auto mt-16 max-w-3xl" />
       {/* The mark, explained — the tank is brand identity, not decoration. */}
       <FiringSequence />
 
       {/* Engagement ladder */}
       <EngagementLadder />
 
+      <div aria-hidden className="tracer-divider mx-auto mt-16 max-w-3xl" />
       {/* Continuous assurance teaser → dedicated page */}
       <Reveal delay={0.08}>
         <Surface
