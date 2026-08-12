@@ -20,7 +20,7 @@
   .fi2 { left: calc(var(--bleed) + 7.375in); }
 
   /* Inside panels clear the full-width header band. */
-  .inside-panel { padding-top: 1.52in; }
+  .inside-panel { padding-top: 1.78in; }
 
   .spreadband { position: absolute; left: var(--bleed); width: var(--trim-w); }
 
@@ -239,41 +239,43 @@
 
   <!-- Full-width header band. The tracer crosses both folds on purpose —
        it is the device that ties the opened spread together. No text crosses. -->
-  <div class="spreadband" style="top:calc(var(--bleed) + .40in); height:.95in">
-    <!-- One complete thought per panel; only the tracer crosses the folds. -->
-    <div style="position:absolute;left:.94in;width:2.45in;top:0">
+  <div class="spreadband" style="top:calc(var(--bleed) + .40in); height:1.19in">
+    <!-- The inside spread's anchor: the cover lockup at 0.663 scale, so the
+         tank and its blast keep exactly the proportions a reader just saw on
+         the front. Panel 1 carries it alone; the copy starts in panel 2. The
+         forward jet hands off to the tracer, which then crosses both folds to
+         the far trim edge — that rule is what makes the opened sheet read as
+         one surface instead of three columns. Registration is the measured
+         one: bore at 33.35% of the tank bitmap's height, muzzle at 91.33% of
+         its width, blast axis on its own vertical centre. -->
+    <div class="ground" style="left:.06in; width:1.86in; top:1.02in; height:.20in"></div>
+    <img class="tank" src="../assets/abrams-hero.png" alt="" aria-hidden="true"
+         style="position:absolute; left:.30in; top:0.1910in; width:1.3125in; pointer-events:none">
+    <img src="../assets/blast-envelope.png" alt="" aria-hidden="true"
+         style="position:absolute; left:1.2191in; top:0.0200in; width:1.7898in; pointer-events:none">
+    <div class="tracer" style="position:absolute;left:2.52in;right:.30in;top:.5036in"></div>
+
+    <div style="position:absolute;left:3.99in;width:3.09in;top:0">
       <p class="display" style="font-size:16pt">Secure AI by design.</p>
     </div>
-    <div style="position:absolute;left:7.68in;width:3.02in;top:.055in;text-align:right">
+    <div style="position:absolute;left:3.99in;width:3.09in;top:.66in">
+      <p class="body sm" style="color:var(--dim)">
+        Security is not a phase at the end of an AI project. Data boundaries,
+        access, oversight and evidence are decided first.
+      </p>
+    </div>
+
+    <div style="position:absolute;left:7.68in;width:3.02in;top:.045in;text-align:right">
       <p style="font-size:8pt;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)">
         Three problems &nbsp;·&nbsp; one lifecycle
       </p>
     </div>
-    <!-- The inside spread's anchor. One tank, at the left edge of the opened
-         sheet, with the tracer leaving its muzzle and running unbroken across
-         both folds to the far trim edge. Placement uses the same measured
-         constants as the covers: bore axis at 33.35% of the bitmap's height,
-         muzzle at 91.33% of its width, so the tube feeds the rule exactly.
-         Deliberately small — this is a wayfinding device, not a second hero. -->
-    <img class="tank" src="../assets/abrams-hero.png" alt="" aria-hidden="true"
-         style="position:absolute; left:-0.02in; top:0.1350in; width:0.88in;
-                pointer-events:none">
-    <div class="tracer" style="position:absolute;left:0.7837in;right:.30in;top:.34in"></div>
-    <div style="position:absolute;left:.94in;width:2.45in;top:.49in">
-      <p class="body sm" style="color:var(--dim)">
-        Security is not a phase at the end of an AI project.
-      </p>
-    </div>
-    <div style="position:absolute;left:3.99in;width:3.09in;top:.49in">
-      <p class="body sm" style="color:var(--dim)">
-        Data boundaries, access, oversight and evidence are decided first.
-      </p>
-    </div>
-    <div style="position:absolute;left:7.68in;width:3.02in;top:.49in">
+    <div style="position:absolute;left:7.68in;width:3.02in;top:.66in;text-align:right">
       <p class="body sm" style="color:var(--dim)">
         Retrofitting them afterward costs more and proves less.
       </p>
     </div>
+  </div>
   </div>
   </div>
 
