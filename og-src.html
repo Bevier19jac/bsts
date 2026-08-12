@@ -70,15 +70,18 @@
   .star-rule .sr-line.r { background: linear-gradient(90deg, #c9a869 0%, rgba(201,168,105,0) 100%); }
 
   /* The shot. Percentages are the shared registration contract. */
-  .lockup { position: absolute; top: 252px; left: 255px; width: 690px; height: 215.5px; }
-  .ground {
-    position: absolute; top: 78%; left: -5%; width: 58%; height: 30%; border-radius: 50%;
-    background: radial-gradient(ellipse 60% 100% at 50% 50%,
-      rgba(120,148,178,0.16) 0%, rgba(90,116,145,0.07) 45%, rgba(11,14,19,0) 78%);
-  }
+  .lockup { position: absolute; top: 262px; left: 255px; width: 690px; height: 189.6px; }
+  .horizon { position: absolute; height: 1.5px;
+    background: linear-gradient(90deg, rgba(150,176,202,0) 0%, rgba(150,176,202,.26) 22%,
+      rgba(150,176,202,.38) 50%, rgba(150,176,202,.26) 78%, rgba(150,176,202,0) 100%);
+    top: 85.245%; left: -8.560%; width: 72.484%; }
+  .contact { position: absolute; border-radius: 50%; height: 9.2%;
+    background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(0,0,0,.70) 0%,
+      rgba(0,0,0,.40) 32%, rgba(0,0,0,.14) 58%, rgba(0,0,0,0) 80%);
+    top: 80.645%; left: 6.249%; width: 42.867%; }
   .tank {
-    position: absolute; top: 8.815%; left: 0; width: 49.858%; height: auto;
-    filter: brightness(1.18) contrast(1.05);
+    position: absolute; top: 0.000%; left: 0; width: 59.596%; height: auto;
+    filter: brightness(1.14) contrast(1.04);
     -webkit-mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 58%, transparent 98%);
     mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 58%, transparent 98%);
   }
@@ -112,8 +115,9 @@
   </div>
 
   <div class="lockup">
-    <div class="ground"></div>
-    <img class="tank" src="public/abrams.webp" alt="">
+    <div class="horizon"></div>
+    <div class="contact"></div>
+    <img class="tank" src="public/abrams-tank.webp" alt="">
     <img class="blast" src="public/blast-envelope.webp" alt="">
   </div>
 

@@ -62,7 +62,28 @@ export function IdentityLockup({
         style={{ aspectRatio: String(LOCKUP.aspect) }}
         aria-hidden="true"
       >
-        <div className="hero-ground absolute top-[78%] -left-[5%] h-[30%] w-[58%]" />
+        {/* Ground. The old .hero-ground was a light ellipse floating behind
+            the tank, fighting the dark blob baked into the previous bitmap;
+            together they read as hovering. This is a hairline horizon at the
+            exact contact height plus a short contact shadow whose darkest
+            point touches the tracks. Same treatment as the printed piece. */}
+        <div
+          className="hero-horizon absolute"
+          style={{
+            top: `${LOCKUP.groundYPct}%`,
+            left: `${LOCKUP.footCXPct - LOCKUP.footWPct * 0.93}%`,
+            width: `${LOCKUP.footWPct * 1.86}%`,
+          }}
+        />
+        <div
+          className="hero-contact absolute"
+          style={{
+            top: `${LOCKUP.groundYPct - 4.6}%`,
+            left: `${LOCKUP.footCXPct - LOCKUP.footWPct * 0.55}%`,
+            width: `${LOCKUP.footWPct * 1.1}%`,
+            height: "9.2%",
+          }}
+        />
         <Image
           src={TANK.src}
           alt=""
@@ -77,7 +98,7 @@ export function IdentityLockup({
             // gun tube survive toner on matte. Screen gets the same read from
             // the untouched web bitmap plus a matching lift, rather than a
             // second exported file to keep in sync.
-            filter: "brightness(1.18) contrast(1.05)",
+            filter: "brightness(1.14) contrast(1.04)",
             maskImage:
               "radial-gradient(ellipse 92% 88% at 50% 50%, black 58%, transparent 98%)",
             WebkitMaskImage:

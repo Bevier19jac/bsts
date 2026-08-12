@@ -29,13 +29,21 @@
  * which is why the axis stays at 50% and only the attach fraction moves.
  */
 
-/** Tank bitmap: intrinsic size and the measured bore exit. */
+/** Tank bitmap: intrinsic size, the measured bore exit, and the ground. */
 export const TANK = {
-  src: "/abrams.webp",
+  // Cropped at the track line. The previous asset carried a near-black wash
+  // at ~40 alpha across 411 rows BELOW the tracks — a detached shadow, which
+  // is what made the tank read as hovering.
+  src: "/abrams-tank.webp",
   w: 1280,
-  h: 731,
+  h: 513,
   muzzleXFrac: 0.9133,
-  muzzleYFrac: 0.435,
+  muzzleYFrac: 0.6199,
+  /** where the tracks meet the ground, as a fraction of bitmap height */
+  groundYFrac: 503 / 513,
+  /** track footprint centre and width, as fractions of bitmap width */
+  footCXFrac: 0.4645,
+  footWFrac: 0.6539,
 } as const;
 
 /** Blast bitmap: intrinsic size, attach point, and axis. */
@@ -49,12 +57,13 @@ export const BLAST = {
 
 /**
  * Rendered width of the blast relative to the rendered width of the tank.
- * Taken from the brochure cover (tank 1.98in, blast 2.70in). Only one
+ * Taken from the brochure cover (tank 1.98in, blast 1.89in — the flash was
+ * cut 30% so the tracer, not the explosion, carries the energy). Only one
  * correction is needed: the web blast is a 1357/1500 crop of the print
  * asset. The two tank bitmaps need none — both are 1280 wide with the
  * muzzle at x 1169, so they share horizontal framing exactly.
  */
-export const BLAST_TO_TANK = (2.7 * (BLAST.w / 1500)) / 1.98;
+export const BLAST_TO_TANK = (1.89 * (BLAST.w / 1500)) / 1.98;
 
 /**
  * Solve for the smallest box that contains both bitmaps with their bore axes
@@ -92,6 +101,10 @@ function solve() {
     muzzleXPct: TANK.muzzleXFrac * tankW * 100,
     /** where the blast's attach point lands, same units — must match */
     attachXPct: (1 - blastW + BLAST.attachXFrac * blastW) * 100,
+    /** contact shadow + horizon, all as percentages of the box */
+    groundYPct: ((above - TANK.muzzleYFrac * tankH + TANK.groundYFrac * tankH) / boxH) * 100,
+    footCXPct: TANK.footCXFrac * tankW * 100,
+    footWPct: TANK.footWFrac * tankW * 100,
   };
 }
 

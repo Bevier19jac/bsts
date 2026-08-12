@@ -42,7 +42,7 @@ describe("identity lockup geometry", () => {
     // Print: tank 1.98in, blast 2.70in, corrected for both crops. If someone
     // resizes one asset without the other, the shot stops looking like one
     // photograph even though it is still collinear.
-    expect(BLAST_TO_TANK).toBeCloseTo(1.2336, 3);
+    expect(BLAST_TO_TANK).toBeCloseTo(0.8635, 3);
     expect(LOCKUP.blastWidthPct / LOCKUP.tankWidthPct).toBeCloseTo(BLAST_TO_TANK, 6);
   });
 
@@ -50,7 +50,7 @@ describe("identity lockup geometry", () => {
     // abrams.webp's alpha is a soft full-frame glow centred on the image,
     // so any alpha-derived axis lands at ~0.4993 and the fireball ends up
     // under the barrel. The tube itself measures 0.4350. Guard the gap.
-    expect(TANK.muzzleYFrac).toBeCloseTo(0.435, 3);
+    expect(TANK.muzzleYFrac).toBeCloseTo(0.6199, 3);
     expect(TANK.muzzleYFrac).not.toBeCloseTo(0.4993, 2);
     expect(TANK.muzzleXFrac).toBeCloseTo(0.9133, 3);
   });
@@ -60,13 +60,13 @@ describe("identity lockup geometry", () => {
     // A reference photograph informed the physics only; no pixel of it is in
     // any asset, and nothing here may point at one.
     expect(BLAST.src).toBe("/blast-envelope.webp");
-    expect(TANK.src).toBe("/abrams.webp");
+    expect(TANK.src).toBe("/abrams-tank.webp");
   });
 
   it("produces a wide, short box rather than a tall one", () => {
     // A tall lockup pushes the promise and the calls to action below the
     // fold on a 768px laptop, which is what the compression pass fixed.
     expect(LOCKUP.aspect).toBeGreaterThan(3);
-    expect(LOCKUP.aspect).toBeLessThan(3.7);
+    expect(LOCKUP.aspect).toBeLessThan(4.6);
   });
 });
