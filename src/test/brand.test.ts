@@ -17,21 +17,24 @@ describe("identity lockup geometry", () => {
     expect(LOCKUP.muzzleXPct).toBeCloseTo(LOCKUP.attachXPct, 3);
   });
 
-  it("puts the bore axis on the vertical centre of the box", () => {
-    // The blast is authored with its axis at 50% of its own height and is
-    // pinned to the top of the box, whose height equals the blast's — so the
-    // axis is the box centre. The tank must be offset to meet it there.
+  it("lands both bore axes on the same horizontal line", () => {
+    const boxH = (1 / LOCKUP.aspect);
     const tankH = (TANK.h / TANK.w) * (LOCKUP.tankWidthPct / 100);
-    const boxH = (BLAST.h / BLAST.w) * (LOCKUP.blastWidthPct / 100);
-    const boreY = LOCKUP.tankTopPct / 100 + TANK.muzzleYFrac * (tankH / boxH);
-    expect(boreY).toBeCloseTo(BLAST.axisYFrac, 4);
+    const blastH = (BLAST.h / BLAST.w) * (LOCKUP.blastWidthPct / 100);
+    const tankBore = LOCKUP.tankTopPct / 100 + TANK.muzzleYFrac * (tankH / boxH);
+    const blastBore = LOCKUP.blastTopPct / 100 + BLAST.axisYFrac * (blastH / boxH);
+    expect(tankBore).toBeCloseTo(blastBore, 6);
+    expect(tankBore * 100).toBeCloseTo(LOCKUP.axisYPct, 6);
   });
 
   it("keeps every element inside the box", () => {
+    const boxH = 1 / LOCKUP.aspect;
     const tankH = (TANK.h / TANK.w) * (LOCKUP.tankWidthPct / 100);
-    const boxH = (BLAST.h / BLAST.w) * (LOCKUP.blastWidthPct / 100);
-    expect(LOCKUP.tankTopPct).toBeGreaterThanOrEqual(0);
-    expect(LOCKUP.tankTopPct / 100 + tankH / boxH).toBeLessThanOrEqual(1);
+    const blastH = (BLAST.h / BLAST.w) * (LOCKUP.blastWidthPct / 100);
+    for (const [top, h] of [[LOCKUP.tankTopPct, tankH], [LOCKUP.blastTopPct, blastH]]) {
+      expect(top).toBeGreaterThanOrEqual(-1e-9);
+      expect(top / 100 + h / boxH).toBeLessThanOrEqual(1 + 1e-9);
+    }
     expect(LOCKUP.blastLeftPct + LOCKUP.blastWidthPct).toBeCloseTo(100, 6);
   });
 
@@ -39,8 +42,17 @@ describe("identity lockup geometry", () => {
     // Print: tank 1.98in, blast 2.70in, corrected for both crops. If someone
     // resizes one asset without the other, the shot stops looking like one
     // photograph even though it is still collinear.
-    expect(BLAST_TO_TANK).toBeCloseTo(1.3974, 3);
+    expect(BLAST_TO_TANK).toBeCloseTo(1.2336, 3);
     expect(LOCKUP.blastWidthPct / LOCKUP.tankWidthPct).toBeCloseTo(BLAST_TO_TANK, 6);
+  });
+
+  it("takes the bore axis from the gun tube, not the alpha halo", () => {
+    // abrams.webp's alpha is a soft full-frame glow centred on the image,
+    // so any alpha-derived axis lands at ~0.4993 and the fireball ends up
+    // under the barrel. The tube itself measures 0.4350. Guard the gap.
+    expect(TANK.muzzleYFrac).toBeCloseTo(0.435, 3);
+    expect(TANK.muzzleYFrac).not.toBeCloseTo(0.4993, 2);
+    expect(TANK.muzzleXFrac).toBeCloseTo(0.9133, 3);
   });
 
   it("uses the procedurally generated blast, never a photograph", () => {

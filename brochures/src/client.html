@@ -170,23 +170,27 @@
       </div>
     </div>
 
-    <!-- Supporting lockup. Registration is derived, not eyeballed:
-         the tank's muzzle pixel measures at 94.14% / 38.22% of
-         abrams-hero.png, which at width 1.98in puts the bore exit at
-         x 1.924in, y 0.5646in inside this box. blast-envelope.png is
+    <!-- Supporting lockup. Registration is derived, not eyeballed — and
+         measured off the GUN TUBE, not off the alpha channel. The asset
+         carries a soft halo whose vertical midpoint is not the bore, and
+         reading that halo is how an earlier version put the fireball
+         0.072in below the barrel while every check passed. Measured on the
+         tube itself, the bore exit is at 91.33% / 33.35% of
+         abrams-hero.png, which at width 1.98in puts it at
+         x 1.8683in, y 0.4927in inside this box. blast-envelope.png is
          authored with its bore axis on the exact vertical centre and its
          attach point at 15.625% of its width, so placing it at
          left = 1.924 - 0.15625*2.70 and top = 0.5646 - 0.5*1.501 makes
          the barrel, the centre of the gas mass and the forward jet share
-         one straight horizontal line at y = 0.5646in. The gun tube runs
-         0.13in INTO the fireball rather than stopping at its edge. The
-         jet bleeds off the outer trim edge; nothing crosses a fold. -->
+         one straight horizontal line at y = 0.4927in. The gun tube runs
+         INTO the fireball rather than stopping at its edge. The jet bleeds
+         off the outer trim edge; nothing crosses a fold. -->
     <div class="lockup" style="margin:.22in 0 0; height:1.477in">
       <div class="ground" style="top:0.869in; height:.28in"></div>
       <img class="tank" src="../assets/abrams-hero.png" alt=""
            style="width:1.98in; position:absolute; left:0.06in; top:0">
       <img src="../assets/blast-envelope.png" alt="" aria-hidden="true"
-           style="position:absolute; left:1.502in; top:-0.186in; width:2.700in; pointer-events:none">
+           style="position:absolute; left:1.4465in; top:-0.2579in; width:2.700in; pointer-events:none">
     </div>
     <div class="promise" style="margin-top:.16in;text-align:center">
       <div class="l1" style="font-size:20pt">Secure the data.</div>

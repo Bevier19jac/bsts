@@ -73,16 +73,50 @@ for (const doc of DOCS) {
     const tImg = await px(await load(tank.src));
     const fImg = await px(await load(fire.src));
 
-    // --- tank: where is the bore exit, in fractions of the bitmap? -------
-    let mx = -1, my = 0;
-    for (let x = tImg.w - 1; x >= 0 && mx < 0; x--) {
-      let lo = -1, hi = -1;
+    // --- tank: where is the bore exit? -----------------------------------
+    // Measured off the GUN TUBE, never off alpha. The tank bitmap carries a
+    // soft halo whose vertical midpoint is not the bore; reading that halo
+    // is how the fireball once ended up 0.072in below the barrel with this
+    // file reporting the lockup collinear to a fifth of a point. The tube is
+    // the thin, isolated, topmost run of lit pixels along the barrel.
+    const td = tImg.d.data;
+    const tlum = (x, y) => {
+      const i = (y * tImg.w + x) * 4;
+      return (td[i] + td[i + 1] + td[i + 2]) / 3 * (td[i + 3] / 255);
+    };
+    const sample = [];
+    for (let y = 0; y < tImg.h; y += 3) for (let x = 0; x < tImg.w; x += 3) sample.push(tlum(x, y));
+    sample.sort((a, b) => a - b);
+    const cut = sample[Math.floor(sample.length * 0.40)] + 18;
+    const runsAt = (x) => {
+      const r = []; let s = -1;
       for (let y = 0; y < tImg.h; y++) {
-        if (tImg.d.data[(y * tImg.w + x) * 4 + 3] > 24) { if (lo < 0) lo = y; hi = y; }
+        const on = tlum(x, y) > cut;
+        if (on && s < 0) s = y;
+        if (!on && s >= 0) { r.push([s, y - 1]); s = -1; }
       }
-      if (lo >= 0) { mx = x; my = (lo + hi) / 2; }
+      if (s >= 0) r.push([s, tImg.h - 1]);
+      return r;
+    };
+    const mids = [];
+    for (let x = Math.floor(0.74 * tImg.w); x < Math.floor(0.92 * tImg.w); x++) {
+      const thin = runsAt(x).filter(r => {
+        const t = r[1] - r[0] + 1;
+        return t >= 0.004 * tImg.h && t <= 0.05 * tImg.h;
+      });
+      if (thin.length) mids.push((thin[0][0] + thin[0][1]) / 2 / tImg.h);
     }
-    const muzzle = { xf: mx / tImg.w, yf: my / tImg.h };
+    mids.sort((a, b) => a - b);
+    const axisYf = mids[Math.floor(mids.length / 2)];
+    let mx = 0;
+    for (let x = tImg.w - 1; x > 0.7 * tImg.w; x--) {
+      let n = 0;
+      for (let y = Math.floor((axisYf - 0.03) * tImg.h); y < (axisYf + 0.03) * tImg.h; y++) {
+        if (tlum(x, y) > cut) n++;
+      }
+      if (n >= 3) { mx = x; break; }
+    }
+    const muzzle = { xf: mx / tImg.w, yf: axisYf };
 
     // --- fire: alpha-weighted centroid per column, and the dense front ---
     const col = [];
@@ -102,9 +136,27 @@ for (const doc of DOCS) {
                  / ballCols.reduce((a, c) => a + c.sum, 0) / fImg.h;
     const jetAt = f => col[Math.round(f * (fImg.w - 1))].cy / fImg.h;
 
+    // The incandescent core, weighted by how bright it actually composites
+    // on the dark ground. This is a DIFFERENT quantity from the alpha
+    // centroid above and the two can disagree badly: a blast throws a large
+    // faint plume upward and a denser bright mass below, so the total energy
+    // can sit dead on the axis while the white core — the only part the eye
+    // tracks — hangs well under the gun tube. That exact defect shipped once
+    // while this file reported the lockup centred to a fifth of a point.
+    let cs = 0, csy = 0;
+    for (let y = 0; y < fImg.h; y++) {
+      for (let x = 0; x < fImg.w; x++) {
+        const i = (y * fImg.w + x) * 4;
+        const d = fImg.d.data;
+        const lum = (d[i] + d[i + 1] + d[i + 2]) / 3 * (d[i + 3] / 255);
+        if (lum > 215) { cs += lum; csy += lum * y; }
+      }
+    }
+    const coreCy = cs ? csy / cs / fImg.h : null;
+
     const pr = R(panel), lr = R(lock), tr = R(tank), fr = R(fire);
     return {
-      muzzle, dense, ballCy,
+      muzzle, dense, ballCy, coreCy,
       jet: [0.60, 0.72, 0.84].map(jetAt),
       fireNat: [fImg.w, fImg.h],
       panel: { l: pr.left / IN, r: pr.right / IN, w: pr.width / IN },
@@ -133,17 +185,26 @@ for (const doc of DOCS) {
   const axis = m.tank.t + m.tank.h * m.muzzle.yf;          // bore, from pixels
   const ballY = m.fire.t + m.fire.h * m.ballCy;
   const jetY = m.jet.map(f => m.fire.t + m.fire.h * f);
-  t(`${D}: bore axis derived from the bitmap, not estimated`,
-    Math.abs(m.muzzle.yf - 0.3822) < 0.002 && Math.abs(m.muzzle.xf - 0.9414) < 0.002,
+  t(`${D}: bore axis measured off the gun tube, not the alpha halo`,
+    Math.abs(m.muzzle.yf - 0.3335) < 0.003 && Math.abs(m.muzzle.xf - 0.9133) < 0.003,
     `muzzle at ${(m.muzzle.xf * 100).toFixed(2)}% / ${(m.muzzle.yf * 100).toFixed(2)}%`);
-  t(`${D}: gas-mass centre sits on the bore axis`,
-    Math.abs(ballY - axis) < 0.01,
-    `ball ${inch(ballY)} vs bore ${inch(axis)} (Δ ${(Math.abs(ballY - axis) * 72).toFixed(2)}pt)`);
+  const coreY = m.fire.t + m.fire.h * m.coreCy;
+  // Total energy is allowed a little play: hot gas rises, so a real blast
+  // carries more faint plume above the axis than below it. What must not
+  // drift is the bright core, checked next.
+  t(`${D}: total gas energy is near the bore axis`,
+    Math.abs(ballY - axis) < 0.014,
+    `ball ${inch(ballY)} vs bore ${inch(axis)} (Δ ${((ballY - axis) * 72).toFixed(2)}pt)`);
+  t(`${D}: the INCANDESCENT CORE sits on the bore axis`,
+    Math.abs(coreY - axis) < 0.008,
+    `core ${inch(coreY)} vs bore ${inch(axis)} (Δ ${(Math.abs(coreY - axis) * 72).toFixed(2)}pt)`);
   jetY.forEach((y, i) => t(
     `${D}: forward jet on the bore axis at ${[60, 72, 84][i]}% of the flash`,
     Math.abs(y - axis) < 0.01,
     `jet ${inch(y)} vs bore ${inch(axis)} (Δ ${(Math.abs(y - axis) * 72).toFixed(2)}pt)`));
-  const spread = Math.max(...[ballY, ...jetY]) - Math.min(...[ballY, ...jetY]);
+  // Collinearity is judged on what the eye reads as the line: the white
+  // core and the forward lance. The faint outer plume is not part of it.
+  const spread = Math.max(...[coreY, ...jetY]) - Math.min(...[coreY, ...jetY]);
   t(`${D}: barrel, blast centre and forward flash are collinear`,
     spread < 0.006, `total spread ${(spread * 72).toFixed(2)}pt`);
 

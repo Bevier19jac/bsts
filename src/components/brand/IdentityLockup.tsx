@@ -90,8 +90,9 @@ export function IdentityLockup({
           width={BLAST.w}
           height={BLAST.h}
           priority={priority}
-          className="hero-blast absolute top-0 h-auto max-w-none"
+          className="hero-blast absolute h-auto max-w-none"
           style={{
+            top: `${LOCKUP.blastTopPct}%`,
             left: `${LOCKUP.blastLeftPct}%`,
             width: `${LOCKUP.blastWidthPct}%`,
           }}

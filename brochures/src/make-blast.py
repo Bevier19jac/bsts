@@ -106,18 +106,14 @@ body = smoothstep(1.16, 0.30, r_edge)
 # Interior is not uniform: coarse billows read as separate gas lobes.
 body = body * np.clip(0.46 + 1.15 * turb * (0.60 + 0.60 * fine), 0.0, 1.40)
 
-# Balance the mass on the bore axis. Measured, not guessed: take the
-# alpha-weighted centroid of the body over the ball's own columns and roll
-# the field by that many rows (integer part) plus a linear blend for the
-# fraction. Deterministic — the same seed always needs the same correction.
-_cols = body.sum(axis=0)
-_ball = _cols > 0.5 * _cols.max()
-_rows = np.arange(body.shape[0], dtype=np.float32)[:, None]
-_cy = float((_rows * body[:, _ball]).sum() / body[:, _ball].sum())
-_dy = _cy - (body.shape[0] - 1) / 2.0
-_i, _f = int(np.floor(_dy)), float(_dy - np.floor(_dy))
-body = np.roll(body, -_i, axis=0) * (1 - _f) + np.roll(body, -(_i + 1), axis=0) * _f
-print(f"body re-centred by {_dy:+.2f} rows")
+def shift_rows(a, dy):
+    """Roll a field up by dy rows, blending the fractional part."""
+    i = int(np.floor(dy))
+    f = float(dy - i)
+    return np.roll(a, -i, axis=0) * (1 - f) + np.roll(a, -(i + 1), axis=0) * f
+
+
+BODY_RAW = body
 
 # ------------------------------------------------- muzzle flash + core ----
 # The hottest region is at the bore exit and just ahead of it, not at the
@@ -146,14 +142,53 @@ jet *= smoothstep(-0.02, 0.10, X)
 jet = np.clip(jet, 0.0, 0.60)
 
 # ------------------------------------------------------------ compose ----
-I = 1.06 * body + 0.72 * flash + 0.48 * core + 0.62 * collar + 1.05 * jet
-I = np.clip(I, 0.0, None)
-
 # Hard vignette to zero at the canvas edges so nothing clips at the crop.
 edge = (smoothstep(X0, X0 + 0.10, X) * smoothstep(X1, X1 - 0.20, X)
         * smoothstep(-0.50, -0.40, Y) * smoothstep(0.50, 0.40, Y))
-I *= edge
-I = np.clip(I, 0.0, 1.0) ** 1.30
+
+
+def compose(dy):
+    """Full intensity field with the turbulent body shifted up by dy rows."""
+    b = shift_rows(BODY_RAW, dy)
+    f = 1.06 * b + 0.72 * flash + 0.48 * core + 0.62 * collar + 1.05 * jet
+    return np.clip(np.clip(f, 0.0, None) * edge, 0.0, 1.0) ** 1.30
+
+
+# ------------------------------------------------- balance on the axis ----
+# Balance the INCANDESCENT CORE on the bore axis, not the total energy.
+#
+# The first version of this balanced the alpha-weighted centroid, and it was
+# wrong in a way that passed every check. A muzzle blast throws a large faint
+# plume upward and a denser bright mass below; balance the two and the total
+# energy sits on the axis while the part the eye actually tracks — the white
+# core — hangs well below it. Measured on the rendered page, that error was
+# 20px on a 633px lockup: the fireball visibly sagged under the gun tube
+# while the QA reported it centred to a fifth of a point.
+#
+# So the metric is the intensity-weighted centroid of pixels above CORE_LVL,
+# which is the same quantity qa-lockup.mjs now measures. Because shifting the
+# body also moves that centroid non-linearly (the analytic flash, core and
+# jet stay put), solve for it: a damped fixed-point iteration, converging in
+# a handful of steps and fully deterministic.
+CORE_LVL = 0.80
+_rows = np.arange(H * SS, dtype=np.float32)[:, None]
+_axis = (H * SS - 1) / 2.0
+
+
+def core_offset(field):
+    w = field * (field > CORE_LVL)
+    return float((_rows * w).sum() / w.sum()) - _axis
+
+
+dy = 0.0
+for _step in range(14):
+    err = core_offset(compose(dy))
+    if abs(err) < 0.15:
+        break
+    dy += 0.85 * err
+I = compose(dy)
+print(f"body re-centred by {dy:+.2f} rows  "
+      f"(core offset {core_offset(I):+.3f}px of {H * SS})")
 
 # --------------------------------------------------- temperature ramp ----
 # Colour is a pure monotone function of intensity: cool ember at the fringe,
