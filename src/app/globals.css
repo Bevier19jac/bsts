@@ -366,15 +366,24 @@ body {
   filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.55));
 }
 
-/* The full company name, not the initialism, is the focal point. */
+/* THE COLOUR SYSTEM, stated once so it stops being decided per-component.
+     white  = body copy, maximum readability, substance
+     gold   = the company name, tracer accents, premium emphasis, veteran line
+     teal   = AI / security / governance / assurance, service headings
+   Headline colour is never varied for variety. If a line is gold it is
+   because it is brand; if it is teal it is because it is technology.
+
+   The full company name is gold: it is the brand, not a caption. Heavier and
+   more loosely tracked than body copy so it holds contrast on the dark field
+   without becoming ornamental. */
 .company-name {
   font-family: var(--font-sans);
   font-weight: 800;
-  line-height: 1.34;
-  letter-spacing: 0.135em;
+  line-height: 1.32;
+  letter-spacing: 0.145em;
   text-transform: uppercase;
-  color: #ffffff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  color: #e8d2a4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
 }
 
 /* Gold star on a tracer rule — the small repeating brand device. */

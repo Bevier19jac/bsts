@@ -732,13 +732,23 @@ ul.ticks.tight li {
 }
 
 /* The full company name, not the initialism, is the front-cover focal point. */
+/* THE COLOUR SYSTEM, in one place.
+     white  = body copy, maximum readability, substance
+     gold   = the company name, tracer accents, premium emphasis, veteran line
+     teal   = AI / security / governance / assurance, service headings
+   Headline colour is never varied for variety. If a line is gold it is
+   because it is brand; if it is teal it is because it is technology.
+
+   The full company name is gold: it is the brand, not a caption. Set at a
+   heavier weight and looser tracking than body copy so it holds contrast
+   against the dark field without becoming ornamental. */
 .company-name {
   font-family: "Inter", sans-serif;
   font-weight: 800;
-  font-size: 13.2pt;
-  line-height: 1.34;
-  letter-spacing: 0.135em;
+  font-size: 13.6pt;
+  line-height: 1.32;
+  letter-spacing: 0.145em;
   text-transform: uppercase;
-  color: #ffffff;
-  text-shadow: 0 0.008in 0.02in rgba(0, 0, 0, 0.5);
+  color: #e8d2a4;
+  text-shadow: 0 0.008in 0.02in rgba(0, 0, 0, 0.55);
 }
