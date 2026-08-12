@@ -1,5 +1,6 @@
 import { BookOpenCheck, FileSearch, ShieldCheck, Workflow } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { soc2Boundary } from "@/lib/content/positioning";
 
 /**
  * Federal (Government page) content. Claims rules apply here with extra
@@ -86,7 +87,7 @@ export const federalCapabilities: FederalCapability[] = [
       "SOC 2 readiness support for government-facing vendors",
     ],
     boundary:
-      "BSTS does not issue SOC 2 attestations, is not a FedRAMP authorization body, and does not perform CMMC assessments. Framework references describe methodology, not certification.",
+      `${soc2Boundary} BSTS is not a FedRAMP authorization body and does not perform CMMC assessments. Framework references describe methodology, not certification.`,
   },
   {
     slug: "mission-automation",
@@ -147,7 +148,7 @@ export const federalEngagements = [
     title: "Subcontracting & teaming",
     audience: "For established primes",
     body: "A technically credible, principal-led partner for secure AI expertise, AI governance support, cybersecurity documentation, workflow-automation implementation, specialized technical leadership, and proposal or task-order support.",
-    note: "BSTS is service-disabled veteran-owned and led; SBA VetCert certification status is stated precisely elsewhere on this page. Planned certification does not satisfy current SDVOSB subcontracting goals — we say so plainly.",
+    note: "BSTS is Service-Disabled Veteran-Owned & Operated; SBA VetCert status is stated precisely elsewhere on this page. Planned certification does not satisfy current SDVOSB subcontracting goals — we say so plainly.",
   },
   {
     title: "Pilots & defined work packages",

@@ -1,6 +1,8 @@
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { soc2Boundary } from "@/lib/content/positioning";
+import { frameworkDisclaimer } from "@/lib/site";
 
 /**
  * Claims audit as an executable test. The claims policy prohibits certain
@@ -239,8 +241,28 @@ describe("SOC 2 attestation boundary", () => {
   });
 
   it("carries the boundary in the global framework disclaimer", () => {
-    const siteSrc = readFileSync(join(root, "lib/site.ts"), "utf8");
-    expect(siteSrc).toContain("BSTS does not issue SOC 2 reports");
+    // Assert the EVALUATED string, not the source text. The disclaimer now
+    // interpolates soc2Boundary rather than restating it, which is the point:
+    // there was a period-vs-em-dash fork of a legally load-bearing sentence
+    // shipping in production, and a source-text grep could not see it.
+    expect(frameworkDisclaimer).toContain(soc2Boundary);
+  });
+
+  it("has exactly one wording of the boundary anywhere in the codebase", () => {
+    // Any near-miss paraphrase is the bug this catches: "attestations" for
+    // "reports", an em dash for the period, dropping the CPA-firm half.
+    const variants = new Set<string>();
+    for (const f of collectSourceFiles(join(__dirname, ".."))) {
+      const src = readFileSync(f, "utf8");
+      for (const m of src.matchAll(/BSTS does not issue SOC 2[^"`]*/g)) {
+        variants.add(m[0].trim());
+      }
+    }
+    // Extending the sentence is fine; paraphrasing it is not. Every
+    // occurrence must open with the canonical wording, character for character.
+    const canonical = soc2Boundary.replace(/\s+/g, " ").trim();
+    const paraphrases = [...variants].filter((v) => !v.startsWith(canonical));
+    expect(paraphrases).toEqual([]);
   });
 
   /**

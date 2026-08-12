@@ -14,11 +14,17 @@ import {
   federalPositioning,
   federalWhy,
 } from "@/lib/content/federal";
-import { assuranceVision, rdThesis } from "@/lib/content/positioning";
+import {
+  assuranceRoadmapNote,
+  assuranceVision,
+  rdThesis,
+  soc2Boundary,
+} from "@/lib/content/positioning";
 import {
   acquisition,
   capabilityStatementPath,
   federalDisclaimerFull,
+  frameworkDisclaimer,
   vetCert,
   visibleAcquisitionFields,
 } from "@/lib/site";
@@ -255,9 +261,15 @@ export default function GovernmentPage() {
             readiness — with evidence collection automated wherever the
             environment supports it.
           </p>
+          {/* The roadmap note travels with the vision. Without it this block
+              reads as a shipping capability, and it is the one page where a
+              contracting officer is most likely to take it literally. */}
+          <p className="mt-4 max-w-3xl text-xs leading-relaxed text-warm-dim">
+            {assuranceRoadmapNote}
+          </p>
           <div className="mt-6">
             <LinkButton href="/assurance" variant="ghost">
-              See the continuous assurance model
+              Where this is going: continuous assurance
               <ArrowRight className="h-4 w-4" aria-hidden />
             </LinkButton>
           </div>
@@ -357,6 +369,12 @@ export default function GovernmentPage() {
         </div>
         <p className="mx-auto mt-10 max-w-3xl text-left text-xs leading-relaxed text-warm-dim">
           {federalDisclaimerFull}
+        </p>
+        {/* The federal page markets SOC 2 readiness, so it owes the reader
+            the canonical CPA boundary in full — not the shortened federal
+            paraphrase, and not only in the footer. */}
+        <p className="mt-3 text-xs leading-relaxed text-warm-dim">
+          {soc2Boundary} {frameworkDisclaimer}
         </p>
       </section>
     </>

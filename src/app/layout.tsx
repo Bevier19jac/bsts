@@ -38,7 +38,7 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: `${site.name} — an Abrams tank firing a tracer that underlines the company name, with the tagline "A force multiplier for the team you already have."`,
+        alt: `${site.name} — the BSTS monogram over the full company name, above an Abrams tank firing, with the tagline "${site.tagline}"`,
       },
     ],
   },

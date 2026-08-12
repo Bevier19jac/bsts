@@ -1,3 +1,5 @@
+import { soc2Boundary } from "@/lib/content/positioning";
+
 /**
  * Central site + business configuration. No secrets live here —
  * NEXT_PUBLIC_CONTACT_EMAIL is optional and the site operates fully
@@ -28,7 +30,7 @@ const vetCertCopy: Record<
   planned: {
     badge:
       "Service-Disabled Veteran-Owned & Operated · SBA VetCert application planned",
-    heading: "Veteran-owned & operated",
+    heading: "Service-Disabled Veteran-Owned & Operated",
     short: "Service-Disabled Veteran-Owned & Operated",
     explanation:
       "BSTS is service-disabled veteran-owned and operated, and is led day to day by its founder. Federal SDVOSB certification will be pursued through SBA VetCert following company registration.",
@@ -36,7 +38,7 @@ const vetCertCopy: Record<
   submitted: {
     badge:
       "Service-Disabled Veteran-Owned & Operated · SBA VetCert application pending",
-    heading: "Veteran-owned & operated",
+    heading: "Service-Disabled Veteran-Owned & Operated",
     short: "Service-Disabled Veteran-Owned & Operated",
     explanation:
       "BSTS is service-disabled veteran-owned and operated. An application for federal SDVOSB certification has been submitted through SBA VetCert and is pending review.",
@@ -63,7 +65,7 @@ export const site = {
   legalName: "Bevier Strategic Technology Solutions",
   tagline: "Secure the data. Enable the AI. Prove the controls.",
   subline:
-    "Secure AI · Intelligent automation · Cybersecurity · Compliance readiness",
+    "Secure AI · Intelligent Automation · Cybersecurity · Compliance Readiness",
   promise:
     "Keep what works. Connect what is disconnected. Automate what is repetitive. Govern what is risky. Prove what you claim.",
   /** Production URL — change once when moving to the custom domain. */
@@ -172,7 +174,7 @@ export const footerLinks = {
 
 /** Compliance-safe disclaimer used wherever frameworks are referenced. */
 export const frameworkDisclaimer =
-  "References to security and AI frameworks such as SOC 2, NIST CSF 2.0, NIST SP 800-53, the NIST AI Risk Management Framework, ISO/IEC 27001, HIPAA, and CMMC describe the practices that inform our methodology and the requirements we help clients prepare for. They do not imply certification, accreditation, endorsement, or an audit opinion. BSTS does not issue SOC 2 reports — SOC 2 examinations and attestation reports are performed by qualified independent CPA firms.";
+  `References to security and AI frameworks such as SOC 2, NIST CSF 2.0, NIST SP 800-53, the NIST AI Risk Management Framework, ISO/IEC 27001, HIPAA, and CMMC describe the practices that inform our methodology and the requirements we help clients prepare for. They do not imply certification, accreditation, endorsement, or an audit opinion. ${soc2Boundary}`;
 
 /** Federal-experience disclaimer used near veteran/federal references. */
 export const federalDisclaimer =
@@ -238,7 +240,10 @@ export const acquisition = {
       pre_formation: { label: "Company name", value: site.name },
       formed: { label: "Legal business name", value: site.legalName },
     }[formationStatus],
-    { label: "Business status", value: "Service-disabled veteran-owned and led" },
+    {
+      label: "Business status",
+      value: "Service-Disabled Veteran-Owned & Operated",
+    },
     { label: "Service area", value: "United States · remote-capable delivery" },
     { label: "SAM registration", value: "" }, // e.g. "Active" — only when true
     { label: "UEI", value: "" },

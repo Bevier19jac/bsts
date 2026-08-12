@@ -163,10 +163,10 @@ export function Landing() {
                 onClick={() => select("assessment")}
                 className="btn-primary-form px-7 py-3 text-base"
               >
-                Start With an Assessment <ArrowRight className="h-4 w-4" aria-hidden />
+                Start With Discovery <ArrowRight className="h-4 w-4" aria-hidden />
               </button>
               <button type="button" onClick={() => select("services")} className="btn-ghost-form">
-                Explore BSTS
+                Explore Capabilities
               </button>
             </div>
           </Reveal>
@@ -593,7 +593,7 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
             in every engagement.
           </p>
           <Link href="/assurance" className="btn-ghost-form mt-6 inline-flex">
-            See the continuous assurance model
+            Where this is going: continuous assurance
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
         </Surface>
