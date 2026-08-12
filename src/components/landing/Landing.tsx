@@ -91,6 +91,21 @@ export function Landing() {
   // becomes a no-op — leaving the visitor stranded mid-page on tab switch.
   const anchorRef = useRef<HTMLDivElement>(null);
 
+  // Scroll to the top of the tab panel — but only AFTER the newly selected
+  // panel has been committed and laid out. Scrolling synchronously in the
+  // click handler raced the re-render: switching from a long panel to a
+  // shorter one collapsed the page height mid-scroll, the browser clamped
+  // the position to the new maximum, and the visitor landed at the bottom
+  // of the page instead of the top of the panel. Two animation frames put
+  // us safely on the far side of React's commit and the browser's layout.
+  const scrollToPanel = useCallback(() => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        anchorRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
+      });
+    });
+  }, []);
+
   // Sync with the URL hash so header/footer links and shared URLs land on
   // the right tab (e.g. /#assessment).
   useEffect(() => {
@@ -104,7 +119,7 @@ export function Landing() {
       if (isTabId(h)) {
         setTab(h);
         if (scroll) {
-          anchorRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
+          scrollToPanel();
         }
       }
     };
@@ -112,7 +127,7 @@ export function Landing() {
     const onHashChange = () => applyHash(true);
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
-  }, []);
+  }, [scrollToPanel]);
 
   const select = useCallback((id: TabId) => {
     setTab(id);
@@ -121,8 +136,8 @@ export function Landing() {
     // replaceState doesn't fire hashchange — notify listeners (header nav
     // highlights the active section from this).
     window.dispatchEvent(new Event("hashchange"));
-    anchorRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
-  }, []);
+    scrollToPanel();
+  }, [scrollToPanel]);
 
   return (
     <>
@@ -351,7 +366,7 @@ function TriggerSection({ select }: { select: (id: TabId) => void }) {
           <ArrowRight className="h-4 w-4" aria-hidden />
         </button>
         <p className="mt-4 text-sm text-warm-dim">
-          Advising clients rather than running one?{" "}
+          Advising businesses like these?{" "}
           <Link
             href="/advisors"
             className="text-cyan-soft underline underline-offset-4 hover:text-cyan-core"
