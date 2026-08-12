@@ -1,3 +1,9 @@
-# Preview renders are regenerable with `node src/render.mjs` — keep the
-# approved PDFs in version control, not the review images.
-out/*.png
+# Scratch renders from iteration are regenerable with `node src/render.mjs`
+# and are not worth versioning.
+out/_*.png
+out/.raster_*.png
+out/*FOLD_ORDER_CHECK.png
+
+# The approved previews and fold mockups ARE deliverables and DO belong in
+# version control. An earlier blanket `out/*.png` rule silently excluded them
+# from a hand-off bundle — the artefacts were on disk and absent from history.
