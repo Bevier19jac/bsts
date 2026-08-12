@@ -45,7 +45,12 @@
   .fold.inside { grid-template-columns: 3.6875fr 3.6875fr 3.625fr; }
   ul { margin: 0.04in 0 0 0.17in; }
   li { margin-bottom: 0.035in; }
-  .no li { color: #8a2020; }
+  /* The don't-list is distinguished by weight and a mark, not by a colour
+     outside the BSTS palette. An earlier version used a plain red whose
+     antialiased edges averaged to a dusty pink at this size. */
+  .no li { font-weight: 600; list-style: none; margin-left: -0.17in; }
+  .no li::before { content: "\00d7"; color: #8a6524; font-weight: 800;
+                   display: inline-block; width: 0.15in; }
   .foot { margin-top: auto; font-size: 8.5pt; color: #6b7684;
           border-top: 1px solid #e4e7ec; padding-top: 0.1in; }
   section:last-of-type { margin-bottom: 0; }
