@@ -20,7 +20,7 @@
   .fi2 { left: calc(var(--bleed) + 7.375in); }
 
   /* Inside panels clear the full-width header band. */
-  .inside-panel { padding-top: 1.78in; }
+  .inside-panel { padding-top: 1.86in; }
 
   .spreadband { position: absolute; left: var(--bleed); width: var(--trim-w); }
 
@@ -175,9 +175,9 @@
          carries a soft halo whose vertical midpoint is not the bore, and
          reading that halo is how an earlier version put the fireball
          0.072in below the barrel while every check passed. Measured on the
-         tube itself, the bore exit is at 91.33% / 33.35% of
-         abrams-hero.png, which at width 1.98in puts it at
-         x 1.8683in, y 0.4927in inside this box. blast-envelope.png is
+         tube itself, the bore exit is at 91.33% / 61.99% of
+         abrams-tank.png, which at width 1.98in puts it at
+         x 1.8683in, y 0.7506in inside this box. blast-envelope.png is
          authored with its bore axis on the exact vertical centre and its
          attach point at 15.625% of its width, so placing it at
          left = 1.924 - 0.15625*2.70 and top = 0.5646 - 0.5*1.501 makes
@@ -185,12 +185,13 @@
          one straight horizontal line at y = 0.4927in. The gun tube runs
          INTO the fireball rather than stopping at its edge. The jet bleeds
          off the outer trim edge; nothing crosses a fold. -->
-    <div class="lockup" style="margin:.22in 0 0; height:1.477in">
-      <div class="ground" style="top:0.869in; height:.28in"></div>
-      <img class="tank" src="../assets/abrams-hero.png" alt=""
-           style="width:1.98in; position:absolute; left:0.06in; top:0">
+    <div class="lockup" style="margin:.22in 0 0; height:1.51in">
+      <div class="tank-ground-line" style="left:0.0300in; top:1.0368in; width:1.8994in"></div>
+      <div class="tank-shadow" style="left:0.2676in; top:0.9905in; width:1.4242in; height:0.0926in"></div>
+      <img class="tank" src="../assets/abrams-tank.png" alt=""
+           style="width:1.98in; position:absolute; left:0.06in; top:0.2587in">
       <img src="../assets/blast-envelope.png" alt="" aria-hidden="true"
-           style="position:absolute; left:1.4465in; top:-0.2579in; width:2.700in; pointer-events:none">
+           style="position:absolute; left:1.4465in; top:0in; width:2.700in; pointer-events:none">
     </div>
     <div class="promise" style="margin-top:.16in;text-align:center">
       <div class="l1" style="font-size:20pt">Secure the data.</div>
@@ -239,7 +240,7 @@
 
   <!-- Full-width header band. The tracer crosses both folds on purpose —
        it is the device that ties the opened spread together. No text crosses. -->
-  <div class="spreadband" style="top:calc(var(--bleed) + .40in); height:1.19in">
+  <div class="spreadband" style="top:calc(var(--bleed) + .40in); height:1.32in">
     <!-- The inside spread's anchor: the cover lockup at 0.663 scale, so the
          tank and its blast keep exactly the proportions a reader just saw on
          the front. Panel 1 carries it alone; the copy starts in panel 2. The
@@ -248,17 +249,18 @@
          one surface instead of three columns. Registration is the measured
          one: bore at 33.35% of the tank bitmap's height, muzzle at 91.33% of
          its width, blast axis on its own vertical centre. -->
-    <div class="ground" style="left:.06in; width:1.86in; top:1.02in; height:.20in"></div>
-    <img class="tank" src="../assets/abrams-hero.png" alt="" aria-hidden="true"
-         style="position:absolute; left:.30in; top:0.1910in; width:1.3125in; pointer-events:none">
+    <div class="tank-ground-line" style="left:0.0638in; top:0.8813in; width:2.0360in"></div>
+    <div class="tank-shadow" style="left:0.4765in; top:0.8419in; width:1.2106in; height:0.0787in"></div>
+    <img class="tank" src="../assets/abrams-tank.png" alt="" aria-hidden="true"
+         style="position:absolute; left:.30in; top:0.2199in; width:1.6830in; pointer-events:none">
     <img src="../assets/blast-envelope.png" alt="" aria-hidden="true"
-         style="position:absolute; left:1.2191in; top:0.0200in; width:1.7898in; pointer-events:none">
-    <div class="tracer" style="position:absolute;left:2.52in;right:.30in;top:.5036in"></div>
+         style="position:absolute; left:1.4785in; top:0in; width:2.2950in; pointer-events:none">
+    <div class="tracer" style="position:absolute;left:3.05in;right:.30in;top:.6240in"></div>
 
     <div style="position:absolute;left:3.99in;width:3.09in;top:0">
       <p class="display" style="font-size:16pt">Secure AI by design.</p>
     </div>
-    <div style="position:absolute;left:3.99in;width:3.09in;top:.66in">
+    <div style="position:absolute;left:3.99in;width:3.09in;top:.79in">
       <p class="body sm" style="color:var(--dim)">
         Security is not a phase at the end of an AI project. Data boundaries,
         access, oversight and evidence are decided first.
@@ -270,7 +272,7 @@
         Three problems &nbsp;·&nbsp; one lifecycle
       </p>
     </div>
-    <div style="position:absolute;left:7.68in;width:3.02in;top:.66in;text-align:right">
+    <div style="position:absolute;left:7.68in;width:3.02in;top:.79in;text-align:right">
       <p class="body sm" style="color:var(--dim)">
         Retrofitting them afterward costs more and proves less.
       </p>

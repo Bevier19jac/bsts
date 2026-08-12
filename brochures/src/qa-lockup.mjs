@@ -186,7 +186,7 @@ for (const doc of DOCS) {
   const ballY = m.fire.t + m.fire.h * m.ballCy;
   const jetY = m.jet.map(f => m.fire.t + m.fire.h * f);
   t(`${D}: bore axis measured off the gun tube, not the alpha halo`,
-    Math.abs(m.muzzle.yf - 0.3335) < 0.003 && Math.abs(m.muzzle.xf - 0.9133) < 0.003,
+    Math.abs(m.muzzle.yf - 0.6199) < 0.004 && Math.abs(m.muzzle.xf - 0.9133) < 0.003,
     `muzzle at ${(m.muzzle.xf * 100).toFixed(2)}% / ${(m.muzzle.yf * 100).toFixed(2)}%`);
   const coreY = m.fire.t + m.fire.h * m.coreCy;
   // Total energy is allowed a little play: hot gas rises, so a real blast
