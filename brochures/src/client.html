@@ -241,7 +241,7 @@
        it is the device that ties the opened spread together. No text crosses. -->
   <div class="spreadband" style="top:calc(var(--bleed) + .40in); height:.95in">
     <!-- One complete thought per panel; only the tracer crosses the folds. -->
-    <div style="position:absolute;left:.30in;width:3.09in;top:0">
+    <div style="position:absolute;left:.94in;width:2.45in;top:0">
       <p class="display" style="font-size:16pt">Secure AI by design.</p>
     </div>
     <div style="position:absolute;left:7.68in;width:3.02in;top:.055in;text-align:right">
@@ -249,8 +249,17 @@
         Three problems &nbsp;·&nbsp; one lifecycle
       </p>
     </div>
-    <div class="tracer" style="position:absolute;left:.30in;right:.30in;top:.34in"></div>
-    <div style="position:absolute;left:.30in;width:3.09in;top:.49in">
+    <!-- The inside spread's anchor. One tank, at the left edge of the opened
+         sheet, with the tracer leaving its muzzle and running unbroken across
+         both folds to the far trim edge. Placement uses the same measured
+         constants as the covers: bore axis at 33.35% of the bitmap's height,
+         muzzle at 91.33% of its width, so the tube feeds the rule exactly.
+         Deliberately small — this is a wayfinding device, not a second hero. -->
+    <img class="tank" src="../assets/abrams-hero.png" alt="" aria-hidden="true"
+         style="position:absolute; left:-0.02in; top:0.1350in; width:0.88in;
+                pointer-events:none">
+    <div class="tracer" style="position:absolute;left:0.7837in;right:.30in;top:.34in"></div>
+    <div style="position:absolute;left:.94in;width:2.45in;top:.49in">
       <p class="body sm" style="color:var(--dim)">
         Security is not a phase at the end of an AI project.
       </p>
@@ -270,7 +279,6 @@
 
   <!-- ---------------- Pillar 1 ---------------- -->
   <div class="panel i1 inside-panel">
-    <p class="eyebrow">01 — Service</p>
     <h3 class="kicker" style="margin-top:.06in;font-size:10.5pt">Secure AI &amp; Automation</h3>
     <p class="display" style="font-size:13pt;line-height:1.14;margin-top:.08in">
       Automate the work.<br>Not the risk.
@@ -315,7 +323,6 @@
 
   <!-- ---------------- Pillar 2 ---------------- -->
   <div class="panel i2 inside-panel">
-    <p class="eyebrow">02 — Service</p>
     <h3 class="kicker" style="margin-top:.06in;font-size:10.5pt">AI Security &amp; Governance</h3>
     <p class="display" style="font-size:13pt;line-height:1.14;margin-top:.08in">
       Use AI with control.
@@ -365,7 +372,6 @@
 
   <!-- ---------------- Pillar 3 ---------------- -->
   <div class="panel i3 inside-panel">
-    <p class="eyebrow">03 — Service</p>
     <h3 class="kicker" style="margin-top:.06in;font-size:10.5pt">SOC&nbsp;2 &amp; Compliance Readiness</h3>
     <p class="display" style="font-size:13pt;line-height:1.14;margin-top:.08in">
       When your customer asks: “Can you prove it?”
