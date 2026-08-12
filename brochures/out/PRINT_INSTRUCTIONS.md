@@ -112,8 +112,9 @@ Print behaviour
 QR codes
 
 - Decoded from the 300 DPI raster of the final PDFs, not from the source image
-- Both resolve to `https://bsts.pages.dev/`
-- Module size 0.51 mm, above the 0.4 mm reliable-scan threshold for matte
+- Both resolve to `https://bevierstrategic.pages.dev/start` — a stable QR
+  landing route that forwards into the discovery assessment
+- Module size 0.45 mm, above the 0.4 mm reliable-scan threshold for matte
 
 Claims
 
@@ -128,16 +129,14 @@ Claims
 
 ## Before you print — two things to settle
 
-**1. The site the QR points at is still the old one.**
+**1. One canonical address: `bevierstrategic.pages.dev`. (Settled.)**
 
-`bsts.pages.dev` is live but currently serves the pre-repositioning site
-("A force multiplier for the team you already have"). A brochure scanned today
-lands on messaging that does not match it. **Deploy the repositioned site
-before this goes to print.**
-
-Also note `bevierstrategic.pages.dev` is live with identical content, and the
-repo's `site.url` still points there. Pick one canonical domain and make the
-other redirect.
+The QR code and the printed URL on both brochures now point to
+`bevierstrategic.pages.dev` — the Cloudflare Pages project connected to
+GitHub, which redeploys automatically on every push to `main` and matches
+the repo's `site.url`. The old `bsts.pages.dev` project was a one-time
+manual upload; delete it (or make it redirect) in the Cloudflare dashboard
+so a stale copy of the site is never reachable.
 
 **2. There is no email or phone on these brochures — on purpose.**
 
@@ -163,7 +162,7 @@ src/
   qa-physical.py      40 PDF, fold, QR, and print-behaviour checks
 assets/
   abrams-print.png    tank, tuned for matte print
-  qr-bsts.png         QR to bsts.pages.dev
+  qr-bsts.png         QR to bevierstrategic.pages.dev
   inter.woff2, fraunces.woff2
 ```
 
