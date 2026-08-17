@@ -116,6 +116,15 @@ const DISAVOWAL_MARKERS = [
   "actual status",
 ];
 
+/**
+ * Path check that works on Windows as well as POSIX. `join` produces
+ * backslashes on Windows, so a literal "/test/" match silently fails there and
+ * the audit ends up scanning its own banned-phrase lists.
+ */
+function isTestPath(p: string): boolean {
+  return p.replace(/\\/g, "/").includes("/test/");
+}
+
 function collectSourceFiles(dir: string, acc: string[] = []): string[] {
   for (const entry of readdirSync(dir)) {
     const full = join(dir, entry);
@@ -123,7 +132,7 @@ function collectSourceFiles(dir: string, acc: string[] = []): string[] {
     if (stats.isDirectory()) {
       if (entry === "node_modules" || entry === ".next") continue;
       collectSourceFiles(full, acc);
-    } else if (/\.(tsx?|md)$/.test(entry) && !full.includes("/test/")) {
+    } else if (/\.(tsx?|md)$/.test(entry) && !isTestPath(full)) {
       acc.push(full);
     }
   }
@@ -193,7 +202,7 @@ describe("claims audit", () => {
     ];
     const offenders: string[] = [];
     for (const file of collectSourceFiles(root)) {
-      if (file.includes("/test/")) continue;
+      if (isTestPath(file)) continue;
       const text = readFileSync(file, "utf8");
       for (const phrase of held) {
         // Photo alt text may name the equipment shown; claims may not.
