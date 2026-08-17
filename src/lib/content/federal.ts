@@ -126,7 +126,7 @@ export const federalWhy = {
   points: [
     {
       title: "Operational leadership",
-      body: "U.S. Army combat veteran; former First Sergeant, Senior Instructor, and Abrams Tank Master Gunner. High-consequence environments teach requirements discipline, rehearsal, and accountability — habits BSTS applies to delivery.",
+      body: "U.S. Army veteran with Army leadership experience including Master Gunner and First Sergeant responsibilities. High-consequence environments teach requirements discipline, rehearsal, and accountability — habits BSTS applies to delivery.",
     },
     {
       title: "Technical depth",
@@ -134,7 +134,7 @@ export const federalWhy = {
     },
     {
       title: "Federal fluency",
-      body: "More than 16 years serving federal missions through military leadership and civilian cybersecurity work. Add enterprise stakeholder experience, and BSTS speaks both program-office and engineering.",
+      body: "Federal information-security and cybersecurity-coordination experience, alongside enterprise stakeholder work — BSTS speaks both program-office and engineering.",
     },
     {
       title: "Honest engineering",

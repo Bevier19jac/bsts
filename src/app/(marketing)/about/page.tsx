@@ -13,7 +13,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "BSTS is a veteran-owned technology consultancy founded by Jacob Bevier — MS in Artificial Intelligence, BS in Computer Science with a Cybersecurity major (Magna Cum Laude), U.S. Army combat veteran with federal cybersecurity experience.",
+    "BSTS is a veteran-owned technology consultancy founded by Jacob Bevier — MS in Artificial Intelligence, BS in Computer Science with a Cybersecurity major (Magna Cum Laude), U.S. Army veteran with federal information-security experience.",
 };
 
 export default function AboutPage() {

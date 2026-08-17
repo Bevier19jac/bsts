@@ -88,8 +88,6 @@ export default function CapabilityStatementPage() {
               {founder.credentials.map((c) => (
                 <li key={c}>{c}</li>
               ))}
-              <li>U.S. Army combat veteran — First Sergeant, Senior Instructor, Abrams Tank Master Gunner</li>
-              <li>More than 16 years serving federal missions through military leadership and civilian cybersecurity work.</li>
             </ul>
           </section>
         </div>

@@ -18,15 +18,14 @@ export const founder = {
     "AWS Certified AI Practitioner",
   ],
   experience: [
-    "U.S. Army combat veteran — First Sergeant, Senior Instructor, and Abrams Tank Master Gunner",
-    "More than 16 years serving federal missions through military leadership and civilian cybersecurity work.",
-    "Federal cybersecurity and enterprise stakeholder experience",
+    "U.S. Army veteran — Army leadership experience including Master Gunner and First Sergeant responsibilities",
+    "Federal information-security and cybersecurity-coordination experience",
     vetCert.badge,
   ],
   narrative: [
     "Most organizations adopting AI right now are being served by one of two kinds of firm: automation shops that can build the workflow but have not thought hard about the data moving through it, or security and compliance practices that can write the policy but cannot build anything. The gap between them is where the expensive mistakes happen.",
     "Jacob founded BSTS to work in that gap. His formal training deliberately spans both sides: a Master of Science in Artificial Intelligence and a Bachelor of Science in Computer Science with a Cybersecurity major, earned Magna Cum Laude. AI implemented without security discipline is a liability. Security that blocks useful automation is a tax. Doing both well requires understanding both, and most people specialize in one.",
-    "Before founding BSTS, Jacob served as a U.S. Army combat veteran and senior operational leader — First Sergeant, Senior Instructor, and Abrams Tank Master Gunner — then moved into federal cybersecurity. Those are environments where systems have to work under pressure, where documentation is not optional, and where nobody takes your word for it: a control counts when you can demonstrate it. That standard is the one BSTS applies to commercial work. He holds CompTIA Security+ and AWS Certified AI Practitioner certifications.",
+    "Before founding BSTS, Jacob served in the U.S. Army in senior leadership roles — including Master Gunner and First Sergeant responsibilities — then moved into federal information security. Those are environments where systems have to work under pressure, where documentation is not optional, and where nobody takes your word for it: a control counts when you can demonstrate it. That standard is the one BSTS applies to commercial work.",
     "For a client, the background translates into specifics: requirements in writing before work begins, honest risk calls even when they shrink the engagement, data-flow questions asked before implementation rather than after, documentation and training delivered as part of the work — and a bias toward finishing the mission rather than extending the contract.",
     "BSTS is deliberately lean and principal-led. Every engagement is run by the founder, scoped in writing, and measured against criteria agreed before work begins.",
   ],

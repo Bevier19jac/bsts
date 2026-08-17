@@ -14,7 +14,7 @@ import { SystemsDiagram } from "@/components/marketing/SystemsDiagram";
 import { FiringSequence } from "@/components/marketing/FiringSequence";
 import { IdentityLockup } from "@/components/brand/IdentityLockup";
 import { TracerRule } from "@/components/ui/TracerRule";
-import { AssessmentForm } from "@/components/assessment/AssessmentForm";
+import { BevierBreakdown } from "@/components/assessment/BevierBreakdown";
 import { founder } from "@/lib/content/founder";
 import { solara, solaraLabel } from "@/lib/content/solara";
 import {
@@ -33,7 +33,6 @@ import {
   federalDisclaimer,
   frameworkDisclaimer,
   offers,
-  sensitiveDataNotice,
   site,
   vetCert,
 } from "@/lib/site";
@@ -42,7 +41,7 @@ const TABS = [
   { id: "overview", label: "Overview" },
   { id: "services", label: "What we do" },
   { id: "about", label: "About" },
-  { id: "assessment", label: "Assessment" },
+  { id: "assessment", label: "The Breakdown" },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
@@ -178,7 +177,7 @@ export function Landing() {
                 onClick={() => select("assessment")}
                 className="btn-primary-form px-7 py-3 text-base"
               >
-                Start With Discovery <ArrowRight className="h-4 w-4" aria-hidden />
+                Start the Bevier Breakdown <ArrowRight className="h-4 w-4" aria-hidden />
               </button>
               <button type="button" onClick={() => select("services")} className="btn-ghost-form">
                 Explore Capabilities
@@ -316,7 +315,7 @@ function ServiceCards({ select }: { select: (id: TabId) => void }) {
  * partner who does not understand AI engineering should still be able to
  * recognize one of these sentences when a client says it out loud.
  */
-function TriggerSection({ select }: { select: (id: TabId) => void }) {
+function TriggerSection() {
   return (
     <section className="mt-16" aria-labelledby="triggers-heading">
       <div className="text-center">
@@ -357,15 +356,7 @@ function TriggerSection({ select }: { select: (id: TabId) => void }) {
       </ul>
 
       <div className="mt-8 text-center">
-        <button
-          type="button"
-          onClick={() => select("assessment")}
-          className="btn-primary-form px-7 py-3 text-base"
-        >
-          That sounds familiar — start here
-          <ArrowRight className="h-4 w-4" aria-hidden />
-        </button>
-        <p className="mt-4 text-sm text-warm-dim">
+        <p className="text-sm text-warm-dim">
           Advising businesses like these?{" "}
           <Link
             href="/advisors"
@@ -430,7 +421,7 @@ function EngagementLadder() {
 }
 
 /** The three commercial entry points — professional, not a price menu. */
-function EngagementOffers({ select }: { select: (id: TabId) => void }) {
+function EngagementOffers() {
   return (
     <section className="mt-16" aria-labelledby="offers-heading">
       <h2 id="offers-heading" className="display text-center text-2xl text-warm-white sm:text-3xl">
@@ -466,14 +457,13 @@ function EngagementOffers({ select }: { select: (id: TabId) => void }) {
               <p className="mt-5 border-t border-edge/50 pt-4 text-sm text-gold-soft">
                 {o.priceLine}
               </p>
-              <button
-                type="button"
-                onClick={() => select("assessment")}
+              <Link
+                href={["/method", "/solutions", "/assurance"][i] ?? "/method"}
                 className="btn-ghost-form mt-4 justify-center"
               >
-                {i === 2 ? "Begin with the assessment" : "Start the conversation"}
+                How this works
                 <ArrowRight className="h-4 w-4" aria-hidden />
-              </button>
+              </Link>
             </Surface>
           </Reveal>
         ))}
@@ -484,7 +474,7 @@ function EngagementOffers({ select }: { select: (id: TabId) => void }) {
 
 function PanelCta({
   select,
-  label = "Start with an assessment",
+  label = "Start the Bevier Breakdown",
 }: {
   select: (id: TabId) => void;
   label?: string;
@@ -535,7 +525,7 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
 
       <div aria-hidden className="tracer-divider mx-auto mt-16 max-w-3xl" />
       {/* The recognition section */}
-      <TriggerSection select={select} />
+      <TriggerSection />
 
       <div aria-hidden className="tracer-divider mx-auto mt-16 max-w-3xl" />
       {/* Force multiplier — the preserved brand idea */}
@@ -618,9 +608,9 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
         </Surface>
       </Reveal>
 
-      <EngagementOffers select={select} />
+      <EngagementOffers />
 
-      <PanelCta select={select} label="Start With an Assessment" />
+      <PanelCta select={select} />
     </div>
   );
 }
@@ -716,13 +706,6 @@ function ServicesPanel({ select }: { select: (id: TabId) => void }) {
                       </li>
                     ))}
                   </ul>
-                  <button
-                    type="button"
-                    onClick={() => select("assessment")}
-                    className="mt-4 border-t border-edge/50 pt-3 text-sm text-cyan-soft underline underline-offset-4 hover:text-cyan-core"
-                  >
-                    Sound familiar? Start the assessment
-                  </button>
                 </div>
               </Surface>
             </Reveal>
@@ -781,7 +764,7 @@ function ServicesPanel({ select }: { select: (id: TabId) => void }) {
         </Surface>
       </Reveal>
 
-      <EngagementOffers select={select} />
+      <EngagementOffers />
 
       {/* Solara concept — labeled */}
       <Reveal delay={0.1}>
@@ -944,22 +927,20 @@ function AboutPanel({ select }: { select: (id: TabId) => void }) {
 
 function AssessmentPanel() {
   return (
-    <div className="mx-auto max-w-3xl">
-      <h2 className="display text-center text-3xl text-warm-white sm:text-4xl">
-        The assessment.
-      </h2>
-      <TracerRule className="mx-auto mt-4 max-w-[14rem]" />
-      <p className="mt-4 text-center leading-relaxed text-warm-mist">
-        Ten minutes, no jargon required. Your answers are processed in your
-        browser and are not transmitted anywhere until you explicitly choose
-        to send them. Even if we never speak, answering these questions tends
-        to clarify what your stack actually needs.
-      </p>
-      <p className="mx-auto mt-3 max-w-2xl text-center text-xs leading-relaxed text-warm-dim">
-        {sensitiveDataNotice}
-      </p>
+    <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-3xl">
+        <h2 className="display text-center text-3xl text-warm-white sm:text-4xl">
+          The Bevier Breakdown.
+        </h2>
+        <TracerRule className="mx-auto mt-4 max-w-[14rem]" />
+        <p className="mt-4 text-center leading-relaxed text-warm-mist">
+          A few plain questions — no jargon. Every answer changes what we ask
+          next, and the result shows its own reasoning. Nothing leaves your
+          browser unless you choose to send it.
+        </p>
+      </div>
       <div className="mt-8">
-        <AssessmentForm />
+        <BevierBreakdown />
       </div>
       <p className="mt-6 text-center text-xs leading-relaxed text-warm-dim">
         {frameworkDisclaimer}

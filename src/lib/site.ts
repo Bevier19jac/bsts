@@ -156,7 +156,7 @@ export const footerLinks = {
     { href: "/#services", label: "What we do" },
     { href: "/method", label: "How we work" },
     { href: "/assurance", label: "Continuous assurance" },
-    { href: "/#assessment", label: "Start an assessment" },
+    { href: "/#assessment", label: "The Bevier Breakdown" },
   ],
   more: [
     { href: "/government", label: "Government" },
@@ -183,7 +183,7 @@ export const federalDisclaimer =
 /** Primary call-to-action target — the assessment tab on the landing page. */
 export const assessmentCta = {
   href: "/#assessment",
-  label: "Start with an assessment",
+  label: "Start the Bevier Breakdown",
 } as const;
 
 /**

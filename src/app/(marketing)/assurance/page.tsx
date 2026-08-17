@@ -245,7 +245,7 @@ export default function AssurancePage() {
         <Reveal delay={0.12}>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
             <LinkButton href="/#assessment">
-              Start with an assessment <ArrowRight className="h-4 w-4" aria-hidden />
+              Start the Bevier Breakdown <ArrowRight className="h-4 w-4" aria-hidden />
             </LinkButton>
             <a href="/government/" className="btn-ghost-form">
               Government &amp; federal

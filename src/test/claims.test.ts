@@ -169,11 +169,38 @@ describe("claims audit", () => {
     expect(founderSource).toContain(
       "Bachelor of Science in Computer Science with a Cybersecurity major, Magna Cum Laude",
     );
-    expect(founderSource).toContain("CompTIA Security+");
-    expect(founderSource).toContain("AWS Certified AI Practitioner");
+    expect(founderSource).toContain("U.S. Army veteran");
     expect(founderSource).toContain(
-      "More than 16 years serving federal missions through military leadership and civilian cybersecurity work.",
+      "Master Gunner and First Sergeant responsibilities",
     );
+    expect(founderSource).toContain(
+      "Federal information-security and cybersecurity-coordination experience",
+    );
+  });
+
+  /**
+   * v1.6 public-claims policy: the founder foundation is exactly five claims.
+   * Anything beyond them is REMOVE / HOLD PENDING EVIDENCE and must not appear
+   * in public site content until documented and counsel-confirmed.
+   */
+  it("keeps held founder claims out of public content", () => {
+    const held = [
+      "combat veteran",
+      "Senior Instructor",
+      "More than 16 years",
+      "16 years serving federal missions",
+      "Abrams Tank Master Gunner",
+    ];
+    const offenders: string[] = [];
+    for (const file of collectSourceFiles(root)) {
+      if (file.includes("/test/")) continue;
+      const text = readFileSync(file, "utf8");
+      for (const phrase of held) {
+        // Photo alt text may name the equipment shown; claims may not.
+        if (text.includes(phrase)) offenders.push(`${file} — "${phrase}"`);
+      }
+    }
+    expect(offenders).toEqual([]);
   });
 
   it("keeps certified-state wording confined to the site.ts config branch", () => {
