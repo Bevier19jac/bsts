@@ -53,9 +53,10 @@ export const strategicExpanded =
 /* ------------------------------------------------------------------ */
 
 export const idealClient = {
-  headline: "Built for organizations between 20 and 250 people.",
+  headline:
+    "Built for small and midsize organizations that have outgrown manual work — but have not built separate AI, cybersecurity, and compliance teams.",
   body:
-    "Big enough that manual process is now expensive and customers are starting to ask security questions. Small enough that there is no internal AI team, no security team, and no compliance department to absorb the work.",
+    "Far enough along that manual process is now expensive and customers are starting to ask security questions. Not so large that there is an internal AI team, a security team, and a compliance department to absorb the work.",
   signals: [
     "Growing faster than internal process can keep up",
     "Handling customer, financial, or otherwise sensitive information",
@@ -571,4 +572,126 @@ export const brandSequence = {
   ],
   closing:
     "Secure the data. Enable the AI. Prove the controls. The tracer is the third line.",
+} as const;
+
+/* ------------------------------------------------------------------ */
+/* Conversion & trust pass — hero capability strip, Breakdown layers,  */
+/* trust points, assurance today-vs-direction, compact brand line.     */
+/* ------------------------------------------------------------------ */
+
+/**
+ * The five things BSTS does, compressed for the first screen. This is a
+ * restatement of the three service areas in the visitor's own vocabulary —
+ * it does not introduce a fourth service line.
+ */
+export const capabilityStrip = [
+  "Securely adopt AI",
+  "Automate high-value work",
+  "Connect existing systems",
+  "Establish governance",
+  "Prepare defensible controls and evidence",
+] as const;
+
+/**
+ * The public Breakdown and the facilitated assessment are two layers of one
+ * assessment architecture — not the same product. The site previously said
+ * they were the same instrument; that overstated the public layer.
+ */
+export const breakdownRelationship =
+  "The public Bevier Breakdown is built from the same assessment model used in BSTS engagements. A facilitated assessment adds deeper branching, evidence validation, control analysis, and a prioritized implementation roadmap.";
+
+export const breakdownLayers = {
+  publicLayer: {
+    name: "Public Bevier Breakdown",
+    price: "Free",
+    summary: "Preliminary triage you can complete yourself in a few minutes.",
+    points: [
+      "Dynamic questions that change based on your answers",
+      "Self-reported information — nothing is checked against your systems",
+      "Preliminary observations, not findings",
+      "Shows its own reasoning, so you can see how it routed you",
+      "No formal validation of anything you report",
+      "Nothing is transmitted until you choose to send it",
+    ],
+  },
+  facilitatedLayer: {
+    name: "Facilitated Bevier Breakdown",
+    price: "Paid professional assessment",
+    summary: "The same model, run with a person and evidence in the room.",
+    points: [
+      "Deeper branching into the areas your answers actually implicate",
+      "Evidence validation against real systems and records",
+      "Facilitated procedures rather than self-assessment",
+      "Control and framework analysis where relevant",
+      "A prioritized written roadmap",
+      "Executive briefing, and implementation planning where appropriate",
+    ],
+  },
+} as const;
+
+/**
+ * Confidence explainer shown beside the confidence chip on the result. The
+ * score describes answer quality, not verification.
+ */
+export const confidenceNote =
+  "Confidence reflects the completeness and consistency of your answers. It does not represent independent validation by BSTS.";
+
+/**
+ * Continuous assurance, split so a visitor cannot mistake the direction for
+ * a shipping product.
+ */
+export const assuranceToday = [
+  "Readiness assessment",
+  "Control mapping",
+  "Evidence organization",
+  "Manual control validation",
+  "Evidence automation where current systems support it",
+] as const;
+
+export const assuranceFuture = [
+  "Continuous system evidence",
+  "Automated control validation",
+  "Drift detection",
+  "Continuously organized assurance evidence",
+] as const;
+
+/**
+ * Trust points. Every line here is verifiable from the founder record or is
+ * a statement about how BSTS operates. No corporate past performance, no
+ * client outcomes, no metrics.
+ */
+export const trustPoints = {
+  heading: "Why this is credible.",
+  lede:
+    "No client logos, no case studies, and no invented numbers. What follows is the founder record and how the practice actually operates.",
+  qualifications: [
+    "Master of Science in Artificial Intelligence",
+    "Bachelor of Science in Computer Science with a Cybersecurity major, Magna Cum Laude",
+    "CompTIA Security+",
+    "AWS Certified AI Practitioner",
+  ],
+  qualificationsNote:
+    "Certifications listed are held by the founder personally, not by the company.",
+  background: [
+    "U.S. Army veteran — leadership including Master Gunner and First Sergeant responsibilities",
+    "Federal information-security and cybersecurity-coordination experience",
+  ],
+  operating: [
+    "Principal-led, U.S.-based delivery — the founder runs every engagement",
+    "No licenses sold and no vendor commissions taken",
+    "No rip-and-replace reflex — every recommendation carries a written reason",
+    "Security designed in from the start, not added at the end",
+    "Every engagement scoped in writing before work begins",
+  ],
+} as const;
+
+/** Short brand explanation for the primary commercial journey. */
+export const brandCompact = {
+  eyebrow: "The mark",
+  heading: "Why a tank.",
+  body:
+    "A tank crew is one of the most procedure-bound technical systems in the military: nothing is improvised, every action is checked, and the round either hits or it does not. That is the standard BSTS applies to technology work.",
+  tracerLine:
+    "The tracer exists so the effect can be observed — which is the third line of the promise. Prove the controls.",
+  linkLabel: "The full four-part sequence",
 } as const;

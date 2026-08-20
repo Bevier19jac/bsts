@@ -164,7 +164,7 @@ export const footerLinks = {
     { href: "/security", label: "Security practice" },
     { href: "/#about", label: "About" },
     { href: "/insights", label: "Insights" },
-    { href: "/os", label: "BSTS OS demo" },
+    { href: "/os", label: "BSTS Lab — OS demonstration" },
   ],
   legal: [
     { href: "/privacy", label: "Privacy" },
@@ -185,6 +185,28 @@ export const assessmentCta = {
   href: "/#assessment",
   label: "Start the Bevier Breakdown",
 } as const;
+
+/**
+ * Secondary call to action — a person, not a form-driven triage. Points at
+ * the discovery-conversation page. No scheduling link is invented here: if
+ * site.schedulingUrl is ever set, that becomes the destination instead.
+ */
+export const discoveryCta = {
+  href: "/contact",
+  label: "Start a Discovery Conversation",
+} as const;
+
+/**
+ * Routing options on the discovery-conversation page. Values are submitted
+ * verbatim so the inbound reason is unambiguous.
+ */
+export const discoveryReasons = [
+  "Commercial discovery — my own organization",
+  "Government capability briefing",
+  "Teaming or subcontracting",
+  "Advisor or referral introduction",
+  "Something else",
+] as const;
 
 /**
  * The note shown with the assessment: what visitors should NOT enter.
@@ -257,7 +279,7 @@ export const acquisition = {
    * Remove (set to "") once SAM/UEI/CAGE are live and displayed.
    */
   statusLine:
-    "Business formation and federal registrations are in progress. Identifiers (SAM, UEI, CAGE) will be published here as they are issued.",
+    "Business formation and federal registrations are in progress. Verified identifiers will be published as they are issued.",
 } as const;
 
 /** Only the acquisition fields that have real values — for public rendering. */

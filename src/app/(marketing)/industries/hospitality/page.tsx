@@ -158,8 +158,8 @@ export default function HospitalityPage() {
             <LinkButton href="/os" variant="gold">
               Open the OS demo <ArrowRight className="h-4 w-4" aria-hidden />
             </LinkButton>
-            <LinkButton href="/contact">
-              Start your assessment <ArrowRight className="h-4 w-4" aria-hidden />
+            <LinkButton href="/#assessment">
+              Start the Bevier Breakdown <ArrowRight className="h-4 w-4" aria-hidden />
             </LinkButton>
           </div>
         </Reveal>

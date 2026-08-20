@@ -247,7 +247,7 @@ export const CONDITION_TITLE: Record<Condition, string> = {
 export const CONDITION_BODY: Record<Condition, string> = {
   C1: "You're running the business on people and habit more than systems. That isn't a failure — it means the next dollar has unusual leverage, because you get to build the base correctly the first time.",
   C2: "You've already bought good tools. The gap isn't software — it's that your systems don't talk to each other, so your people are the integration. That's where the hours are going.",
-  C3: "Your foundation works and you can name the repetitive work. That's the profile where secure automation pays back fastest, because we'd automate a process you already understand.",
+  C3: "You have a foundation to build on and you can name the repetitive work. That's the profile where secure automation tends to pay back fastest, because we'd automate a process you already understand.",
   C4: "AI is already in your business. Whether to allow it was decided for you by whoever started using it. The open question is whether there are rules, an owner, and review around it.",
   C5: "Something outside your business is asking you to prove how you operate. That reorders the work: evidence and documentation move ahead of new capability.",
 };
@@ -413,7 +413,7 @@ export function route(a: Answers): Breakdown {
   const ENGAGEMENT: Record<Condition, string> = {
     C1: "AI, Security & Automation Assessment",
     C2: "AI, Security & Automation Assessment",
-    C3: "AI, Security & Automation Assessment, with the 30-Day Secure Automation Sprint as the likely next step",
+    C3: "AI, Security & Automation Assessment. The 30-Day Secure Automation Sprint may be a candidate next step, subject to validation during the facilitated assessment.",
     C4: "AI, Security & Automation Assessment with a governance emphasis",
     C5: "AI, Security & Automation Assessment, routing toward the Governance & Assurance Program",
   };

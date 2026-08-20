@@ -20,6 +20,10 @@ import { solara, solaraLabel } from "@/lib/content/solara";
 import {
   aiApproach,
   assuranceVision,
+  brandCompact,
+  breakdownLayers,
+  breakdownRelationship,
+  capabilityStrip,
   engagementNote,
   engagementStages,
   forceMultiplier,
@@ -28,8 +32,10 @@ import {
   soc2Boundary,
   strategicSummary,
   triggers,
+  trustPoints,
 } from "@/lib/content/positioning";
 import {
+  discoveryCta,
   federalDisclaimer,
   frameworkDisclaimer,
   offers,
@@ -170,6 +176,19 @@ export function Landing() {
               {strategicSummary}
             </p>
           </Reveal>
+          {/* What BSTS actually does, before any call to action. */}
+          <Reveal delay={0.24}>
+            <ul className="mx-auto mt-4 flex max-w-3xl flex-wrap items-center justify-center gap-x-2.5 gap-y-2">
+              {capabilityStrip.map((c) => (
+                <li
+                  key={c}
+                  className="rounded-full border border-edge/80 bg-graphite/60 px-3.5 py-1.5 text-[0.72rem] font-medium tracking-[0.02em] text-warm-mist"
+                >
+                  {c}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
           <Reveal delay={0.28}>
             <div className="mt-5 flex flex-wrap items-center justify-center gap-4">
               <button
@@ -179,10 +198,23 @@ export function Landing() {
               >
                 Start the Bevier Breakdown <ArrowRight className="h-4 w-4" aria-hidden />
               </button>
-              <button type="button" onClick={() => select("services")} className="btn-ghost-form">
-                Explore Capabilities
-              </button>
+              <Link href={discoveryCta.href} className="btn-ghost-form px-7 py-3 text-base">
+                {discoveryCta.label}
+              </Link>
             </div>
+          </Reveal>
+          <Reveal delay={0.31}>
+            <p className="mt-3.5 text-sm text-warm-dim">
+              Or{" "}
+              <button
+                type="button"
+                onClick={() => select("services")}
+                className="text-cyan-soft underline underline-offset-4 hover:text-cyan-core"
+              >
+                explore capabilities
+              </button>{" "}
+              first.
+            </p>
           </Reveal>
           {/* The veteran line sits under the calls to action, where the
               brochure back panel puts it — credibility that supports the
@@ -481,18 +513,148 @@ function PanelCta({
 }) {
   return (
     <div className="mt-12 text-center">
-      <button
-        type="button"
-        onClick={() => select("assessment")}
-        className="btn-primary-form px-7 py-3 text-base"
-      >
-        {label} <ArrowRight className="h-4 w-4" aria-hidden />
-      </button>
+      <div className="flex flex-wrap items-center justify-center gap-4">
+        <button
+          type="button"
+          onClick={() => select("assessment")}
+          className="btn-primary-form px-7 py-3 text-base"
+        >
+          {label} <ArrowRight className="h-4 w-4" aria-hidden />
+        </button>
+        <Link href={discoveryCta.href} className="btn-ghost-form px-7 py-3 text-base">
+          {discoveryCta.label}
+        </Link>
+      </div>
+      <p className="mt-3.5 text-xs text-warm-dim">
+        The Breakdown takes a few minutes and stays in your browser. A discovery
+        conversation is a person.
+      </p>
     </div>
   );
 }
 
 /* ------------------------------ Overview ------------------------------ */
+
+/**
+ * Trust, built only from the founder record and how the practice operates.
+ * No client logos, case studies, metrics, or corporate past performance —
+ * BSTS has none yet, and inventing them is the one thing this section must
+ * never do. The veteran-ownership block is folded in here so ownership,
+ * qualifications and operating commitments read as one argument.
+ */
+function TrustSection() {
+  return (
+    <section className="mt-16" aria-labelledby="trust-heading">
+      <div className="text-center">
+        <p className="eyebrow">Why believe any of this</p>
+        <h2 id="trust-heading" className="display mt-3 text-3xl text-warm-white sm:text-4xl">
+          {trustPoints.heading}
+        </h2>
+        <TracerRule className="mx-auto mt-4 max-w-[16rem]" />
+        <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-warm-mist">
+          {trustPoints.lede}
+        </p>
+      </div>
+
+      <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-[1fr_1fr]">
+        <Reveal>
+          <Surface quiet blob="a" className="h-full p-7">
+            <p className="text-xs font-semibold tracking-[0.18em] text-cyan-soft uppercase">
+              Qualifications
+            </p>
+            <ul className="mt-4 space-y-2.5">
+              {trustPoints.qualifications.map((q) => (
+                <li key={q} className="flex gap-3 text-sm leading-relaxed text-warm-mist">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-cyan-core" aria-hidden />
+                  {q}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-xs leading-relaxed text-warm-dim">
+              {trustPoints.qualificationsNote}
+            </p>
+            <ul className="mt-5 space-y-2.5 border-t border-edge/50 pt-5">
+              {trustPoints.background.map((b) => (
+                <li key={b} className="flex gap-3 text-sm leading-relaxed text-warm-mist">
+                  <span aria-hidden className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-core" />
+                  {b}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-xs leading-relaxed text-warm-dim">{federalDisclaimer}</p>
+          </Surface>
+        </Reveal>
+
+        <Reveal delay={0.06}>
+          <Surface quiet blob="b" className="h-full border-gold-core/30 p-7">
+            <p className="text-xs font-semibold tracking-[0.18em] text-gold-soft uppercase">
+              How the practice operates
+            </p>
+            <ul className="mt-4 space-y-2.5">
+              {trustPoints.operating.map((o) => (
+                <li key={o} className="flex gap-3 text-sm leading-relaxed text-warm-mist">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-gold-core" aria-hidden />
+                  {o}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6 flex items-center gap-4 border-t border-edge/50 pt-5">
+              <span aria-hidden className="display text-3xl text-gold-soft">
+                ★
+              </span>
+              <div>
+                <p className="text-sm font-semibold tracking-[0.12em] text-gold-soft uppercase">
+                  {vetCert.heading}
+                </p>
+                <p className="mt-1 text-xs leading-relaxed text-warm-mist">
+                  {vetCert.explanation}
+                </p>
+              </div>
+            </div>
+          </Surface>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * Compact brand explanation for the commercial journey. The complete
+ * four-part firing sequence lives on the About tab so it informs the brand
+ * without competing with the offer.
+ */
+function BrandCompact({ select }: { select: (id: TabId) => void }) {
+  return (
+    <section className="mt-16" aria-labelledby="brand-compact-heading">
+      <Surface quiet blob="c" className="grid grid-cols-1 gap-6 p-7 sm:p-8 lg:grid-cols-[1fr_1.2fr]">
+        <div>
+          <p className="eyebrow">{brandCompact.eyebrow}</p>
+          <h2
+            id="brand-compact-heading"
+            className="display mt-3 text-2xl text-warm-white sm:text-3xl"
+          >
+            {brandCompact.heading}
+          </h2>
+          <TracerRule />
+        </div>
+        <div>
+          <p className="text-sm leading-relaxed text-warm-mist">{brandCompact.body}</p>
+          <p className="mt-3 text-sm leading-relaxed text-gold-soft">
+            {brandCompact.tracerLine}
+          </p>
+          <button
+            type="button"
+            onClick={() => select("about")}
+            className="mt-4 inline-flex items-center gap-2 text-sm text-cyan-soft underline underline-offset-4 hover:text-cyan-core"
+          >
+            {brandCompact.linkLabel}
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </button>
+        </div>
+      </Surface>
+    </section>
+  );
+}
 
 function OverviewPanel({ select }: { select: (id: TabId) => void }) {
   return (
@@ -500,6 +662,12 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
       {/* Three pillars, immediately. */}
       <ServiceCards select={select} />
 
+      <div aria-hidden className="tracer-divider mx-auto mt-16 max-w-3xl" />
+      {/* Recognition comes before fit — a visitor identifies the symptom
+          before they decide whether they are the right size. */}
+      <TriggerSection />
+
+      <div aria-hidden className="tracer-divider mx-auto mt-16 max-w-3xl" />
       {/* Who it's for */}
       <Reveal delay={0.06}>
         <Surface quiet blob="b" className="mt-12 grid grid-cols-1 gap-6 p-7 sm:p-8 lg:grid-cols-[1.15fr_1fr]">
@@ -523,12 +691,9 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
         </Surface>
       </Reveal>
 
-      <div aria-hidden className="tracer-divider mx-auto mt-16 max-w-3xl" />
-      {/* The recognition section */}
-      <TriggerSection />
-
-      <div aria-hidden className="tracer-divider mx-auto mt-16 max-w-3xl" />
-      {/* Force multiplier — the preserved brand idea */}
+      {/* Force multiplier — the preserved brand idea. The commitment bullets
+          moved into the trust section below, where they belong with the rest
+          of the credibility argument rather than being made twice. */}
       <section className="mt-16" aria-labelledby="approach-heading">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.1fr_1fr]">
           <div>
@@ -537,14 +702,6 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
             </h2>
             <TracerRule />
             <p className="mt-5 leading-relaxed text-warm-mist">{forceMultiplier.body}</p>
-            <ul className="mt-6 space-y-3">
-              {forceMultiplier.commitments.map((line) => (
-                <li key={line} className="flex gap-3 text-sm leading-relaxed text-warm-mist">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-cyan-core" aria-hidden />
-                  {line}
-                </li>
-              ))}
-            </ul>
           </div>
           <Surface blob="a" className="grain relative overflow-hidden p-6 sm:p-8">
             <SystemsDiagram className="h-auto w-full" />
@@ -552,37 +709,16 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
         </div>
       </section>
 
-      {/* Veteran-ownership block — wording derives from the centralized
-          VetCert status in site.ts and upgrades automatically. */}
-      <Reveal delay={0.08}>
-        <Surface blob="b" className="mt-14 grid grid-cols-1 items-center gap-6 border-gold-core/35 p-7 sm:p-8 lg:grid-cols-[auto_1fr]">
-          <div className="flex items-center gap-4">
-            <span aria-hidden className="display text-4xl text-gold-soft">★</span>
-            <div>
-              <p className="text-sm font-semibold tracking-[0.14em] text-gold-soft uppercase">
-                {vetCert.heading}
-              </p>
-              <p className="text-xs text-warm-dim">Principal-led · U.S.-based</p>
-            </div>
-          </div>
-          <div>
-            <p className="text-sm leading-relaxed text-warm-mist">
-              {vetCert.explanation} Discipline earned in service, applied to
-              your technology.
-            </p>
-            <p className="mt-2 text-xs leading-relaxed text-warm-dim">
-              {federalDisclaimer}
-            </p>
-          </div>
-        </Surface>
-      </Reveal>
+      {/* Engagement ladder — Discover → Implement → Govern → Assure */}
+      <EngagementLadder />
 
       <div aria-hidden className="tracer-divider mx-auto mt-16 max-w-3xl" />
-      {/* The mark, explained — the tank is brand identity, not decoration. */}
-      <FiringSequence />
+      {/* Founder qualifications and how the practice operates */}
+      <TrustSection />
 
-      {/* Engagement ladder */}
-      <EngagementLadder />
+      <div aria-hidden className="tracer-divider mx-auto mt-16 max-w-3xl" />
+      {/* The mark, in short. Full sequence lives on the About tab. */}
+      <BrandCompact select={select} />
 
       <div aria-hidden className="tracer-divider mx-auto mt-16 max-w-3xl" />
       {/* Continuous assurance teaser → dedicated page */}
@@ -908,11 +1044,16 @@ function AboutPanel({ select }: { select: (id: TabId) => void }) {
         </div>
       </Reveal>
 
+      {/* The full four-part firing sequence lives here, where the brand can
+          be explained at length without competing with the offer. */}
+      <div aria-hidden className="tracer-divider mx-auto mt-16 max-w-3xl" />
+      <FiringSequence />
+
       <Reveal delay={0.1}>
         <p className="mt-10 text-center text-sm text-warm-dim">
           Curious how we run engagements internally?{" "}
           <Link href="/os" className="text-cyan-soft underline underline-offset-4 hover:text-cyan-core">
-            Explore the BSTS OS demo
+            Explore BSTS Lab — the OS demonstration
           </Link>{" "}
           — fictional data, fully interactive.
         </p>
@@ -942,7 +1083,59 @@ function AssessmentPanel() {
       <div className="mt-8">
         <BevierBreakdown />
       </div>
-      <p className="mt-6 text-center text-xs leading-relaxed text-warm-dim">
+
+      {/* Two layers of one assessment architecture — not the same product. */}
+      <section className="mt-16" aria-labelledby="layers-heading">
+        <div className="text-center">
+          <p className="eyebrow">Two layers, one model</p>
+          <h2 id="layers-heading" className="display mt-3 text-2xl text-warm-white sm:text-3xl">
+            What this free version is, and is not.
+          </h2>
+          <p className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-warm-mist">
+            {breakdownRelationship}
+          </p>
+        </div>
+        <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-2">
+          {[breakdownLayers.publicLayer, breakdownLayers.facilitatedLayer].map(
+            (layer, i) => (
+              <Reveal key={layer.name} delay={staggerDelay(i)}>
+                <Surface
+                  quiet={i === 0}
+                  blob={i === 0 ? "a" : "b"}
+                  className={`h-full p-7 ${i === 1 ? "border-gold-core/30" : ""}`}
+                >
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <h3 className="text-lg font-semibold text-warm-white">{layer.name}</h3>
+                    <span
+                      className={`text-xs font-semibold tracking-[0.12em] uppercase ${
+                        i === 0 ? "text-cyan-soft" : "text-gold-soft"
+                      }`}
+                    >
+                      {layer.price}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-sm leading-relaxed text-warm-mist">{layer.summary}</p>
+                  <ul className="mt-5 space-y-2.5">
+                    {layer.points.map((p) => (
+                      <li key={p} className="flex gap-3 text-sm leading-relaxed text-warm-mist">
+                        <span
+                          aria-hidden
+                          className={`mt-2 h-1.5 w-1.5 shrink-0 rounded-full ${
+                            i === 0 ? "bg-cyan-core" : "bg-gold-core"
+                          }`}
+                        />
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+                </Surface>
+              </Reveal>
+            ),
+          )}
+        </div>
+      </section>
+
+      <p className="mt-10 text-center text-xs leading-relaxed text-warm-dim">
         {frameworkDisclaimer}
       </p>
     </div>

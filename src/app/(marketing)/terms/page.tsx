@@ -15,11 +15,15 @@ export default function TermsPage() {
             as="h1"
         eyebrow="Legal"
         title="Terms of Use"
-        lede="The rules for using this website and its demonstration environment, stated as plainly as we can manage."
+        lede="These terms describe how this website and its demonstration environment may be used today."
       />
       <p className="mt-6 text-sm text-warm-dim">
-        Effective date: July 19, 2026 · These terms are pending formal legal
-        review and may be updated.
+        Effective date: July 19, 2026. The terms described here are accurate as
+        written.
+      </p>
+      <p className="mt-2 text-sm text-warm-dim">
+        Formal legal review is pending. These terms may be updated following
+        that review.
       </p>
 
       <div className="prose-bsts mt-10">

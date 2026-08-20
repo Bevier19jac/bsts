@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Check, ClipboardCopy, Download, Mail, RotateCcw } from "lucide-react";
@@ -11,8 +12,12 @@ import {
   visibleQuestions,
   type Answers,
 } from "@/lib/breakdown";
-import { site, sensitiveDataNotice } from "@/lib/site";
-import { soc2Boundary } from "@/lib/content/positioning";
+import { site, sensitiveDataNotice, discoveryCta } from "@/lib/site";
+import {
+  breakdownRelationship,
+  confidenceNote,
+  soc2Boundary,
+} from "@/lib/content/positioning";
 
 const contactEmail = site.contactEmail;
 const formKey =
@@ -293,6 +298,9 @@ export function BevierBreakdown() {
                   Confidence {result.confidence}
                 </span>
               </div>
+              <p className="mt-2.5 text-xs leading-relaxed text-warm-dim">
+                {confidenceNote}
+              </p>
 
               <h3 className="mt-4 text-3xl leading-tight text-warm-white">
                 {result.coPrimary
@@ -363,6 +371,59 @@ export function BevierBreakdown() {
               </Block>
 
               <Block title="Your preliminary roadmap">
+                <dl className="space-y-4">
+                  <div>
+                    <dt className="text-[0.68rem] font-semibold tracking-[0.16em] text-cyan-soft uppercase">
+                      Immediate priority
+                    </dt>
+                    <dd className="mt-1.5 text-sm leading-relaxed text-warm-white">
+                      {result.moves[0] ??
+                        "Establish what is actually true about your systems before changing any of them."}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-[0.68rem] font-semibold tracking-[0.16em] text-cyan-soft uppercase">
+                      Why it matters
+                    </dt>
+                    <dd className="mt-1.5 text-sm leading-relaxed text-warm-mist">
+                      {result.gaps[0] ??
+                        "Without a shared picture of the current state, any recommendation is a guess."}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-[0.68rem] font-semibold tracking-[0.16em] text-cyan-soft uppercase">
+                      What should be validated
+                    </dt>
+                    <dd className="mt-1.5 text-sm leading-relaxed text-warm-mist">
+                      Everything above rests on what you reported here. Before any
+                      work is scoped, a facilitated assessment would confirm the
+                      systems in use, who has access to what, where information
+                      actually travels, and which obligations genuinely apply.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-[0.68rem] font-semibold tracking-[0.16em] text-gold-soft uppercase">
+                      Candidate next step
+                    </dt>
+                    <dd className="mt-1.5 text-sm leading-relaxed text-warm-white">
+                      {result.engagement}
+                    </dd>
+                    {/* priceLine is empty when the engine could not route —
+                        rendering the qualifier alone left a dangling
+                        "Begins at" is a floor sentence with no price. */}
+                    {result.priceLine ? (
+                      <dd className="mt-1.5 text-sm text-gold-soft">
+                        {result.priceLine}
+                        {result.priceLine.includes("begin at")
+                          ? " “Begins at” is a floor, not an estimate."
+                          : ""}
+                      </dd>
+                    ) : null}
+                  </div>
+                </dl>
+              </Block>
+
+              <Block title="How the work is sequenced">
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                   {[
                     ["Discover", "Confirm what's actually true — systems, access, ownership, information."],
@@ -376,13 +437,6 @@ export function BevierBreakdown() {
                     </div>
                   ))}
                 </div>
-              </Block>
-
-              <Block title="Recommended next step">
-                <p className="text-sm leading-relaxed text-warm-white">{result.engagement}</p>
-                <p className="mt-1.5 text-sm text-gold-soft">
-                  {result.priceLine} &ldquo;Begins at&rdquo; is a floor, not an estimate.
-                </p>
               </Block>
 
               <details className="mt-6 rounded-2xl border border-edge bg-graphite/60 p-5">
@@ -454,6 +508,16 @@ export function BevierBreakdown() {
                     <RotateCcw className="h-4 w-4" aria-hidden /> Start over
                   </button>
                 </div>
+                <p className="mt-4 border-t border-edge/60 pt-4 text-sm leading-relaxed text-warm-mist">
+                  Would rather just talk it through?{" "}
+                  <Link
+                    href={discoveryCta.href}
+                    className="text-cyan-soft underline underline-offset-4 hover:text-cyan-core"
+                  >
+                    {discoveryCta.label}
+                  </Link>{" "}
+                  — no assessment required.
+                </p>
                 {sendState === "error" && (
                   <p className="mt-3 text-sm text-gold-soft">
                     That didn&rsquo;t go through. Check the three fields above, or email{" "}
@@ -472,9 +536,12 @@ export function BevierBreakdown() {
 
               <p className="mt-6 text-xs leading-relaxed text-warm-dim">
                 <strong className="text-warm-mist">This is a preliminary result.</strong> It reflects
-                what you told us in a few minutes — not an audit, not a compliance determination, and
-                not a price. It must be validated before implementation, pricing, or compliance
+                what you told us in a few minutes — not an audit, not a legal or compliance
+                determination, not a verified finding, not an implementation scope, and not a price
+                quote. It must be validated before implementation, pricing, or compliance
                 decisions. {soc2Boundary}
+                <br />
+                <span className="mt-2 inline-block">{breakdownRelationship}</span>
               </p>
             </motion.div>
           )}

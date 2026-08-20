@@ -8,9 +8,11 @@ import { staggerDelay } from "@/components/motion/stagger";
 import { LinkButton } from "@/components/ui/Button";
 import { TracerRule } from "@/components/ui/TracerRule";
 import {
+  assuranceFuture,
   assuranceProblem,
   assurancePipeline,
   assuranceRoadmapNote,
+  assuranceToday,
   assuranceVision,
   commonControl,
   soc2Boundary,
@@ -130,9 +132,50 @@ export default function AssurancePage() {
           })}
         </ol>
 
+        {/* Available today versus future direction — made visually
+            unmistakable so nothing here reads as a shipping platform. */}
+        <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-2">
+          <Reveal>
+            <Surface quiet blob="a" className="h-full border-cyan-core/40 p-7">
+              <p className="text-[0.65rem] font-semibold tracking-[0.16em] text-cyan-soft uppercase">
+                Available today
+              </p>
+              <p className="mt-1.5 text-sm text-warm-dim">
+                Delivered in engagements now.
+              </p>
+              <ul className="mt-5 space-y-2.5">
+                {assuranceToday.map((t) => (
+                  <li key={t} className="flex gap-3 text-sm leading-relaxed text-warm-white">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-cyan-core" aria-hidden />
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </Surface>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <Surface quiet blob="b" className="h-full border-gold-core/35 p-7">
+              <p className="text-[0.65rem] font-semibold tracking-[0.16em] text-gold-soft uppercase">
+                Future direction
+              </p>
+              <p className="mt-1.5 text-sm text-warm-dim">
+                Not available today. This is what BSTS is building toward.
+              </p>
+              <ul className="mt-5 space-y-2.5">
+                {assuranceFuture.map((f) => (
+                  <li key={f} className="flex gap-3 text-sm leading-relaxed text-warm-mist">
+                    <Arrow className="mt-0.5 h-4 w-4 shrink-0 text-gold-core" aria-hidden />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </Surface>
+          </Reveal>
+        </div>
+
         {/* The honesty note — this is a direction, not a product. */}
         <Reveal delay={0.08}>
-          <Surface quiet className="mt-8 border-gold-core/35 p-6 sm:p-7">
+          <Surface quiet className="mt-6 border-gold-core/35 p-6 sm:p-7">
             <p className="text-[0.65rem] font-semibold tracking-[0.16em] text-gold-soft uppercase">
               Where this stands today
             </p>

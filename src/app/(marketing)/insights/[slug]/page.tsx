@@ -127,8 +127,8 @@ export default async function ArticlePage({
           Want this thinking applied to your operation?
         </p>
         <div className="mt-5">
-          <LinkButton href="/contact">
-            Start the assessment <ArrowRight className="h-4 w-4" aria-hidden />
+          <LinkButton href="/#assessment">
+            Start the Bevier Breakdown <ArrowRight className="h-4 w-4" aria-hidden />
           </LinkButton>
         </div>
       </div>

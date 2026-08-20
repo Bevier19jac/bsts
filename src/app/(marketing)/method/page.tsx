@@ -191,7 +191,7 @@ export default function MethodPage() {
           center
           eyebrow="Stage one"
           title="It starts with discovery. Discovery starts here."
-          lede="The assessment on this site is the same instrument we use inside engagements — answering it is genuinely the first stage of the work, and you keep the output whether or not we continue."
+          lede="The public Bevier Breakdown is built from the same assessment model used in BSTS engagements. A facilitated assessment adds deeper branching, evidence validation, control analysis, and a prioritized implementation roadmap. You keep the output of the free version whether or not we continue."
         />
         <Reveal delay={0.12}>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-4">

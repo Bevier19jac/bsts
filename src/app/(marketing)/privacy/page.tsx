@@ -14,12 +14,15 @@ export default function PrivacyPage() {
             as="h1"
         eyebrow="Legal"
         title="Privacy Policy"
-        lede="Plain-language first, legally reviewed later. This policy describes how this website actually behaves today."
+        lede="This policy describes how the website operates and how submitted information is handled today."
       />
       <p className="mt-6 text-sm text-warm-dim">
-        Effective date: July 19, 2026 · This policy is pending formal legal
-        review and may be updated. The practices it describes are accurate as
-        written.
+        Effective date: July 19, 2026. The practices described here are accurate
+        as written.
+      </p>
+      <p className="mt-2 text-sm text-warm-dim">
+        Formal legal review is pending. This policy may be updated following
+        that review.
       </p>
 
       <div className="prose-bsts mt-10">
