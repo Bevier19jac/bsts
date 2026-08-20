@@ -27,21 +27,33 @@ export default function PrivacyPage() {
         <p>
           This website is a static site. It runs no advertising trackers, sets
           no marketing cookies, and sells no data. The technology assessment
-          form processes your answers entirely in your browser; nothing you
-          type is transmitted to us unless you explicitly choose to send it by
-          email. The BSTS OS demonstration stores its fictional data in your
+          processes your answers in your browser while you work through it, and
+          nothing is transmitted to us until you press &quot;Send to BSTS.&quot;
+          When you press it, what you submitted is sent over an encrypted
+          connection to a third-party form-delivery service, which forwards it
+          to us. The BSTS OS demonstration stores its fictional data in your
           browser&apos;s memory only.
         </p>
 
         <h2>Information we collect through this site</h2>
         <p>
           <strong>Assessment form.</strong> The multi-step technology assessment
-          on our contact page runs client-side. Your answers stay on your
-          device. If you choose &quot;send by email,&quot; your device&apos;s
-          own mail application composes a message from your answers — we
-          receive it only if you press send in your mail app. If you download
-          your answers as a file, that file is created locally and never
-          touches our infrastructure.
+          runs in your browser. Your answers are processed on your device as you
+          work through the questions, and nothing is transmitted anywhere until
+          you press &quot;Send to BSTS.&quot;
+        </p>
+        <p>
+          When you press &quot;Send to BSTS,&quot; the information you submitted
+          is transmitted over HTTPS to Web3Forms, a third-party form-delivery
+          service, which forwards the inquiry to us. That submission can include
+          your name, email address, organization, your assessment responses, and
+          anything you add in the optional note. We use it to respond to your
+          inquiry. We do not add you to marketing lists without your consent.
+        </p>
+        <p>
+          Copying your summary or downloading it as a file stays entirely on
+          your own device — the text is created locally in your browser and
+          nothing is transmitted when you use those buttons.
         </p>
         <p>
           <strong>Email you send us.</strong> If you email us, we receive what
@@ -75,16 +87,17 @@ export default function PrivacyPage() {
         <h2>Sharing</h2>
         <p>
           We do not sell, rent, or trade personal information. We disclose
-          information only if required by law, or to service providers (such
-          as our hosting provider) acting under their own published
-          protections.
+          information only if required by law, or to the service providers that
+          make this site work — our hosting provider (Cloudflare Pages) and
+          Web3Forms, which delivers assessment submissions to our inbox. Both
+          act under their own published protections.
         </p>
 
         <h2>Your choices</h2>
         <ul>
           <li>You can use every page of this site without submitting any personal information.</li>
           <li>You can request deletion of any correspondence you have sent us by emailing us.</li>
-          <li>You can review your assessment answers before any email is composed — nothing is sent silently.</li>
+          <li>You can review your assessment answers before anything is submitted — nothing is sent silently.</li>
         </ul>
 
         <h2>Changes</h2>

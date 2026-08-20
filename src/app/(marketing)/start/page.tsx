@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function StartPage() {
   return (
-    <main className="mx-auto flex min-h-[50vh] max-w-2xl flex-col items-center justify-center px-6 text-center">
+    <section className="mx-auto flex min-h-[50vh] max-w-2xl flex-col items-center justify-center px-6 text-center">
       <StartRedirect />
       <p className="text-warm-mist">Taking you to the discovery assessment…</p>
       <p className="mt-4 text-sm text-warm-dim">
@@ -32,6 +32,6 @@ export default function StartPage() {
         </Link>
         .
       </p>
-    </main>
+    </section>
   );
 }

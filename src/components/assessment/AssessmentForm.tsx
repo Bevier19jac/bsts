@@ -487,8 +487,9 @@ export function AssessmentForm() {
                 <p className="mt-5 text-xs leading-relaxed text-warm-dim" aria-live="polite">
                   {formKey ? (
                     <>
-                      &quot;Send to BSTS&quot; delivers your answers directly to
-                      our inbox over an encrypted connection. Nothing else is
+                      &quot;Send to BSTS&quot; sends your answers over an
+                      encrypted connection to Web3Forms, the form-delivery
+                      service that forwards them to our inbox. Nothing else is
                       collected, and nothing is sent until you press it.
                     </>
                   ) : contactEmail ? (
