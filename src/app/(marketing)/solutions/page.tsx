@@ -78,6 +78,15 @@ export default function SolutionsPage() {
                       {pillar.title}
                     </h2>
                     <p className="mt-4 leading-relaxed text-warm-mist">{pillar.detail}</p>
+                    {pillar.slug === "build" ? (
+                      <Link
+                        href="/solutions/build"
+                        className="mt-5 inline-flex items-center gap-2 text-sm text-cyan-soft underline underline-offset-4 hover:text-cyan-core"
+                      >
+                        See the range, and the test every build has to pass
+                        <ArrowRight className="h-4 w-4" aria-hidden />
+                      </Link>
+                    ) : null}
                   </div>
                   <div className={flip ? "lg:order-1" : ""}>
                     <div className="surface-quiet blob-c h-full p-6">

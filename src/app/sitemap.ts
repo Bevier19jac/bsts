@@ -13,6 +13,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/advisors",
     "/government",
     "/government/capability-statement",
+    "/solutions",
+    "/solutions/build",
     "/insights",
     "/os",
     "/security",
