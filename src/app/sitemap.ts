@@ -15,10 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/government/capability-statement",
     "/solutions",
     "/solutions/build",
-<<<<<<< ours
     "/contact",
-=======
->>>>>>> theirs
     "/insights",
     "/os",
     "/security",
