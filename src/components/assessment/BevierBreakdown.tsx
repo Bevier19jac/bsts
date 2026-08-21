@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Check, ClipboardCopy, Download, Mail, RotateCcw } from "lucide-react";
 import {
   CONDITION_BODY,
-  CONDITION_TITLE,
   route,
   summarize,
   visibleQuestions,
@@ -295,7 +294,7 @@ export function BevierBreakdown() {
                   </span>
                 )}
                 <span className="rounded-full border border-edge px-3 py-1 text-[0.7rem] font-semibold tracking-[0.14em] text-warm-dim uppercase">
-                  Confidence {result.confidence}
+                  Response confidence: {result.confidence}
                 </span>
               </div>
               <p className="mt-2.5 text-xs leading-relaxed text-warm-dim">
@@ -303,22 +302,11 @@ export function BevierBreakdown() {
               </p>
 
               <h3 className="mt-4 text-3xl leading-tight text-warm-white">
-                {result.coPrimary
-                  ? "Two things are true about your organization"
-                  : result.primary
-                    ? CONDITION_TITLE[result.primary]
-                    : "We don't have enough to route you yet"}
+                {result.coPrimary ? "Two things are true about your organization" : result.title}
               </h3>
 
               <div className="mt-4 space-y-4 text-[0.975rem] leading-relaxed text-warm-mist">
-                {result.primary ? (
-                  <p>{CONDITION_BODY[result.primary]}</p>
-                ) : (
-                  <p>
-                    That is a useful result, not a dead end — it means the honest next step is a
-                    conversation rather than a generated roadmap.
-                  </p>
-                )}
+                <p>{result.body}</p>
                 {result.coPrimary && result.secondary ? (
                   <p>{CONDITION_BODY[result.secondary]}</p>
                 ) : null}
@@ -338,17 +326,30 @@ export function BevierBreakdown() {
                 </p>
               )}
 
-              {result.platforms.length > 0 && (
-                <Block title="What you already have that we'd reuse">
+              <Block title="What is already present">
+                {result.platforms.length > 0 ? (
                   <p className="text-sm leading-relaxed text-warm-mist">
-                    We would look at {result.platforms.join(", ")} before recommending anything new.
-                    The question is whether what you own can securely and reasonably support the
-                    work — not whether something newer exists.
+                    You identified {result.platforms.join(", ")}. We would look at those before
+                    recommending anything new. This is what you reported, not something we have
+                    verified — the question a facilitated assessment answers is whether what you
+                    own can securely and reasonably support the work.
                   </p>
-                </Block>
-              )}
+                ) : result.foundationState === "unknown" ? (
+                  <p className="text-sm leading-relaxed text-warm-mist">
+                    This route did not establish which platforms or business systems are in use.
+                    That is an open question rather than a finding — the next step is to inventory
+                    what is actually there.
+                  </p>
+                ) : (
+                  <p className="text-sm leading-relaxed text-warm-mist">
+                    No collaboration platform and no business system were identified on this route.
+                    Whatever the work runs on today has to be established before anything is
+                    recommended on top of it.
+                  </p>
+                )}
+              </Block>
 
-              <Block title="What's in the way">
+              <Block title="What is unknown or blocking">
                 <ul className="space-y-2">
                   {result.gaps.map((g) => (
                     <li key={g} className="flex gap-2.5 text-sm leading-relaxed text-warm-mist">
@@ -386,8 +387,7 @@ export function BevierBreakdown() {
                       Why it matters
                     </dt>
                     <dd className="mt-1.5 text-sm leading-relaxed text-warm-mist">
-                      {result.gaps[0] ??
-                        "Without a shared picture of the current state, any recommendation is a guess."}
+                      {result.why}
                     </dd>
                   </div>
                   <div>

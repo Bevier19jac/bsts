@@ -527,7 +527,7 @@ function PanelCta({
       </div>
       <p className="mt-3.5 text-xs text-warm-dim">
         The Breakdown takes a few minutes and stays in your browser. A discovery
-        conversation is a person.
+        conversation connects you with a person.
       </p>
     </div>
   );

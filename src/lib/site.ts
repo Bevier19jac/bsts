@@ -70,6 +70,14 @@ export const site = {
     "Secure the data. Enable the AI. Prove the controls. Keep what already works, connect what is disconnected, and automate what is repetitive — without giving up control of company information.",
   /** Production URL — change once when moving to the custom domain. */
   url: "https://bevierstrategic.pages.dev",
+  /**
+   * THE single public contact address for the whole site. Every surface that
+   * shows an email reads it from here — nothing hard-codes an address.
+   * When the BSTS company-domain mailbox exists, change it in this one place
+   * (or set NEXT_PUBLIC_CONTACT_EMAIL) and every page follows. Until then the
+   * real working address is published as-is: no placeholder, and nothing that
+   * implies a company-domain address already exists.
+   */
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "bevier19jacob@gmail.com",
   /** Optional: public scheduling link (e.g. Calendly). Empty hides scheduling CTAs. */
   schedulingUrl: "",
