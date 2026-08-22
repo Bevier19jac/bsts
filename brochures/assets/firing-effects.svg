@@ -1,79 +1,74 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 171" width="380" height="171">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200" width="1000" height="200">
 <!--
-  BSTS firing effects overlay — precision build.
+  BSTS firing overlay — intact dart.
 
-  Units are 1/100 inch: 3.80 x 1.71in, positioned so the muzzle sits at
-  (251, 89), the gun-tube tip of abrams-print.png drawn 3.00in wide at
-  left:-0.10in.
+  Replaces an earlier multi-piece separating-projectile vector that never
+  shipped in either brochure's actual markup and did not survive the
+  correction pass that settled the website hero.
+  The muzzle flash stays a raster (blast-envelope.png, placed directly in
+  client.html / advisor.html) and the tracer stays a CSS bar (.tracer); this
+  file's only job is the dart itself, so nothing here duplicates either.
 
-  Brief was "cleaner". So: no soft haze, no scattered debris, no ghosted
-  low-opacity extras. A tight muzzle flash, one crisp tracer line, and three
-  matched sabot petals on deliberate mirrored vectors. Everything has a hard
-  edge — this should read like a technical diagram of a firing sequence, not
-  a photograph of an explosion.
+  One long, thin, fin-stabilized penetrator, nose to the right (direction of
+  fire), small permanent tail fins flush at the rear — the same silhouette
+  and palette as /public/projectile.svg on the website, so the mark reads
+  identically in print and on screen. Nothing detaches, nothing separates.
 -->
 <defs>
-  <!-- Aluminium, two flat facets and a hard break between them. -->
-  <linearGradient id="aluTop" x1="0" y1="0" x2="0.08" y2="1">
-    <stop offset="0"   stop-color="#fdf3d9"/>
-    <stop offset="0.55" stop-color="#e4c894"/>
-    <stop offset="1"   stop-color="#c8a468"/>
+  <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#8a919d"/>
+    <stop offset="18%" stop-color="#6b727c"/>
+    <stop offset="52%" stop-color="#4b515b"/>
+    <stop offset="82%" stop-color="#363b43"/>
+    <stop offset="100%" stop-color="#23262c"/>
   </linearGradient>
-  <linearGradient id="aluSide" x1="0" y1="0" x2="0.06" y2="1">
-    <stop offset="0" stop-color="#8d7139"/>
-    <stop offset="1" stop-color="#55411d"/>
+  <linearGradient id="finGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#5a6069"/>
+    <stop offset="55%" stop-color="#383c44"/>
+    <stop offset="100%" stop-color="#1c1e23"/>
   </linearGradient>
-
-  <!-- Tracer: near-constant width, hard edges, brightening slightly toward
-       the leading edge. A precision line, not a glow. -->
-  <linearGradient id="tracerCore" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0"    stop-color="#c9a869" stop-opacity="0.35"/>
-    <stop offset="0.14" stop-color="#e2c48d"/>
-    <stop offset="0.62" stop-color="#f4dcaa"/>
-    <stop offset="1"    stop-color="#fff8e8"/>
+  <linearGradient id="rimLight" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#f4c98a" stop-opacity="0.95"/>
+    <stop offset="35%" stop-color="#f4c98a" stop-opacity="0"/>
   </linearGradient>
-  <!-- A single tight halo, kept narrow so it reads as light on metal
-       rather than atmospheric fog. -->
-  <linearGradient id="tracerGlow" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0"    stop-color="#c9a869" stop-opacity="0"/>
-    <stop offset="0.20" stop-color="#d9b877" stop-opacity="0.10"/>
-    <stop offset="1"    stop-color="#ffe3ae" stop-opacity="0.16"/>
-  </linearGradient>
-
-  <!-- Muzzle: compact, bright, crisp-cored. -->
-  <radialGradient id="flash" cx="0.32" cy="0.5" r="0.58">
-    <stop offset="0"    stop-color="#fffdf7"/>
-    <stop offset="0.26" stop-color="#ffeec9" stop-opacity="0.88"/>
-    <stop offset="0.60" stop-color="#f3c98a" stop-opacity="0"/>
-    <stop offset="1"    stop-color="#e8a659" stop-opacity="0"/>
+  <radialGradient id="tailGlow" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#ffb14d" stop-opacity="0.55"/>
+    <stop offset="60%" stop-color="#ff8a00" stop-opacity="0.18"/>
+    <stop offset="100%" stop-color="#ff8a00" stop-opacity="0"/>
   </radialGradient>
-
-  <!-- One petal. Clean four-point outer facet, single inner facet, one
-       specular. No grooves, no extra strokes — detail below ~0.02in just
-       turns to mud on matte stock. -->
-  <g id="petal">
-    <path d="M 0 1.5 L 13.8 0 L 24.0 2.7 L 25.8 5.0 L 1.4 5.3 Z" fill="url(#aluTop)"/>
-    <path d="M 1.4 5.3 L 25.8 5.0 L 21.6 7.6 L 8.0 8.3 L 0.6 5.9 Z" fill="url(#aluSide)"/>
-    <path d="M 0 1.5 L 1.4 5.3 L 0.6 5.9 L -1.1 2.1 Z" fill="#9a7c44"/>
-    <path d="M 1.2 1.4 L 13.6 0.4 L 23.2 3.0" fill="none"
-          stroke="#fffdf2" stroke-opacity="0.92" stroke-width="0.95"/>
-  </g>
 </defs>
 
-<!-- ============================== MUZZLE ==============================
-     Muzzle position is MEASURED from abrams-print.png, not estimated:
-     the gun tip sits at 91.3% of image width and 42.8% of image height,
-     which at 3.00in wide places it at (274.0, 73.4) in these units. -->
-<ellipse cx="274" cy="73.4" rx="17" ry="6.2" fill="url(#flash)"/>
+<!-- warm bloom where the tail still sits inside the muzzle flash's glow -->
+<ellipse cx="130" cy="100" rx="170" ry="90" fill="url(#tailGlow)"/>
 
-<!-- ============================== TRACER ============================== -->
-<path d="M 272 71.0 L 380 70.5 L 380 76.3 L 272 75.8 Z" fill="url(#tracerGlow)"/>
-<path d="M 272 72.2 L 380 71.9 L 380 74.9 L 272 74.6 Z" fill="url(#tracerCore)"/>
+<!-- permanent tail fins: flush, attached, symmetric top/bottom -->
+<g>
+  <path d="M 58,100 L 128,72 L 158,62 L 150,88 L 118,100 Z" fill="url(#finGrad)" stroke="#14161a" stroke-width="2"/>
+  <path d="M 58,100 L 128,128 L 158,138 L 150,112 L 118,100 Z" fill="url(#finGrad)" stroke="#14161a" stroke-width="2"/>
+</g>
 
-<!-- ========================= SABOT SEPARATION =========================
-     Three matched petals on mirrored vectors off the line of flight, one
-     further downrange having cleared the other two. -->
-<use href="#petal" transform="translate(293,55.9) rotate(-30)"/>
-<use href="#petal" transform="translate(293,79.9) rotate(30)"/>
-<use href="#petal" transform="translate(325,44.4) rotate(-44)"/>
+<!-- rear cap -->
+<path d="M 60,84 Q 50,100 60,116 L 78,114 Q 70,100 78,86 Z" fill="url(#bodyGrad)" stroke="#14161a" stroke-width="2"/>
+
+<!-- main body: slender, constant-diameter shaft into a long straight nose taper -->
+<path d="M 74,86
+         L 760,84
+         L 940,97
+         L 1000,100
+         L 940,103
+         L 760,116
+         L 74,114
+         Q 66,100 74,86 Z"
+      fill="url(#bodyGrad)" stroke="#14161a" stroke-width="2.4"/>
+
+<!-- top rim highlight, facing the fireball -->
+<path d="M 100,87 L 758,85.3 L 935,98 " fill="none" stroke="url(#rimLight)" stroke-width="4" opacity="0.9"/>
+
+<!-- two thin panel lines, restrained -->
+<path d="M 210,89.5 L 210,110.5" stroke="#20232a" stroke-width="1.6" opacity="0.55"/>
+<path d="M 640,86.6 L 640,113.4" stroke="#20232a" stroke-width="1.6" opacity="0.55"/>
+
+<!-- nose cone seam -->
+<path d="M 760,84 L 940,97" fill="none" stroke="#14161a" stroke-width="1.2" opacity="0.5"/>
+<path d="M 760,116 L 940,103" fill="none" stroke="#14161a" stroke-width="1.2" opacity="0.5"/>
 </svg>

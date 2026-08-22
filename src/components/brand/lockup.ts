@@ -56,6 +56,24 @@ export const BLAST = {
 } as const;
 
 /**
+ * Projectile: a single intact, fin-stabilized dart riding the tracer, drawn
+ * on its own bore-axis-aligned line. Not measured off a photograph — it's a
+ * new decorative element, so its placement is authored directly as fractions
+ * of the lockup box width instead of derived from a bitmap like TANK/BLAST.
+ *
+ * The tail (fins) sits inside the tracer's fading glow; the nose breaks into
+ * the clean air just past where the tracer visually fades to nothing, so it
+ * reads as one object already in flight rather than sitting in the flash.
+ */
+export const PROJECTILE = {
+  src: "/projectile.svg",
+  w: 1000,
+  h: 200,
+} as const;
+const PROJ_TAIL_XFRAC = 0.765;
+const PROJ_NOSE_XFRAC = 0.885;
+
+/**
  * Rendered width of the blast relative to the rendered width of the tank.
  * Taken from the brochure cover (tank 1.98in, blast 1.89in — the flash was
  * cut 30% so the tracer, not the explosion, carries the energy). Only one
@@ -105,6 +123,12 @@ function solve() {
     groundYPct: ((above - TANK.muzzleYFrac * tankH + TANK.groundYFrac * tankH) / boxH) * 100,
     footCXPct: TANK.footCXFrac * tankW * 100,
     footWPct: TANK.footWFrac * tankW * 100,
+    /** projectile placement, on the shared bore axis */
+    projLeftPct: PROJ_TAIL_XFRAC * 100,
+    projWidthPct: (PROJ_NOSE_XFRAC - PROJ_TAIL_XFRAC) * 100,
+    projTopPct:
+      (above / boxH) * 100 -
+      ((PROJ_NOSE_XFRAC - PROJ_TAIL_XFRAC) * 100 * (PROJECTILE.h / PROJECTILE.w) * (1 / boxH)) / 2,
   };
 }
 

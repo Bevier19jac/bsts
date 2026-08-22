@@ -2,6 +2,16 @@
 
 All notable changes to the BSTS site + BSTS OS project.
 
+## [0.6.1] — 2026-08-21
+
+### Changed
+
+- Removed sabot-petal and separation-event visual language from the active
+  website and brochure systems, replacing it with a single intact
+  fin-stabilized dart while preserving the established tank and
+  muzzle-flash treatment. Historical changelog entries and previously
+  approved print deliverables remain unchanged.
+
 ## [0.6.0] — 2026-08-11
 
 Strategic repositioning: **Secure the data. Enable the AI. Prove the controls.**

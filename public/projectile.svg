@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200" width="1000" height="200">
+  <defs>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8a919d"/>
+      <stop offset="18%" stop-color="#6b727c"/>
+      <stop offset="52%" stop-color="#4b515b"/>
+      <stop offset="82%" stop-color="#363b43"/>
+      <stop offset="100%" stop-color="#23262c"/>
+    </linearGradient>
+    <linearGradient id="finGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5a6069"/>
+      <stop offset="55%" stop-color="#383c44"/>
+      <stop offset="100%" stop-color="#1c1e23"/>
+    </linearGradient>
+    <linearGradient id="rimLight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f4c98a" stop-opacity="0.95"/>
+      <stop offset="35%" stop-color="#f4c98a" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="tailGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffb14d" stop-opacity="0.55"/>
+      <stop offset="60%" stop-color="#ff8a00" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#ff8a00" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- warm bloom where the tail still sits inside the tracer's glow -->
+  <ellipse cx="130" cy="100" rx="170" ry="90" fill="url(#tailGlow)"/>
+
+  <!-- permanent tail fins: flush, attached, symmetric top/bottom -->
+  <g>
+    <path d="M 58,100 L 128,72 L 158,62 L 150,88 L 118,100 Z" fill="url(#finGrad)" stroke="#14161a" stroke-width="2"/>
+    <path d="M 58,100 L 128,128 L 158,138 L 150,112 L 118,100 Z" fill="url(#finGrad)" stroke="#14161a" stroke-width="2"/>
+  </g>
+
+  <!-- rear cap -->
+  <path d="M 60,84 Q 50,100 60,116 L 78,114 Q 70,100 78,86 Z" fill="url(#bodyGrad)" stroke="#14161a" stroke-width="2"/>
+
+  <!-- main body: slender, constant-diameter shaft into a long straight nose taper -->
+  <path d="M 74,86
+           L 760,84
+           L 940,97
+           L 1000,100
+           L 940,103
+           L 760,116
+           L 74,114
+           Q 66,100 74,86 Z"
+        fill="url(#bodyGrad)" stroke="#14161a" stroke-width="2.4"/>
+
+  <!-- top rim highlight, facing the fireball -->
+  <path d="M 100,87 L 758,85.3 L 935,98 " fill="none" stroke="url(#rimLight)" stroke-width="4" opacity="0.9"/>
+
+  <!-- two thin panel/telemetry lines, restrained -->
+  <line x1="230" y1="100" x2="230" y2="100.01" stroke="none"/>
+  <path d="M 210,89.5 L 210,110.5" stroke="#20232a" stroke-width="1.6" opacity="0.55"/>
+  <path d="M 640,86.6 L 640,113.4" stroke="#20232a" stroke-width="1.6" opacity="0.55"/>
+
+  <!-- nose cone seam -->
+  <path d="M 760,84 L 940,97" fill="none" stroke="#14161a" stroke-width="1.2" opacity="0.5"/>
+  <path d="M 760,116 L 940,103" fill="none" stroke="#14161a" stroke-width="1.2" opacity="0.5"/>
+</svg>

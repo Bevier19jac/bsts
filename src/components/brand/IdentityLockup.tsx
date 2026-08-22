@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { BLAST, LOCKUP, TANK } from "./lockup";
+import { BLAST, LOCKUP, PROJECTILE, TANK } from "./lockup";
 
 /**
  * The BSTS identity lockup: chrome monogram, full company name, gold star
@@ -116,6 +116,21 @@ export function IdentityLockup({
             top: `${LOCKUP.blastTopPct}%`,
             left: `${LOCKUP.blastLeftPct}%`,
             width: `${LOCKUP.blastWidthPct}%`,
+          }}
+        />
+        {/* One intact, fin-stabilized dart riding the tracer on the same bore
+            axis as the tank and the blast — never a separate composition. */}
+        <Image
+          src={PROJECTILE.src}
+          alt=""
+          width={PROJECTILE.w}
+          height={PROJECTILE.h}
+          priority={priority}
+          className="hero-projectile absolute h-auto max-w-none"
+          style={{
+            top: `${LOCKUP.projTopPct}%`,
+            left: `${LOCKUP.projLeftPct}%`,
+            width: `${LOCKUP.projWidthPct}%`,
           }}
         />
       </div>

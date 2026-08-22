@@ -154,9 +154,17 @@
          attach point at 15.625% of its width, so placing it at
          left = 1.924 - 0.15625*2.70 and top = 0.5646 - 0.5*1.501 makes
          the barrel, the centre of the gas mass and the forward jet share
-         one straight horizontal line at y = 0.4927in. The gun tube runs
+         one straight horizontal line. qa-lockup.mjs measures that line
+         fresh off the rendered tank bitmap on every run rather than
+         trusting a stored constant — currently y = 0.5252in inside this
+         box — because a stored number here once went stale after the
+         blast asset changed dimensions and nothing caught it until the
+         dart's own centreline was checked the same way. The gun tube runs
          INTO the fireball rather than stopping at its edge. The jet bleeds
-         off the outer trim edge; nothing crosses a fold. -->
+         off the outer trim edge; nothing crosses a fold. The dart's top
+         is likewise derived from that measured axis, not eyeballed: its
+         own visible silhouette (not its <img> box) is centred on it,
+         verified by decoding the rendered overlay bitmap in qa-lockup.mjs. -->
     <div class="lockup" style="margin:.40in 0 .10in; height:1.06in">
       <div class="tank-ground-line" style="left:0.0300in; top:0.8116in; width:1.8994in"></div>
       <div class="tank-shadow" style="left:0.2676in; top:0.7653in; width:1.4242in; height:0.0926in"></div>
@@ -164,6 +172,8 @@
            style="width:1.98in; position:absolute; left:0.06in; top:0.0335in">
       <img src="../assets/blast-envelope.png" alt="" aria-hidden="true"
            style="position:absolute; left:1.5730in; top:0in; width:1.890in; pointer-events:none">
+      <img class="dart" src="../assets/firing-effects.svg" alt="" aria-hidden="true"
+           style="position:absolute; left:2.787in; top:0.4925in; width:0.3289in; pointer-events:none">
     </div>
     <div class="promise" style="margin-top:.28in;text-align:center">
       <div class="l1" style="font-size:18.5pt">Secure the data.</div>
@@ -307,9 +317,8 @@
     <div class="tracer" style="width:1.25in;margin:.12in 0 .14in"></div>
 
     <p class="body sm">
-      A growing small-to-mid-sized organization, roughly
-      <strong style="color:var(--white)">20–250 employees</strong>, that
-      handles customer, proprietary, or regulated information.
+      A growing small-to-mid-sized organization that handles customer,
+      proprietary, or regulated information.
     </p>
 
     <div class="card quiet" style="margin-top:.14in;padding:.12in .13in">

@@ -409,7 +409,7 @@ describe("positioning integrity", () => {
     for (const stage of [
       "M1 Abrams",
       "Main-gun firing",
-      "Sabot separation",
+      "Fin-stabilized flight",
       "Tracer to target",
     ]) {
       expect(src).toContain(stage);

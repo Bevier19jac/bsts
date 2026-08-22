@@ -281,7 +281,7 @@ p.body.sm {
 }
 
 /* --------------------------------------------------------------------------
-   Firing lockup — tank, muzzle flash, sabot petals, tracer
+   Firing lockup — tank, muzzle flash, intact dart, tracer
    -------------------------------------------------------------------------- */
 
 .lockup {
@@ -345,20 +345,6 @@ p.body.sm {
     rgba(255, 200, 120, 0.22) 62%,
     rgba(255, 200, 120, 0) 100%
   );
-}
-
-/* Discarded sabot petals: three angled shells peeling away just past the
-   muzzle. Recognisable to anyone who knows APFSDS, invisible as "debris"
-   to anyone who does not. */
-.petal {
-  position: absolute;
-  width: 0.165in;
-  height: 0.05in;
-  /* Lit top face, shadowed underside, and a blunt/tapered end pair so the
-     shape reads as a discarding sabot segment rather than a spark. */
-  background: linear-gradient(178deg, #f0d9aa 0%, #c9a869 42%, #7d6231 100%);
-  border-radius: 0.004in 0.022in 0.022in 0.004in;
-  box-shadow: 0 0.004in 0.008in rgba(0, 0, 0, 0.45);
 }
 
 /* --------------------------------------------------------------------------

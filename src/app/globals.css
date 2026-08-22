@@ -354,10 +354,10 @@ body {
    site next to it, so the type treatments below are ported verbatim from
    brochures/src/brochure.css rather than reinvented.
 
-   The old hero volley — a thin tracer rail with sabot petals and a dart —
-   was removed. It did not survive the brochure design pass and keeping it
-   here would have left the site and the print piece telling two different
-   stories about the same mark.
+   The old hero volley — a thin tracer rail with a dart — was removed. It
+   did not survive the brochure design pass and keeping it here would have
+   left the site and the print piece telling two different stories about
+   the same mark.
    ========================================================================== */
 
 /* Chrome monogram. Machined metal, lit from above. */
@@ -481,6 +481,23 @@ body {
     filter: brightness(1);
   }
 }
+.hero-projectile {
+  transform-origin: 0% 50%;
+  animation: hero-projectile-shot 0.62s cubic-bezier(0.11, 0.85, 0.2, 1) 0.18s both;
+}
+@keyframes hero-projectile-shot {
+  0% {
+    opacity: 0;
+    transform: translateX(-38%) scaleX(0.82);
+  }
+  55% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0%) scaleX(1);
+  }
+}
 
 /* BSTS enveloped by the projectile: a glowing gold round carrying the mark,
    with a tracer tail streaming behind it. */
@@ -537,8 +554,6 @@ body {
 }
 
 /* Speed streaks trailing the dart — read as motion after the burst lands. */
-
-/* Discarding sabot petals — peel away early in flight, revealing the dart */
 
 /* Impact flash just before the case base of the round */
 

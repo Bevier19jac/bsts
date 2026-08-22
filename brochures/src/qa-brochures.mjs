@@ -1,4 +1,5 @@
 import { chromium } from '/home/claude/.npm-global/lib/node_modules/playwright/index.mjs';
+import { readFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -192,18 +193,25 @@ for (const doc of DOCS) {
     !/(lorem ipsum|TBD|\[insert|XXXX|placeholder)/i.test(text));
 
   // ---- 7. Brand system present on both faces ---------------------------
+  // One intact, fin-stabilized dart (firing-effects.svg) rides the tracer
+  // next to the muzzle flash (blast-envelope.png, a separate raster) — the
+  // same division used on the website hero. Nothing here should ever read
+  // as a discarded petal or debris; that concept was removed.
   const brand = await page.evaluate(() =>
     [...document.querySelectorAll('.sheet')].map(s => ({
       tanks: s.querySelectorAll('img.tank').length,
       tracers: s.querySelectorAll('.tracer').length,
-      // Sabot petals and the muzzle bloom now live inside the vector
-      // firing-effects overlay rather than as CSS boxes.
-      effects: s.querySelectorAll('img[src*="blast"], img[src*="firing-effects"]').length,
+      flash: s.querySelectorAll('img[src*="blast"]').length,
+      dart: s.querySelectorAll('img.dart, img[src*="firing-effects"]').length,
+      petals: s.querySelectorAll('.petal, [class*="petal"], [class*="sabot"], [class*="discard"]').length,
       qr: s.querySelectorAll('.qr img').length,
     })));
-  t(`${doc.name}: tank + sabot + tracer on the cover face`,
-    brand[0].tanks >= 1 && brand[0].effects >= 1 && brand[0].tracers >= 2,
+  t(`${doc.name}: tank + muzzle flash + intact dart + tracer on the cover face`,
+    brand[0].tanks >= 1 && brand[0].flash >= 1 && brand[0].dart >= 1 && brand[0].tracers >= 2,
     JSON.stringify(brand[0]));
+  t(`${doc.name}: no discarded-petal, sabot, or debris geometry anywhere in the document`,
+    brand[0].petals === 0 && brand[1].petals === 0,
+    JSON.stringify({ outside: brand[0].petals, inside: brand[1].petals }));
   t(`${doc.name}: tracer carries through the inside spread`,
     brand[1].tracers >= 3, JSON.stringify(brand[1]));
   t(`${doc.name}: QR present on the outside face`, brand[0].qr >= 1);
@@ -228,6 +236,24 @@ for (const doc of DOCS) {
 }
 
 await browser.close();
+
+// ---- 10. abandoned sabot-petal concept is fully gone from active source --
+// A static text scan, not just a DOM check — this catches the concept
+// reappearing in CSS, SVG source, or markup even before it would ever be
+// instantiated as an element. Only active source that the brochures depend
+// on today is scanned; historical CHANGELOG entries are exempt on purpose.
+const ACTIVE_SOURCE = [
+  resolve(HERE, 'brochure.css'),
+  resolve(HERE, 'client.html'),
+  resolve(HERE, 'advisor.html'),
+  resolve(HERE, '../assets/firing-effects.svg'),
+];
+for (const f of ACTIVE_SOURCE) {
+  const text = readFileSync(f, 'utf8');
+  t(`${f.split('/').pop()}: no sabot/petal/discard language in active source`,
+    !/sabot|petal|discard/i.test(text));
+}
+
 console.log(out.join('\n'));
 const fails = out.filter(l => l.startsWith('FAIL')).length;
 console.log(`\n${out.length - fails}/${out.length} passed`);

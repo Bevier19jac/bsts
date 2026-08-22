@@ -533,13 +533,14 @@ export const commonControlIcon: LucideIcon = GitBranch;
 /* ------------------------------------------------------------------ */
 
 /**
- * The Abrams, the main gun, the sabot, and the tracer are the BSTS mark.
- * They are not military decoration and they are not about aggression —
- * they encode how the firm works, and the last stage of the sequence is
- * the same thing as the last line of the positioning: prove the controls.
+ * The Abrams, the main gun, the round in flight, and the tracer are the
+ * BSTS mark. They are not military decoration and they are not about
+ * aggression — they encode how the firm works, and the last stage of the
+ * sequence is the same thing as the last line of the positioning: prove
+ * the controls.
  *
  * Physical sequence:
- *   M1 Abrams → main-gun firing → sabot separation → tracer → effect
+ *   M1 Abrams → main-gun firing → fin-stabilized flight → tracer → effect
  * What it communicates:
  *   Disciplined system → precise action → controlled delivery → measurable effect
  */
@@ -560,9 +561,9 @@ export const brandSequence = {
       body: "One target at a time, deliberately chosen. We build the highest-value thing first rather than spreading effort across everything at once.",
     },
     {
-      physical: "Sabot separation",
+      physical: "Fin-stabilized flight",
       meaning: "Controlled delivery",
-      body: "The sabot exists to carry the penetrator, then falls away. Scope works the same way — everything that is not doing real work gets discarded in flight.",
+      body: "Small fins hold the round dead true to the bore axis long after it leaves the barrel — nothing about its path is left to chance. Delivery works the same way: a controlled route from commitment to outcome, not an improvised one.",
     },
     {
       physical: "Tracer to target",

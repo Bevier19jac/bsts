@@ -57,7 +57,7 @@ automated test (`src/test/claims.test.ts`).
 | "SBIR award" / "SBIR-funded" / "awarded SBIR" / "Phase I award" | Prohibited claim | Test-enforced. |
 | Three primary service areas (Secure AI & Automation, AI Security & Governance, SOC 2 & Compliance Readiness) | Positioning | Structure is test-enforced so the three-pillar hierarchy cannot silently drift. |
 | Four-stage engagement model (Discover, Implement, Govern, Assure) | Positioning | Test-enforced. |
-| Abrams firing sequence as brand identity | Brand | The four stages (M1 Abrams / Main-gun firing / Sabot separation / Tracer to target → Disciplined system / Precise action / Controlled delivery / Measurable effect) are test-enforced so the identity is not quietly dropped in a future edit. |
+| Abrams firing sequence as brand identity | Brand | The four stages (M1 Abrams / Main-gun firing / Fin-stabilized flight / Tracer to target → Disciplined system / Precise action / Controlled delivery / Measurable effect) are test-enforced so the identity is not quietly dropped in a future edit. |
 
 ## Standing disclaimer (verbatim, shipped in the footer and legal pages)
 
