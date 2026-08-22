@@ -2,6 +2,27 @@
 
 All notable changes to the BSTS site + BSTS OS project.
 
+## [0.6.3] — 2026-08-22
+
+### Fixed
+
+- Two claims-audit tests (`src/test/claims.test.ts`: "keeps certified-state
+  wording confined to the site.ts config branch" and "keeps SDVOSB / VetCert
+  public wording centralized in site.ts") only ever passed on a
+  forward-slash filesystem. Each excludes `src/lib/site.ts` — the single
+  source of truth these tests exist to protect — from its own scan via
+  `file.endsWith("lib/site.ts")`, but `path.join()` builds paths with
+  backslashes on Windows, so that literal forward-slash suffix never
+  matched there and `site.ts` ended up audited against the very wording it
+  is supposed to centrally hold, failing both tests every time the full
+  suite actually ran on a Windows machine. This is the same cross-platform
+  path problem `isTestPath()` already guards against a few lines above it
+  in this file, just not carried to these two checks. Added
+  `isSiteConfigFile()`, doing the same backslash-to-forward-slash
+  normalization before the suffix check, and used it in both places. No
+  production code changed; this only affects which files the audit
+  itself excludes.
+
 ## [0.6.2] — 2026-08-22
 
 ### Fixed

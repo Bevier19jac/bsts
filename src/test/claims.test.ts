@@ -125,6 +125,16 @@ function isTestPath(p: string): boolean {
   return p.replace(/\\/g, "/").includes("/test/");
 }
 
+/**
+ * Same Windows-path problem as isTestPath above, on a different check:
+ * `join()` produces backslashes there, so a literal "lib/site.ts" suffix
+ * match silently fails on Windows and the config branch ends up auditing
+ * itself against the very wording it exists to hold.
+ */
+function isSiteConfigFile(p: string): boolean {
+  return p.replace(/\\/g, "/").endsWith("lib/site.ts");
+}
+
 function collectSourceFiles(dir: string, acc: string[] = []): string[] {
   for (const entry of readdirSync(dir)) {
     const full = join(dir, entry);
@@ -215,7 +225,7 @@ describe("claims audit", () => {
   it("keeps certified-state wording confined to the site.ts config branch", () => {
     const offenders: string[] = [];
     for (const file of files) {
-      if (file.endsWith("lib/site.ts")) continue;
+      if (isSiteConfigFile(file)) continue;
       const text = readFileSync(file, "utf8").toLowerCase();
       for (const phrase of PROHIBITED_OUTSIDE_CONFIG) {
         if (text.includes(phrase)) offenders.push(`${file} — "${phrase}"`);
@@ -242,7 +252,7 @@ describe("claims audit", () => {
     // Outside site.ts (the single source of truth) and this test, source
     // files must not hand-roll SDVOSB status wording.
     const offenders = files.filter((f) => {
-      if (f.endsWith("lib/site.ts")) return false;
+      if (isSiteConfigFile(f)) return false;
       const text = readFileSync(f, "utf8").toLowerCase();
       return (
         text.includes("vetcert application") ||
