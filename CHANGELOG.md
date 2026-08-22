@@ -2,6 +2,25 @@
 
 All notable changes to the BSTS site + BSTS OS project.
 
+## [0.6.4] — 2026-08-22
+
+### Changed
+
+- Pulled the muzzle flash in tighter against the bore exit, on direct
+  request against the live site after [0.6.2]'s fix shipped. That fix set
+  each blast bitmap's attach point at roughly a third of its own full
+  opacity; this pulls it further along the same smooth ramp — no plateau
+  to worry about recreating the original burial bug — to ~95% of full
+  opacity, one column short of fully opaque. Website hero and Open Graph
+  card (same bitmap): 4.495% → 6.264% (column 61 → 85 of 1357). Both
+  brochure covers and the inside-spread band (separate, lower-resolution
+  print bitmap, its own measured equivalent): 10% → 10.933% (column 150 →
+  164 of 1500). Confirmed at each intermediate step against rendered
+  composites — no near-background row separating tube and fire, and the
+  muzzle's bore-evacuator knob geometry still visible — before landing on
+  the final value. `qa-lockup.mjs`'s measured gap between the dense fire
+  and the muzzle shrank from 1.5pt to 0.3pt, still clear of the tube.
+
 ## [0.6.3] — 2026-08-22
 
 ### Fixed

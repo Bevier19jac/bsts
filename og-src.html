@@ -23,11 +23,23 @@
   evacuator. A first fix moved it to this bitmap's first column with any
   alpha above 20/255 (2.506%) — that stopped the burial but was too faint
   to read as fire, leaving a dark notch between the masked, anti-aliased
-  muzzle tip and the flash. It's now 4.495%, where the bitmap's own
+  muzzle tip and the flash. It went to 4.495% next, where the bitmap's own
   peak-alpha-per-column ramp clears roughly a third of full opacity —
   verified empirically by compositing tank+blast at this fraction and
-  checking no near-background row separates them. Same fix, same
-  reasoning, applied to the hero and both brochure covers.
+  checking no near-background row separates them.
+
+  It's now 6.264% (column 85 of the bitmap's 1357, ~95% of full opacity),
+  pulled in further by direct request against the live site. This bitmap's
+  alpha ramp has no plateau — it climbs smoothly from 2 to fully opaque
+  only at column 88 — so there was room to move the attach point later
+  along it without recreating the original bug, which buried a genuinely
+  flat, already-opaque stretch of fire over the tube. Confirmed at each
+  step (5% → 5.8% → 6.3%) against rendered composites: no near-background
+  row separates tube and fire, and the muzzle's own bore-evacuator knob
+  stays visible throughout. Same fraction, same reasoning, applied to the
+  hero and both brochure covers (the brochures use a different, lower-
+  resolution print bitmap, so their own attach fraction is a separately
+  measured equivalent, not this same percentage).
 
   Render:  node scripts/render-og.mjs
 -->
@@ -101,8 +113,8 @@
     -webkit-mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 58%, transparent 98%);
     mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 58%, transparent 98%);
   }
-  .blast { position: absolute; top: 0; left: 51.618%; width: 62.479%; height: auto; }
-  .dart { position: absolute; top: 49.767%; left: 102.546%; width: 11.3%; height: auto; }
+  .blast { position: absolute; top: 0; left: 50.513%; width: 62.479%; height: auto; }
+  .dart { position: absolute; top: 49.767%; left: 101.441%; width: 11.3%; height: auto; }
 
   .promise {
     position: absolute; top: 476px; left: 0; right: 0; text-align: center;

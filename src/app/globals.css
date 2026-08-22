@@ -462,7 +462,7 @@ body {
    which is why the bloom grows out of the barrel rather than scaling
    about the middle of the fireball. */
 .hero-blast {
-  transform-origin: 4.495% 50%;
+  transform-origin: 6.264% 50%;
   animation: hero-blast-bloom 1.15s cubic-bezier(0.16, 0.9, 0.3, 1) 0.32s both;
 }
 @keyframes hero-blast-bloom {

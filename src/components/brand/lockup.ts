@@ -44,10 +44,22 @@
  * shot. 4.5% is where this bitmap's own peak-alpha-per-column ramp first
  * clears roughly a third of full opacity (~86/255 at column 61 of 1357) —
  * verified empirically by compositing tank+blast at this fraction and
- * confirming no row of near-background pixels separates them. Only the
- * combustion's own soft, already-substantial edge can touch the muzzle
- * now — not the bare, near-invisible haze the first fix left, and not the
- * fully-opaque slab the original bug buried the tube in.
+ * confirming no row of near-background pixels separates them.
+ *
+ * 4.5% shipped, then was pulled in further by direct request against the
+ * live site: the ramp here has no plateau (it climbs smoothly from alpha 2
+ * at column 0 to fully opaque only at column 88 of 1357), so there was room
+ * to move the attach point later along it without recreating the original
+ * bug, which buried a genuinely flat, already-fully-opaque stretch of fire
+ * over the tube. Verified with the same rendered-composite method at each
+ * step (5% → 5.8% → 6.3%): no near-background row ever separates tube and
+ * fire, and the muzzle's own bore-evacuator knob geometry stays visible at
+ * every step, meaning no fully-opaque slab is creeping back over the
+ * barrel the way it did at 11.45%. 6.3% — column 85 of 1357, where this
+ * bitmap's own peak-alpha ramp reaches ~95% of full opacity, just 3px
+ * short of where it goes fully opaque — is the final value, picked and
+ * confirmed against the live rendered page, not derived from a fixed
+ * numeric rule the way 4.5% was.
  */
 
 /** Tank bitmap: intrinsic size, the measured bore exit, and the ground. */
@@ -74,7 +86,7 @@ export const BLAST = {
   h: 668,
   // Verified empirically against the composited render (see the header
   // comment above), not an arbitrary point chosen for how it looked once.
-  attachXFrac: 61 / 1357,
+  attachXFrac: 85 / 1357,
   axisYFrac: 0.5,
 } as const;
 
