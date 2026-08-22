@@ -14,8 +14,9 @@ import { fileURLToPath } from 'node:url';
  *      dominant element of the identity block;
  *   2. the gun tube, the centre of the gas mass and the forward jet all lie
  *      on ONE straight horizontal line;
- *   3. the blast starts at the bore exit and swallows the end of the barrel
- *      rather than floating alongside it;
+ *   3. the blast originates AT the bore exit — not buried back into the
+ *      barrel toward the bore evacuator, and not floating detached past
+ *      the muzzle with a gap;
  *   4. the artwork is procedurally generated — no bitmap in the piece came
  *      from a photograph supplied as reference;
  *   5. the client and advisor covers received byte-identical corrections;
@@ -260,15 +261,23 @@ for (const doc of DOCS) {
   t(`${D}: the dart is large enough to read as an intact projectile at print scale`,
     m.dart.h >= 0.05, `rendered height ${inch(m.dart.h)}`);
 
-  // ---- 3. the blast starts at the muzzle and buries the barrel ---------
+  // ---- 3. the blast originates at the muzzle, not buried into the barrel
+  // The flash used to bury a fully-opaque slab of fire back over the gun
+  // tube toward the bore evacuator (attach point pinned to a spot already
+  // deep inside the fireball's own alpha). It's now pinned to the bitmap's
+  // own visible leading edge instead, so only near-transparent haze can
+  // fall behind the muzzle and the dense, bright mass this section
+  // measures (the 25%-of-peak-column-sum front, same "dense" this suite
+  // has always used) sits a hair PAST the bore exit — a few points of
+  // clean barrel, then fire, with nothing buried and nothing floating.
   const muzzleX = m.tank.l + m.tank.w * m.muzzle.xf;
   const denseX = m.fire.l + m.fire.w * m.dense;
-  t(`${D}: combustion begins behind the bore exit — the tube enters the mass`,
-    denseX < muzzleX - 0.04,
-    `dense fire from ${inch(denseX)}, muzzle at ${inch(muzzleX)} (buried ${((muzzleX - denseX) * 72).toFixed(1)}pt)`);
-  t(`${D}: the flash is not a detached blob floating past the gun`,
-    denseX > m.tank.l + m.tank.w * 0.60,
-    `dense fire starts ${inch(denseX)}, hull front ~${inch(m.tank.l + m.tank.w * 0.60)}`);
+  t(`${D}: the dense fire begins at the bore exit — not buried into the barrel`,
+    denseX > muzzleX - 0.01,
+    `dense fire from ${inch(denseX)}, muzzle at ${inch(muzzleX)} (${denseX >= muzzleX ? 'clear of the tube by' : 'buried by'} ${(Math.abs(denseX - muzzleX) * 72).toFixed(1)}pt)`);
+  t(`${D}: the dense fire is not a detached blob floating clear of the muzzle`,
+    denseX < muzzleX + 0.12,
+    `dense fire ${inch(denseX)} vs muzzle ${inch(muzzleX)} (gap ${((denseX - muzzleX) * 72).toFixed(1)}pt)`);
   t(`${D}: flash reaches the outer trim edge and bleeds off`,
     m.fire.l + m.fire.w > m.panel.r,
     `flash right ${inch(m.fire.l + m.fire.w)} vs trim ${inch(m.panel.r)}`);

@@ -23,10 +23,31 @@
  *                         of width (cross-checks to pixel y 318.0; the
  *                         print asset independently measures y 318.5)
  *   /blast-envelope.webp  bore axis on the exact vertical centre; attach
- *                         point at 11.450% of the width
+ *                         point at 4.5% of the width
  *
  * The blast asset is the print asset cropped symmetrically about its axis,
  * which is why the axis stays at 50% and only the attach fraction moves.
+ *
+ * The attach fraction was 11.45% originally. That point is deep inside the
+ * fireball's own bitmap — its per-column peak alpha is already fully
+ * opaque (255) a full 65px before it, at column 90 of 1357 — so pinning it
+ * to the muzzle buried a solid, fully-opaque slab of fire over the gun
+ * tube all the way back toward the bore evacuator.
+ *
+ * A first fix moved it to 2.506% — this bitmap's first column (scanning
+ * outward from the dense core) where any pixel's alpha exceeds 20/255. That
+ * measured "leading edge" correctly stops the burial, but it's too faint to
+ * read as fire: alpha there is barely 8%, so the composited pixel sits only
+ * a few levels above the dark page background, and against the tank's own
+ * masked, anti-aliased muzzle tip the flash visibly detaches from the
+ * barrel — a dark notch between metal and fire instead of one continuous
+ * shot. 4.5% is where this bitmap's own peak-alpha-per-column ramp first
+ * clears roughly a third of full opacity (~86/255 at column 61 of 1357) —
+ * verified empirically by compositing tank+blast at this fraction and
+ * confirming no row of near-background pixels separates them. Only the
+ * combustion's own soft, already-substantial edge can touch the muzzle
+ * now — not the bare, near-invisible haze the first fix left, and not the
+ * fully-opaque slab the original bug buried the tube in.
  */
 
 /** Tank bitmap: intrinsic size, the measured bore exit, and the ground. */
@@ -51,7 +72,9 @@ export const BLAST = {
   src: "/blast-envelope.webp",
   w: 1357,
   h: 668,
-  attachXFrac: 0.1145,
+  // Verified empirically against the composited render (see the header
+  // comment above), not an arbitrary point chosen for how it looked once.
+  attachXFrac: 61 / 1357,
   axisYFrac: 0.5,
 } as const;
 

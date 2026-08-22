@@ -2,6 +2,39 @@
 
 All notable changes to the BSTS site + BSTS OS project.
 
+## [0.6.2] — 2026-08-22
+
+### Fixed
+
+- Muzzle flash no longer buries the end of the gun tube toward the bore
+  evacuator on any surface (homepage hero, both brochure covers and the
+  brochures' inside-spread band, and the Open Graph share card). The
+  blast bitmaps' "attach point" — the fraction of each bitmap's own width
+  pinned to the tank's measured muzzle — was a spot already fully opaque
+  in the bitmap's own alpha, which buried a solid slab of fire over the
+  gun tube. A first pass moved the attach point to each bitmap's own
+  first column with any alpha above 20/255; that stopped the burial but
+  the flash was too faint there to read as fire, so composited against
+  the tank's own masked, anti-aliased muzzle tip it left a visible dark
+  notch between metal and flame instead of one continuous shot. The
+  attach point is now where each bitmap's own peak-alpha-per-column ramp
+  clears roughly a third of full opacity — verified empirically by
+  compositing tank and blast at that fraction and confirming no
+  near-background row separates them, on every affected surface. Only
+  the combustion's own already-substantial edge touches the muzzle now:
+  not the bare, near-invisible haze the first pass left, and not the
+  fully-opaque slab the original bug buried the tube in. The Open Graph
+  card additionally had its own, independently-tuned attach point (27.06%
+  of its blast bitmap, deeper into the fireball than either the hero or
+  the brochures ever used) brought onto the same measured standard. The
+  dart's position on every affected surface shifted with its blast by the
+  same horizontal amount, so it stays correctly seated on the tracer;
+  its own vertical centreline was independently re-verified against the
+  bore axis on every surface after each shift. `qa-lockup.mjs`'s two
+  checks that previously required the dense fire to begin measurably
+  behind the bore exit now require the opposite: dense fire at or just
+  past the bore exit, never buried and never floating clear of it.
+
 ## [0.6.1] — 2026-08-21
 
 ### Changed

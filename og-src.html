@@ -7,11 +7,27 @@
 
   This is the same lockup as the homepage hero and the printed brochure
   covers, in the same order: chrome monogram, full company name, gold star
-  rule, then the shot. Registration follows the identical percentage system
-  documented in Landing.tsx — the tank's muzzle sits at 99.92%/49.93% of
-  abrams.webp, the blast asset carries its bore axis on its exact vertical
-  centre with the attach point at 11.450% of its width, so the barrel, the
-  centre of the gas mass and the forward jet share one horizontal line.
+  rule, then the shot. The bore axis and blast width here were tuned
+  independently of src/components/brand/lockup.ts's solve() (this card
+  renders the flash larger, relative to the tank, than the on-site hero
+  does, for punch at thumbnail size) — the tank width happens to match
+  the site's old computed value, the blast width and position do not, so
+  don't assume parity with lockup.ts's percentages for anything below.
+
+  What IS shared with every other surface: abrams-tank.webp's muzzle sits
+  at 91.33% of its width / 61.99% of its height, and blast-envelope.webp's
+  bore axis is its exact vertical centre. The attach point — which fraction
+  of the blast bitmap's own width lands on the muzzle — used to be 27.06%,
+  a point already deep inside the fireball's fully-opaque core, which is
+  why the flash used to bury the gun tube almost back to the bore
+  evacuator. A first fix moved it to this bitmap's first column with any
+  alpha above 20/255 (2.506%) — that stopped the burial but was too faint
+  to read as fire, leaving a dark notch between the masked, anti-aliased
+  muzzle tip and the flash. It's now 4.495%, where the bitmap's own
+  peak-alpha-per-column ramp clears roughly a third of full opacity —
+  verified empirically by compositing tank+blast at this fraction and
+  checking no near-background row separates them. Same fix, same
+  reasoning, applied to the hero and both brochure covers.
 
   Render:  node scripts/render-og.mjs
 -->
@@ -85,8 +101,8 @@
     -webkit-mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 58%, transparent 98%);
     mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 58%, transparent 98%);
   }
-  .blast { position: absolute; top: 0; left: 37.521%; width: 62.479%; height: auto; }
-  .dart { position: absolute; top: 49.767%; left: 88.449%; width: 11.3%; height: auto; }
+  .blast { position: absolute; top: 0; left: 51.618%; width: 62.479%; height: auto; }
+  .dart { position: absolute; top: 49.767%; left: 102.546%; width: 11.3%; height: auto; }
 
   .promise {
     position: absolute; top: 476px; left: 0; right: 0; text-align: center;

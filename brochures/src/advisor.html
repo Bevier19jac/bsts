@@ -149,31 +149,47 @@
          0.072in below the barrel while every check passed. Measured on the
          tube itself, the bore exit is at 91.33% / 61.99% of
          abrams-tank.png, which at width 1.98in puts it at
-         x 1.8683in, y 0.7506in inside this box. blast-envelope.png is
-         authored with its bore axis on the exact vertical centre and its
-         attach point at 15.625% of its width, so placing it at
-         left = 1.924 - 0.15625*2.70 and top = 0.5646 - 0.5*1.501 makes
-         the barrel, the centre of the gas mass and the forward jet share
-         one straight horizontal line. qa-lockup.mjs measures that line
-         fresh off the rendered tank bitmap on every run rather than
+         x 1.8683in, y 0.7506in inside this box. qa-lockup.mjs measures
+         that y fresh off the rendered tank bitmap on every run rather than
          trusting a stored constant — currently y = 0.5252in inside this
          box — because a stored number here once went stale after the
          blast asset changed dimensions and nothing caught it until the
-         dart's own centreline was checked the same way. The gun tube runs
-         INTO the fireball rather than stopping at its edge. The jet bleeds
-         off the outer trim edge; nothing crosses a fold. The dart's top
-         is likewise derived from that measured axis, not eyeballed: its
-         own visible silhouette (not its <img> box) is centred on it,
-         verified by decoding the rendered overlay bitmap in qa-lockup.mjs. -->
+         dart's own centreline was checked the same way.
+
+         blast-envelope.png is authored with its bore axis on the exact
+         vertical centre. Its attach point — the fraction of its own width
+         placed at the bore exit — used to be 15.625%, a point already
+         fully opaque in the bitmap's own alpha, which buried a solid slab
+         of fire over the last stretch of the gun tube instead of letting
+         the tube run cleanly up to where the flash starts. A first
+         correction moved it to 7.533% — this bitmap's own first column
+         with any alpha above 20/255 — which stopped the burial but was too
+         faint to read as fire: composited against the tank's own edge, it
+         left a visible dark notch between the tube and the flash instead
+         of one continuous shot. It is now 10%, where this bitmap's own
+         peak-alpha-per-column ramp clears roughly a third of full opacity
+         — verified empirically by compositing tank+blast at this fraction
+         and confirming no near-background row separates them: left =
+         1.8683 - 0.10*1.890 = 1.6793in. Only the combustion's own already-
+         substantial edge touches the muzzle now — not bare, near-invisible
+         haze, and not a fully-opaque slab; the barrel, the centre of the
+         gas mass and the forward jet still share one straight horizontal
+         line. The jet bleeds off the outer trim edge; nothing crosses a
+         fold. The dart's left shifts by the same amount the blast did
+         (0.1063in from where both started), so it stays correctly seated
+         on the tracer's fade-out point; its top is unchanged, still
+         derived from the measured axis above, not eyeballed: its own
+         visible silhouette (not its <img> box) is centred on it, verified
+         by decoding the rendered overlay bitmap in qa-lockup.mjs. -->
     <div class="lockup" style="margin:.40in 0 .10in; height:1.06in">
       <div class="tank-ground-line" style="left:0.0300in; top:0.8116in; width:1.8994in"></div>
       <div class="tank-shadow" style="left:0.2676in; top:0.7653in; width:1.4242in; height:0.0926in"></div>
       <img class="tank" src="../assets/abrams-tank.png" alt=""
            style="width:1.98in; position:absolute; left:0.06in; top:0.0335in">
       <img src="../assets/blast-envelope.png" alt="" aria-hidden="true"
-           style="position:absolute; left:1.5730in; top:0in; width:1.890in; pointer-events:none">
+           style="position:absolute; left:1.6793in; top:0in; width:1.890in; pointer-events:none">
       <img class="dart" src="../assets/firing-effects.svg" alt="" aria-hidden="true"
-           style="position:absolute; left:2.787in; top:0.4925in; width:0.3289in; pointer-events:none">
+           style="position:absolute; left:2.8933in; top:0.4925in; width:0.3289in; pointer-events:none">
     </div>
     <div class="promise" style="margin-top:.28in;text-align:center">
       <div class="l1" style="font-size:18.5pt">Secure the data.</div>
@@ -234,7 +250,7 @@
     <img class="tank" src="../assets/abrams-tank.png" alt="" aria-hidden="true"
          style="position:absolute; left:.30in; top:0.1904in; width:1.6830in; pointer-events:none">
     <img src="../assets/blast-envelope.png" alt="" aria-hidden="true"
-         style="position:absolute; left:1.5861in; top:0.1619in; width:1.6065in; pointer-events:none">
+         style="position:absolute; left:1.6764in; top:0.1619in; width:1.6065in; pointer-events:none">
     <div class="tracer" style="position:absolute;left:2.60in;right:.30in;top:.6155in"></div>
 
     <div style="position:absolute;left:3.99in;width:3.09in;top:0">

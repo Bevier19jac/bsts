@@ -458,10 +458,11 @@ body {
 /* The shot. At rest this is exactly the printed cover; on load the flash
    blooms once from the bore and settles, so the page still fires without
    inventing artwork the brochure does not have. Transform-origin is the
-   muzzle end, which is why the bloom grows out of the barrel rather than
-   scaling about the middle of the fireball. */
+   muzzle end (BLAST.attachXFrac in lockup.ts — keep these two in sync),
+   which is why the bloom grows out of the barrel rather than scaling
+   about the middle of the fireball. */
 .hero-blast {
-  transform-origin: 11.45% 50%;
+  transform-origin: 4.495% 50%;
   animation: hero-blast-bloom 1.15s cubic-bezier(0.16, 0.9, 0.3, 1) 0.32s both;
 }
 @keyframes hero-blast-bloom {
