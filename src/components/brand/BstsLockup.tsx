@@ -4,8 +4,8 @@ import lockup from "./bsts-lockup.json";
 /**
  * THE canonical BSTS trademark lockup — the single visual identity used
  * everywhere the BSTS mark appears: desktop header, mobile header, mobile
- * navigation, landing-page hero, internal-page headers, footer, BSTS OS
- * chrome, and the Open Graph / social card.
+ * navigation, landing-page hero, internal-page headers, footer, and the
+ * Open Graph / social card.
  *
  * The lockup is ONE mark, not a wordmark plus optional decoration:
  *

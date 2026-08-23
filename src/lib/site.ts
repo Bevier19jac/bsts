@@ -168,7 +168,7 @@ export const audienceLinks = [
   {
     href: "/who-we-help",
     label: "Businesses",
-    line: "Organizations of roughly 20 to 250 people.",
+    line: "Small-to-mid-size organizations.",
   },
   {
     href: "/government",
@@ -197,13 +197,11 @@ export const footerLinks = {
     { href: "/who-we-help", label: "Who we help" },
     { href: "/government", label: "Government" },
     { href: "/advisors", label: "For advisors" },
-    { href: "/about", label: "About" },
   ],
   more: [
     { href: "/insights", label: "Insights" },
     { href: "/security", label: "Security practice" },
     { href: "/start", label: "Start a conversation" },
-    { href: "/os", label: "BSTS Lab — OS demonstration" },
   ],
   legal: [
     { href: "/privacy", label: "Privacy" },

@@ -210,12 +210,9 @@ export default function ServicesPage() {
               The Bevier Breakdown is a short self-assessment — plain language, nothing sensitive,
               and nothing is transmitted until you choose to send it.
             </p>
-            <div className="mt-7 flex flex-wrap justify-center gap-3">
+            <div className="mt-7 flex justify-center">
               <LinkButton href="/#assessment">
                 Start the Bevier Breakdown <ArrowRight className="h-4 w-4" aria-hidden />
-              </LinkButton>
-              <LinkButton href="/start" variant="ghost">
-                Start a Discovery Conversation
               </LinkButton>
             </div>
           </div>

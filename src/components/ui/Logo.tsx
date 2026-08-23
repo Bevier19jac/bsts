@@ -7,7 +7,7 @@ import { BstsLockup } from "@/components/brand/BstsLockup";
  * There is no separate icon, monogram, badge, shield, circle or alternate
  * symbol beside it, and no unbracketed variant of the wordmark exists. The
  * old circular two-arc-and-gold-dot monogram that used to sit here (and in
- * the BSTS OS chrome) has been retired entirely — do not reintroduce it.
+ * the retired OS demonstration) is gone entirely — do not reintroduce it.
  *
  * Only sizing lives here; every geometric property of the mark itself comes
  * from <BstsLockup /> and src/components/brand/bsts-lockup.json. The mark is

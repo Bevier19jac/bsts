@@ -24,7 +24,6 @@ import {
   trustPoints,
 } from "@/lib/content/positioning";
 import {
-  discoveryCta,
   federalDisclaimer,
   frameworkDisclaimer,
   site,
@@ -184,9 +183,6 @@ export function Landing() {
               >
                 Start the Bevier Breakdown <ArrowRight className="h-4 w-4" aria-hidden />
               </button>
-              <Link href={discoveryCta.href} className="btn-ghost-form px-7 py-3 text-base">
-                {discoveryCta.label}
-              </Link>
             </div>
           </Reveal>
           <Reveal delay={0.31}>
@@ -448,13 +444,10 @@ function PanelCta({
         >
           {label} <ArrowRight className="h-4 w-4" aria-hidden />
         </button>
-        <Link href={discoveryCta.href} className="btn-ghost-form px-7 py-3 text-base">
-          {discoveryCta.label}
-        </Link>
       </div>
       <p className="mt-3.5 text-xs text-warm-dim">
-        The Breakdown takes a few minutes and stays in your browser. A discovery
-        conversation connects you with a person.
+        It takes a few minutes, asks about your workflows and systems in plain
+        language, and stays in your browser until you choose to send it.
       </p>
     </div>
   );
@@ -563,8 +556,11 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
 
       <div aria-hidden className="tracer-divider mx-auto mt-16 max-w-3xl" />
 
-      {/* 4. Credibility and proof. */}
-      <TrustSection />
+      {/* 4. Credibility and proof. `#credibility` is a real anchor: /about
+             redirects here, so it has to exist. */}
+      <div id="credibility" className="scroll-mt-28">
+        <TrustSection />
+      </div>
 
       {/* 5. One decisive call to action. */}
       <PanelCta select={select} />

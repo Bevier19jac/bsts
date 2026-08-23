@@ -7,3 +7,10 @@ out/*FOLD_ORDER_CHECK.png
 # The approved previews and fold mockups ARE deliverables and DO belong in
 # version control. An earlier blanket `out/*.png` rule silently excluded them
 # from a hand-off bundle — the artefacts were on disk and absent from history.
+
+# Generated review artefacts stay OUT of Git entirely. The approved, tracked
+# PDFs and previews above are deliverables; dated proof snapshots and build
+# intermediates are regenerable with `node src/render.mjs` and are delivered
+# out-of-band instead of bloating history with tens of megabytes of binaries.
+out/proof-*/
+src/.build-*

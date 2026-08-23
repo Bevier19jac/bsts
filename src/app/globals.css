@@ -901,3 +901,37 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ==========================================================================
+   Scroll reveal — see src/components/motion/Reveal.tsx.
+
+   The cardinal rule is that this treatment FAILS OPEN. There is deliberately
+   no rule that hides `[data-reveal]` on its own: the hidden state exists only
+   while the element carries data-reveal-state="hidden", which is set from an
+   effect and therefore only ever in a browser that ran JavaScript. Server
+   HTML, a JS-disabled visitor, a crawler, a delayed hydration and a full-page
+   screenshot all show the content.
+   ========================================================================== */
+
+[data-reveal][data-reveal-state="hidden"] {
+  opacity: 0;
+  transform: translateY(var(--reveal-rise, 28px));
+}
+
+[data-reveal][data-reveal-state="shown"] {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--reveal-duration, 0.7s) cubic-bezier(0.21, 0.65, 0.36, 1) var(--reveal-delay, 0s),
+    transform var(--reveal-duration, 0.7s) cubic-bezier(0.21, 0.65, 0.36, 1) var(--reveal-delay, 0s);
+}
+
+/* Reduced motion wins outright, regardless of any state attribute. */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal][data-reveal-state="hidden"] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

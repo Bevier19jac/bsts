@@ -20,7 +20,7 @@ const audiences = [
     href: null,
     icon: Building2,
     name: "Businesses",
-    line: "Roughly 20 to 250 people",
+    line: "Small-to-mid-size organizations",
     body: "Big enough that manual process is expensive and customers are asking security questions; small enough that there is no internal AI team, no security team, and no compliance function. That gap is the whole reason BSTS exists.",
   },
   {

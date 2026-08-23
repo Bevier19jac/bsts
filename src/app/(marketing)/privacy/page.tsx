@@ -34,8 +34,7 @@ export default function PrivacyPage() {
           nothing is transmitted to us until you press &quot;Send to BSTS.&quot;
           When you press it, what you submitted is sent over an encrypted
           connection to a third-party form-delivery service, which forwards it
-          to us. The BSTS OS demonstration stores its fictional data in your
-          browser&apos;s memory only.
+          to us.
         </p>
 
         <h2>Information we collect through this site</h2>
@@ -71,20 +70,10 @@ export default function PrivacyPage() {
           for advertising.
         </p>
 
-        <h2>The BSTS OS demonstration</h2>
-        <p>
-          The OS demonstration at /os is populated with fictional data and
-          holds any edits you make in browser memory only. It is labeled a
-          demonstration environment; please do not enter real client or
-          sensitive information into it. Data you export from it downloads
-          directly to your device.
-        </p>
-
         <h2>Cookies and local storage</h2>
         <p>
-          We do not set advertising or analytics cookies. Preferences within
-          the OS demonstration (such as interface density) live in memory for
-          your visit and are not tracked across sessions.
+          We do not set advertising or analytics cookies, and we do not track
+          you across sessions.
         </p>
 
         <h2>Sharing</h2>

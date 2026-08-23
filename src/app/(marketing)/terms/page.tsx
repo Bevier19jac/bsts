@@ -5,7 +5,7 @@ import { frameworkDisclaimer } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Terms of Use",
   description:
-    "Terms governing use of the BSTS website and the BSTS OS demonstration environment.",
+    "Terms governing use of the BSTS website.",
 };
 
 export default function TermsPage() {
@@ -15,7 +15,7 @@ export default function TermsPage() {
             as="h1"
         eyebrow="Legal"
         title="Terms of Use"
-        lede="These terms describe how this website and its demonstration environment may be used today."
+        lede="These terms describe how this website may be used today."
       />
       <p className="mt-6 text-sm text-warm-dim">
         Effective date: July 19, 2026. The terms described here are accurate as
@@ -43,21 +43,10 @@ export default function TermsPage() {
           site creates a client relationship.
         </p>
 
-        <h2>3. The BSTS OS demonstration environment</h2>
-        <p>
-          The demonstration at /os is provided for evaluation of our approach.
-          It is populated with fictional data and is clearly labeled:
-          demonstration environment — do not enter real client or sensitive
-          information. You use it at your own discretion; data you enter is
-          held in your browser&apos;s memory and is not received by us. The
-          demonstration is provided &quot;as is,&quot; without warranty, and
-          may change or be withdrawn at any time.
-        </p>
-
-        <h2>4. Security and framework references</h2>
+        <h2>3. Security and framework references</h2>
         <p>{frameworkDisclaimer}</p>
 
-        <h2>5. Intellectual property</h2>
+        <h2>4. Intellectual property</h2>
         <p>
           The BSTS name, mark, site design, and original content are our
           property. You may quote reasonable excerpts with attribution; you may
@@ -65,14 +54,14 @@ export default function TermsPage() {
           or use our marks to imply affiliation.
         </p>
 
-        <h2>6. Acceptable use</h2>
+        <h2>5. Acceptable use</h2>
         <ul>
           <li>Do not attempt to disrupt, probe, or overload the site or its hosting.</li>
           <li>Do not use the site to transmit unlawful content or malware.</li>
           <li>Do not misrepresent output of the demonstration environment as a production BSTS system.</li>
         </ul>
 
-        <h2>7. No warranties; limitation of liability</h2>
+        <h2>6. No warranties; limitation of liability</h2>
         <p>
           The site and demonstration are provided &quot;as is&quot; and
           &quot;as available.&quot; To the fullest extent permitted by law,
@@ -82,13 +71,13 @@ export default function TermsPage() {
           this section may not apply to you.
         </p>
 
-        <h2>8. Changes</h2>
+        <h2>7. Changes</h2>
         <p>
           We may update these terms; the effective date above will change when
           we do. Continued use after an update constitutes acceptance.
         </p>
 
-        <h2>9. Contact</h2>
+        <h2>8. Contact</h2>
         <p>Questions about these terms can be sent through the contact page.</p>
       </div>
     </div>

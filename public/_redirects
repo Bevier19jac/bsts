@@ -21,3 +21,13 @@
 # /industries merged into Who We Help.
 /industries/  /who-we-help/  301
 /industries   /who-we-help/  301
+
+# The retired BSTS OS demonstration. Removed outright, with no replacement
+# demo; the URL may have been shared, so it lands on the services menu.
+/os/*  /services/  301
+/os/   /services/  301
+/os    /services/  301
+
+# /about duplicated the homepage credibility section. One survives.
+/about/  /#credibility  301
+/about   /#credibility  301
