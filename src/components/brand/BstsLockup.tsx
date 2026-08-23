@@ -54,12 +54,29 @@ export function BstsLockup({
   const uid = useId();
   const ref = (name: string) => `bsts-${name}-${uid}`.replace(/:/g, "");
 
+  // The approved corner stroke is 3.48% of cap height. That is correct
+  // optically at large sizes and thins below one CSS pixel in the header.
+  // Publishing the ratio lets a compact instance add a small, non-scaling
+  // stroke to reach a minimum rendered weight WITHOUT touching the corner
+  // paths, their placement, the colour or the viewBox — see the
+  // `.bsts-lockup-compact` rule in globals.css. Large instances leave it at 0
+  // and keep the true proportional weight.
+  const [, , vbW] = lockup.viewBox.split(" ").map(Number).slice(0, 3);
+  const cornerRatio = lockup.geometry.thickness / vbW;
+
   const labelled = Boolean(title);
 
   return (
     <svg
       className={className}
-      style={{ display: "block", height: "auto", ...style }}
+      style={
+        {
+          display: "block",
+          height: "auto",
+          "--bsts-corner-ratio": cornerRatio,
+          ...style,
+        } as CSSProperties
+      }
       viewBox={lockup.viewBox}
       preserveAspectRatio="xMidYMid meet"
       role={labelled ? "img" : undefined}
@@ -81,8 +98,18 @@ export function BstsLockup({
         <use key={i} href={`#${ref(id)}`} x={lockup.letterX[i]} />
       ))}
 
-      <path d={lockup.corners.lowerLeft} fill={lockup.colors.cyan} />
-      <path d={lockup.corners.upperRight} fill={lockup.colors.cyan} />
+      <path
+        d={lockup.corners.lowerLeft}
+        fill={lockup.colors.cyan}
+        data-bsts-corner=""
+        vectorEffect="non-scaling-stroke"
+      />
+      <path
+        d={lockup.corners.upperRight}
+        fill={lockup.colors.cyan}
+        data-bsts-corner=""
+        vectorEffect="non-scaling-stroke"
+      />
     </svg>
   );
 }

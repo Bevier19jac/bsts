@@ -89,6 +89,29 @@ describe("canonical BSTS trademark lockup", () => {
     expect(component).not.toMatch(/\bd="M/);
   });
 
+  it("corrects corner weight optically without touching the artwork", () => {
+    const css = read("src/app/globals.css");
+    // The correction must be a stroke on the EXISTING corner paths, derived
+    // from the instance width — never a second asset, never edited geometry.
+    expect(css).toContain(".bsts-lockup-compact [data-bsts-corner]");
+    expect(css).toMatch(/stroke-width:\s*max\(/);
+    expect(css).toContain("--bsts-corner-ratio");
+    // It must be opt-in: the base rule leaves every other instance at the
+    // approved proportional weight.
+    expect(css).toMatch(/\[data-bsts-corner\]\s*\{[^}]*stroke-width:\s*0/);
+
+    // Only the header opts in.
+    expect(read("src/components/ui/Logo.tsx")).toContain("bsts-lockup-compact");
+    for (const f of [
+      "src/components/brand/IdentityLockup.tsx",
+      "src/components/marketing/Footer.tsx",
+    ]) {
+      expect(read(f)).not.toContain("bsts-lockup-compact");
+    }
+    // The corner paths themselves are unchanged.
+    expect(lockup.geometry.thickness / lockup.geometry.capHeight).toBeCloseTo(0.0348, 3);
+  });
+
   it("keeps the Open Graph card generated from the same source, not a copy", () => {
     const og = read("og-src.html");
     expect(og).toContain(`viewBox="${lockup.viewBox}"`);

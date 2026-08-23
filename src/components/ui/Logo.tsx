@@ -15,8 +15,9 @@ import { BstsLockup } from "@/components/brand/BstsLockup";
  * accessible name.
  */
 export function Wordmark() {
-  // Sized so the red-and-white band treatment and BOTH cyan corners stay
-  // recognizable in the header — an earlier ~90px proof rendered the corner
-  // stroke near one device pixel and was rejected.
-  return <BstsLockup className="w-[136px] sm:w-[clamp(150px,12vw,184px)]" />;
+  // ~104px on a 1440px viewport, 92px on mobile. Both widths and the matching
+  // corner-weight correction live in the .bsts-lockup-compact rule in
+  // globals.css, so the width is declared once and the optical correction is
+  // derived from it rather than hand-tuned per breakpoint.
+  return <BstsLockup className="bsts-lockup-compact" />;
 }

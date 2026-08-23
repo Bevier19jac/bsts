@@ -21,12 +21,14 @@ export function IdentityLockup({
   const type =
     size === "hero"
       ? {
-          // The canonical lockup is the focal point of the upper hero, so it
-          // is sized by width as one whole mark -- corners and lettering
-          // scale together, never independently.
-          mark: "w-[clamp(220px,70vw,300px)] sm:w-[clamp(300px,30vw,440px)]",
+          // The canonical lockup leads the hero, sized by width as one whole
+          // mark -- corners and lettering scale together, never independently.
+          // Pulled back twice from an original 30vw/440px, which dominated the
+          // section. The company name below was enlarged to match, so the two
+          // now read as one identity block rather than a mark with a caption.
+          mark: "w-[clamp(160px,48vw,210px)] sm:w-[clamp(200px,19vw,275px)]",
           nameGap: "mt-4", // ~16px: the name supports the mark, close under it
-          name: "text-[0.78rem] sm:text-[1rem] lg:text-[1.18rem]",
+          name: "text-[0.95rem] sm:text-[1.28rem] lg:text-[1.5rem]",
           rule: "max-w-[16rem] sm:max-w-[22rem]",
           box: "max-w-[44rem]",
         }

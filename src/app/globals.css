@@ -935,3 +935,47 @@ body {
     transition: none !important;
   }
 }
+
+/* ==========================================================================
+   Compact lockup — optical-size correction for the header only.
+
+   The approved corner stroke is 3.48% of the BSTS cap height. That proportion
+   is right where the mark is large, and it thins below a single CSS pixel once
+   the mark drops to header size (~0.91px at 104px wide, ~0.81px at 92px), so
+   the cyan corners fade to hairlines on a 1x display.
+
+   This adds a NON-SCALING stroke to the existing corner paths — same paths,
+   same placement, same cyan, same viewBox, same overall geometry — just enough
+   to bring the rendered corner to a 1.25px floor. The boost is computed from
+   the instance's own width and the ratio the component publishes, so it is
+   always exactly the shortfall and never more:
+
+       boost = max(0, 1.25px − renderedWidth × strokeRatio)
+
+   Only `.bsts-lockup-compact` opts in. The hero, footer, share card and every
+   other placement keep the true proportional weight, untouched.
+   ========================================================================== */
+
+[data-bsts-corner] {
+  stroke: none;
+  stroke-width: 0;
+}
+
+.bsts-lockup-compact {
+  --bsts-w: 92px; /* mobile header */
+  width: var(--bsts-w);
+}
+
+@media (min-width: 640px) {
+  .bsts-lockup-compact {
+    --bsts-w: clamp(92px, 7.2vw, 112px); /* desktop header */
+  }
+}
+
+.bsts-lockup-compact [data-bsts-corner] {
+  stroke: var(--color-cyan-core);
+  stroke-width: max(
+    0px,
+    calc(1.25px - var(--bsts-w) * var(--bsts-corner-ratio, 0))
+  );
+}
