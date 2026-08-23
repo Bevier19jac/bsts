@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { BstsWordmark } from "./BstsWordmark";
 import { BLAST, LOCKUP, PROJECTILE, TANK } from "./lockup";
 
 /**
@@ -35,7 +36,7 @@ export function IdentityLockup({
   return (
     <>
       <div className="text-center">
-        <p className={`mark-hero leading-none ${type.mark}`}>BSTS</p>
+        <BstsWordmark className={`leading-none ${type.mark}`} brackets={size === "hero"} />
         <p className={`company-name mt-1.5 ${type.name}`}>
           Bevier Strategic
           <br />
