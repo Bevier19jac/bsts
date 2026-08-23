@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { footerLinks, frameworkDisclaimer, site, vetCert } from "@/lib/site";
+import { footerLinks, frameworkDisclaimer, site, trademarkNotice, vetCert } from "@/lib/site";
 import { BstsLockup } from "@/components/brand/BstsLockup";
 
 export function Footer() {
   return (
     <footer className="relative mt-24 border-t border-edge/50 bg-obsidian-deep">
       <div className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.6fr_1fr_1fr_1fr]">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_.8fr]">
           <div>
             <div className="flex items-center gap-3">
               <BstsLockup className="w-[116px]" />
@@ -27,7 +27,8 @@ export function Footer() {
             </p>
           </div>
 
-          <FooterColumn title="Explore" links={footerLinks.explore} />
+          <FooterColumn title="Services" links={footerLinks.services} />
+          <FooterColumn title="Company" links={footerLinks.company} />
           <FooterColumn title="More" links={footerLinks.more} />
           <FooterColumn title="Legal" links={footerLinks.legal} />
         </div>
@@ -36,7 +37,8 @@ export function Footer() {
           <p className="max-w-3xl text-xs leading-relaxed text-warm-dim">
             {frameworkDisclaimer}
           </p>
-          <p className="mt-4 text-xs text-warm-dim">
+          <p className="mt-4 text-xs text-warm-dim">{trademarkNotice}</p>
+          <p className="mt-2 text-xs text-warm-dim">
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>
         </div>

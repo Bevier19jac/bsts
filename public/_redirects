@@ -8,5 +8,16 @@
 # The Solara House concept demonstration was retired. Its public URL may have
 # been shared or bookmarked, so it points at the consolidated services page
 # rather than 404ing. 301 = permanent, so search engines drop the old URL.
-/industries/hospitality/  /solutions/  301
-/industries/hospitality   /solutions/  301
+/industries/hospitality/  /services/  301
+/industries/hospitality   /services/  301
+
+# /solutions and /solutions/build were two overlapping explanations of the same
+# work. Both now live as stages on the consolidated Services & Pricing page.
+/solutions/build/  /services/  301
+/solutions/build   /services/  301
+/solutions/        /services/  301
+/solutions         /services/  301
+
+# /industries merged into Who We Help.
+/industries/  /who-we-help/  301
+/industries   /who-we-help/  301

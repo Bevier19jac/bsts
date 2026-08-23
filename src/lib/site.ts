@@ -148,30 +148,61 @@ export const offers = [
 /* ------------------------------------------------------------------ */
 
 /**
- * The site is a single landing page with tabs; navigation points at tab
- * anchors on "/" rather than separate routes.
+ * Four primary items plus one call to action — no more. Everything BSTS sells
+ * hangs off Services; the government and advisor pathways keep their own
+ * routes but stop competing for a top-level slot.
+ *
+ * `panel` marks the item that opens the Services menu rather than navigating
+ * on its own. Its contents come from src/lib/content/services.ts, so the menu
+ * and the Services page can never disagree about what BSTS offers.
  */
 export const navLinks = [
-  { href: "/#services", label: "What we do" },
-  { href: "/assurance", label: "Continuous assurance" },
-  { href: "/government", label: "Government" },
-  { href: "/advisors", label: "For advisors" },
+  { href: "/services", label: "Services", panel: "services" },
+  { href: "/method", label: "How We Work" },
+  { href: "/who-we-help", label: "Who We Help", panel: "audiences" },
+  { href: "/insights", label: "Resources" },
+] as const;
+
+/** The Who We Help menu — the consolidated pathways. */
+export const audienceLinks = [
+  {
+    href: "/who-we-help",
+    label: "Businesses",
+    line: "Organizations of roughly 20 to 250 people.",
+  },
+  {
+    href: "/government",
+    label: "Government",
+    line: "Federal and public-sector delivery.",
+  },
+  {
+    href: "/advisors",
+    label: "Advisors & referral partners",
+    line: "Refer work, stay in the loop, take the credit.",
+  },
 ] as const;
 
 export const footerLinks = {
-  explore: [
-    { href: "/#overview", label: "Overview" },
-    { href: "/#services", label: "What we do" },
-    { href: "/method", label: "How we work" },
-    { href: "/assurance", label: "Continuous assurance" },
-    { href: "/#assessment", label: "The Bevier Breakdown" },
+  services: [
+    { href: "/services#discover", label: "Discover" },
+    { href: "/services#build", label: "Build" },
+    { href: "/services#secure", label: "Secure" },
+    { href: "/services#prove", label: "Prove" },
+    { href: "/services#maintain", label: "Maintain" },
+    { href: "/services#digital-foundations", label: "Digital Foundations" },
+    { href: "/services", label: "All services & pricing" },
   ],
-  more: [
+  company: [
+    { href: "/method", label: "How we work" },
+    { href: "/who-we-help", label: "Who we help" },
     { href: "/government", label: "Government" },
     { href: "/advisors", label: "For advisors" },
-    { href: "/security", label: "Security practice" },
-    { href: "/#about", label: "About" },
+    { href: "/about", label: "About" },
+  ],
+  more: [
     { href: "/insights", label: "Insights" },
+    { href: "/security", label: "Security practice" },
+    { href: "/start", label: "Start a conversation" },
     { href: "/os", label: "BSTS Lab — OS demonstration" },
   ],
   legal: [
@@ -179,6 +210,14 @@ export const footerLinks = {
     { href: "/terms", label: "Terms" },
   ],
 } as const;
+
+/**
+ * Trademark notice. Kept as a footer line rather than baked into the lockup:
+ * the mark is one locked asset used at every size, and a ™ legible in the
+ * hero would be an illegible smudge in the header.
+ */
+export const trademarkNotice =
+  "BSTS and the BSTS logo are trademarks of Bevier Strategic Technology Solutions.";
 
 /** Compliance-safe disclaimer used wherever frameworks are referenced. */
 export const frameworkDisclaimer =
