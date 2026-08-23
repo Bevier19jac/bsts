@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Check, ClipboardCopy, Download, Mail, RotateCcw } from "lucide-react";
 import {
@@ -27,6 +27,26 @@ const field =
 
 type Stage = "questions" | "review" | "result";
 
+/**
+ * Every deliberate step through the Breakdown has to start at the top of the
+ * new panel. On a phone the panel is taller than the viewport, so React
+ * swapping the content in place left the reader wherever they happened to be
+ * — usually halfway down the next question, sometimes past its heading
+ * entirely.
+ *
+ * `scroll-behavior: smooth` is set globally in globals.css, which means a
+ * bare scrollIntoView() would animate even for someone who asked not to be
+ * animated. `behavior` is therefore always passed explicitly.
+ */
+function stepScrollBehavior(): ScrollBehavior {
+  if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+    return "auto";
+  }
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ? "instant"
+    : "smooth";
+}
+
 export function BevierBreakdown() {
   const [answers, setAnswers] = useState<Answers>({});
   const [index, setIndex] = useState(0);
@@ -34,6 +54,46 @@ export function BevierBreakdown() {
   const [contact, setContact] = useState({ name: "", email: "", organization: "", note: "" });
   const [sendState, setSendState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [copied, setCopied] = useState(false);
+
+  /* --- landing at the top of each step -------------------------------- */
+  //
+  // Timing is the whole problem here. AnimatePresence runs in `mode="wait"`,
+  // so the incoming panel does not mount until the outgoing one has finished
+  // animating out. An effect keyed on the step number would therefore fire
+  // while the OLD panel is still on screen, and a setTimeout long enough to
+  // outrun the exit is exactly the arbitrary delay this is meant to avoid.
+  //
+  // A callback ref sidesteps it: React invokes it at commit time, before
+  // paint, at the moment the new panel's node actually attaches. Whenever
+  // that happens is the right time, no matter how long the exit took.
+  //
+  // `pendingStep` gates it so only deliberate navigation scrolls. Selecting
+  // an answer, typing into the contact fields or copying the summary all
+  // re-render without moving the page.
+  const pendingStep = useRef(false);
+  const headingRef = useRef<HTMLHeadingElement | null>(null);
+
+  const stepPanelRef = useCallback((node: HTMLDivElement | null) => {
+    if (!node || !pendingStep.current) return;
+    pendingStep.current = false;
+
+    // Child refs attach before the parent's, so the heading is already here.
+    // preventScroll matters: focus() would otherwise scroll the heading into
+    // view on its own terms and fight the scrollIntoView below, which reads
+    // as a double jump.
+    headingRef.current?.focus({ preventScroll: true });
+
+    // jsdom does not implement scrollIntoView.
+    if (typeof node.scrollIntoView === "function") {
+      node.scrollIntoView({ block: "start", behavior: stepScrollBehavior() });
+    }
+  }, []);
+
+  /** Wrap a state change so the panel it produces is scrolled to. */
+  const step = useCallback((apply: () => void) => {
+    pendingStep.current = true;
+    apply();
+  }, []);
 
   const asked = useMemo(() => visibleQuestions(answers), [answers]);
   const result = useMemo(() => route(answers), [answers]);
@@ -114,10 +174,12 @@ export function BevierBreakdown() {
   }
 
   function restart() {
-    setAnswers({});
-    setIndex(0);
-    setStage("questions");
-    setSendState("idle");
+    step(() => {
+      setAnswers({});
+      setIndex(0);
+      setStage("questions");
+      setSendState("idle");
+    });
   }
 
   /* ------------------------------------------------------------------ */
@@ -143,16 +205,22 @@ export function BevierBreakdown() {
           {stage === "questions" && current && (
             <motion.div
               key={current.id}
+              ref={stepPanelRef}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.25 }}
-              className="mt-7"
+              className="mt-7 scroll-mt-24 sm:scroll-mt-28"
             >
               <p className="text-xs font-semibold tracking-[0.16em] text-gold-core uppercase">
                 {current.section} · {index + 1} of {asked.length}
               </p>
-              <h3 className="mt-2 text-2xl leading-snug text-warm-white sm:text-3xl">
+              <h3
+                ref={headingRef}
+                tabIndex={-1}
+                data-breakdown-heading="question"
+                className="mt-2 text-2xl leading-snug text-warm-white outline-none sm:text-3xl"
+              >
                 {current.prompt}
               </h3>
               {current.help ? (
@@ -187,7 +255,9 @@ export function BevierBreakdown() {
               <div className="mt-7 flex flex-wrap items-center gap-3">
                 <button
                   type="button"
-                  onClick={() => (index === 0 ? undefined : setIndex(index - 1))}
+                  onClick={() =>
+                    index === 0 ? undefined : step(() => setIndex(index - 1))
+                  }
                   disabled={index === 0}
                   className="btn-ghost-form disabled:opacity-40"
                 >
@@ -197,7 +267,11 @@ export function BevierBreakdown() {
                   type="button"
                   disabled={!answered}
                   onClick={() =>
-                    index + 1 >= asked.length ? setStage("review") : setIndex(index + 1)
+                    step(() =>
+                      index + 1 >= asked.length
+                        ? setStage("review")
+                        : setIndex(index + 1),
+                    )
                   }
                   className="btn-primary-form px-6 py-3 disabled:opacity-40"
                 >
@@ -214,15 +288,21 @@ export function BevierBreakdown() {
           {stage === "review" && (
             <motion.div
               key="review"
+              ref={stepPanelRef}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
-              className="mt-7"
+              className="mt-7 scroll-mt-24 sm:scroll-mt-28"
             >
               <p className="text-xs font-semibold tracking-[0.16em] text-gold-core uppercase">
                 Before we show you anything
               </p>
-              <h3 className="mt-2 text-2xl leading-snug text-warm-white sm:text-3xl">
+              <h3
+                ref={headingRef}
+                tabIndex={-1}
+                data-breakdown-heading="review"
+                className="mt-2 text-2xl leading-snug text-warm-white outline-none sm:text-3xl"
+              >
                 Here&rsquo;s what we understood. Fix anything we got wrong.
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-warm-dim">
@@ -242,10 +322,12 @@ export function BevierBreakdown() {
                     </div>
                     <button
                       type="button"
-                      onClick={() => {
-                        setIndex(i);
-                        setStage("questions");
-                      }}
+                      onClick={() =>
+                        step(() => {
+                          setIndex(i);
+                          setStage("questions");
+                        })
+                      }
                       className="shrink-0 rounded-full border border-edge px-3 py-1 text-xs text-cyan-soft hover:border-cyan-core/70"
                     >
                       Change
@@ -256,15 +338,21 @@ export function BevierBreakdown() {
               <div className="mt-7 flex flex-wrap gap-3">
                 <button
                   type="button"
-                  onClick={() => {
-                    setIndex(asked.length - 1);
-                    setStage("questions");
-                  }}
+                  onClick={() =>
+                    step(() => {
+                      setIndex(asked.length - 1);
+                      setStage("questions");
+                    })
+                  }
                   className="btn-ghost-form"
                 >
                   <ArrowLeft className="h-4 w-4" aria-hidden /> Back
                 </button>
-                <button type="button" onClick={() => setStage("result")} className="btn-primary-form px-6 py-3">
+                <button
+                  type="button"
+                  onClick={() => step(() => setStage("result"))}
+                  className="btn-primary-form px-6 py-3"
+                >
                   That&rsquo;s right — show my Breakdown
                   <ArrowRight className="h-4 w-4" aria-hidden />
                 </button>
@@ -275,9 +363,10 @@ export function BevierBreakdown() {
           {stage === "result" && (
             <motion.div
               key="result"
+              ref={stepPanelRef}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-7"
+              className="mt-7 scroll-mt-24 sm:scroll-mt-28"
             >
               <div className="flex flex-wrap items-center gap-2">
                 <span className="rounded-full bg-cyan-core/15 px-3 py-1 text-[0.7rem] font-semibold tracking-[0.14em] text-cyan-soft uppercase">
@@ -301,7 +390,12 @@ export function BevierBreakdown() {
                 {confidenceNote}
               </p>
 
-              <h3 className="mt-4 text-3xl leading-tight text-warm-white">
+              <h3
+                ref={headingRef}
+                tabIndex={-1}
+                data-breakdown-heading="result"
+                className="mt-4 text-3xl leading-tight text-warm-white outline-none"
+              >
                 {result.coPrimary ? "Two things are true about your organization" : result.title}
               </h3>
 

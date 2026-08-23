@@ -248,7 +248,7 @@ export const foundationsExclusions =
 
 /** How paid stages relate to one another. Stated in the Business Plan and Playbook. */
 export const progression =
-  "Each stage stands on its own. Nothing requires committing to the whole sequence up front, and the roadmap discovery produces is yours to keep whether or not you continue. Most organizations start with an assessment and decide from there.";
+  "Each stage stands on its own — nothing here requires committing to the whole sequence up front. The roadmap that discovery produces is yours to keep whether or not you continue. Most organizations start with an assessment and decide from there.";
 
 /** The pricing rules, verbatim in substance from the Playbook’s Appendix G. */
 export const pricingRules = [
