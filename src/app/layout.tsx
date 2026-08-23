@@ -49,6 +49,23 @@ export const metadata: Metadata = {
     images: ["/og.png"],
   },
   robots: { index: true, follow: true },
+  manifest: "/manifest.webmanifest",
+  // Home-screen icons are the tank composition; the browser favicon stays the
+  // approved BSTS lockup.
+  //
+  // `icon` has to be restated here even though src/app/icon.svg is unchanged:
+  // declaring ANY key under `icons` replaces Next's auto-detected set wholesale
+  // rather than merging with it, so adding `apple` alone silently dropped
+  // <link rel="icon"> from every page. Keep both entries together.
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  appleWebApp: {
+    capable: true,
+    title: "BSTS",
+    statusBarStyle: "black-translucent",
+  },
   // Relative canonical: each statically exported page resolves its own URL
   // against metadataBase, so moving to a custom domain is a one-line change.
   alternates: { canonical: "./" },
