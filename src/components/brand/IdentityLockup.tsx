@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { BstsWordmark } from "./BstsWordmark";
+import { BstsLockup } from "./BstsLockup";
 import { BLAST, LOCKUP, PROJECTILE, TANK } from "./lockup";
 
 /**
@@ -21,13 +21,18 @@ export function IdentityLockup({
   const type =
     size === "hero"
       ? {
-          mark: "text-[2.6rem] sm:text-[3.3rem] lg:text-[3.9rem]",
+          // The canonical lockup is the focal point of the upper hero, so it
+          // is sized by width as one whole mark -- corners and lettering
+          // scale together, never independently.
+          mark: "w-[clamp(220px,70vw,300px)] sm:w-[clamp(300px,30vw,440px)]",
+          nameGap: "mt-4", // ~16px: the name supports the mark, close under it
           name: "text-[0.78rem] sm:text-[1rem] lg:text-[1.18rem]",
           rule: "max-w-[16rem] sm:max-w-[22rem]",
           box: "max-w-[44rem]",
         }
       : {
-          mark: "text-[1.9rem] sm:text-[2.3rem]",
+          mark: "w-[clamp(150px,40vw,190px)]",
+          nameGap: "mt-2",
           name: "text-[0.62rem] sm:text-[0.74rem]",
           rule: "max-w-[11rem] sm:max-w-[14rem]",
           box: "max-w-[26rem]",
@@ -36,8 +41,8 @@ export function IdentityLockup({
   return (
     <>
       <div className="text-center">
-        <BstsWordmark className={`leading-none ${type.mark}`} brackets={size === "hero"} />
-        <p className={`company-name mt-1.5 ${type.name}`}>
+        <BstsLockup className={`mx-auto ${type.mark}`} />
+        <p className={`company-name ${type.nameGap} ${type.name}`}>
           Bevier Strategic
           <br />
           Technology Solutions

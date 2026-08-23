@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { footerLinks, frameworkDisclaimer, site, vetCert } from "@/lib/site";
-import { LogoMark } from "@/components/ui/Logo";
+import { BstsLockup } from "@/components/brand/BstsLockup";
 
 export function Footer() {
   return (
@@ -9,10 +9,8 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.6fr_1fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-3">
-              <LogoMark className="h-9 w-9" />
-              <p className="text-sm font-semibold tracking-[0.18em] text-warm-white">
-                BSTS
-              </p>
+              <BstsLockup className="w-[116px]" />
+              <span className="sr-only">BSTS</span>
             </div>
             <p className="display mt-4 text-lg leading-snug text-warm-white">
               Secure the data.

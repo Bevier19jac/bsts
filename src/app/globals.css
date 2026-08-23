@@ -360,29 +360,18 @@ body {
    the same mark.
    ========================================================================== */
 
-/* Chrome monogram. Machined metal, lit from above. */
-.mark-hero {
-  font-family: var(--font-sans);
-  font-weight: 900;
-  letter-spacing: 0.055em;
-  line-height: 0.95;
-  background-image: linear-gradient(
-    174deg,
-    #ffffff 0%,
-    #eef2f6 14%,
-    #b9c4cf 31%,
-    #ffffff 47%,
-    #dbe3ea 56%,
-    #8c98a5 74%,
-    #cfd8e0 90%,
-    #f4f7fa 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  /* A hair of dark relief under the metal — reads as edge, not as a shadow. */
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.55));
-}
+/* The BSTS identity is the canonical trademark lockup — cyan corners plus the
+   approved red BSTS lettering, as one piece of vector artwork. See
+   src/components/brand/BstsLockup.tsx and the generated geometry in
+   src/components/brand/bsts-lockup.json.
+
+   No CSS rule lives here for it, and none should. The old `.bsts-wordmark`
+   class drove a `background-clip: text` treatment on `<span>`s, which is
+   exactly what read as "blurry" and was replaced. Just as deliberately, the
+   cyan corners are vector paths INSIDE that SVG rather than CSS
+   pseudo-elements: corner-to-letter spacing has to be a property of the
+   artwork so it cannot drift between the header, hero, social card and
+   mobile layout. Callers pass width only. */
 
 /* THE COLOUR SYSTEM, stated once so it stops being decided per-component.
      white  = body copy, maximum readability, substance

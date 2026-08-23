@@ -99,7 +99,7 @@ export const articles: Article[] = [
     readingTime: "8 min read",
     published: "2026-06-16",
     disclaimer:
-      "Examples in this article, including any reference to Solara House, are illustrative concepts — not client case studies or measured results.",
+      "Examples in this article are illustrative concepts — not client case studies or measured results.",
     body: [
       {
         type: "p",
@@ -141,10 +141,10 @@ export const articles: Article[] = [
         type: "p",
         text: "We would add one more, gently: do not use AI to simulate warmth you do not staff for. Guests forgive a slow reply from a small team. They do not forgive discovering that the personal note in their confirmation was written by no one.",
       },
-      { type: "h2", text: "A concrete shape: the Solara House concept" },
+      { type: "h2", text: "A concrete shape" },
       {
         type: "p",
-        text: "In our fictional demonstration property, Solara House, the AI footprint is deliberately narrow: an assistant that drafts replies to routine email from a curated house-knowledge base, a nightly self-assembling operations report, and anomaly flags on channel rates. Every outbound word passes a human. Payment and identity data are structurally out of the model's reach — not policy-excluded, architecture-excluded.",
+        text: "In a small independent property, the defensible AI footprint is deliberately narrow: an assistant that drafts replies to routine email from a curated house-knowledge base, a nightly self-assembling operations report, and anomaly flags on channel rates. Every outbound word passes a human. Payment and identity data are structurally out of the model's reach — not policy-excluded, architecture-excluded.",
       },
       {
         type: "p",
@@ -157,7 +157,7 @@ export const articles: Article[] = [
       },
       {
         type: "callout",
-        text: "This article describes concepts, not client results. Solara House is a fictional property created by BSTS for demonstration. If you want the version of this thinking applied to your actual stack, that conversation starts with an assessment, not a purchase order.",
+        text: "This article describes concepts, not client results. If you want the version of this thinking applied to your actual stack, that conversation starts with an assessment, not a purchase order.",
       },
     ],
   },

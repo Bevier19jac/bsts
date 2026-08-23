@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { assessmentCta, navLinks } from "@/lib/site";
@@ -18,6 +18,10 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const [hash, setHash] = useState("");
+  const headerRef = useRef<HTMLElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const firstLinkRef = useRef<HTMLAnchorElement>(null);
+  const scrollYRef = useRef(0);
 
   useEffect(() => {
     const sync = () => setHash(window.location.hash);
@@ -25,6 +29,80 @@ export function Header() {
     window.addEventListener("hashchange", sync);
     return () => window.removeEventListener("hashchange", sync);
   }, [pathname]);
+
+  // Belt-and-braces: close on any route/hash change (covers back/forward
+  // navigation, which doesn't fire the links' own onClick handler). Adjusted
+  // during render — the React-recommended way to reset state when an input
+  // changes — rather than in an effect, so it can't cascade an extra render.
+  const navKey = `${pathname}#${hash}`;
+  const [lastNavKey, setLastNavKey] = useState(navKey);
+  if (navKey !== lastNavKey) {
+    setLastNavKey(navKey);
+    if (open) setOpen(false);
+  }
+
+  // Escape closes the menu and returns focus to the toggle button. Tapping
+  // or clicking outside the header also closes it. Both listeners are only
+  // attached while the menu is open.
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [open]);
+
+  // Lock background scroll while the menu is open, iOS-safe: fixing the body
+  // in place (rather than relying on overflow alone, which iOS Safari ignores
+  // during a touch) and restoring the exact scroll position on close.
+  useEffect(() => {
+    if (!open) return;
+    const { body } = document;
+    scrollYRef.current = window.scrollY;
+    const prev = {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+    };
+    body.style.position = "fixed";
+    body.style.top = `-${scrollYRef.current}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+    return () => {
+      body.style.position = prev.position;
+      body.style.top = prev.top;
+      body.style.left = prev.left;
+      body.style.right = prev.right;
+      body.style.width = prev.width;
+      // Explicit "instant" overrides the site's global smooth-scroll CSS —
+      // restoring position should snap back, not glide, when the menu closes.
+      window.scrollTo({ top: scrollYRef.current, left: 0, behavior: "instant" });
+    };
+  }, [open]);
+
+  // Move focus into the menu on open so keyboard/AT users land somewhere
+  // sensible; toggling closed via the button already keeps focus there.
+  useEffect(() => {
+    if (open) {
+      firstLinkRef.current?.focus();
+    }
+  }, [open]);
 
   const isActive = (href: string) => {
     if (href.startsWith("/#")) {
@@ -34,7 +112,7 @@ export function Header() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header ref={headerRef} className="fixed inset-x-0 top-0 z-50">
       <div className="mx-auto mt-3 flex max-w-6xl items-center justify-between rounded-full border border-edge/60 bg-obsidian/75 px-4 py-2.5 backdrop-blur-xl sm:mx-4 sm:px-6 lg:mx-auto">
         <Link href="/" aria-label="BSTS home" className="rounded-full">
           <Wordmark />
@@ -64,12 +142,13 @@ export function Header() {
         </nav>
 
         <button
+          ref={toggleRef}
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}
-          className="rounded-full border border-edge p-2 text-warm-white lg:hidden"
+          className="flex min-h-11 min-w-11 touch-manipulation items-center justify-center rounded-full border border-edge p-2 text-warm-white active:bg-graphite-2 lg:hidden"
         >
           {open ? <X className="h-5 w-5" aria-hidden /> : <Menu className="h-5 w-5" aria-hidden />}
         </button>
@@ -87,16 +166,17 @@ export function Header() {
             className="mx-3 mt-2 rounded-[1.75rem] border border-edge/70 bg-obsidian/95 p-3 backdrop-blur-xl lg:hidden"
           >
             <ul className="flex flex-col">
-              {navLinks.map((link) => (
+              {navLinks.map((link, index) => (
                 <li key={link.href}>
                   <a
+                    ref={index === 0 ? firstLinkRef : undefined}
                     href={link.href}
                     onClick={() => setOpen(false)}
                     aria-current={isActive(link.href) ? "page" : undefined}
-                    className={`block rounded-2xl px-4 py-3 ${
+                    className={`touch-manipulation block rounded-2xl px-4 py-3 ${
                       isActive(link.href)
                         ? "bg-graphite-2 font-medium text-cyan-soft"
-                        : "text-warm-mist hover:bg-graphite-2 hover:text-warm-white"
+                        : "text-warm-mist active:bg-graphite-2 active:text-warm-white hover:bg-graphite-2 hover:text-warm-white"
                     }`}
                   >
                     {link.label}
@@ -107,7 +187,7 @@ export function Header() {
                 <a
                   href={assessmentCta.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-2xl bg-cyan-core px-4 py-3 text-center font-medium text-obsidian-deep"
+                  className="touch-manipulation block rounded-2xl bg-cyan-core px-4 py-3 text-center font-medium text-obsidian-deep active:bg-cyan-soft"
                 >
                   {assessmentCta.label}
                 </a>

@@ -16,7 +16,6 @@ import { IdentityLockup } from "@/components/brand/IdentityLockup";
 import { TracerRule } from "@/components/ui/TracerRule";
 import { BevierBreakdown } from "@/components/assessment/BevierBreakdown";
 import { founder } from "@/lib/content/founder";
-import { solara, solaraLabel } from "@/lib/content/solara";
 import {
   aiApproach,
   assuranceVision,
@@ -901,35 +900,6 @@ function ServicesPanel({ select }: { select: (id: TabId) => void }) {
       </Reveal>
 
       <EngagementOffers />
-
-      {/* Solara concept — labeled */}
-      <Reveal delay={0.1}>
-        <div className="mt-14">
-          <p className="inline-block rounded-full border border-gold-core/40 bg-gold-faint px-4 py-1.5 text-[0.68rem] font-semibold tracking-[0.16em] text-gold-soft">
-            {solaraLabel}
-          </p>
-          <Surface quiet blob="c" className="mt-4 p-7 sm:p-8">
-            <h2 className="display text-2xl text-warm-white">
-              What it looks like in practice: {solara.name}.
-            </h2>
-            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-warm-mist">
-              {solara.descriptor}
-            </p>
-            <div className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
-              {solara.moves.map((m) => (
-                <div key={m.lane} className="rounded-2xl border border-edge/50 p-4">
-                  <span className="rounded-full bg-cyan-faint px-2.5 py-0.5 text-[0.62rem] font-semibold tracking-[0.14em] text-cyan-soft uppercase">
-                    {m.lane}
-                  </span>
-                  <p className="mt-2 text-sm font-medium text-warm-white">{m.title}</p>
-                  <p className="mt-1.5 text-xs leading-relaxed text-warm-dim">{m.body}</p>
-                </div>
-              ))}
-            </div>
-            <p className="mt-5 text-xs leading-relaxed text-warm-dim">{solara.after.honesty}</p>
-          </Surface>
-        </div>
-      </Reveal>
 
       <PanelCta select={select} />
     </div>

@@ -57,7 +57,7 @@ export function SettingsModule() {
           Export downloads the entire demo workspace as JSON. Import validates
           a previously exported file against the OS schema before loading it —
           invalid files are rejected with a reason. Reset restores the original
-          Solara House seed data.
+          demonstration seed data.
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
           <button type="button" onClick={exportJson} className="btn-primary-form">
@@ -125,7 +125,7 @@ export function SettingsModule() {
       <OsCard>
         <h2 className="text-sm font-semibold text-warm-white">About this demonstration</h2>
         <ul className="mt-3 space-y-2 text-sm leading-relaxed text-warm-mist">
-          <li>· All people, companies, and records are fictional; Solara House is an invented property.</li>
+          <li>· All people, companies, and records are fictional placeholders.</li>
           <li>· Nothing you do here is transmitted anywhere — state lives in this tab&apos;s memory and is gone when you close it.</li>
           <li>· A production BSTS OS deployment adds authentication, a real database, role-based access, and audit logging — deliberately absent from a public demo.</li>
         </ul>

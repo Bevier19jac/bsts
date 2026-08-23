@@ -13,8 +13,8 @@ transformation and secure AI implementation firm.
 | --- | --- | --- |
 | Marketing site | `src/app/(marketing)` | 12 fully written public routes + custom 404, dark organic design system |
 | Assessment form | `src/components/assessment` | Multi-step technology assessment (RHF + Zod, client-only, zero-secret) |
-| BSTS OS demo | `src/app/os`, `src/components/os`, `src/lib/os` | 11-module interactive workspace with fictional Solara House engagement data |
-| Content library | `src/lib/content` | All copy centralized: pillars, method, industries, articles, founder, Solara House |
+| BSTS OS demo | `src/app/os`, `src/components/os`, `src/lib/os` | 11-module interactive workspace with fictional demonstration engagement data |
+| Content library | `src/lib/content` | All copy centralized: pillars, method, industries, articles, founder |
 | Tests | `src/test` | Vitest suite incl. automated claims audit |
 
 ## Quick start
@@ -45,8 +45,10 @@ host.
 
 ## Honesty constraints (load-bearing)
 
-- **Solara House is fictional.** Every appearance is labeled
-  "CONCEPT DEMONSTRATION — NOT A CLIENT CASE STUDY". No invented metrics.
+- **No invented case studies.** The site carries no named example client,
+  real or fictional. The former Solara House concept demonstration was
+  removed outright rather than replaced; `src/test/claims.test.ts` guards
+  against it returning. No invented metrics anywhere.
 - **Claims are precise.** "NIST-aligned", "SOC 2 readiness support",
   "OWASP-informed" — never "certified", "compliant", or "approved".
   See `CLAIMS_REGISTER.md`; enforced by `src/test/claims.test.ts`.

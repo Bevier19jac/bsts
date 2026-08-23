@@ -1,0 +1,12 @@
+# Cloudflare Pages redirects. This file is copied verbatim into the static
+# export (public/ ships as-is), which is the only redirect mechanism available
+# to us — next.config.ts uses `output: "export"`, and Next's own `redirects()`
+# never runs without a server.
+#
+# Format: <from> <to> <status>
+
+# The Solara House concept demonstration was retired. Its public URL may have
+# been shared or bookmarked, so it points at the consolidated services page
+# rather than 404ing. 301 = permanent, so search engines drop the old URL.
+/industries/hospitality/  /solutions/  301
+/industries/hospitality   /solutions/  301

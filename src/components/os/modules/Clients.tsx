@@ -69,7 +69,7 @@ export function Clients() {
 
       <p className="text-xs leading-relaxed text-warm-dim">
         One client is deliberate: BSTS OS demonstrates a lean, principal-led practice, and
-        Solara House (fictional) carries the full engagement story — assessment
+        the demonstration client carries the full engagement story — assessment
         → roadmap → projects → decisions.
       </p>
     </div>

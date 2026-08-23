@@ -36,22 +36,14 @@ export default function TermsPage() {
 
         <h2>2. Informational content only</h2>
         <p>
-          Content on this site — including articles, methodology descriptions,
-          and the Solara House demonstration — is general information, not
+          Content on this site — including articles and methodology descriptions —
+          is general information, not
           professional advice for your specific situation. Engagements with
           BSTS are governed by separate written agreements, and nothing on this
           site creates a client relationship.
         </p>
 
-        <h2>3. The Solara House demonstration</h2>
-        <p>
-          Solara House is a fictional property created by BSTS for
-          demonstration purposes. It is not a client, a case study, or a
-          reference to any real business. Any resemblance to a real property is
-          coincidental. No measured results are claimed for it.
-        </p>
-
-        <h2>4. The BSTS OS demonstration environment</h2>
+        <h2>3. The BSTS OS demonstration environment</h2>
         <p>
           The demonstration at /os is provided for evaluation of our approach.
           It is populated with fictional data and is clearly labeled:
@@ -62,10 +54,10 @@ export default function TermsPage() {
           may change or be withdrawn at any time.
         </p>
 
-        <h2>5. Security and framework references</h2>
+        <h2>4. Security and framework references</h2>
         <p>{frameworkDisclaimer}</p>
 
-        <h2>6. Intellectual property</h2>
+        <h2>5. Intellectual property</h2>
         <p>
           The BSTS name, mark, site design, and original content are our
           property. You may quote reasonable excerpts with attribution; you may
@@ -73,14 +65,14 @@ export default function TermsPage() {
           or use our marks to imply affiliation.
         </p>
 
-        <h2>7. Acceptable use</h2>
+        <h2>6. Acceptable use</h2>
         <ul>
           <li>Do not attempt to disrupt, probe, or overload the site or its hosting.</li>
           <li>Do not use the site to transmit unlawful content or malware.</li>
           <li>Do not misrepresent output of the demonstration environment as a production BSTS system.</li>
         </ul>
 
-        <h2>8. No warranties; limitation of liability</h2>
+        <h2>7. No warranties; limitation of liability</h2>
         <p>
           The site and demonstration are provided &quot;as is&quot; and
           &quot;as available.&quot; To the fullest extent permitted by law,
@@ -90,13 +82,13 @@ export default function TermsPage() {
           this section may not apply to you.
         </p>
 
-        <h2>9. Changes</h2>
+        <h2>8. Changes</h2>
         <p>
           We may update these terms; the effective date above will change when
           we do. Continued use after an update constitutes acceptance.
         </p>
 
-        <h2>10. Contact</h2>
+        <h2>9. Contact</h2>
         <p>Questions about these terms can be sent through the contact page.</p>
       </div>
     </div>

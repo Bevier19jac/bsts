@@ -28,8 +28,7 @@ export type Pillar = {
  * keep, connect, automate, build, secure.
  *
  * Examples are deliberately cross-industry (CRM, ERP, ticketing, compliance
- * evidence). Hospitality-specific detail lives inside the clearly labeled
- * Solara House concept demonstration only.
+ * evidence) rather than tied to any one sector.
  */
 export const pillars: Pillar[] = [
   {

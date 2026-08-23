@@ -29,7 +29,7 @@ export function Roadmaps() {
       type: "roadmap/add",
       item: {
         id: demoId("rm"),
-        clientId: client?.id ?? "cl-solara",
+        clientId: client?.id ?? "cl-demo",
         title: title.trim(),
         lane,
         priority,

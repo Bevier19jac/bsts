@@ -263,11 +263,13 @@ describe("claims audit", () => {
     expect(offenders).toEqual([]);
   });
 
-  it("labels the Solara House demonstration as not a client case study", () => {
-    const solaraSource = readFileSync(join(root, "lib/content/solara.ts"), "utf8");
-    expect(solaraSource).toContain(
-      "CONCEPT DEMONSTRATION — NOT A CLIENT CASE STUDY",
+  it("carries no trace of the retired Solara House demonstration", () => {
+    // The demo was removed outright rather than replaced with another
+    // invented company. This guard keeps it from creeping back in.
+    const offenders = files.filter((f) =>
+      readFileSync(f, "utf8").toLowerCase().includes("solara"),
     );
+    expect(offenders).toEqual([]);
   });
 });
 

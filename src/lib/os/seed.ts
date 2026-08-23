@@ -2,8 +2,8 @@ import type { OsState } from "./types";
 
 /**
  * Demo seed data. Every person, company, and detail here is FICTIONAL and
- * clearly labeled. Solara House is the same invented boutique hotel used in
- * the marketing site's concept demonstration. No real PII appears anywhere.
+ * clearly labeled — a generic demonstration client, deliberately not a named
+ * invented business. No real PII appears anywhere.
  */
 export function createSeedState(): OsState {
   return {
@@ -12,8 +12,8 @@ export function createSeedState(): OsState {
 
     prospects: [
       {
-        id: "pr-solara",
-        name: "Solara House (fictional)",
+        id: "pr-demo",
+        name: "Demo Client (fictional)",
         industry: "Boutique hospitality",
         stage: "Won",
         contactName: "Avery Solano (fictional)",
@@ -55,8 +55,8 @@ export function createSeedState(): OsState {
 
     clients: [
       {
-        id: "cl-solara",
-        name: "Solara House (fictional)",
+        id: "cl-demo",
+        name: "Demo Client (fictional)",
         industry: "Boutique hospitality",
         status: "Active engagement",
         summary:
@@ -67,9 +67,9 @@ export function createSeedState(): OsState {
 
     assessments: [
       {
-        id: "as-solara",
-        subject: "Solara House (fictional)",
-        subjectId: "pr-solara",
+        id: "as-demo",
+        subject: "Demo Client (fictional)",
+        subjectId: "pr-demo",
         status: "Delivered",
         conductedOn: "Demo · week 1",
         problem:
@@ -134,7 +134,7 @@ export function createSeedState(): OsState {
     roadmapItems: [
       {
         id: "rm-1",
-        clientId: "cl-solara",
+        clientId: "cl-demo",
         title: "Unified guest record across PMS, POS, booking engine",
         lane: "Connect",
         priority: "Now",
@@ -143,7 +143,7 @@ export function createSeedState(): OsState {
       },
       {
         id: "rm-2",
-        clientId: "cl-solara",
+        clientId: "cl-demo",
         title: "Security baseline: accounts, backups, incident one-pager",
         lane: "Secure",
         priority: "Now",
@@ -152,7 +152,7 @@ export function createSeedState(): OsState {
       },
       {
         id: "rm-3",
-        clientId: "cl-solara",
+        clientId: "cl-demo",
         title: "Automated nightly operations report",
         lane: "Automate",
         priority: "Next",
@@ -161,7 +161,7 @@ export function createSeedState(): OsState {
       },
       {
         id: "rm-4",
-        clientId: "cl-solara",
+        clientId: "cl-demo",
         title: "Guest communication sequences (confirm, pre-arrival, post-stay)",
         lane: "Automate",
         priority: "Next",
@@ -170,7 +170,7 @@ export function createSeedState(): OsState {
       },
       {
         id: "rm-5",
-        clientId: "cl-solara",
+        clientId: "cl-demo",
         title: "Drafts-only AI email assistant on house knowledge",
         lane: "Build",
         priority: "Later",
@@ -182,7 +182,7 @@ export function createSeedState(): OsState {
     projects: [
       {
         id: "pj-guest-record",
-        clientId: "cl-solara",
+        clientId: "cl-demo",
         name: "One Guest Record",
         lane: "Connect",
         status: "Active",
@@ -197,7 +197,7 @@ export function createSeedState(): OsState {
       },
       {
         id: "pj-security-baseline",
-        clientId: "cl-solara",
+        clientId: "cl-demo",
         name: "Security Baseline",
         lane: "Secure",
         status: "In review",
@@ -211,7 +211,7 @@ export function createSeedState(): OsState {
       },
       {
         id: "pj-night-report",
-        clientId: "cl-solara",
+        clientId: "cl-demo",
         name: "Nightly Report Automation",
         lane: "Automate",
         status: "Discovery",
@@ -287,7 +287,7 @@ export function createSeedState(): OsState {
     documents: [
       {
         id: "dc-1",
-        title: "Solara House — Assessment Report",
+        title: "Demo Client — Assessment Report",
         kind: "Assessment report",
         status: "Final",
         updatedOn: "Demo · week 1",

@@ -21,7 +21,7 @@ import {
   X,
 } from "lucide-react";
 import { OsProvider, useOs } from "@/lib/os/store";
-import { LogoMark } from "@/components/ui/Logo";
+import { BstsLockup } from "@/components/brand/BstsLockup";
 
 const modules = [
   { href: "/os", label: "Overview", icon: Gauge },
@@ -91,9 +91,9 @@ function ShellChrome({ children }: { children: React.ReactNode }) {
         {/* Desktop sidebar */}
         <aside className="sticky top-0 hidden h-dvh w-60 shrink-0 flex-col gap-6 overflow-y-auto border-r border-edge/50 p-5 lg:flex">
           <div className="flex items-center gap-3 px-2">
-            <LogoMark className="h-7 w-7" />
+            <BstsLockup className="w-[78px] shrink-0" />
             <div className="leading-none">
-              <p className="text-sm font-semibold tracking-[0.16em]">BSTS OS</p>
+              <p className="text-sm font-semibold tracking-[0.16em]">OS</p>
               <p className="mt-1 text-[0.6rem] tracking-[0.14em] text-warm-dim uppercase">
                 Demo workspace
               </p>
@@ -116,8 +116,8 @@ function ShellChrome({ children }: { children: React.ReactNode }) {
           {/* Mobile top bar */}
           <div className="sticky top-0 z-40 flex items-center justify-between border-b border-edge/50 bg-obsidian-deep/90 px-4 py-3 backdrop-blur-lg lg:hidden">
             <Link href="/os" className="flex items-center gap-2.5">
-              <LogoMark className="h-6 w-6" />
-              <span className="text-sm font-semibold tracking-[0.16em]">BSTS OS</span>
+              <BstsLockup className="w-[70px] shrink-0" />
+              <span className="text-sm font-semibold tracking-[0.16em]">OS</span>
             </Link>
             <button
               type="button"
