@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { footerLinks, frameworkDisclaimer, site, trademarkNotice, vetCert } from "@/lib/site";
 import { BstsLockup } from "@/components/brand/BstsLockup";
+import { StrategicLine } from "@/components/brand/StrategicLine";
 
 export function Footer() {
   return (
@@ -12,12 +13,8 @@ export function Footer() {
               <BstsLockup className="w-[116px]" />
               <span className="sr-only">BSTS</span>
             </div>
-            <p className="display mt-4 text-lg leading-snug text-warm-white">
-              Secure the data.
-              <br />
-              Enable the AI.
-              <br />
-              <span className="text-gold-soft">Prove the controls.</span>
+            <p className="display mt-4 text-lg leading-snug">
+              <StrategicLine />
             </p>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-warm-dim">
               {site.name}. {site.subline}

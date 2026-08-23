@@ -12,6 +12,7 @@ import { PointerHalo } from "@/components/marketing/PointerHalo";
 import { IdentityLockup } from "@/components/brand/IdentityLockup";
 import { TracerRule } from "@/components/ui/TracerRule";
 import { BevierBreakdown } from "@/components/assessment/BevierBreakdown";
+import { StrategicLine } from "@/components/brand/StrategicLine";
 import {
   breakdownLayers,
   breakdownRelationship,
@@ -151,9 +152,7 @@ export function Landing() {
           {/* The strategic line — the company in three sentences. */}
           <Reveal delay={0.16}>
             <h1 className="display mx-auto mt-2 max-w-3xl text-[1.9rem] leading-[1.08] sm:text-[2.5rem] lg:text-[2.75rem]">
-              <span className="block text-warm-white">Secure the data.</span>
-              <span className="block text-cyan-soft">Enable the AI.</span>
-              <span className="block text-gold-soft">Prove the controls.</span>
+              <StrategicLine />
             </h1>
           </Reveal>
           <Reveal delay={0.2}>
