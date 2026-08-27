@@ -40,29 +40,73 @@ place to guess. Read each one.
 
 ## 2. The single most common cause of rejection
 
-**The legal business name and physical address must match IRS records character
-for character.** Not "close enough". SAM validates against the IRS and against
-the entity validation service, and a mismatch parks the registration in *Work in
-Progress* or *Submitted* for weeks with no useful error.
+**The legal business name and physical address must match your official records
+character for character.** Not "close enough". SAM runs two independent checks —
+entity validation against state and public records, and a TIN match against the
+IRS — and a mismatch in either parks the registration in *Work in Progress* or
+*Submitted* for weeks with no useful error.
 
-Use exactly:
+### Confirmed against the CP 575G, 27 August 2026
+
+The notice reads **all capitals, no periods**. Verified against the document.
 
 ```
-Bevier Strategic Technology Solutions LLC
+BEVIER STRATEGIC TECHNOLOGY SOLUTIONS LLC
 ```
 
-From the CP 575G. Note what this means in practice:
+What that does and does not tell you:
 
-- **No comma before `LLC`** unless the CP 575 has one. Check the notice itself,
-  not memory.
-- **`LLC`, not `L.L.C.`** — again, whatever the CP 575 shows.
-- The IRS **name control** is `BEVI`. That is what the IRS matches on internally.
-- Address must be **mail-deliverable and physical**. P.O. boxes are rejected.
-  105 Pendleton Trail, Tyrone, GA 30290 is the registered office and is what the
-  Georgia filing and the IRS have.
+- **`LLC`, not `L.L.C.` — no periods.** This is the load-bearing part. A stray
+  period or a comma before the suffix is exactly the kind of difference that
+  silently fails the match.
+- **No comma before `LLC`.**
+- **The all-capitals is not part of the legal name.** IRS notices print entity
+  names in all caps as a system convention; the name filed with Georgia is
+  `Bevier Strategic Technology Solutions LLC` in mixed case, and that is the
+  legally correct form for contracts, insurance certificates and signature
+  blocks. Do not start writing the company name in block capitals because the
+  CP 575 does.
+- On case in SAM specifically: no authoritative source states that entity
+  validation is case-sensitive, and every source that discusses failures points
+  at punctuation, abbreviations and address format instead. **Type it as filed
+  with Georgia.** If validation returns a record with different capitalisation,
+  accept what it returns rather than fighting it.
 
-**Before typing anything into SAM, put the CP 575G side by side with the screen.**
-Ten minutes here saves two weeks of validation limbo.
+### There are two separate matches, and they check different things
+
+Conflating these is why people chase the wrong fix for a week.
+
+| Check | Compares against | Keys on |
+|---|---|---|
+| **Entity validation** | State / public records — the Georgia filing | Legal name **and physical address together** |
+| **TIN match** | IRS records | EIN plus the **name control `BEVI`** |
+
+So the address only matters to the first one, and the name control only to the
+second. A failure message that mentions the address is an entity-validation
+problem, not an IRS problem.
+
+Address must be **mail-deliverable and physical**. P.O. boxes are rejected.
+105 Pendleton Trail, Tyrone, GA 30290 is the registered office and is what both
+the Georgia filing and the IRS have.
+
+### If validation fails anyway
+
+SAM accepts documentary evidence to resolve it, but with one specific
+requirement: **at least one document must show the current legal name and the
+physical address together.** Acceptable: state formation documents, the IRS EIN
+letter, a business licence, or a bank statement or utility bill under five years
+old.
+
+You already have two that qualify, both filed under `_Corporate Records/`:
+
+- the Georgia **Certificate of Organization**
+- the **IRS Notice CP 575G**
+
+Have both open before you start.
+
+**Put the CP 575G and the Certificate of Organization side by side with the
+screen before typing anything.** Ten minutes here saves two weeks of validation
+limbo.
 
 > Note the tension with the Google Business Profile decision: there, the address is
 > deliberately hidden because a GBP publishes a map pin. SAM is different — the
@@ -116,7 +160,7 @@ Fill from here, not from memory.
 
 | Field | Value |
 |---|---|
-| Legal business name | `Bevier Strategic Technology Solutions LLC` (verify against CP 575G) |
+| Legal business name | `Bevier Strategic Technology Solutions LLC` — no periods in `LLC`, no comma before it. Confirmed against the CP 575G, 27 Aug 2026. See §2 on capitalisation. |
 | Doing business as | `Bevier Strategic Technology Solutions` — or leave blank |
 | Physical address | 105 Pendleton Trail, Tyrone, GA 30290 |
 | Mailing address | Same |
