@@ -85,16 +85,20 @@ export const site = {
    * THE single public contact address for the whole site. Every surface that
    * shows an email reads it from here — nothing hard-codes an address.
    *
-   * This was a personal gmail address until a business mailbox existed. It is
-   * now a business-named one, which is the right thing to hand a contracting
-   * officer or a CPA firm. It is still on a consumer domain, so the last step
-   * remains: once bevierstrategic.com (or whatever the domain turns out to be)
-   * has a mailbox, change it here once — or set NEXT_PUBLIC_CONTACT_EMAIL —
-   * and every surface follows. No placeholder is ever published, and nothing
-   * implies a company-domain address that does not exist yet.
+   * The progression was personal gmail -> a business-named consumer mailbox
+   * -> this, an address on the company's own domain. That last step was the
+   * one this field was written for, and it is now done: bevierstrategic.com
+   * routes contact@ through Cloudflare Email Routing, verified by a delivered
+   * test message before this line was changed. No placeholder was ever
+   * published, and no company-domain address was implied before one existed.
+   *
+   * One honest limit: Email Routing forwards inbound mail, it does not send.
+   * Replies leave from the mailbox behind it until a real hosted mailbox is
+   * added. That is invisible to anyone writing to this address and does not
+   * change what belongs on the page.
    */
   contactEmail:
-    process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "bevierstrategic@outlook.com",
+    process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "contact@bevierstrategic.com",
   /** Optional: public scheduling link (e.g. Calendly). Empty hides scheduling CTAs. */
   schedulingUrl: "",
   /** Optional: public phone number. Empty hides phone references. */

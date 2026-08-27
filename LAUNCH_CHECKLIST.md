@@ -43,7 +43,7 @@ deployment of `main` (see `src/lib/site.ts` → `site.url`).
 | VetCert status | `vetCertStatus` | Change to `"submitted"` only after the SBA VetCert application is actually filed; `"certified"` only after issuance. |
 | Legal entity name | `site.legalName` | Update when the LLC registration completes. |
 | Production URL | `site.url` | Change once when the custom domain goes live; update Cloudflare Pages custom domain at the same time. |
-| Contact email | `NEXT_PUBLIC_CONTACT_EMAIL` env var (fallback in `site.ts`) | Move to a business-domain address when available. |
+| Contact email | `NEXT_PUBLIC_CONTACT_EMAIL` env var (fallback in `site.ts`) | **Done** — `contact@bevierstrategic.com`, routed to the business mailbox and delivery-tested. |
 | Scheduling URL | `site.schedulingUrl` | Add a Calendly/Cal.com link when one exists. |
 | Response promise | `site.responsePromise` | Only promise what you can honor. |
 | Pricing language | `pricing` | One edit updates all three offers. |
