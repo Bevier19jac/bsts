@@ -77,14 +77,46 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+/**
+ * One linked graph rather than a lone Organization node.
+ *
+ * Google resolves an entity by corroborating signals: the site, the legal
+ * name, the logo, a reachable contact. Emitting ProfessionalService and
+ * WebSite as separate top-level blobs leaves it to infer they describe the
+ * same company. @id anchors and a publisher reference say so outright.
+ *
+ * Deliberately absent, and not to be added without evidence:
+ *
+ *   address / location   BSTS is a service-area business run from a home.
+ *                        The address is on the state filing because the law
+ *                        requires it; putting it in structured data would
+ *                        publish it to Maps and every scraper that reads
+ *                        schema. Not worth a local-pack ranking.
+ *   telephone            site.phone is empty. An unanswered number is worse
+ *                        than none.
+ *   sameAs               Needs verified profile URLs. Guessing a LinkedIn
+ *                        slug that 404s actively damages entity resolution.
+ *   aggregateRating      There are no customer reviews. Inventing them is
+ *                        fraud, and Google has a manual action for it.
+ */
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
+  "@id": `${site.url}/#organization`,
   name: site.name,
+  legalName: site.legalName,
   alternateName: site.shortName,
   description: site.description,
   url: site.url,
   slogan: site.tagline,
+  email: site.contactEmail,
+  logo: {
+    "@type": "ImageObject",
+    url: `${site.url}/icon-512.png`,
+    width: 512,
+    height: 512,
+  },
+  image: `${site.url}/og.png`,
   founder: { "@type": "Person", name: "Jacob Bevier" },
   knowsAbout: [
     "Secure AI implementation",
@@ -104,6 +136,18 @@ const organizationJsonLd = {
   ],
 };
 
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${site.url}/#website`,
+  url: site.url,
+  name: site.name,
+  alternateName: site.shortName,
+  description: site.description,
+  inLanguage: "en-US",
+  publisher: { "@id": `${site.url}/#organization` },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -113,6 +157,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
         <a href="#main" className="skip-link">
           Skip to main content

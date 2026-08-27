@@ -4,19 +4,35 @@ import { site } from "@/lib/site";
 
 export const dynamic = "force-static";
 
+/**
+ * Every route listed here must be indexable.
+ *
+ * A sitemap is a request to index. Listing a page that also sends
+ * `robots: noindex` asks Google for two opposite things at once, and Search
+ * Console reports it as "Submitted URL marked noindex" — an error against the
+ * property, not a note. Two routes were doing exactly that and have been
+ * removed:
+ *
+ *   /start                            noindex, nofollow — a forwarding page
+ *                                     for the printed QR codes, not content.
+ *                                     Still served, still works, just no
+ *                                     longer advertised for indexing.
+ *   /government/capability-statement  noindex, follow — deliberately reachable
+ *                                     and linkable, deliberately not indexed.
+ *
+ * `src/test/sitemap.test.ts` enforces this: it reads the robots directive out
+ * of every route's page module and fails if a noindexed one appears below.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
-  // Single-page site: the landing page carries all primary content in tabs.
   const staticRoutes = [
     "",
     "/services",
     "/method",
     "/who-we-help",
     "/government",
-    "/government/capability-statement",
     "/advisors",
     "/assurance",
     "/contact",
-    "/start",
     "/insights",
     "/security",
     "/privacy",
