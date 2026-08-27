@@ -61,8 +61,13 @@ export const vetCert = vetCertCopy[vetCertStatus];
 export const site = {
   name: "Bevier Strategic Technology Solutions",
   shortName: "BSTS",
-  /** Legal entity — update when the LLC registration completes. */
-  legalName: "Bevier Strategic Technology Solutions",
+  /**
+   * Legal entity. Confirmed by the Georgia Secretary of State on
+   * 2026-08-27 for a filing made 2026-08-20 10:35 AM. `name` above stays
+   * the trade name — the brand people read — while this is the entity that
+   * signs things.
+   */
+  legalName: "Bevier Strategic Technology Solutions LLC",
   tagline: "Secure the data. Enable the AI. Prove the controls.",
   subline:
     "Secure AI · Intelligent Automation · Cybersecurity · Compliance Readiness",
@@ -220,7 +225,7 @@ export const footerLinks = {
  * hero would be an illegible smudge in the header.
  */
 export const trademarkNotice =
-  "BSTS and the BSTS logo are trademarks of Bevier Strategic Technology Solutions.";
+  "BSTS and the BSTS logo are trademarks of Bevier Strategic Technology Solutions LLC.";
 
 /** Compliance-safe disclaimer used wherever frameworks are referenced. */
 export const frameworkDisclaimer =
@@ -283,7 +288,7 @@ export const federalDisclaimerFull =
  * label and displayed name switch automatically.
  */
 export type FormationStatus = "pre_formation" | "formed";
-export const formationStatus: FormationStatus = "pre_formation";
+export const formationStatus: FormationStatus = "formed";
 
 /**
  * Federal-facing contact. Until a verified business-domain email exists,
@@ -328,8 +333,14 @@ export const acquisition = {
    * Honest high-level status line shown while identifiers above are unissued.
    * Remove (set to "") once SAM/UEI/CAGE are live and displayed.
    */
+  /**
+   * Honest status while identifiers are unissued. Formation is now complete —
+   * saying it is "in progress" would understate the company to the exact
+   * audience this page exists for. Federal registrations genuinely are still
+   * outstanding, so that half stays.
+   */
   statusLine:
-    "Business formation and federal registrations are in progress. Verified identifiers will be published as they are issued.",
+    "The company is formed in the State of Georgia. Federal registrations are in progress, and verified identifiers will be published as they are issued.",
 } as const;
 
 /** Only the acquisition fields that have real values — for public rendering. */

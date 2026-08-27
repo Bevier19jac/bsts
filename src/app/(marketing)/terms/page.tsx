@@ -30,7 +30,7 @@ export default function TermsPage() {
         <h2>1. Who we are</h2>
         <p>
           This website is operated by Bevier Strategic Technology Solutions
-          (&quot;BSTS,&quot; &quot;we,&quot; &quot;us&quot;). By using the
+          LLC (&quot;BSTS,&quot; &quot;we,&quot; &quot;us&quot;). By using the
           site, you agree to these terms.
         </p>
 
