@@ -236,7 +236,7 @@ blast off fractions of the image and `src/test/brand.test.ts` guards the geometr
 | SAM.gov | Pending registration | Unblocked as of 27 Aug 2026 |
 | UEI | Not yet issued | Follows SAM.gov |
 | CAGE code | Not yet issued | Follows SAM.gov |
-| NAICS codes | **NEEDS OWNER INPUT** | Required for SAM.gov. Likely candidates: 541512 Computer Systems Design Services · 541519 Other Computer Related Services · 541611 Administrative Management Consulting. Confirm before registering — they affect set-aside eligibility. |
+| NAICS codes | Primary **541512**; secondary 541519 · 541690 · 541611 | Recommended 27 Aug 2026. Rationale and the size-standard tradeoff are in `SAM_GOV_REGISTRATION.md` §3. Confirm the current SBA size standard at registration — SBA has a size-standard overhaul in proposed rulemaking. |
 | SBA VetCert | Not started | Follows SAM.gov |
 
 **Nothing goes in `sameAs` structured data until a URL is verified live.** A
