@@ -112,7 +112,7 @@ Print behaviour
 QR codes
 
 - Decoded from the 300 DPI raster of the final PDFs, not from the source image
-- Both resolve to `https://bevierstrategic.pages.dev/start` — a stable QR
+- Both resolve to `https://bevierstrategic.com/start` — a stable QR
   landing route that forwards into the discovery assessment
 - Module size 0.45 mm, above the 0.4 mm reliable-scan threshold for matte
 
@@ -129,10 +129,10 @@ Claims
 
 ## Before you print — two things to settle
 
-**1. One canonical address: `bevierstrategic.pages.dev`. (Settled.)**
+**1. One canonical address: `bevierstrategic.com`. (Settled.)**
 
 The QR code and the printed URL on both brochures now point to
-`bevierstrategic.pages.dev` — the Cloudflare Pages project connected to
+`bevierstrategic.com` — the custom domain on the Cloudflare Pages project connected to
 GitHub, which redeploys automatically on every push to `main` and matches
 the repo's `site.url`. The old `bsts.pages.dev` project was a one-time
 manual upload; delete it (or make it redirect) in the Cloudflare dashboard

@@ -4,7 +4,7 @@ import { StartRedirect } from "./redirect";
 
 /**
  * QR landing route. The brochures' QR codes encode
- * https://bevierstrategic.pages.dev/start — a short, stable address that
+ * https://bevierstrategic.com/start — a short, stable address that
  * forwards into the discovery assessment. Keeping it as its own route means
  * a future custom domain or a different landing experience only changes
  * this file, never the printed codes.

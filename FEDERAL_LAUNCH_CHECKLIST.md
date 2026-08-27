@@ -28,7 +28,7 @@ when the values are filled in.
 
 ## Controlled production submission test (do once after each deploy that touches forms)
 
-1. Open https://bevierstrategic.pages.dev/government in a private/incognito window.
+1. Open https://bevierstrategic.com/government in a private/incognito window.
 2. Fill the federal inquiry form with clearly-marked test data ("TEST — please ignore"), org type "Other", opportunity type "General inquiry".
 3. Press **Send inquiry** once. Confirm the green success message appears.
 4. Confirm the email arrives in the private delivery inbox within a few minutes. If the success message showed but no email arrived, STOP — the form is lying and must be fixed before any outreach.

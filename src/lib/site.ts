@@ -73,8 +73,14 @@ export const site = {
     "Secure AI · Intelligent Automation · Cybersecurity · Compliance Readiness",
   promise:
     "Secure the data. Enable the AI. Prove the controls. Keep what already works, connect what is disconnected, and automate what is repetitive — without giving up control of company information.",
-  /** Production URL — change once when moving to the custom domain. */
-  url: "https://bevierstrategic.pages.dev",
+  /**
+   * Production URL. Everything canonical derives from this one string —
+   * sitemap, robots, metadataBase, JSON-LD, the OG card and the federal
+   * contact line. The Cloudflare Pages project keeps serving
+   * bevierstrategic.pages.dev, so printed QR codes made before the move
+   * still resolve; a bulk redirect sends them here.
+   */
+  url: "https://bevierstrategic.com",
   /**
    * THE single public contact address for the whole site. Every surface that
    * shows an email reads it from here — nothing hard-codes an address.

@@ -31,7 +31,7 @@ npx wrangler pages deploy out --project-name=bsts
 
 ## After the first deploy
 
-- Update `src/lib/site.ts` → `url` to the real `*.pages.dev` address (it
+- Update `src/lib/site.ts` → `url` to the production address (it
   feeds canonical metadata, sitemap.xml, robots.txt, and JSON-LD), then push.
 - Verify `/sitemap.xml` and `/robots.txt` resolve.
 - Run a Lighthouse pass against the deployed URL.
