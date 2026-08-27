@@ -21,6 +21,23 @@ account, the tax return and SAM.gov.
 is one of the most common causes of profile suspension. Categories exist to carry
 that meaning; the name field does not.
 
+### Exception during verification — 27 Aug 2026
+
+The profile was created as **`Bevier Strategic Technology Solutions LLC`**, with
+the suffix, and that is deliberate. It stays until verification clears.
+
+The guidance above is right for a live profile and wrong for one under review. A
+reviewer resolving a verification compares the profile against the documents the
+owner produces — the Certificate of Organization and the CP 575G, both of which
+read `... Solutions LLC`. A profile name that does not match them is a reason to
+bounce the verification. The suffix is not a policy violation; it is only
+suboptimal.
+
+Editing the business name is also the single riskiest field to touch mid-review.
+
+**After verification clears, drop the ` LLC`.** One field, one edit, low risk once
+the profile is live. Do it on its own, not batched with other changes.
+
 ---
 
 ## Primary category
@@ -68,10 +85,11 @@ weights the primary far more heavily than the rest combined. Three is enough.
 
 ## Business description
 
-Paste exactly. **750 characters — the maximum.** Any edit will need re-counting.
+Paste exactly. **743 characters** against a 750 limit. Any edit will need
+re-counting.
 
 ```
-Bevier Strategic Technology Solutions helps growing organizations adopt AI securely, automate the work that eats the week, and build the controls and evidence that earn customer trust.
+Bevier Strategic Technology Solutions helps growing organizations adopt AI securely, automate high-value workflows, and build the controls and evidence that earn customer trust.
 
 Services span secure AI adoption and governance, intelligent workflow automation, cybersecurity assessment and hardening, and compliance readiness. Work runs in six stages — Digital Foundations, Discover, Build, Secure, Prove and Maintain — and each stands on its own, so you are never committing to the whole path to get value from the first one.
 

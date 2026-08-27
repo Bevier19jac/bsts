@@ -70,10 +70,10 @@ automate high-value work, and build the controls and evidence that customer secu
 SOC 2 readiness demand. Discovery first — we find out what is actually true before recommending anything.
 ```
 
-### Long — Google Business Profile, exactly 750 characters
+### Long — Google Business Profile, 743 characters against a 750 limit
 
 ```
-Bevier Strategic Technology Solutions helps growing organizations adopt AI securely, automate the work that eats the week, and build the controls and evidence that earn customer trust.
+Bevier Strategic Technology Solutions helps growing organizations adopt AI securely, automate high-value workflows, and build the controls and evidence that earn customer trust.
 
 Services span secure AI adoption and governance, intelligent workflow automation, cybersecurity assessment and hardening, and compliance readiness. Work runs in six stages — Digital Foundations, Discover, Build, Secure, Prove and Maintain — and each stands on its own, so you are never committing to the whole path to get value from the first one.
 
