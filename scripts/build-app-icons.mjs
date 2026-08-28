@@ -1,23 +1,24 @@
 /**
- * Generates the home-screen / PWA icons: the canonical BSTS lockup above the
- * approved Abrams tank, on the site's obsidian ground.
+ * Generates the home-screen / PWA icons: the canonical BSTS lockup on the
+ * site's obsidian ground. No tank.
  *
- * The browser favicon (src/app/icon.svg) is NOT touched by this script and
- * stays as approved. These are the "Add to Home Screen" icons only, which iOS
- * and Android render much larger.
+ * WHY NO TANK. These icons and the browser favicon (src/app/icon.svg) are the
+ * company's *mark* — the thing that has to be recognisably BSTS at any size and
+ * in any context. The owner's decision, 28 Aug 2026, is that the mark is the
+ * wordmark alone, matching what is uploaded as the Google Business Profile logo
+ * and the Google account avatar. One mark everywhere it identifies the company.
  *
- * Both elements come from existing approved sources, unaltered:
+ * The tank is not retired. It stays where it is art rather than identity:
+ * public/og.png, the share card, which renders at 1200x630 where a detailed
+ * composition works and where nothing is trying to recognise a logo.
  *
- *   - the tank is public/abrams-tank.webp, the same file the hero renders
- *   - the lockup is built from src/components/brand/bsts-lockup.json, the same
- *     single source every other placement reads
+ * Consistency here is not cosmetic. Google builds an entity from matching
+ * signals across the site, the Business Profile and directory listings; a
+ * different logo in the structured data than on the profile is exactly the kind
+ * of disagreement that leaves an entity unresolved.
  *
- * The tank carries the two treatments IdentityLockup.tsx already applies to it
- * on screen — brightness(1.14)/contrast(1.04) and the radial mask. The mask is
- * load-bearing here: roughly a quarter of the bitmap's pixels are a
- * semi-transparent halo whose luminance sits above the page background, so
- * without feathering it reads as a grey smudge on a flat square rather than as
- * ambient light the way it does over the hero's atmospheric backdrop.
+ * The lockup is built from src/components/brand/bsts-lockup.json, the same
+ * single source every other placement reads, unaltered.
  *
  * SAFE AREA — why the maskable variant is smaller.
  *
@@ -40,12 +41,6 @@ import { chromium } from "playwright";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const BG = "#0b0e13";
 
-const tankData =
-  "data:image/webp;base64," +
-  readFileSync(resolve(ROOT, "public/abrams-tank.webp")).toString("base64");
-
-const TANK_ASPECT = 1280 / 513;
-
 // The canonical lockup, from the same JSON the site renders.
 const L = JSON.parse(
   readFileSync(resolve(ROOT, "src/components/brand/bsts-lockup.json"), "utf8"),
@@ -65,35 +60,30 @@ const lockupSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${L.viewBox}
 </svg>`;
 
 /**
- * file, canvas, lockup width fraction, tank width fraction, gap fraction
+ * file, canvas, lockup width fraction.
  * The maskable variant is deliberately tighter — see SAFE AREA above.
  */
 const ICONS = [
-  { file: "apple-touch-icon.png", size: 180, lock: 0.6, tank: 0.78, gap: 0.05 },
-  { file: "icon-192.png", size: 192, lock: 0.6, tank: 0.78, gap: 0.05 },
-  { file: "icon-512.png", size: 512, lock: 0.6, tank: 0.78, gap: 0.05 },
-  { file: "icon-maskable-512.png", size: 512, lock: 0.46, tank: 0.6, gap: 0.045 },
+  { file: "apple-touch-icon.png", size: 180, lock: 0.78 },
+  { file: "icon-192.png", size: 192, lock: 0.78 },
+  { file: "icon-512.png", size: 512, lock: 0.78 },
+  { file: "icon-maskable-512.png", size: 512, lock: 0.7 },
 ];
 
 const browser = await chromium.launch({
   executablePath: "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
 });
 
-for (const { file, size, lock, tank, gap } of ICONS) {
+for (const { file, size, lock } of ICONS) {
   const page = await browser.newPage({
     viewport: { width: size, height: size },
     deviceScaleFactor: 1,
   });
   await page.setContent(
     `<!doctype html><html><body style="margin:0">
-      <div style="width:${size}px;height:${size}px;background:${BG};display:flex;flex-direction:column;
-                  align-items:center;justify-content:center;gap:${(gap * size).toFixed(2)}px;overflow:hidden">
+      <div style="width:${size}px;height:${size}px;background:${BG};display:flex;
+                  align-items:center;justify-content:center;overflow:hidden">
         <div style="width:${(lock * 100).toFixed(4)}%">${lockupSvg}</div>
-        <img src="${tankData}"
-             style="width:${(tank * 100).toFixed(4)}%;height:auto;display:block;
-                    filter:brightness(1.14) contrast(1.04);
-                    -webkit-mask-image:radial-gradient(ellipse 92% 88% at 50% 50%, black 58%, transparent 98%);
-                    mask-image:radial-gradient(ellipse 92% 88% at 50% 50%, black 58%, transparent 98%)">
       </div>
     </body></html>`,
     { waitUntil: "load" },
@@ -102,10 +92,8 @@ for (const { file, size, lock, tank, gap } of ICONS) {
   await page.screenshot({ path: resolve(ROOT, "public", file) });
 
   // Numeric safe-area report for every icon.
-  const lockH = (lock * size) / L.aspect;
-  const tankH = (tank * size) / TANK_ASPECT;
-  const contentW = Math.max(lock, tank) * size;
-  const contentH = lockH + gap * size + tankH;
+  const contentW = lock * size;
+  const contentH = contentW / L.aspect;
   const corner = Math.hypot(contentW / 2, contentH / 2);
   const safeR = 0.4 * size;
   const verdict = file.includes("maskable")
