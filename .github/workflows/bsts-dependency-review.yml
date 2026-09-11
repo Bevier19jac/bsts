@@ -5,6 +5,9 @@ on:
     paths: [.github/workflows/bsts-dependency-review.yml]
 permissions:
   contents: read
+defaults:
+  run:
+    shell: bash
 concurrency:
   group: bsts-dependency-review
   cancel-in-progress: true
@@ -37,7 +40,7 @@ jobs:
           npm install --package-lock-only --ignore-scripts --save-dev --save-exact eslint-config-next@16.3.4 vitest@4.1.11
           npm audit fix --package-lock-only --ignore-scripts > dependency-review/audit-fix.log 2>&1 || true
           python3 - <<'PY'
-          import json
+          import json, subprocess
           from pathlib import Path
           before = json.loads(Path('dependency-review/package-before.json').read_text())
           after = json.loads(Path('package.json').read_text())
@@ -46,10 +49,11 @@ jobs:
           expected['devDependencies']['eslint-config-next'] = '16.3.4'
           expected['devDependencies']['vitest'] = '4.1.11'
           assert after == expected, 'Unexpected manifest change; stop for review'
+          changed = set(subprocess.check_output(['git','diff','--name-only'], text=True).splitlines())
+          assert changed <= {'package.json','package-lock.json'}, changed
           PY
           git diff --check
           git diff --exit-code "$REVIEW_BASE" -- src public next.config.ts
-          test "$(git diff --name-only | sort | tr '\n' ' ')" = 'package-lock.json package.json '
       - name: Install from the updated lockfile
         run: npm ci
       - name: Record complete dependency audit
@@ -82,7 +86,7 @@ jobs:
               text=Path('out',route).read_text(); p=Links(); p.feed(text)
               assert 'mailto:jacob@bevierstrategic.com' in p.links, route
               assert 'tel:+14046182346' in p.links, route
-              assert 'Secure the data.' in text and 'Enable the AI.' in text and 'Prove the controls.' in text, route
+              assert all(s in text for s in ['Secure the data.','Enable the AI.','Prove the controls.']), route
           p=Links(); p.feed(Path('out/services/index.html').read_text())
           assert {'workflow-automation','prospecting-sales','client-intelligence','custom-software'} <= p.ids
           for asset in ['sitemap.xml','robots.txt']:
