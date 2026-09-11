@@ -49,7 +49,7 @@ jobs:
           const headline = 'Custom software and intelligent automation. Built around your business.';
           async function request(url){ const r=await fetch(url,{signal:AbortSignal.timeout(20000),headers:{'Cache-Control':'no-cache'}}); return {status:r.status,url:r.url,text:await r.text()}; }
           (async()=>{
-            let browser;
+            let browser,activePage;
             try {
               let site;
               for(let i=0; i<(production?24:1); i++){
@@ -76,7 +76,7 @@ jobs:
               browser=await chromium.launch();
               for(const width of [1440,390]){
                 const context=await browser.newContext({viewport:{width,height:width===390?844:1000},reducedMotion:'reduce'});
-                const page=await context.newPage();
+                const page=await context.newPage();activePage=page;
                 const pageErrors=[]; page.on('pageerror',e=>pageErrors.push(e.message));
                 await page.goto(origin+'/',{waitUntil:'networkidle',timeout:45000});
                 await page.getByText(headline,{exact:true}).waitFor();
@@ -86,7 +86,7 @@ jobs:
                 await page.waitForURL('**/contact/**');
                 await page.locator('#df-name').waitFor();
                 await page.getByRole('button',{name:'Send',exact:true}).click();
-                await page.getByRole('alert').waitFor();
+                await page.locator('form [role="alert"]').waitFor();
                 report.checks.push({check:'direct contact navigation and required-field validation',width});
                 await page.goto(origin+'/#assessment',{waitUntil:'networkidle'});
                 await page.getByRole('button',{name:/Professional services/}).waitFor();
@@ -106,10 +106,10 @@ jobs:
                 await page.screenshot({path:path.join(reportDir,'assessment-result-'+width+'.png'),fullPage:true});
                 report.checks.push({check:'complete public assessment and results without contact details or transmission',width});
                 assert.deepEqual(pageErrors,[],'browser errors at '+width);
-                await context.close();
+                await context.close();activePage=null;
               }
               const context=await browser.newContext({viewport:{width:1280,height:900},reducedMotion:'reduce'});
-              const page=await context.newPage();
+              const page=await context.newPage();activePage=page;
               await page.goto(origin+'/contact/',{waitUntil:'networkidle'});
               const sentinel='BSTS_RELEASE_TEST_'+process.env.GITHUB_RUN_ID;
               await page.locator('#df-name').fill('BSTS Website Release Test');
@@ -126,9 +126,9 @@ jobs:
               await page.getByRole('heading',{name:'Received.',exact:true}).waitFor();
               await page.screenshot({path:path.join(reportDir,'contact-result.png'),fullPage:true});
               report.checks.push({check:production?'live contact submission accepted by provider; inbox receipt requires separate confirmation':'mocked contact submission success UI; no email sent'});
-              await context.close();
+              await context.close();activePage=null;
               report.success=true;
-            } catch(e){report.success=false;report.errors.push(e.stack||String(e));process.exitCode=1;}
+            } catch(e){report.success=false;report.errors.push(e.stack||String(e));process.exitCode=1;if(activePage&&!activePage.isClosed()){await activePage.screenshot({path:path.join(reportDir,'failure.png'),fullPage:true}).catch(()=>{});fs.writeFileSync(path.join(reportDir,'failure-text.txt'),await activePage.locator('body').innerText().catch(()=>''));}}
             finally{if(browser)await browser.close();save();console.log(JSON.stringify(report,null,2));}
           })();
           JS
