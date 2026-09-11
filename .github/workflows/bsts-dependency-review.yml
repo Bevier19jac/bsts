@@ -2,7 +2,7 @@ name: BSTS dependency release checks
 on:
   push:
     branches: [bsts-commercial-refresh-2026-09-10]
-    paths: [.github/workflows/bsts-dependency-review.yml]
+    paths: [.github/workflows/bsts-dependency-review.yml, scripts/resolve-security-dependencies.py]
 permissions:
   contents: read
 defaults:
@@ -27,32 +27,15 @@ jobs:
         with:
           node-version: '22'
           cache: npm
-      - name: Record baseline and exact upstream package metadata
+      - name: Record baseline and upstream package metadata
         run: |
           mkdir -p dependency-review
-          cp package.json dependency-review/package-before.json
           npm audit --json > dependency-review/audit-before.json || true
           npm view next@16.3.4 version engines peerDependencies dist.integrity --json > dependency-review/next-upstream.json
           npm view vitest@4.1.11 version engines dist.integrity --json > dependency-review/vitest-upstream.json
       - name: Resolve patched packages without forced major upgrades
         run: |
-          npm install --package-lock-only --ignore-scripts --save-exact next@16.3.4
-          npm install --package-lock-only --ignore-scripts --save-dev --save-exact eslint-config-next@16.3.4 vitest@4.1.11
-          npm audit fix --package-lock-only --ignore-scripts > dependency-review/audit-fix.log 2>&1 || true
-          python3 - <<'PY'
-          import json, subprocess
-          from pathlib import Path
-          before = json.loads(Path('dependency-review/package-before.json').read_text())
-          after = json.loads(Path('package.json').read_text())
-          expected = json.loads(json.dumps(before))
-          expected['dependencies']['next'] = '16.3.4'
-          expected['devDependencies']['eslint-config-next'] = '16.3.4'
-          expected['devDependencies']['vitest'] = '4.1.11'
-          assert after == expected, 'Unexpected manifest change; stop for review'
-          changed = set(subprocess.check_output(['git','diff','--name-only'], text=True).splitlines())
-          assert changed <= {'package.json','package-lock.json'}, changed
-          PY
-          git diff --check
+          python3 scripts/resolve-security-dependencies.py
           git diff --exit-code "$REVIEW_BASE" -- src public next.config.ts
       - name: Install from the updated lockfile
         run: npm ci
