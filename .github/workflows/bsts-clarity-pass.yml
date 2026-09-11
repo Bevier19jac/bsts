@@ -39,6 +39,14 @@ jobs:
           rm clarity-review/idempotence.patch
       - name: Install locked dependencies
         run: npm ci
+      - name: Record dependency advisories without modifying the lockfile
+        run: |
+          set +e
+          npm audit --json > clarity-review/npm-audit.json
+          STATUS=$?
+          set -e
+          echo "npm audit exit status: $STATUS (advisory report, not a deployment approval)"
+          node -e 'const fs=require("fs"); const a=JSON.parse(fs.readFileSync("clarity-review/npm-audit.json","utf8")); console.log(JSON.stringify({metadata:a.metadata,error:a.error,vulnerabilities:a.vulnerabilities},null,2));'
       - name: Lint
         run: npm run lint
       - name: Type check
