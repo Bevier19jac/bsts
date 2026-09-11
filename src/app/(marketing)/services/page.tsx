@@ -6,6 +6,8 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { LinkButton } from "@/components/ui/Button";
 import { pricing } from "@/lib/site";
+import Link from "next/link";
+import { SolutionsOverview } from "@/components/marketing/SolutionsOverview";
 import { soc2Boundary } from "@/lib/content/positioning";
 import {
   lifecycle,
@@ -117,8 +119,8 @@ export default function ServicesPage() {
           <SectionHeading
             as="h1"
             eyebrow="Services & pricing"
-            title="One engagement system, five stages."
-            lede="Every organization arrives at a different point in this sequence, and each stage stands on its own. Most start with an assessment and decide from there."
+            title="Software built around the way you work."
+            lede="Custom applications, connected workflows, prospecting systems, and secure business knowledge. Start with the problem; we will work through the right solution together."
           />
 
           <Reveal delay={0.08}>
@@ -141,6 +143,11 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      <SolutionsOverview />
+      <div className="mx-auto max-w-6xl px-6 pb-7">
+        <h2 className="display text-2xl text-warm-white">How we deliver and support the work</h2>
+        <p className="mt-3 text-sm leading-relaxed text-warm-mist">Each stage stands on its own. Security is designed in from the start—not deferred until after the build.</p>
+      </div>
       <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 pb-6">
         {lifecycle.map((stage, i) => (
           <StageCard key={stage.slug} stage={stage} index={i} />
@@ -210,10 +217,11 @@ export default function ServicesPage() {
               The Bevier Breakdown is a short self-assessment — plain language, nothing sensitive,
               and nothing is transmitted until you choose to send it.
             </p>
-            <div className="mt-7 flex justify-center">
-              <LinkButton href="/#assessment">
-                Start the Bevier Breakdown <ArrowRight className="h-4 w-4" aria-hidden />
+            <div className="mt-7 flex flex-wrap justify-center gap-4">
+              <LinkButton href="/contact">
+                Discuss Your Workflow <ArrowRight className="h-4 w-4" aria-hidden />
               </LinkButton>
+              <Link href="/#assessment" className="btn-ghost-form px-6 py-3">Start the Assessment</Link>
             </div>
           </div>
         </Reveal>

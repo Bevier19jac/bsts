@@ -177,10 +177,13 @@ export const lifecycle: ServiceStage[] = [
     slug: "maintain",
     name: "Maintain",
     icon: RefreshCw,
-    navLine: "Keep the controls true after the project ends.",
+    navLine: "Keep your software useful, secure, and maintained.",
     problem:
-      "Evidence goes stale, vendors change, staff turn over, and the automation nobody owns quietly drifts out of alignment with how the business now runs.",
+      "Your software needs an owner after launch. Integrations change, workflows evolve, and somebody must maintain the system—not just deliver it and disappear.",
     work: [
+      "Managed operation of the agreed software environment",
+      "Integration maintenance and operational monitoring",
+      "Agreed improvements as workflows change",
       "Continuous assurance",
       "Ongoing control monitoring",
       "Evidence-refresh support",
@@ -194,7 +197,7 @@ export const lifecycle: ServiceStage[] = [
       "Security and compliance advisory support",
     ],
     deliverable:
-      "Audit-readiness maintained between cycles, evidence automated where the systems allow it, and a quarterly roadmap that keeps the next decision in front of you.",
+      "An agreed managed-service scope for operating, maintaining, and improving the system. Security, governance, and audit-readiness support can be included where relevant; responsibilities, usage limits, and service expectations are defined in writing.",
     format: "A recurring retainer. Deliberately capped so delivery quality holds.",
     price: "program",
   },

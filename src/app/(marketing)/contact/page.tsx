@@ -8,11 +8,12 @@ import { Reveal } from "@/components/motion/Reveal";
 import { staggerDelay } from "@/components/motion/stagger";
 import { DiscoveryForm } from "@/components/marketing/DiscoveryForm";
 import { site } from "@/lib/site";
+import { BusinessContact } from "@/components/marketing/BusinessContact";
 
 export const metadata: Metadata = {
-  title: "Start a Discovery Conversation",
+  title: "Discuss Your Workflow",
   description:
-    "Talk to BSTS directly about securing AI adoption, automating high-value work, connecting existing systems, or preparing defensible controls and evidence.",
+    "Talk with Jacob about custom software, workflow automation, prospecting systems, client intelligence, or secure AI. No assessment required to start a conversation.",
 };
 
 /**
@@ -53,8 +54,8 @@ export default function ContactPage() {
         <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-10">
           <SectionHeading
             as="h1"
-            eyebrow="Discovery conversation"
-            title="Start a discovery conversation."
+            eyebrow="Discuss your workflow"
+            title="Tell us what you want to make easier."
             lede="No pitch deck and no obligation. Tell us roughly what prompted this and you'll get a direct reply — including an honest answer if BSTS is not the right fit."
           />
           <Reveal delay={0.1}>
@@ -100,9 +101,10 @@ export default function ContactPage() {
 
           <Reveal delay={0.24}>
             <Surface quiet blob="b" className="p-6">
-              <h2 className="font-semibold text-warm-white">Rather use email?</h2>
+              <h2 className="font-semibold text-warm-white">Prefer to call or email?</h2>
+              <BusinessContact />
               <p className="mt-2 text-sm leading-relaxed text-warm-mist">
-                Write to{" "}
+                General inquiries can also go to{" "}
                 <a
                   href={`mailto:${site.contactEmail}`}
                   className="text-cyan-soft underline underline-offset-4 hover:text-cyan-core"

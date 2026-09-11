@@ -1,0 +1,141 @@
+name: BSTS hosted release verification
+on:
+  push:
+    branches: [bsts-commercial-refresh-2026-09-10, main]
+    paths:
+      - .github/workflows/bsts-live-verification.yml
+permissions:
+  contents: read
+concurrency:
+  group: bsts-hosted-check-${{ github.ref_name }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Install isolated browser test tooling
+        run: |
+          mkdir -p hosted-verification "$RUNNER_TEMP/bsts-browser"
+          VERSION=$(npm view playwright version)
+          echo "$VERSION" > hosted-verification/playwright-version.txt
+          npm install --prefix "$RUNNER_TEMP/bsts-browser" --no-audit --no-fund --save-exact "playwright@$VERSION"
+          "$RUNNER_TEMP/bsts-browser/node_modules/.bin/playwright" install chromium --with-deps
+      - name: Verify hosted pages, navigation, assessment and form
+        env:
+          PRODUCTION: ${{ github.ref_name == 'main' && 'true' || 'false' }}
+        run: |
+          cat > "$RUNNER_TEMP/bsts-browser/verify.cjs" <<'JS'
+          const {chromium} = require('playwright');
+          const fs = require('node:fs');
+          const path = require('node:path');
+          const assert = require('node:assert/strict');
+          const reportDir = path.join(process.env.GITHUB_WORKSPACE, 'hosted-verification');
+          const production = process.env.PRODUCTION === 'true';
+          const preview = 'https://b10ff2fe.bevierstrategic.pages.dev';
+          const business = 'https://bevierstrategic.com';
+          const origin = production ? business : preview;
+          const report = {time:new Date().toISOString(), commit:process.env.GITHUB_SHA, phase:production?'published':'preview', origin, checks:[], submissions:[], errors:[]};
+          function save(){ fs.writeFileSync(path.join(reportDir,'verification.json'), JSON.stringify(report,null,2)); }
+          const headline = 'Custom software and intelligent automation. Built around your business.';
+          async function request(url){ const r=await fetch(url,{signal:AbortSignal.timeout(20000),headers:{'Cache-Control':'no-cache'}}); return {status:r.status,url:r.url,text:await r.text()}; }
+          (async()=>{
+            let browser,activePage;
+            try {
+              let site;
+              for(let i=0; i<(production?24:1); i++){
+                try { site=await request(origin+'/?release_check='+process.env.GITHUB_RUN_ID); if(site.status===200 && site.text.includes(headline)) break; } catch(e){ if(!production) throw e; }
+                if(i===23) throw new Error('Published content did not become available within the bounded check.');
+                await new Promise(resolve=>setTimeout(resolve,10000));
+              }
+              assert.equal(site.status,200); assert.ok(site.text.includes(headline));
+              report.checks.push({check:'approved headline on hosted origin',url:site.url,status:site.status});
+              if(!production){
+                const live=await request(business+'/');
+                assert.equal(live.status,200); assert.ok(live.text.includes('Bevier Strategic Technology Solutions'));
+                report.productionBefore={url:live.url,status:live.status,approvedHeadlinePresent:live.text.includes(headline)};
+                fs.writeFileSync(path.join(reportDir,'production-before.txt'), 'HTTP '+live.status+' '+live.url+'\nApproved headline present: '+live.text.includes(headline)+'\n');
+              }
+              for(const route of ['/services/','/contact/','/government/','/method/','/start/','/sitemap.xml','/robots.txt']){
+                const r=await request(origin+route); assert.equal(r.status,200,route);
+                if(!route.endsWith('.xml')&&!route.endsWith('.txt')&&route!='/start/'){
+                  assert.ok(r.text.includes('tel:+14046182346'),route+' phone');
+                  assert.ok(r.text.includes('mailto:jacob@bevierstrategic.com'),route+' email');
+                }
+                report.checks.push({check:'hosted route',route,status:r.status,url:r.url});
+              }
+              browser=await chromium.launch();
+              for(const width of [1440,390]){
+                const context=await browser.newContext({viewport:{width,height:width===390?844:1000},reducedMotion:'reduce'});
+                const page=await context.newPage();activePage=page;
+                const pageErrors=[]; page.on('pageerror',e=>pageErrors.push(e.message));
+                await page.goto(origin+'/',{waitUntil:'networkidle',timeout:45000});
+                await page.getByText(headline,{exact:true}).waitFor();
+                assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1),'horizontal overflow at '+width);
+                await page.screenshot({path:path.join(reportDir,'home-'+width+'.png'),fullPage:true});
+                await page.getByRole('link',{name:'Discuss Your Workflow',exact:true}).first().click();
+                await page.waitForURL('**/contact/**');
+                await page.locator('#df-name').waitFor();
+                await page.getByRole('button',{name:'Send',exact:true}).click();
+                await page.locator('form [role="alert"]').waitFor();
+                report.checks.push({check:'direct contact navigation and required-field validation',width});
+                await page.goto(origin+'/#assessment',{waitUntil:'networkidle'});
+                await page.getByRole('button',{name:/Professional services/}).waitFor();
+                assert.equal(await page.getByPlaceholder('Your name',{exact:true}).count(),0,'no contact gate before results');
+                const choices=[/Professional services/,/Reduce manual, repetitive work/,/The same information gets entered more than once/,/^Google Workspace$/,/^A CRM/,/^Some are connected$/,/^No$/,/^Internal business information$/,/^Nothing right now$/];
+                let assessmentPosts=0;
+                page.on('request',r=>{if(r.method()==='POST'&&r.url().includes('web3forms.com')) assessmentPosts++;});
+                for(const choice of choices){
+                  await page.getByRole('button',{name:choice}).click();
+                  await page.getByRole('button',{name:/^(Continue|See what we found)$/}).click();
+                }
+                await page.locator('[data-breakdown-heading="review"]').waitFor();
+                await page.getByRole('button',{name:/show my Breakdown/}).click();
+                await page.locator('[data-breakdown-heading="result"]').waitFor();
+                assert.equal(assessmentPosts,0,'assessment must not send answers before consent');
+                await page.getByPlaceholder('Your name',{exact:true}).waitFor();
+                await page.screenshot({path:path.join(reportDir,'assessment-result-'+width+'.png'),fullPage:true});
+                report.checks.push({check:'complete public assessment and results without contact details or transmission',width});
+                assert.deepEqual(pageErrors,[],'browser errors at '+width);
+                await context.close();activePage=null;
+              }
+              const context=await browser.newContext({viewport:{width:1280,height:900},reducedMotion:'reduce'});
+              const page=await context.newPage();activePage=page;
+              await page.goto(origin+'/contact/',{waitUntil:'networkidle'});
+              const sentinel='BSTS_RELEASE_TEST_'+process.env.GITHUB_RUN_ID;
+              await page.locator('#df-name').fill('BSTS Website Release Test');
+              await page.locator('#df-company').fill(sentinel);
+              await page.locator('#df-email').fill('jacob@bevierstrategic.com');
+              await page.locator('#df-note').fill('Owner-authorized website verification. This is an internal test, not a prospect or service request. No reply or follow-up needed. Reference: '+sentinel);
+              if(!production){await page.route('https://api.web3forms.com/submit',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({success:true})}));}
+              const responsePromise=page.waitForResponse(r=>r.url()==='https://api.web3forms.com/submit'&&r.request().method()==='POST',{timeout:30000});
+              await page.getByRole('button',{name:'Send',exact:true}).click();
+              const response=await responsePromise;
+              const payload=await response.json();
+              report.submissions.push({sentinel,actualSend:production,status:response.status(),providerSuccess:payload.success===true,inboxReceiptVerified:false});
+              assert.equal(response.ok(),true);assert.equal(payload.success,true);
+              await page.getByRole('heading',{name:'Received.',exact:true}).waitFor();
+              await page.screenshot({path:path.join(reportDir,'contact-result.png'),fullPage:true});
+              report.checks.push({check:production?'live contact submission accepted by provider; inbox receipt requires separate confirmation':'mocked contact submission success UI; no email sent'});
+              await context.close();activePage=null;
+              report.success=true;
+            } catch(e){report.success=false;report.errors.push(e.stack||String(e));process.exitCode=1;if(activePage&&!activePage.isClosed()){await activePage.screenshot({path:path.join(reportDir,'failure.png'),fullPage:true}).catch(()=>{});fs.writeFileSync(path.join(reportDir,'failure-text.txt'),await activePage.locator('body').innerText().catch(()=>''));}}
+            finally{if(browser)await browser.close();save();console.log(JSON.stringify(report,null,2));}
+          })();
+          JS
+          node "$RUNNER_TEMP/bsts-browser/verify.cjs"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: bsts-hosted-verification-${{ github.ref_name }}
+          path: hosted-verification/
+          retention-days: 7
