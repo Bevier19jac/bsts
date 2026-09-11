@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Prepare package-only changes in an ephemeral review runner, never production.
 
-The original lockfile is preserved in the artifact and Git. A resolver retry
-may regenerate the lockfile only for npm's observed edgesOut internal error.
-No --force or --legacy-peer-deps is used. CI must validate the resulting lock.
+The original lockfile is retained in the artifact and Git. The runner's npm
+is upgraded separately from application packages after npm 10.9.8 produced
+an internal edgesOut error. No --force or --legacy-peer-deps is used.
 """
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 from pathlib import Path
 
@@ -31,28 +32,35 @@ def run(args: list[str], filename: str) -> subprocess.CompletedProcess[str]:
                             stderr=subprocess.STDOUT, check=False)
     (REPORT / filename).write_text(result.stdout)
     print(result.stdout, flush=True)
+    if result.returncode:
+        for path in re.findall(r'(/home/runner/\.npm/_logs/[^\s]+\.log)', result.stdout):
+            source = Path(path)
+            if source.is_file():
+                (REPORT / (filename + '.debug.txt')).write_bytes(source.read_bytes())
     return result
 
 
+# This affects only this disposable CI worker, not the website or user machine.
+result = run(['npm', 'install', '--global', 'npm@11', '--ignore-scripts'], 'npm-upgrade.log')
+if result.returncode:
+    raise SystemExit(result.returncode)
+run(['npm', '--version'], 'npm-version.txt').check_returncode()
 command = ['npm', 'install', '--package-lock-only', '--ignore-scripts']
 result = run(command, 'resolve.log')
 if result.returncode and "reading 'edgesOut'" in result.stdout:
-    print('Retrying npm with a fresh lockfile in this disposable runner; original archived.')
+    print('Retrying with a fresh lockfile only in this disposable runner; original archived.', flush=True)
     lock.unlink(missing_ok=True)
     result = run(command, 'resolve-fresh-lock.log')
 if result.returncode:
     raise SystemExit(result.returncode)
 
-result = run(['npm', 'audit', 'fix', '--package-lock-only', '--ignore-scripts'],
-             'audit-fix.log')
-# npm audit fix can return 1 for remaining advisories. The separate audit gate
-# must see a valid report with zero advisories; this is not an ignored finding.
+result = run(['npm', 'audit', 'fix', '--package-lock-only', '--ignore-scripts'], 'audit-fix.log')
+# Remaining advisories produce exit 1. The separate audit gate requires a
+# valid report with zero advisories before any package changes can be saved.
 if result.returncode not in (0, 1):
     raise SystemExit(result.returncode)
-after = json.loads(manifest.read_text())
-assert after == expected, 'Unexpected package.json change; stop for review'
-changed = set(subprocess.check_output(['git', 'diff', '--name-only'],
-                                    cwd=ROOT, text=True).splitlines())
+assert json.loads(manifest.read_text()) == expected, 'Unexpected package.json change'
+changed = set(subprocess.check_output(['git', 'diff', '--name-only'], cwd=ROOT, text=True).splitlines())
 assert changed <= {'package.json', 'package-lock.json'}, changed
 subprocess.run(['git', 'diff', '--check'], cwd=ROOT, check=True)
-print('Only the three approved direct versions and resolved dependency lock changed.')
+print('Only the approved direct versions and resolved dependency lock changed.')
