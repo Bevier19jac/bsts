@@ -70,7 +70,7 @@ export const site = {
   legalName: "Bevier Strategic Technology Solutions LLC",
   tagline: "Secure the data. Enable the AI. Prove the controls.",
   subline:
-    "Secure AI · Intelligent Automation · Cybersecurity · Compliance Readiness",
+    "Custom software · Secure AI · Workflow automation",
   promise:
     "Secure the data. Enable the AI. Prove the controls. Keep what already works, connect what is disconnected, and automate what is repetitive — without giving up control of company information.",
   /**
@@ -81,32 +81,19 @@ export const site = {
    * still resolve; a bulk redirect sends them here.
    */
   url: "https://bevierstrategic.com",
-  /**
-   * THE single public contact address for the whole site. Every surface that
-   * shows an email reads it from here — nothing hard-codes an address.
-   *
-   * The progression was personal gmail -> a business-named consumer mailbox
-   * -> this, an address on the company's own domain. That last step was the
-   * one this field was written for, and it is now done: bevierstrategic.com
-   * routes contact@ through Cloudflare Email Routing, verified by a delivered
-   * test message before this line was changed. No placeholder was ever
-   * published, and no company-domain address was implied before one existed.
-   *
-   * One honest limit: Email Routing forwards inbound mail, it does not send.
-   * Replies leave from the mailbox behind it until a real hosted mailbox is
-   * added. That is invisible to anyone writing to this address and does not
-   * change what belongs on the page.
-   */
+  /** Public general contact. Provider-side form delivery is configured separately. */
   contactEmail:
     process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "contact@bevierstrategic.com",
   /** Optional: public scheduling link (e.g. Calendly). Empty hides scheduling CTAs. */
   schedulingUrl: "",
-  /** Optional: public phone number. Empty hides phone references. */
-  phone: "",
+  /** Verified public business contacts. */
+  founderEmail: "jacob@bevierstrategic.com",
+  phone: "(404) 618-2346",
+  phoneHref: "tel:+14046182346",
   /** Response-time promise shown after a successful submission. Keep honest. */
   responsePromise: "We typically reply within two business days.",
   description:
-    "BSTS is a veteran-owned consultancy at the intersection of AI, automation, cybersecurity, and compliance. We help growing organizations adopt AI securely, automate high-value workflows, govern how AI touches sensitive data, and build the controls and evidence that customer security reviews and SOC 2 readiness demand.",
+    "BSTS designs, builds, and manages secure custom software, workflow automation, prospecting engines, client intelligence, and AI-powered knowledge systems. Built around your business, with security and human oversight designed in.",
 } as const;
 
 /* ------------------------------------------------------------------ */
@@ -221,7 +208,7 @@ export const footerLinks = {
   more: [
     { href: "/insights", label: "Insights" },
     { href: "/security", label: "Security practice" },
-    { href: "/start", label: "Start a conversation" },
+    { href: "/contact", label: "Discuss your workflow" },
   ],
   legal: [
     { href: "/privacy", label: "Privacy" },
@@ -248,7 +235,7 @@ export const federalDisclaimer =
 /** Primary call-to-action target — the assessment tab on the landing page. */
 export const assessmentCta = {
   href: "/#assessment",
-  label: "Start the Bevier Breakdown",
+  label: "Start the Assessment",
 } as const;
 
 /**
@@ -258,7 +245,7 @@ export const assessmentCta = {
  */
 export const discoveryCta = {
   href: "/contact",
-  label: "Start a Discovery Conversation",
+  label: "Discuss Your Workflow",
 } as const;
 
 /**
@@ -308,7 +295,7 @@ export const formationStatus: FormationStatus = "formed";
  * provider and is not exposed here.
  */
 export const federalContactEmail =
-  process.env.NEXT_PUBLIC_FEDERAL_CONTACT_EMAIL ?? "";
+  process.env.NEXT_PUBLIC_FEDERAL_CONTACT_EMAIL ?? "contact@bevierstrategic.com";
 export const federalContactDisplay =
   federalContactEmail ||
   `${site.url.replace("https://", "")}/government`;

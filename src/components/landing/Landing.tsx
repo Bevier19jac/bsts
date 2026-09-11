@@ -16,15 +16,18 @@ import { StrategicLine } from "@/components/brand/StrategicLine";
 import {
   breakdownLayers,
   breakdownRelationship,
-  capabilityStrip,
   engagementNote,
-  engagementStages,
-  serviceAreas,
-  strategicSummary,
-  triggers,
   trustPoints,
 } from "@/lib/content/positioning";
 import {
+  commercialCapabilities as capabilityStrip,
+  commercialStages as engagementStages,
+  commercialSolutions as serviceAreas,
+  commercialSummary as strategicSummary,
+  commercialTriggers as triggers,
+} from "@/lib/content/commercial";
+import {
+  discoveryCta,
   federalDisclaimer,
   frameworkDisclaimer,
   site,
@@ -33,7 +36,7 @@ import {
 
 const TABS = [
   { id: "overview", label: "Overview" },
-  { id: "assessment", label: "The Breakdown" },
+  { id: "assessment", label: "Assessment" },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
@@ -156,6 +159,9 @@ export function Landing() {
             </h1>
           </Reveal>
           <Reveal delay={0.2}>
+            <p className="mx-auto mt-4 max-w-3xl text-lg font-semibold leading-snug text-warm-white sm:text-xl">
+              Custom software and intelligent automation. Built around your business.
+            </p>
             <p className="mx-auto mt-3 max-w-2xl leading-relaxed text-warm-mist sm:text-[1.0625rem]">
               {strategicSummary}
             </p>
@@ -175,12 +181,15 @@ export function Landing() {
           </Reveal>
           <Reveal delay={0.28}>
             <div className="mt-5 flex flex-wrap items-center justify-center gap-4">
+              <Link href={discoveryCta.href} className="btn-primary-form px-7 py-3 text-base">
+                {discoveryCta.label} <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
               <button
                 type="button"
                 onClick={() => select("assessment")}
-                className="btn-primary-form px-7 py-3 text-base"
+                className="btn-ghost-form px-7 py-3 text-base"
               >
-                Start the Bevier Breakdown <ArrowRight className="h-4 w-4" aria-hidden />
+                Start the Assessment <ArrowRight className="h-4 w-4" aria-hidden />
               </button>
             </div>
           </Reveal>
@@ -286,14 +295,14 @@ export function Landing() {
 /** The three service areas as primary cards — the 10-second explanation. */
 function ServiceCards() {
   return (
-    <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
       {serviceAreas.map((a, i) => {
         const Icon = a.icon;
-        const accent = AREA_ACCENT[i];
+        const accent = AREA_ACCENT[i % AREA_ACCENT.length];
         return (
           <Reveal key={a.slug} delay={staggerDelay(i)}>
             <Link
-              href={`/services#${["build", "secure", "prove"][i] ?? "discover"}`}
+              href={a.href}
               className={`surface ${accent.radius} ${accent.hover} flex h-full w-full flex-col p-7 text-left transition-colors`}
             >
               <span className={`w-fit rounded-full ${accent.bg} p-2.5`}>
@@ -337,7 +346,7 @@ function TriggerSection() {
         </h2>
         <TracerRule className="mx-auto mt-4 max-w-[16rem]" />
         <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-warm-mist">
-          Three sentences start almost every engagement.
+          A few familiar problems can point to useful places to start.
         </p>
       </div>
 
@@ -428,7 +437,7 @@ function EngagementLadder() {
 }
 function PanelCta({
   select,
-  label = "Start the Bevier Breakdown",
+  label = "Start the Assessment",
 }: {
   select: (id: TabId) => void;
   label?: string;
@@ -436,17 +445,20 @@ function PanelCta({
   return (
     <div className="mt-12 text-center">
       <div className="flex flex-wrap items-center justify-center gap-4">
+        <Link href={discoveryCta.href} className="btn-primary-form px-7 py-3 text-base">
+          {discoveryCta.label} <ArrowRight className="h-4 w-4" aria-hidden />
+        </Link>
         <button
           type="button"
           onClick={() => select("assessment")}
-          className="btn-primary-form px-7 py-3 text-base"
+          className="btn-ghost-form px-7 py-3 text-base"
         >
           {label} <ArrowRight className="h-4 w-4" aria-hidden />
         </button>
       </div>
       <p className="mt-3.5 text-xs text-warm-dim">
-        It takes a few minutes, asks about your workflows and systems in plain
-        language, and stays in your browser until you choose to send it.
+        The assessment is free. See your preliminary results before sharing
+        contact details, or start a conversation without taking it.
       </p>
     </div>
   );
@@ -567,6 +579,9 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
       {/* The single quiet pointer to the supporting category — deliberately
           not a fourth pillar. */}
       <p className="mt-10 text-center text-sm text-warm-dim">
+        Security architecture, AI governance, SOC 2 readiness, and government
+        capabilities remain available through our services and government pages.
+        {" "}
         <Link href="/services#digital-foundations" className="underline-offset-4 hover:underline">
           Additional implementation and digital-foundation services
         </Link>
@@ -582,13 +597,14 @@ function AssessmentPanel() {
     <div className="mx-auto max-w-6xl">
       <div className="mx-auto max-w-3xl">
         <h2 className="display text-center text-3xl text-warm-white sm:text-4xl">
-          The Bevier Breakdown.
+          Find the work worth automating.
         </h2>
         <TracerRule className="mx-auto mt-4 max-w-[14rem]" />
         <p className="mt-4 text-center leading-relaxed text-warm-mist">
-          A few plain questions — no jargon. Every answer changes what we ask
-          next, and the result shows its own reasoning. Nothing leaves your
-          browser unless you choose to send it.
+          The Bevier Breakdown is a free self-assessment of your workflows,
+          systems, and information. See what could improve, what needs checking,
+          and where to start. Results are preliminary; nothing is sent unless
+          you choose to share it.
         </p>
       </div>
       <div className="mt-8">

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { footerLinks, frameworkDisclaimer, site, trademarkNotice, vetCert } from "@/lib/site";
 import { BstsLockup } from "@/components/brand/BstsLockup";
 import { StrategicLine } from "@/components/brand/StrategicLine";
+import { BusinessContact } from "@/components/marketing/BusinessContact";
 
 export function Footer() {
   return (
@@ -19,6 +20,7 @@ export function Footer() {
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-warm-dim">
               {site.name}. {site.subline}
             </p>
+            <BusinessContact />
             <p className="mt-4 max-w-xs text-xs tracking-[0.12em] text-gold-soft uppercase">
               {vetCert.short}
             </p>
