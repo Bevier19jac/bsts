@@ -1,0 +1,68 @@
+name: BSTS contact transport diagnostics
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/bsts-form-diagnostics.yml]
+permissions:
+  contents: read
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Install isolated browser tooling
+        run: |
+          mkdir -p contact-diagnostics "$RUNNER_TEMP/bsts-browser"
+          VERSION=$(npm view playwright version)
+          npm install --prefix "$RUNNER_TEMP/bsts-browser" --no-audit --no-fund --save-exact "playwright@$VERSION"
+          "$RUNNER_TEMP/bsts-browser/node_modules/.bin/playwright" install chromium --with-deps
+      - name: Read transport and browser policy evidence; no form submission
+        run: |
+          cat > "$RUNNER_TEMP/bsts-browser/diagnose.cjs" <<'JS'
+          const {chromium}=require('playwright');
+          const fs=require('node:fs');const path=require('node:path');
+          const report={time:new Date().toISOString(),run:process.env.GITHUB_RUN_ID,submissionSent:false,requests:[],console:[],failures:[],browserResponses:[],policies:[]};
+          const output=path.join(process.env.GITHUB_WORKSPACE,'contact-diagnostics');
+          const origin='https://bevierstrategic.com';
+          const endpoint='https://api.web3forms.com/submit';
+          async function read(url,options={}){
+            try{const r=await fetch(url,{...options,signal:AbortSignal.timeout(15000)}); const text=await r.text();return {url:r.url,status:r.status,headers:Object.fromEntries(r.headers),body:text.slice(0,2000)};}catch(e){return {url,error:String(e),cause:String(e.cause||'')};}
+          }
+          (async()=>{
+            let browser;
+            try{
+              report.site=await read(origin+'/contact/');
+              report.providerOptions=await read(endpoint,{method:'OPTIONS',headers:{Origin:origin,'Access-Control-Request-Method':'POST','Access-Control-Request-Headers':'content-type'}});
+              browser=await chromium.launch();
+              const page=await browser.newPage();
+              await page.addInitScript(()=>{
+                window.__policyViolations=[];
+                document.addEventListener('securitypolicyviolation',e=>window.__policyViolations.push({blockedURI:e.blockedURI,violatedDirective:e.violatedDirective,effectiveDirective:e.effectiveDirective,disposition:e.disposition,originalPolicy:e.originalPolicy}));
+              });
+              page.on('console',m=>{if(m.type()==='error'||m.type()==='warning')report.console.push({type:m.type(),text:m.text()});});
+              page.on('requestfailed',r=>report.failures.push({url:r.url(),method:r.method(),failure:r.failure()}));
+              page.on('request',r=>{if(r.url().includes('web3forms'))report.requests.push({url:r.url(),method:r.method()});});
+              page.on('response',async r=>{if(r.url().includes('web3forms'))report.browserResponses.push({url:r.url(),status:r.status(),headers:await r.allHeaders()});});
+              await page.goto(origin+'/contact/',{waitUntil:'networkidle',timeout:30000});
+              report.metaPolicies=await page.locator('meta[http-equiv]').evaluateAll(nodes=>nodes.map(n=>({httpEquiv:n.httpEquiv,content:n.content})));
+              report.browserProbe=await page.evaluate(async(url)=>{try{const r=await fetch(url,{method:'OPTIONS',signal:AbortSignal.timeout(15000)});return {status:r.status,headers:Object.fromEntries(r.headers),body:(await r.text()).slice(0,2000)};}catch(e){return {error:String(e)};}},endpoint);
+              report.policies=await page.evaluate(()=>window.__policyViolations);
+            }catch(e){report.error=String(e);}finally{if(browser)await browser.close();fs.writeFileSync(path.join(output,'diagnostics.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));}
+          })();
+          JS
+          node "$RUNNER_TEMP/bsts-browser/diagnose.cjs"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: bsts-contact-diagnostics
+          path: contact-diagnostics/
+          retention-days: 7
