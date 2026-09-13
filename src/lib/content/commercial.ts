@@ -19,6 +19,7 @@ export const commercialSolutions = [
     icon: Bot,
     title: "Workflow automation & integrations",
     cardLine: "Connect intake, approvals, follow-ups, and reporting without entering the same information twice. Keep human review where decisions need it.",
+    details: "Map the handoffs, connect the systems that already matter, and keep approvals visible. For example: a lead intake flow that creates tasks, routes review, sends follow-ups, and updates reporting without duplicate entry.",
   },
   {
     slug: "prospecting-sales",
@@ -26,6 +27,7 @@ export const commercialSolutions = [
     icon: Radar,
     title: "Prospecting & sales systems",
     cardLine: "Bring company research, opportunity tracking, outreach preparation, and follow-up into a workflow built around how you win business.",
+    details: "Structure the research, scoring, outreach preparation, and next-step tracking around your actual sales motion. For example: a prospect brief that turns company signals into prioritized accounts and prepared follow-up.",
   },
   {
     slug: "client-intelligence",
@@ -33,6 +35,7 @@ export const commercialSolutions = [
     icon: Database,
     title: "Client intelligence & knowledge systems",
     cardLine: "Make relevant history easier to find across documents, meetings, notes, and authorized communications—with access boundaries designed in.",
+    details: "Organize client history, permissions, and retrieval so teams can find the right context without opening everything to everyone. For example: a searchable client knowledge base with role-based access and source links.",
   },
   {
     slug: "custom-software",
@@ -40,6 +43,7 @@ export const commercialSolutions = [
     icon: Layers,
     title: "Custom business software",
     cardLine: "Build the portal, dashboard, internal tool, or application your process needs instead of forcing the process into software that does not fit.",
+    details: "Define the workflow, data model, controls, and acceptance tests before building the tool around them. For example: an internal dashboard that combines requests, status, documents, and decisions in one place.",
   },
 ] as const;
 
