@@ -582,7 +582,7 @@ function OverviewPanel({ select }: { select: (id: TabId) => void }) {
         Security architecture, AI governance, SOC 2 readiness, and government
         capabilities remain available through our services and government pages.
         {" "}
-        <Link href="/services#digital-foundations" className="underline-offset-4 hover:underline">
+        <Link href="/services/#digital-foundations" className="underline-offset-4 hover:underline">
           Additional implementation and digital-foundation services
         </Link>
       </p>

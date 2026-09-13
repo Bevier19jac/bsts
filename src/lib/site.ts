@@ -191,12 +191,12 @@ export const audienceLinks = [
 
 export const footerLinks = {
   services: [
-    { href: "/services#discover", label: "Discover" },
-    { href: "/services#build", label: "Build" },
-    { href: "/services#secure", label: "Secure" },
-    { href: "/services#prove", label: "Prove" },
-    { href: "/services#maintain", label: "Maintain" },
-    { href: "/services#digital-foundations", label: "Digital Foundations" },
+    { href: "/services/#discover", label: "Discover" },
+    { href: "/services/#build", label: "Build" },
+    { href: "/services/#secure", label: "Secure" },
+    { href: "/services/#prove", label: "Prove" },
+    { href: "/services/#maintain", label: "Maintain" },
+    { href: "/services/#digital-foundations", label: "Digital Foundations" },
     { href: "/services", label: "All services & pricing" },
   ],
   company: [

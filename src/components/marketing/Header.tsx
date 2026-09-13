@@ -202,7 +202,7 @@ export function Header() {
                               return (
                                 <li key={stage.slug}>
                                   <Link
-                                    href={`/services#${stage.slug}`}
+                                    href={`/services/#${stage.slug}`}
                                     onClick={closeAll}
                                     className="flex gap-3 rounded-2xl p-3 transition-colors hover:bg-graphite-2"
                                   >
@@ -300,7 +300,7 @@ export function Header() {
                 const items =
                   panel === "services"
                     ? serviceMenu.map((s) => ({
-                        href: `/services#${s.slug}`,
+                        href: `/services/#${s.slug}`,
                         label: s.name,
                       }))
                     : panel === "audiences"

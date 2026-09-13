@@ -15,28 +15,28 @@ export const commercialCapabilities = [
 export const commercialSolutions = [
   {
     slug: "workflow-automation",
-    href: "/services#workflow-automation",
+    href: "/services/#workflow-automation",
     icon: Bot,
     title: "Workflow automation & integrations",
     cardLine: "Connect intake, approvals, follow-ups, and reporting without entering the same information twice. Keep human review where decisions need it.",
   },
   {
     slug: "prospecting-sales",
-    href: "/services#prospecting-sales",
+    href: "/services/#prospecting-sales",
     icon: Radar,
     title: "Prospecting & sales systems",
     cardLine: "Bring company research, opportunity tracking, outreach preparation, and follow-up into a workflow built around how you win business.",
   },
   {
     slug: "client-intelligence",
-    href: "/services#client-intelligence",
+    href: "/services/#client-intelligence",
     icon: Database,
     title: "Client intelligence & knowledge systems",
     cardLine: "Make relevant history easier to find across documents, meetings, notes, and authorized communications—with access boundaries designed in.",
   },
   {
     slug: "custom-software",
-    href: "/services#custom-software",
+    href: "/services/#custom-software",
     icon: Layers,
     title: "Custom business software",
     cardLine: "Build the portal, dashboard, internal tool, or application your process needs instead of forcing the process into software that does not fit.",

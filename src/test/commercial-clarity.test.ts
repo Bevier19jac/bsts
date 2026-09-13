@@ -13,7 +13,7 @@ describe("commercial clarity without a rebrand", () => {
   it("offers four distinct, explicitly scoped solution paths", () => {
     expect(commercialSolutions).toHaveLength(4);
     expect(new Set(commercialSolutions.map(s => s.slug)).size).toBe(4);
-    for (const solution of commercialSolutions) expect(solution.href).toBe(`/services#${solution.slug}`);
+    for (const solution of commercialSolutions) expect(solution.href).toBe(`/services/#${solution.slug}`);
     expect(source("app/(marketing)/services/page.tsx")).toContain("<SolutionsOverview />");
   });
   it("keeps conversation and assessment separate", () => {
