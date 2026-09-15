@@ -123,22 +123,22 @@ export default function PrivacyPage() {
 
         <h3>What VaultIQ will request</h3>
         <p>
-          When the integration is enabled, a coach may choose to connect their
+          When the integration is enabled, a user may choose to connect their
           own Google account. VaultIQ will request only the two Google Calendar
-          scopes below, and only at the moment the coach chooses to connect:
+          scopes below, and only at the moment the user chooses to connect:
         </p>
         <ul>
           <li>
             <strong>
               https://www.googleapis.com/auth/calendar.events.readonly
             </strong>{" "}
-            — to read events on the connecting coach&apos;s own calendar, so
-            their upcoming client meetings can be shown in context inside that
+            — to read events on the connecting user&apos;s own calendar, so their
+            upcoming client meetings can be shown in context inside that
             client&apos;s vault.
           </li>
           <li>
             <strong>https://www.googleapis.com/auth/calendar.events</strong> —
-            to create and update meetings that the coach schedules from inside a
+            to create and update meetings that the user schedules from inside a
             client vault.
           </li>
         </ul>
@@ -146,14 +146,14 @@ export default function PrivacyPage() {
           VaultIQ will not request access to Gmail, Google Drive, Google
           Contacts, Google Chat, or any other Google service, and it will not
           request access to any calendar other than the one belonging to the
-          coach who connects. Connecting a Google account will always be
+          person who connects. Connecting a Google account will always be
           optional: VaultIQ is fully usable with no Google connection.
         </p>
 
         <h3>How Google user data will be used</h3>
         <p>
           Calendar information will be used for one purpose — showing and
-          scheduling that coach&apos;s client meetings inside VaultIQ. It will be
+          scheduling that user&apos;s client meetings inside VaultIQ. It will be
           visible only to the people already entitled to see that client under
           the firm&apos;s own vault permissions, and it is subject to the same
           isolation between firms that governs every other record in the system.
@@ -185,7 +185,7 @@ export default function PrivacyPage() {
 
         <h3>Revoking access and deletion</h3>
         <p>
-          A coach can disconnect at any time, either from within VaultIQ or from
+          A user can disconnect at any time, either from within VaultIQ or from
           the Google Account permissions page at{" "}
           <a href="https://myaccount.google.com/permissions">
             myaccount.google.com/permissions
@@ -205,7 +205,7 @@ export default function PrivacyPage() {
           artificial-intelligence provider today, because VaultIQ holds no Google
           user data. If a future VaultIQ feature would send Google user data to
           an artificial-intelligence provider in order to produce something for
-          the coach who connected the account, that processing will be described
+          the user who connected the account, that processing will be described
           in this policy, and it will remain bound by the Limited Use
           requirements below, before the feature is enabled.
         </p>
@@ -220,7 +220,7 @@ export default function PrivacyPage() {
           , including the Limited Use requirements. Specifically, Google user
           data will not be used for advertising; will not be sold; will not be
           transferred to others except as necessary to provide or improve the
-          feature the coach asked for, to comply with applicable law, or as part
+          feature the user asked for, to comply with applicable law, or as part
           of a merger, acquisition, or sale of assets with notice to users; will
           not be read by humans except with the user&apos;s explicit permission
           for specific messages, where necessary for security purposes such as
