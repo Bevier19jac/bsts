@@ -208,6 +208,11 @@ export const footerLinks = {
   more: [
     { href: "/insights", label: "Insights" },
     { href: "/security", label: "Security practice" },
+    // VaultIQ is also the OAuth application homepage Google reads during
+    // sensitive-scope verification, which requires it to be publicly reachable
+    // and visibly linked from the site. A footer link on every page satisfies
+    // that without giving a single pilot product a top-level nav slot.
+    { href: "/vaultiq", label: "VaultIQ" },
     { href: "/contact", label: "Discuss your workflow" },
   ],
   legal: [
