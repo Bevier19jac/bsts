@@ -35,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/contact",
     "/insights",
     "/security",
+    "/vaultiq",
     "/privacy",
     "/terms",
   ].map((path) => ({
