@@ -74,13 +74,13 @@ export const shipped: VaultiqCapability[] = [
     icon: UsersRound,
     title: "Access that mirrors how a firm actually works",
     body:
-      "Organization roles of owner, advisor, and member; a separate role on each individual vault; and visibility grants that keep advisor-private material away from staff who should not read it. A coach demoted at the organization level is narrowed at the database level too, not merely hidden in the interface.",
+      "Organization roles of owner, advisor, and member; a separate role on each individual vault; and visibility grants that keep advisor-private material away from staff who should not read it. An advisor demoted at the organization level is narrowed at the database level too, not merely hidden in the interface.",
   },
   {
     icon: KeySquare,
     title: "Two sharing models, chosen by the firm",
     body:
-      "A firm can run in explicit mode, where every vault is shared deliberately with named people, or in shared-coaches mode, where active coaches are added to new vaults automatically. Which mode a firm is in is recorded on the organization, and every membership row records why it exists — created, granted by policy, or added by hand.",
+      "A firm can run in explicit mode, where every vault is shared deliberately with named people, or in a shared mode, where every active advisor in the firm is added to new vaults automatically. Which mode a firm is in is recorded on the organization, and every membership row records why it exists — created, granted by policy, or added by hand.",
   },
   {
     icon: FileStack,
@@ -151,33 +151,33 @@ export const googleDisclosure = {
   status:
     "VaultIQ does not connect to Google today. It requests no Google permissions, receives no Google user data, and stores no Google user data. There is no live authorization flow in the software, and the credentials such a flow would require are not configured.",
   scopeIntro:
-    "When the integration is enabled, VaultIQ will request the narrowest permissions that let it do the job, and only at the moment a coach chooses to connect their own calendar:",
+    "When the integration is enabled, VaultIQ will request the narrowest permissions that let it do the job, and only at the moment someone chooses to connect their own calendar:",
   scopes: [
     {
       scope: "https://www.googleapis.com/auth/calendar.events.readonly",
       purpose:
-        "Read events on the calendar of the coach who connected it, so their upcoming client meetings can be shown in context inside that client's vault.",
+        "Read events on the calendar of the person who connected it, so their upcoming client meetings can be shown in context inside that client's vault.",
     },
     {
       scope: "https://www.googleapis.com/auth/calendar.events",
       purpose:
-        "Create and update meetings that the coach schedules from inside a client vault, so scheduling does not require leaving the vault and re-typing the details.",
+        "Create and update meetings that the user schedules from inside a client vault, so scheduling does not require leaving the vault and re-typing the details.",
     },
   ],
   notRequested: [
     "Gmail — no mail scope is requested, and no mailbox is read",
     "Google Drive — no Drive scope is requested, and no files are read",
     "Google Contacts, Google Chat, and every other Workspace service",
-    "Any calendar other than the one belonging to the coach who connects",
+    "Any calendar other than the one belonging to the person who connects",
   ],
   handling: [
-    "Each coach connects their own Google account. Connecting is a choice, never a condition of using VaultIQ, and a firm can run the product with no Google connection at all.",
+    "Each user connects their own Google account. Connecting is a choice, never a condition of using VaultIQ, and a firm can run the product with no Google connection at all.",
     "Authorization tokens are encrypted with AES-256-GCM before they are written to storage, and each record is readable only by the account that created it, enforced by row-level security in the database rather than by application code alone.",
-    "A coach can disconnect at any time from their Google account permissions page or from within VaultIQ. Disconnection is recorded, and the stored authorization stops being usable.",
-    "Calendar information is shown to the coaches entitled to see that client, under the same vault permissions that govern every other record. It is not shown across firms, and vault isolation applies to it exactly as it applies to documents.",
+    "A user can disconnect at any time from their Google account permissions page or from within VaultIQ. Disconnection is recorded, and the stored authorization stops being usable.",
+    "Calendar information is shown only to the people already entitled to see that client, under the same vault permissions that govern every other record. It is not shown across firms, and vault isolation applies to it exactly as it applies to documents.",
   ],
   limitedUse:
-    "Use of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements. Google user data will not be used for advertising, will not be sold or transferred except as required to provide the feature the coach asked for or as required by law, will not be read by humans except with the coach's explicit permission, for security purposes, to comply with law, or on data that has been aggregated and made anonymous, and will not be used to develop, improve, or train generalized artificial-intelligence or machine-learning models.",
+    "Use of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements. Google user data will not be used for advertising, will not be sold or transferred except as required to provide the feature the user asked for or as required by law, will not be read by humans except with the user's explicit permission, for security purposes, to comply with law, or on data that has been aggregated and made anonymous, and will not be used to develop, improve, or train generalized artificial-intelligence or machine-learning models.",
 } as const;
 
 /* ------------------------------------------------------------------ */
