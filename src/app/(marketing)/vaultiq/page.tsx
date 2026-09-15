@@ -150,8 +150,8 @@ export default function VaultIqPage() {
             <p className="mt-5 max-w-2xl leading-relaxed text-warm-mist">
               Retrieval is machine work. Judgement, context, and the
               conversation with a client are not. VaultIQ exists to give the
-              minutes back, not to stand between a coach and the person they
-              are coaching.
+              minutes back, not to stand between an advisor and the client they
+              are advising.
             </p>
           </Reveal>
           <Reveal delay={0.15}>
