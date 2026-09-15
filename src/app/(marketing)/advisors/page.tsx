@@ -262,6 +262,13 @@ export default function AdvisorsPage() {
             </Link>
           </div>
         </Reveal>
+        <Reveal delay={0.14}>
+          <p className="mx-auto mt-8 max-w-2xl text-sm leading-relaxed text-warm-mist">
+            Building client-facing software of your own, or curious what we run
+            for advisory firms? <Link href="/vaultiq/" className="underline decoration-cyan-core/50 underline-offset-4 transition-colors hover:text-cyan-soft">VaultIQ</Link>{" "}
+            is our client-vault product, currently in a private pilot.
+          </p>
+        </Reveal>
         <Reveal delay={0.16}>
           <p className="mt-8 text-xs tracking-[0.14em] text-gold-soft uppercase">
             {vetCert.short}
