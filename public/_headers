@@ -1,0 +1,16 @@
+# BSTS site root _headers — Cloudflare Pages reads this file ONLY from the
+# root of the deployed output, so the digital business card's rules live here
+# with /card/ prefixes rather than inside public/card/.
+
+/card/assets/jacob-bevier.vcf
+  Content-Type: text/vcard; charset=utf-8
+  Content-Disposition: inline; filename="jacob-bevier.vcf"
+
+/card/manifest.webmanifest
+  Content-Type: application/manifest+json; charset=utf-8
+
+/card/sw.js
+  Cache-Control: no-cache
+
+/card/assets/*
+  Cache-Control: public, max-age=31536000, immutable

@@ -1,0 +1,1760 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jacob Bevier — BSTS</title>
+<meta name="description" content="Founder &amp; Principal, Bevier Strategic Technology Solutions. Automated workflows and practical security for growing organizations.">
+<meta name="theme-color" content="#0b0e13">
+<meta name="color-scheme" content="dark">
+
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="BSTS">
+<meta name="mobile-web-app-capable" content="yes">
+
+<link rel="canonical" href="https://bevierstrategic.com/card">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Jacob Bevier — BSTS">
+<meta property="og:description" content="Founder &amp; Principal, Bevier Strategic Technology Solutions. Automated workflows and practical security for growing organizations.">
+<meta property="og:url" content="https://bevierstrategic.com/card">
+<meta property="og:image" content="https://bevierstrategic.com/card/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Jacob Bevier — Bevier Strategic Technology Solutions">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Jacob Bevier — BSTS">
+<meta name="twitter:description" content="Founder &amp; Principal, Bevier Strategic Technology Solutions. Automated workflows and practical security for growing organizations.">
+<meta name="twitter:image" content="https://bevierstrategic.com/card/assets/og.png">
+
+<link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+
+<style>/* ==========================================================================
+   BSTS digital business card.
+
+   Art direction: the brand's own obsidian-and-graphite ground, warm-white
+   type, gold as the brand accent and cyan as the technology accent — the same
+   colour law the website runs on. Gold hairline "tracer" rules are the
+   connective device, carried over from the printed pieces.
+
+   Phone first. Every touch target is at least 48px. Nothing the visitor needs
+   is behind an animation: the contact block is static markup and paints with
+   the first frame.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Inter";
+  src: url("assets/fonts/inter-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Fraunces";
+  src: url("assets/fonts/fraunces-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --obsidian: #0b0e13;
+  --obsidian-deep: #07090d;
+  --graphite: #131820;
+  --graphite-2: #1a2029;
+  --graphite-3: #232b36;
+  --edge: #2c3542;
+
+  --warm-white: #f2efe8;
+  --warm-mist: #c8cbd0;
+  --warm-dim: #939aa5;
+
+  --cyan: #63c7c2;
+  --cyan-soft: #8fd8d4;
+  --gold: #c9a869;
+  --gold-soft: #ddc491;
+  --gold-name: #e8d2a4;
+
+  --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: "Fraunces", ui-serif, Georgia, serif;
+
+  --pad: clamp(1.15rem, 5vw, 2rem);
+  --tabbar: calc(4.25rem + env(safe-area-inset-bottom, 0px));
+  --ease: cubic-bezier(0.22, 0.68, 0.24, 1);
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--obsidian);
+  color: var(--warm-white);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  overflow-wrap: break-word;
+  padding-bottom: var(--tabbar);
+}
+
+/* An atmospheric ground: two very soft fields, one cyan, one gold. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 50% at 18% 8%, rgba(99, 199, 194, 0.09), transparent 68%),
+    radial-gradient(ellipse 65% 45% at 88% 86%, rgba(201, 168, 105, 0.08), transparent 70%),
+    var(--obsidian);
+}
+
+/* Fine grain so large dark fields never band on an OLED phone. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.skip {
+  position: fixed;
+  top: -200%;
+  left: 1rem;
+  z-index: 60;
+  padding: 0.8rem 1.2rem;
+  border-radius: 999px;
+  background: var(--graphite-2);
+  border: 1px solid var(--edge);
+  color: var(--warm-white);
+  text-decoration: none;
+}
+.skip:focus-visible { top: calc(1rem + env(safe-area-inset-top, 0px)); }
+
+img, svg { display: block; max-width: 100%; }
+
+/* A class that sets `display` outranks the browser's own [hidden] rule, so
+   anything hidden in script would otherwise stay stubbornly visible. */
+[hidden] { display: none !important; }
+
+/* ==========================================================================
+   Brand header
+   ========================================================================== */
+.brand {
+  padding: calc(1rem + env(safe-area-inset-top, 0px)) var(--pad) 0.55rem;
+  text-align: center;
+}
+.brand-mark { display: flex; justify-content: center; }
+.lockup { width: clamp(86px, 23vw, 122px); height: auto; }
+
+.brand-name {
+  margin: 0.55rem 0 0;
+  font-weight: 800;
+  font-size: clamp(0.58rem, 2.6vw, 0.7rem);
+  letter-spacing: 0.145em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  color: var(--gold-name);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
+}
+.brand-name span { display: block; }
+
+.brand-rule {
+  display: flex;
+  align-items: center;
+  gap: 0.42rem;
+  max-width: 11rem;
+  margin: 0.5rem auto 0;
+}
+.brand-rule i { flex: 1; height: 2px; border-radius: 999px; }
+.brand-rule .l { background: linear-gradient(90deg, rgba(201, 168, 105, 0), var(--gold)); }
+.brand-rule .r { background: linear-gradient(90deg, var(--gold), rgba(201, 168, 105, 0)); }
+
+/* ==========================================================================
+   Hero photographs
+   ========================================================================== */
+.hero { margin: 0.35rem 0 0; }
+
+.hero-stage {
+  position: relative;
+  width: 100%;
+  /* Deliberately not taller than this on a phone: every extra pixel here is
+     a pixel the phone number loses on the first screen. */
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--obsidian-deep);
+  isolation: isolate;
+  cursor: zoom-in;
+}
+@media (min-width: 640px) {
+  .hero-stage { aspect-ratio: 16 / 9; border-radius: 1.5rem; }
+  .hero { padding: 0 var(--pad); }
+}
+
+.shot {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 1.4s var(--ease);
+  will-change: opacity;
+}
+.shot.is-on { opacity: 1; }
+.shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  /* Cinematic grade: a touch more contrast, slightly cooled shadows, and a
+     soft bloom, applied identically to both photographs so they read as one
+     sequence. Nothing here alters faces or content. */
+  filter: contrast(1.06) saturate(0.96) brightness(1.02);
+  transform: scale(1.04);
+}
+/* The supporting film sits in the same frame as the photographs and is
+   treated the same way, minus the drift — it has its own motion. */
+/* Contained, not cropped. The film is artwork on the brand's own obsidian
+   void, so letterboxing against that same colour is invisible — and it means
+   the gun tube and the tracer survive every frame shape, including the tall
+   portrait hero on desktop, where a crop would cut the shot in half. */
+.shot video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: 50% 50%;
+  background: var(--obsidian);
+  filter: contrast(1.04) saturate(0.98);
+}
+.shot[data-film] { cursor: default; }
+
+.shot.is-on img { animation: drift 11s var(--ease) forwards; }
+@keyframes drift {
+  from { transform: scale(1.045); }
+  to   { transform: scale(1.005); }
+}
+
+/* The caption sits below the photograph, not on it, so this is only here to
+   keep the frame from reading as a hard rectangle: a soft vignette and a
+   short fade into the page. Anything heavier just buries the photograph. */
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to top, rgba(7, 9, 13, 0.55) 0%, rgba(7, 9, 13, 0.14) 14%, rgba(7, 9, 13, 0) 30%),
+    radial-gradient(ellipse 128% 92% at 50% 42%, transparent 52%, rgba(7, 9, 13, 0.4) 100%);
+}
+
+/* The tracer sweeps once on each change — the brand's connective device. */
+.hero-tracer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(90deg, rgba(201, 168, 105, 0), var(--gold-soft) 45%, rgba(201, 168, 105, 0));
+}
+.hero-tracer.is-sweep { animation: sweep 1.15s var(--ease); }
+@keyframes sweep {
+  0%   { opacity: 0; transform: translateX(-62%) scaleX(0.5); }
+  35%  { opacity: 1; }
+  100% { opacity: 0; transform: translateX(62%) scaleX(1); }
+}
+
+.hero-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.7rem var(--pad) 0;
+}
+@media (min-width: 640px) { .hero-bar { padding-inline: 0; } }
+
+.hero-caption {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  min-height: 2.4rem;
+  /* Captions are never interactive, and a long one must never sit on top of
+     the photo controls and swallow a tap meant for them. */
+  pointer-events: none;
+  overflow: hidden;
+}
+.cap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+  font-size: 0.8rem;
+  line-height: 1.3;
+  color: var(--warm-dim);
+}
+.cap.is-on { opacity: 1; }
+/* At most two lines, then clipped — never spilling across the controls. */
+.cap > span {
+  min-width: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  /* body sets break-word defensively; a caption should wrap between words,
+     not split "Rendered" across two lines. */
+  overflow-wrap: normal;
+}
+.cap b {
+  font-weight: 700;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  border: 1px solid rgba(201, 168, 105, 0.32);
+  border-radius: 999px;
+  padding: 0.24rem 0.6rem;
+  white-space: nowrap;
+}
+
+.hero-controls { display: flex; align-items: center; gap: 0.3rem; }
+
+.ctl {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: none;
+  color: var(--warm-dim);
+  cursor: pointer;
+  border-radius: 12px;
+  transition: color 0.2s;
+}
+.ctl:hover { color: var(--warm-white); }
+.ctl .i { width: 17px; height: 17px; }
+.ctl .when-paused { display: none; }
+.ctl.is-paused .when-playing { display: none; }
+.ctl.is-paused .when-paused { display: block; }
+
+.dots { display: flex; align-items: center; gap: 0; }
+.dot {
+  width: 44px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  position: relative;
+}
+.dot::after {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto 50%;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  border-radius: 999px;
+  background: var(--graphite-3);
+  transition: background 0.3s, transform 0.3s;
+}
+.dot.is-on::after { background: var(--gold); transform: scale(1.25); }
+
+/* ==========================================================================
+   Identity
+   ========================================================================== */
+.identity {
+  padding: 1.05rem var(--pad) 0;
+  text-align: center;
+}
+.name {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 520;
+  font-size: clamp(1.95rem, 8.8vw, 3rem);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+}
+.role {
+  margin: 0.4rem 0 0;
+  font-size: 0.98rem;
+  color: var(--warm-mist);
+}
+.signature { padding: 1.75rem var(--pad) 0; text-align: center; }
+.vet {
+  margin: 1rem 0 0;
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  border: 1px solid rgba(201, 168, 105, 0.3);
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+}
+
+/* The slogan: one line at a time, in the brand's own three colours. */
+.slogan {
+  position: relative;
+  margin: 0;
+  height: 2.5em;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-family: var(--display);
+  font-weight: 480;
+  font-size: clamp(1.25rem, 5.6vw, 1.6rem);
+  letter-spacing: -0.015em;
+}
+.sl {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateY(0.42em);
+  transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+}
+.sl.is-on { opacity: 1; transform: none; }
+.sl-white { color: var(--warm-white); }
+.sl-blue { color: var(--cyan-soft); }
+.sl-gold { color: var(--gold-soft); }
+
+/* Reduced motion: all three lines, read at once, nothing moving. */
+.slogan-static .slogan {
+  height: auto;
+  display: block;
+  line-height: 1.45;
+}
+.slogan-static .sl {
+  display: inline;
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+.slogan-static .sl + .sl::before { content: " "; }
+
+/* ==========================================================================
+   Contact rows
+   ========================================================================== */
+.contact { padding: 1.15rem var(--pad) 0; }
+.contact ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.95rem;
+  min-height: 60px;
+  padding: 0.65rem 1rem;
+  border-radius: 14px;
+  text-decoration: none;
+  color: inherit;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--graphite-2) 85%, transparent),
+    color-mix(in srgb, var(--graphite) 70%, transparent)
+  );
+  border: 1px solid color-mix(in srgb, var(--edge) 68%, transparent);
+  transition: border-color 0.2s, transform 0.2s var(--ease);
+}
+.row:hover { border-color: color-mix(in srgb, var(--cyan) 45%, transparent); }
+.row:active { transform: scale(0.99); }
+.row-i {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(99, 199, 194, 0.09);
+  color: var(--cyan-soft);
+}
+.row-i .i { width: 18px; height: 18px; }
+.row-t { display: grid; min-width: 0; }
+.row-l {
+  font-size: 0.6rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--warm-dim);
+}
+.row-v {
+  font-size: 0.98rem;
+  color: var(--warm-white);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Action grid
+   ========================================================================== */
+.actions {
+  padding: 0.85rem var(--pad) 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+@media (min-width: 560px) { .actions { grid-template-columns: repeat(3, 1fr); } }
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 54px;
+  padding: 0.6rem 0.9rem;
+  border-radius: 13px;
+  border: 1px solid color-mix(in srgb, var(--edge) 75%, transparent);
+  background: color-mix(in srgb, var(--graphite-2) 72%, transparent);
+  color: var(--warm-white);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s var(--ease);
+}
+.btn:hover { border-color: color-mix(in srgb, var(--cyan) 42%, transparent); }
+.btn:active { transform: scale(0.985); }
+.btn .i { width: 17px; height: 17px; flex: 0 0 auto; }
+
+.btn-key {
+  background: rgba(99, 199, 194, 0.12);
+  border-color: rgba(99, 199, 194, 0.42);
+  color: #d7f2f0;
+}
+.btn-gold {
+  grid-column: 1 / -1;
+  background: linear-gradient(180deg, rgba(232, 210, 164, 0.16), rgba(201, 168, 105, 0.1));
+  border-color: rgba(201, 168, 105, 0.5);
+  color: var(--gold-name);
+  font-weight: 600;
+}
+.btn .when-done { display: none; }
+.btn.is-done .when-idle { display: none; }
+.btn.is-done .when-done { display: block; color: var(--cyan-soft); }
+
+/* ==========================================================================
+   Prose panels: About, Services
+   ========================================================================== */
+.panel:not(.is-on) { display: none; }
+.panel:focus { outline: none; }
+
+.prose { padding: 1.9rem var(--pad) 0; max-width: 42rem; margin-inline: auto; }
+
+.h {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 520;
+  font-size: clamp(1.75rem, 7.5vw, 2.3rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.h3 {
+  margin: 2.4rem 0 0.85rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cyan-soft);
+}
+.lede {
+  margin: 1rem 0 0;
+  font-size: 1.08rem;
+  line-height: 1.62;
+  color: var(--warm-white);
+}
+.p {
+  margin: 1.05rem 0 0;
+  color: var(--warm-mist);
+  line-height: 1.72;
+}
+.note {
+  margin: 1rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--warm-dim);
+}
+
+.rule {
+  height: 2px;
+  margin: 1.5rem 0 0.4rem;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(201, 168, 105, 0.75) 0%,
+    rgba(201, 168, 105, 0.28) 45%,
+    rgba(201, 168, 105, 0) 100%
+  );
+}
+
+.ticks { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+.ticks li {
+  position: relative;
+  padding-left: 1.5rem;
+  color: var(--warm-mist);
+  line-height: 1.55;
+}
+.ticks li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 8px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--gold);
+}
+
+.cards { display: grid; gap: 0.7rem; margin-top: 1.7rem; }
+.scard {
+  position: relative;
+  padding: 1.25rem 1.25rem 1.35rem;
+  border-radius: 16px;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--graphite-2) 82%, transparent),
+    color-mix(in srgb, var(--graphite) 62%, transparent)
+  );
+  border: 1px solid color-mix(in srgb, var(--edge) 62%, transparent);
+}
+.scard-n {
+  font-family: var(--display);
+  font-size: 0.85rem;
+  color: var(--gold);
+  opacity: 0.75;
+}
+.scard h3 {
+  margin: 0.3rem 0 0;
+  font-size: 1.06rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--warm-white);
+}
+.scard p {
+  margin: 0.55rem 0 0;
+  font-size: 0.94rem;
+  line-height: 1.66;
+  color: var(--warm-mist);
+}
+
+.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.chips li {
+  font-size: 0.8rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  color: var(--cyan-soft);
+  background: rgba(99, 199, 194, 0.08);
+  border: 1px solid rgba(99, 199, 194, 0.25);
+}
+
+.cta {
+  margin-top: 2.5rem;
+  padding: 1.6rem 1.4rem;
+  border-radius: 20px;
+  background: linear-gradient(160deg, rgba(201, 168, 105, 0.1), rgba(19, 24, 32, 0.6));
+  border: 1px solid rgba(201, 168, 105, 0.3);
+}
+.cta h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 520;
+  font-size: 1.4rem;
+  letter-spacing: -0.015em;
+  color: var(--warm-white);
+}
+.cta p { margin: 0.7rem 0 0; color: var(--warm-mist); line-height: 1.65; }
+.cta-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 1.2rem; }
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.foot {
+  margin-top: 3rem;
+  padding: 2rem var(--pad) 2.4rem;
+  text-align: center;
+}
+.foot-rule {
+  height: 2px;
+  max-width: 11rem;
+  margin: 0 auto 1.5rem;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(201, 168, 105, 0) 0%,
+    rgba(201, 168, 105, 0.45) 50%,
+    rgba(201, 168, 105, 0) 100%
+  );
+}
+.sig {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--gold-name);
+  letter-spacing: 0.01em;
+}
+.foot-line {
+  margin: 0.6rem 0 0;
+  font-size: 0.7rem;
+  line-height: 1.6;
+  color: var(--warm-dim);
+}
+.linkish {
+  margin-top: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  background: none;
+  border: 0;
+  padding: 0.5rem 1rem;
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--cyan-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   Tab bar — always visible, with the QR action beside it
+   ========================================================================== */
+.tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  display: flex;
+  align-items: stretch;
+  gap: 0.4rem;
+  padding: 0.4rem 0.6rem calc(0.4rem + env(safe-area-inset-bottom, 0px));
+  background: color-mix(in srgb, var(--obsidian-deep) 88%, transparent);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-top: 1px solid color-mix(in srgb, var(--edge) 70%, transparent);
+}
+
+.tabs { display: flex; flex: 1; gap: 0.2rem; }
+.tab {
+  flex: 1;
+  min-height: 52px;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  color: var(--warm-dim);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s;
+}
+.tab.is-on { color: var(--warm-white); }
+.tab.is-on::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 7px;
+  width: 20px;
+  height: 2px;
+  margin-left: -10px;
+  border-radius: 999px;
+  background: var(--gold);
+}
+
+.tabqr {
+  display: flex;
+  align-items: center;
+  gap: 0.42rem;
+  min-height: 52px;
+  padding: 0 1.05rem;
+  border-radius: 12px;
+  border: 1px solid rgba(201, 168, 105, 0.45);
+  background: linear-gradient(180deg, rgba(232, 210, 164, 0.17), rgba(201, 168, 105, 0.09));
+  color: var(--gold-name);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.tabqr .i { width: 17px; height: 17px; }
+
+/* ==========================================================================
+   Sheets
+   ========================================================================== */
+.sheet {
+  border: 0;
+  padding: 0;
+  max-width: min(30rem, 100vw);
+  width: 100%;
+  max-height: 100svh;
+  background: transparent;
+  color: var(--warm-white);
+  overflow: visible;
+}
+.sheet::backdrop { background: rgba(4, 6, 9, 0.8); backdrop-filter: blur(6px); }
+.sheet[open] { animation: sheet-in 0.32s var(--ease); }
+@keyframes sheet-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
+
+.sheet-in {
+  position: relative;
+  padding: 2rem 1.4rem calc(1.6rem + env(safe-area-inset-bottom, 0px));
+  border-radius: 24px;
+  background: linear-gradient(165deg, var(--graphite-2), var(--graphite));
+  border: 1px solid var(--edge);
+  box-shadow: 0 32px 80px -30px rgba(0, 0, 0, 0.9);
+  max-height: 92svh;
+  overflow-y: auto;
+  text-align: center;
+}
+
+.sheet-x {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  color: var(--warm-dim);
+  cursor: pointer;
+}
+.sheet-x:hover { color: var(--warm-white); }
+.sheet-x .i { width: 19px; height: 19px; }
+
+.sheet-eyebrow {
+  margin: 0 0 1.1rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+}
+.sheet-lede { margin: 0 0 1.2rem; font-size: 0.92rem; color: var(--warm-mist); }
+
+/* The QR itself: pure black on pure white, square, generous quiet zone,
+   never animated, never filtered, never distorted. */
+.qr-frame {
+  width: min(19rem, 76vw);
+  margin: 0 auto;
+  padding: 14px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14), 0 20px 46px -22px rgba(0, 0, 0, 0.9);
+}
+.qr-code { aspect-ratio: 1 / 1; }
+.qr-code svg { width: 100%; height: 100%; display: block; shape-rendering: crispEdges; }
+
+.qr-url {
+  margin: 1.1rem 0 0;
+  font-size: 0.94rem;
+  font-weight: 500;
+  color: var(--warm-white);
+  word-break: break-all;
+}
+.qr-hint { margin: 0.5rem 0 0; font-size: 0.78rem; color: var(--warm-dim); }
+
+.sheet-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.45rem;
+  margin-top: 1.3rem;
+}
+.sheet-actions .btn { font-size: 0.82rem; min-height: 50px; }
+
+.sheet-foot {
+  margin: 1.2rem 0 0;
+  font-size: 0.73rem;
+  line-height: 1.6;
+  color: var(--warm-dim);
+}
+
+.steps { display: grid; gap: 1.5rem; margin-top: 1.5rem; text-align: left; }
+.steps h4 {
+  margin: 0 0 0.6rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan-soft);
+}
+.steps ol { margin: 0; padding-left: 1.15rem; display: grid; gap: 0.4rem; }
+.steps li { color: var(--warm-mist); font-size: 0.92rem; line-height: 1.55; }
+.steps b { color: var(--warm-white); font-weight: 600; }
+.install-now { margin: 0 auto; max-width: 14rem; }
+
+.sheet-photo { max-width: min(46rem, 100vw); }
+.photo-full img {
+  width: 100%;
+  height: auto;
+  max-height: 74svh;
+  object-fit: contain;
+  border-radius: 14px;
+  background: var(--obsidian-deep);
+}
+.photo-cap { margin: 0.9rem 0 0; font-size: 0.82rem; color: var(--warm-dim); }
+
+/* Browsers without <dialog>: still usable, just not modal. */
+.sheet.is-fallback {
+  display: block;
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 70;
+  margin: 0 auto;
+}
+
+.sheet-open { overflow: hidden; }
+
+/* ==========================================================================
+   Toast
+   ========================================================================== */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--tabbar) + 0.8rem);
+  z-index: 80;
+  transform: translate(-50%, 1rem);
+  max-width: min(22rem, calc(100vw - 2rem));
+  padding: 0.75rem 1.1rem;
+  border-radius: 999px;
+  background: var(--graphite-3);
+  border: 1px solid var(--edge);
+  color: var(--warm-white);
+  font-size: 0.85rem;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s, transform 0.28s var(--ease);
+}
+.toast.is-on { opacity: 1; transform: translate(-50%, 0); }
+
+/* ==========================================================================
+   Wide screens: the card becomes a two-column identity plate
+   ========================================================================== */
+@media (min-width: 900px) {
+  body { padding-bottom: 0; }
+  .brand { padding-top: 2.4rem; }
+  #panel-card {
+    display: grid;
+    grid-template-columns: 1.02fr 0.98fr;
+    /* Items sit at their natural height and the whole stack is centred
+       against the photograph — otherwise the rows stretch and the right
+       column fills with dead space. */
+    align-items: start;
+    align-content: center;
+    column-gap: clamp(1.75rem, 4vw, 3.5rem);
+    row-gap: 1.35rem;
+    max-width: 68rem;
+    min-height: min(34rem, 62vh);
+    margin-inline: auto;
+    padding: 1.25rem var(--pad) 0;
+  }
+  .hero { grid-column: 1; grid-row: 1 / span 4; align-self: center; padding: 0; }
+  /* The portrait frame flatters a headshot and strands the film, which is a
+     wide shot. The frame follows what is in it; the cross-fade hides the
+     change, and the right-hand column sets the row heights so nothing moves. */
+  .hero-stage.is-film { aspect-ratio: 16 / 10; }
+  .identity, .contact, .actions, .signature { grid-column: 2; }
+  .hero-stage { aspect-ratio: 4 / 5; border-radius: 1.75rem; }
+  .identity, .contact, .actions, .signature { padding-inline: 0; text-align: left; }
+  .identity { padding-top: 0; }
+  .slogan { justify-items: start; text-align: left; }
+  .prose { padding-top: 2.6rem; }
+  .foot { padding-bottom: 3.5rem; }
+
+  .tabbar {
+    position: sticky;
+    top: 0;
+    bottom: auto;
+    max-width: 68rem;
+    margin: 1.5rem auto 0;
+    border-radius: 16px;
+    border: 1px solid color-mix(in srgb, var(--edge) 70%, transparent);
+  }
+  .toast { bottom: 1.5rem; }
+}
+
+/* ==========================================================================
+   Reduced motion: nothing moves on its own. Controls still work.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .shot img { transform: none; animation: none; }
+  .hero-tracer { display: none; }
+}
+.reduce-motion .shot img { transform: none; animation: none; }
+.reduce-motion .hero-tracer { display: none; }
+
+/* Printing the card should produce something usable, not a black page. */
+@media print {
+  body { background: #fff; color: #000; padding: 0; }
+  body::before, .grain, .tabbar, .hero-controls, .actions, .toast, .skip { display: none !important; }
+  .panel { display: block !important; }
+  .row { border: 1px solid #ccc; background: none; }
+  .name, .row-v, .p, .lede { color: #000; }
+}
+</style>
+<script type="application/json" id="card-data">{"card":{"publicUrl":"https://bevierstrategic.com/card","publicUrlConfirmed":false,"person":{"name":"Jacob Bevier","givenName":"Jacob","familyName":"Bevier","title":"Founder & Principal"},"company":{"name":"Bevier Strategic Technology Solutions","legalName":"Bevier Strategic Technology Solutions LLC","shortName":"BSTS","nameLines":["Bevier Strategic","Technology Solutions"],"veteranLine":"Service-Disabled Veteran-Owned & Operated"},"contact":{"phoneDisplay":"(404) 618-2346","phoneE164":"+14046182346","email":"jacob@bevierstrategic.com","websiteDisplay":"bevierstrategic.com","websiteUrl":"https://bevierstrategic.com"},"slogan":[{"text":"Secure the data.","tone":"white"},{"text":"Enable the AI.","tone":"blue"},{"text":"Prove the controls.","tone":"gold"}],"photos":[{"id":"headshot","src":"headshot","alt":"Jacob Bevier, Founder and Principal of Bevier Strategic Technology Solutions","eyebrow":"Now","caption":"Founder & Principal, BSTS","focus":{"x":50,"y":30}},{"id":"crew","src":"crew","alt":"Jacob Bevier with his crew in front of their M1 Abrams tank","eyebrow":"Then","caption":"Armor crew, U.S. Army","focus":{"x":50,"y":48}}],"film":{"enabled":true,"id":"film","eyebrow":"The mark","caption":"Rendered artwork","alt":"Brand film: the BSTS Abrams fires its main gun while the commander signals forward. A rendered animation of the BSTS logo artwork, not a photograph."},"hero":{"dwellMs":6500},"about":{"heading":"The short version","lede":"I build the automated workflows that take repetitive work off your people, and I secure them properly on the way in.","body":["My career started in the U.S. Army, in armor. A tank crew is one of the most procedure-bound technical systems there is: nothing is improvised, every action is checked, and the round either hits or it does not. That is still how I run a project.","From there I moved into cold chain logistics for life-sciences clients — work where a shipment that slips outside its temperature window is a loss nobody can undo, and the record proving it stayed in range matters as much as the delivery. It is a good teacher. It makes you care about the handoffs, the exceptions, and the evidence.","Then federal cybersecurity, where the standard is simple and unforgiving: a control only counts if you can demonstrate it. Nobody takes your word for it.","Alongside that I earned a Bachelor of Science in Computer Science with a Cybersecurity major, Magna Cum Laude, and a Master of Science in Artificial Intelligence. The two halves are deliberate. AI built without security discipline is a liability. Security that blocks useful work is a tax. Doing both well means understanding both, and most people specialize in one.","BSTS is where all of that goes to work for smaller organizations — the ones with real operational pressure and no AI team, no security team, and no realistic way to hire either. You get requirements in writing before anything is built, honest risk calls even when they shrink the job, and a bias toward finishing the mission rather than extending the contract."],"credentials":["Master of Science in Artificial Intelligence","Bachelor of Science in Computer Science with a Cybersecurity major, Magna Cum Laude","CompTIA Security+","AWS Certified AI Practitioner"],"credentialsNote":"Certifications are held by the founder personally, not by the company.","experience":["U.S. Army veteran — leadership including Master Gunner and First Sergeant responsibilities","Cold chain logistics for life-sciences clients","Federal information-security and cybersecurity-coordination experience"],"disclaimer":"Military and federal experience described here reflects the founder's individual background and does not imply endorsement by the U.S. Army, the Department of Defense, the Small Business Administration, or any government agency."},"services":{"heading":"What BSTS does","lede":"Most growing businesses are held together by people doing the same things by hand — re-typing the same information, chasing approvals, rebuilding the same report every month. That work is expensive, it is where mistakes happen, and most of it does not need a person at all. I find it, automate it, and make sure the result is safe to run.","items":[{"title":"Take the repetitive work off your people","body":"The tasks that run the same way every time — data entry, document handling, recurring reports, the same record updated in three places. Automating them gives back hours and removes the step where somebody eventually forgets."},{"title":"Make your existing tools talk to each other","body":"Most businesses do not need new software. They need the systems they already pay for to pass information between them reliably, so nothing has to be copied across by hand and nothing quietly goes stale."},{"title":"Smooth out intake, onboarding and follow-up","body":"A new client or new hire should trigger the next step on its own: the form, the file, the reminder, the handoff. Fewer dropped threads, and everyone can see where something actually is."},{"title":"Put AI to work where it genuinely helps","body":"AI is very good at some of this and a poor fit for the rest. Where it earns its place I build it in, with a person reviewing anything consequential before it takes effect. Where a simple, predictable script is the better answer, I will say so and build that instead."},{"title":"Protect access and sensitive information","body":"Who can reach what, what an automated process is allowed to touch, where customer information travels, and what gets recorded. Designed in from the start, because retrofitting it later costs more and proves less."},{"title":"Find the bottlenecks and the gaps","body":"Before anything is built, a straight look at where the hours actually go and where the real exposure sits — then a ranked plan you can act on, with or without me."}],"outcomes":["Hours given back","Fewer missed steps","Smoother handoffs","Clearer visibility","Safer handling of information"],"cta":{"heading":"What would you fix first?","body":"If there is one process in your business that eats time or keeps going wrong, that is the conversation worth having. Tell me about it and I will tell you straight whether it is worth automating."}},"footer":{"signature":"Built by BSTS"}},"files":{"vcard":"assets/jacob-bevier.vcf","qrSvg":"qr/bsts-card-qr.svg","qrPng":"qr/bsts-card-qr-1024.png","qrPngLarge":"qr/bsts-card-qr-2048.png"},"hero":[{"kind":"photo","eyebrow":"Now","caption":"Founder & Principal, BSTS"},{"kind":"photo","eyebrow":"Then","caption":"Armor crew, U.S. Army"},{"kind":"film","eyebrow":"The mark","caption":"Rendered artwork"}]}</script>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to contact details</a>
+
+<header class="brand">
+  <div class="brand-mark"><svg class="lockup" viewBox="-181.78 -207.11 5882.68 1904.22" preserveAspectRatio="xMidYMid meet" role="img" aria-label="BSTS" focusable="false"><defs><symbol id="bl-b" overflow="visible"><path d="M0,1490V0H646Q816,0 932,46Q1048,92 1107,175.5Q1166,259 1166,372Q1166,454 1130,522Q1094,590 1029.5,635.5Q965,681 878,698V714Q974,717 1052.5,761.5Q1131,806 1177.5,884.5Q1224,963 1224,1068Q1224,1190 1161,1285.5Q1098,1381 981,1435.5Q864,1490 702,1490ZM404,1168H594Q695,1168 746.5,1129Q798,1090 798,1016Q798,963 774,926.5Q750,890 705.5,871Q661,852 600,852H404ZM404,602H570Q623,602 663.5,585.5Q704,569 727,537.5Q750,506 750,460Q750,392 700.5,355Q651,318 576,318H404Z" fill="#FF1F26"/><path d="M36.36,1453.64L36.36,36.36L654.22,36.39L747.25,41.05L826.66,52.87L896.52,71.67L959.56,98.27L1012.12,130.6L1046.44,160.01L1074.67,192.82L1098.14,231.02L1114.39,270.33L1125.23,315.29L1129.56,364.29L1127.21,411.47L1118.15,455.12L1105.99,488.28L1088.59,521.23L1067.24,551.33L1042.06,578.44L1005.64,607.81L963.94,632.01L922.61,648.8L868.63,662.87L857.82,667.75L849.17,675.85L843.57,686.3L841.72,716.43L848.02,734.57L856.42,743.27L864.92,747.92L925.86,755.04L967.89,764.69L1011.22,781.11L1051.72,803.58L1083.15,827.21L1110.96,854.58L1135.31,885.85L1155.84,920.73L1172.56,962.41L1183.17,1008.18L1187.53,1058.38L1185.61,1109.17L1177.88,1155.86L1164.43,1199.8L1145.25,1241.26L1120.29,1280.33L1093.79,1312.15L1065.3,1339.37L1033.14,1364.14L997.19,1386.46L957.46,1406.25L917.57,1421.77L871.64,1435.04L825.75,1444.26L769.7,1451L713.62,1453.57L36.36,1453.64ZM367.64,1168L370.41,1181.91L378.29,1193.71L390.09,1201.59L404,1204.36L599.28,1204.33L640.37,1202.22L700.13,1191.16L747.93,1171.42L776.5,1151.51L799.91,1126.86L817.27,1098.35L828.65,1066.04L834.11,1026.91L832.57,985.98L824.68,949.38L810.13,915.92L786.64,883.81L755.7,857.13L718.56,837.04L675.27,823.37L641.83,817.86L604.91,815.67L404,815.64L385.82,820.51L372.51,833.82L367.72,849.62L367.64,1168ZM367.64,602L370.41,615.91L378.29,627.71L390.09,635.59L404,638.36L573,638.35L605.78,636.54L657.56,626.17L702.75,606.71L730.2,587.28L752.69,563.78L769.19,537.89L780.48,507.83L785.93,473.51L784.98,435.88L777.64,402.19L764.43,372.66L742.66,343.84L714.5,320.34L679.91,301.42L639.88,288.44L610.68,283.53L578.21,281.65L404,281.64L385.82,286.51L372.51,299.82L367.72,315.62L367.64,602Z" fill="#FF3B3F"/><path d="M76.76,1413.24L76.76,76.76L653.94,76.79L739.8,80.92L812.39,91.21L878.24,108.16L936.76,132.02L986.35,161.8L1016.51,187.23L1042.07,216.68L1062.96,250.99L1077.16,286.58L1086.29,327.96L1089.24,372.02L1086.07,413.83L1076.81,451.94L1062.83,484.81L1043.76,515.62L1020.55,542.97L992.7,567.34L967.13,584.5L939.06,599.05L901.6,613.12L848.69,627.06L823.76,643.69L811.54,659.59L803.86,678.12L801.4,692.98L801.41,719.13L805.48,739.17L814.71,757.43L824.62,769.16L841.08,781.3L865.19,789.68L915.66,794.32L958.02,803.91L995.8,818.51L1032.47,839.3L1056.79,857.83L1079.65,880.17L1099.91,905.69L1116.51,932.6L1132.35,969.37L1142.3,1008.71L1146.94,1052.87L1145.86,1100.3L1139.55,1142.19L1128.25,1181.2L1110.89,1219.87L1089.11,1254.52L1065.9,1282.82L1039,1308.71L1008.1,1332.33L975.22,1352.45L938.62,1370.4L901.87,1384.42L859.17,1396.48L816.11,1404.89L766.44,1410.73L713.11,1413.17L76.76,1413.24ZM327.24,1168L333.08,1197.37L346.29,1218.61L370.05,1236.84L393.98,1244.1L597.08,1244.75L639.19,1242.9L701.94,1232.54L730.59,1223.67L756.8,1212.42L793.19,1189.93L824.19,1160.97L848.01,1126.93L864.53,1087.84L873.42,1043.13L873.88,993.04L866.07,946.97L850.39,905.58L823.3,864.35L787.69,830.41L744.65,804.45L693.75,786.26L650.03,778.14L603.79,775.26L398.98,775.4L370.05,783.16L353.39,794.29L340.18,809.35L333.08,822.63L327.9,841.98L327.24,1168ZM327.24,602L333.08,631.37L346.29,652.61L370.05,670.84L393.98,678.1L605.37,677.18L660.64,667.34L710.47,648.43L746.13,626.32L776.23,598.56L799.6,566.55L815.98,530.14L825.07,488.92L826.24,443.63L819.47,401.27L805.16,363.11L780.93,326.06L748.03,294.7L705.98,268.93L657.5,251.16L619.62,243.91L578.59,241.25L398.98,241.4L370.05,249.16L357.27,257.1L343.1,271.27L333.08,288.63L327.9,307.98L327.24,602Z" fill="#FF817C"/><path d="M117.16,1372.84L117.16,117.16L653.67,117.19L732.67,120.83L801.74,130.3L860.78,144.98L914.78,166.25L961.03,193.35L987.02,214.91L1008.53,239.27L1026.08,267.57L1038.08,296.95L1046.02,331.76L1048.83,369.95L1046.54,405.08L1039.24,436.88L1027.56,465.07L1011.09,491.86L990.93,515.46L966.24,536.68L940.77,553.04L912.05,566.65L832.67,589.99L852.78,547.38L864.33,500.17L866.93,448.36L860.31,398.16L845.72,354.42L822.56,313.91L792.01,279.05L753.93,249.57L725.8,233.65L695.69,220.78L663.49,211L629.69,204.5L583.41,200.91L404,200.84L373.68,204.83L345.42,216.54L321.16,235.16L306.59,252.91L293.06,280.34L287.09,310.34L286.84,602L289.09,624.86L293.06,639.66L302.54,660.58L315.91,679.25L332.68,694.95L345.42,703.46L366.34,712.94L388.71,718.16L587.51,718.82L638.23,713.6L684.84,702.29L728.51,684.58L766.76,661.32L761.09,690.33L761.88,729.61L767.32,752.42L779.14,776.75L742.89,759.72L704.33,747.27L662.65,739.05L619.47,735.22L396.34,735.09L373.68,738.83L359.16,743.76L332.68,759.05L315.91,774.75L302.54,793.42L293.06,814.34L287.84,836.71L287.09,1175.66L290.83,1198.32L295.76,1212.84L306.59,1233.09L315.91,1245.25L326.75,1256.09L345.42,1269.46L366.34,1278.94L388.71,1284.16L599.88,1285.13L657.52,1281.64L697.11,1275.17L733.43,1265.44L766.97,1252.34L798.12,1235.56L821.37,1219.2L842.47,1200.52L861.54,1179.22L877.18,1157.02L890.16,1133.22L900.79,1106.99L908.66,1078.6L913.33,1049.92L915.15,1018.36L913.81,985.81L909.37,954.88L901.88,925.51L891.42,897.89L878.2,872.24L861.81,847.87L843.01,825.8L858.45,829.52L901.49,833.16L929.85,838.15L959.13,846.9L988.04,859.77L1015.87,876.96L1040.83,898.01L1062.47,922.84L1080.88,951.64L1094.06,982.26L1102.8,1017.38L1106.65,1056.36L1105.62,1096.8L1100.08,1133.56L1090.3,1167.35L1076.23,1199.01L1057.57,1229.19L1036.23,1255.4L1012.7,1278.04L985.33,1298.95L953.67,1318.18L920.24,1334.33L884.11,1347.72L847.14,1357.81L806.86,1365.44L759.94,1370.72L712.59,1372.77L117.16,1372.84Z" fill="#FFD1CE"/><path d="M153.52,1336.48L153.52,153.52L653.42,153.55L726.19,156.76L789.42,165L847.58,178.95L897.18,198.14L938.51,221.95L958.69,238.17L974.59,254.89L988.07,273.95L998.96,295.65L1006.39,318.46L1011.04,344.79L1012.48,373.2L1010.7,398.83L1006,421.21L998.52,441.59L987.21,462.37L973.86,480.39L957.84,496.73L938.31,511.92L894.61,534.42L902.57,485L902.39,432.66L894.16,383.48L878.3,338.21L855.13,297.04L825.24,260.71L788.24,228.97L744.45,202.32L686.19,179.46L621.68,166.87L579.3,164.49L393.96,164.81L364.27,169.71L336.1,180.31L310.54,196.2L282.2,224.54L262.17,259.25L253.43,288.05L250.81,307.96L250.81,612.04L255.71,641.73L271.05,678.76L288.58,703.22L315.01,727L288.58,750.78L271.05,775.24L258.63,802.65L251.79,831.96L250.81,1178.04L253.43,1197.95L262.17,1226.75L271.05,1244.76L288.58,1269.22L302.78,1283.42L327.24,1300.95L354.65,1313.37L374.05,1318.57L404,1321.52L600.14,1321.49L642.78,1319.63L680.74,1315.16L716.99,1307.9L750.71,1297.98L780.88,1285.96L832.95,1255.97L876.43,1217.69L895.38,1194.85L910.81,1171.68L924.42,1145.78L935.25,1118.59L943.49,1089.47L948.92,1058.56L951.37,1026.27L950.77,992.24L941.01,930.13L932.09,901.49L920,873.2L966.51,889.6L988.59,902.3L1007.6,916.77L1024.22,933.34L1039.15,952.8L1050.94,972.9L1059.99,995.03L1066.46,1020.68L1069.8,1047.67L1070.32,1078.13L1067.7,1108.38L1062.57,1134.14L1054.39,1159.52L1043.3,1183.48L1028.98,1206.65L1010.7,1229.44L989.03,1250.44L963.2,1270.03L934.44,1287.24L903.89,1301.76L870.74,1313.81L798.6,1329.91L754.09,1334.69L708.77,1336.45L153.52,1336.48Z" fill="#FFFDF8"/></symbol><symbol id="bl-s" overflow="visible"><path d="M644,1528Q450,1528 305.5,1470.5Q161,1413 81,1293Q1,1173 0,986H384Q388,1054 418.5,1101Q449,1148 504.5,1172Q560,1196 638,1196Q703,1196 747,1180Q791,1164 813.5,1135.5Q836,1107 836,1070Q836,1036 814.5,1010.5Q793,985 744,964Q695,943 612,926L462,894Q265,852 151.5,750.5Q38,649 38,474Q38,332 115,225.5Q192,119 327.5,59.5Q463,0 640,0Q821,0 952.5,60.5Q1084,121 1155.5,230.5Q1227,340 1228,486H840Q835,413 786.5,372.5Q738,332 640,332Q578,332 538,346.5Q498,361 479,387Q460,413 460,446Q460,481 480.5,507.5Q501,534 545.5,553.5Q590,573 660,588L782,614Q905,640 993.5,683Q1082,726 1138.5,783.5Q1195,841 1221.5,913Q1248,985 1248,1070Q1248,1217 1175.5,1319.5Q1103,1422 968,1475Q833,1528 644,1528Z" fill="#FF1F26"/><path d="M39,1023.89L350.11,1023.89L358.87,1061.43L372.68,1096.69L391.34,1128.48L413.97,1155.71L440.52,1178.81L472.3,1198.62L507.67,1213.91L547.97,1225.15L583.49,1230.9L621.5,1233.64L663.43,1233.29L701.65,1229.72L733.98,1223.49L762.59,1214.63L790.14,1202.26L813.79,1187.37L839.23,1163.84L858.3,1135.7L869.85,1104.72L873.89,1071.36L870.42,1039.25L859.47,1009.81L841.27,983.53L816.32,961.01L768.11,933.24L703.9,909.61L644.52,894.24L432.77,848.28L380.36,833.22L331.9,815.72L276.83,790.5L227.81,761.63L182.02,726.88L148.77,693.73L123.75,659.76L105.34,625.33L90.37,584.4L81.16,543L76.3,494.01L76.79,444.87L82.25,398.56L93.45,352.09L117.85,292.74L151.08,240.43L197.33,188.71L250.16,145.69L311.75,108.87L381.82,78.68L454.81,57.47L533.78,43.92L623.05,38.04L715.92,40.83L801.42,52.33L878.99,72.34L948.83,100.7L1012.86,138.07L1064.9,180.4L1110.15,231.65L1140.48,279.3L1163.62,330.78L1179.59,386.29L1188.5,448.11L872.88,448.11L862.3,413.82L845.84,382.56L823.97,355.54L797.47,333.37L766.65,316.48L731.25,304.41L690.48,296.92L645.37,294.14L595.84,296.04L553.32,302.66L516.8,314.06L484.86,330.59L459.44,351.5L440.02,377.54L427.46,407.14L422.24,439.57L426.09,480.11L441.02,516.73L466.49,548.1L502.99,574.55L541.67,592.98L590.08,609.53L834.41,665.43L897.16,684.47L953.36,706.23L1016.76,738.2L1070.27,773.78L1115.28,813.99L1150.85,857.88L1168.55,887.21L1183.51,919.69L1195.07,954.37L1203.39,990.97L1208.42,1029.49L1210.11,1069.98L1208.59,1110.17L1203.56,1151.17L1196.62,1183.86L1186.26,1217.49L1173.04,1249.11L1156.93,1278.82L1137.87,1306.77L1114.15,1334.98L1089.55,1358.98L1062.27,1381.07L1032.23,1401.27L999.34,1419.56L924.96,1450.31L840.08,1472.54L749.07,1485.5L639.3,1490.1L531.38,1484.68L436.81,1470.22L347.29,1445.62L277.32,1416.34L219.13,1381.48L168.76,1339.71L123.89,1288.19L89.28,1231.94L64.52,1171.01L47.7,1102.15L39,1023.89Z" fill="#FF3B3F"/><path d="M84.89,1066L316.34,1066L329.81,1104.19L348.34,1139.73L371.45,1171.53L398.47,1198.96L429.91,1222.64L465.13,1242.01L504.95,1257.38L547.14,1267.93L589.3,1273.83L633.65,1275.98L680.01,1274.42L722.68,1268.96L758.89,1260.3L793.06,1247.64L823.34,1231.72L849.09,1213.1L874.52,1187.28L894.73,1156.89L908.31,1123.77L915.1,1088.75L915.16,1052.48L908.17,1017.8L894.32,985.77L873.41,956.32L851.65,935.23L825.29,916.2L794.14,898.98L758.23,883.5L676.08,858.44L460.68,811.75L393.3,793.16L347.61,776.66L302.74,756.46L265.51,735.76L229.54,711.22L196.29,682.9L170.32,653.3L148.56,618.15L133.42,581.24L123.25,539.49L118.37,492.26L119.22,441.78L126.31,392.62L143.28,337.8L169.46,287.58L207.2,238.73L253.65,195.54L306.63,159.58L368.56,128.93L434.21,106.16L506.01,90.33L588.11,81.44L677,80.7L757.72,87.74L833.95,102.9L901.9,125.68L964.66,157.11L1017.64,194.58L1061.46,237.99L1089.97,276.47L1111.78,315.81L1129.29,360.54L1140.6,406L904.42,406L887.28,369.52L863.35,336.13L833.4,307.54L799.04,285.33L759.64,268.84L716.09,258.12L665.59,252.63L611.92,252.69L561.24,258.16L516.86,269.16L477.21,286.2L443.89,308.57L417.41,335.82L396.87,369.3L384.4,405.67L380.01,444.89L381.57,470.58L386.32,494.5L394.42,517.81L405.66,539.62L419.87,559.77L436.77,577.95L456.97,594.79L479.76,609.75L523.33,630.98L578.27,649.95L630.15,663.33L815.56,704.01L873.97,721.09L926.05,740.36L983.16,767.61L1032.98,798.57L1073.32,831.6L1107.18,869.25L1124.08,894.11L1138.55,921.5L1149.49,949.35L1158.41,981L1164.46,1014.61L1167.5,1048.62L1165.23,1121.56L1153.06,1183.55L1130.64,1239.78L1098.13,1289.26L1055.75,1332.57L1028.58,1353.41L1000.61,1371.07L935.83,1401.68L863.08,1424.34L780.34,1439.66L683.24,1447.38L581.95,1446.36L487.42,1436.65L402.05,1418.52L335.09,1396.18L276.88,1368.33L226.74,1334.62L181.91,1292.75L144.39,1243.78L117.91,1193.74L97.25,1132.56L84.89,1066Z" fill="#FF817C"/><path d="M134.7,1108.1L285.95,1108.1L303.99,1147.19L326.9,1183.06L353.97,1214.79L386.21,1243.33L422.76,1267.51L462.02,1286.59L503.91,1300.99L550.58,1311.3L599.48,1316.86L652.12,1317.94L702.01,1314.58L747.38,1306.86L788.39,1294.87L826.36,1278.35L860,1257.88L889.01,1233.69L916.91,1201.01L938.24,1163.73L951.88,1123.75L957.86,1080.68L955.84,1038.26L945.91,997.9L928.12,960.14L903.16,926.42L877.79,902.21L847.24,880.27L811.41,860.56L770.06,842.96L684.1,817.05L474.5,771.73L417.65,756.67L337.1,726.29L304.09,709.55L271.96,689.84L239.27,665.05L214.23,640.68L193.91,613.1L179.33,584.26L168.61,551.03L162,512.24L160.14,468.59L162.99,427.55L174.56,374.86L194.62,327.72L224.17,283.62L262.57,243.07L309.32,207.34L363.05,177.47L421.73,153.99L486.44,136.76L561.37,125.66L640,122.1L720.12,125.73L795.11,136.96L861.2,155.21L919.31,180.09L971.11,211.68L1015.15,249.63L1036.8,274.33L1057.04,303.18L1072.71,331.7L1086.04,363.9L932.07,363.9L917.53,338.34L899.62,313.82L879.19,291.73L856.94,272.51L832.84,256.06L806.12,241.9L777.37,230.38L746.26,221.38L688.79,212.07L626.93,210.03L566.57,214.7L513.27,226.15L473.78,240.93L439.01,259.96L408.66,283.45L383.55,310.78L363.11,342.66L348.38,377.8L340.04,414.57L337.99,452.64L340.72,482.27L346.92,509.93L356.86,536.99L370.68,563.12L387.13,586.25L407.26,607.99L430.49,627.57L456.53,644.93L505.53,669.18L566.18,690.28L620.79,704.38L799.85,743.44L851.57,758.1L899.8,775.16L950.94,798.21L997.39,825.2L1034.58,853.29L1065.36,884.37L1094.78,927.84L1113.59,975.7L1124.1,1032.08L1125.18,1095.51L1117.78,1151.4L1101.49,1203.03L1077.02,1247.27L1043.38,1286.95L998.61,1322.86L944.26,1352.56L880.74,1375.96L810.17,1392.48L725.93,1402.93L635.24,1405.87L547.72,1401.66L464.74,1389.96L396.92,1373.21L336.6,1351.19L285.79,1324.66L242.76,1293.29L204.61,1254.72L173.19,1210.17L150.36,1161.6L134.7,1108.1Z" fill="#FFD1CE"/><path d="M184.99,1145.99L260.92,1145.99L283.21,1186.41L310.31,1223.12L342.03,1255.82L377.76,1284.01L417.49,1307.74L461.68,1327.12L508.29,1341.32L559.26,1350.91L614.69,1355.57L673.37,1355.03L726.76,1349.41L775.25,1338.85L820.67,1322.87L861.72,1302L897.48,1276.89L928.49,1247.23L957.54,1208.15L978.86,1164.68L991.68,1118.48L995.99,1070.61L991.78,1023.27L978.98,978.11L957.84,936.13L928.95,898.46L900.38,871.73L866.4,847.56L826.25,825.65L781.5,806.79L690.96,779.72L487.04,735.71L436.07,722.63L368.06,698.56L309.81,669.08L280.01,649.09L253.61,627.04L235.58,606.98L221.66,585.34L210.18,558.58L202.53,528.38L198.59,494.65L198.29,459.53L204.5,409.52L218.75,364.7L241.19,324.16L272.17,286.41L310.6,252.64L355.69,223.74L409.69,198.59L467.37,180.07L534.99,166.85L606.91,160.63L684.83,161.14L759.52,168.89L821.91,182.54L878.54,202.67L929.76,229.52L972.78,261.52L1001.84,291.39L1026.58,326.01L954.48,326.01L919.15,278.52L897.08,256.64L874.29,238.17L822.14,207.56L762.59,186.4L700.97,175.22L631.71,172.06L563.26,176.91L502.39,189.85L456.21,207.3L415.67,229.96L379.89,258.46L350.74,291.36L326.79,330.47L310.44,372.29L301.61,416.61L300.46,461.89L304.38,494.57L312.21,525.98L324.07,556.42L339.64,584.95L358.52,611.13L380.43,634.77L406.13,656.66L435.45,676.47L488.18,703L554.02,726.2L612.36,741.33L788.04,779.55L878.04,807.36L923.59,826.91L965.64,849.87L1000.38,874.12L1029.41,900.91L1055.59,935.45L1072.91,972.62L1084.23,1018.69L1088.01,1069.91L1084.25,1124.07L1073.32,1170.56L1055.41,1210.65L1028.65,1247.55L993.06,1280.36L948.53,1308.4L894.25,1331.76L834.99,1348.79L766.46,1360.8L688.54,1367.13L606.47,1367.37L528.67,1361.56L461.9,1350.72L401.93,1335.1L349.27,1315.36L303.66,1291.15L265.66,1263L232.2,1228.63L204.84,1189.2L184.99,1145.99Z" fill="#FFFDF8"/></symbol><symbol id="bl-t" overflow="visible"><path d="M0,326V0H1294V326H849V1490H445V326Z" fill="#FF1F26"/><path d="M36.36,289.64L36.36,36.36L1257.64,36.36L1257.64,289.64L846.62,289.72L835.09,292.41L826.87,297.15L818.77,305.8L814.57,314.31L812.64,326L812.64,1453.64L481.36,1453.64L481.36,326L480.12,316.59L475.23,305.8L463.18,294.51L447.38,289.72L36.36,289.64Z" fill="#FF3B3F"/><path d="M76.76,249.24L76.76,76.76L1217.24,76.76L1217.24,249.24L838.98,249.9L819.63,255.08L802.27,265.1L788.1,279.27L776.31,301.33L772.24,326L772.24,1413.24L521.76,1413.24L521.76,326L519.14,306.13L511.48,287.62L499.28,271.72L483.38,259.52L469.67,253.31L450.02,249.4L76.76,249.24Z" fill="#FF817C"/><path d="M117.16,208.84L117.16,117.16L1176.84,117.16L1176.84,208.84L849,208.84L826.14,211.09L797.18,220.92L771.75,237.91L751.59,260.91L738.06,288.34L732.84,310.71L731.84,326L731.84,1372.84L562.16,1372.84L562.16,326L558.17,295.68L550.08,274.18L533.09,248.75L510.09,228.59L489.84,217.76L460.29,209.84L117.16,208.84Z" fill="#FFD1CE"/><path d="M153.52,172.48L153.52,153.52L1140.48,153.52L1140.48,172.48L849,172.48L809.27,177.71L781.1,188.31L747.78,210.58L721.35,240.71L703.63,276.65L698.43,296.05L695.48,326L695.48,1336.48L598.52,1336.48L598.52,326L593.29,286.27L582.69,258.1L560.42,224.78L538.46,204.2L503.75,184.17L474.95,175.43L445,172.48L153.52,172.48Z" fill="#FFFDF8"/></symbol></defs><use href="#bl-b" x="0"/><use href="#bl-s" x="1408.96"/><use href="#bl-t" x="2824.16"/><use href="#bl-s" x="4271.12"/><path d="M-181.78,738.3L-129.93,738.3L-129.93,1645.26L1113.92,1645.26L1113.92,1697.11L-181.78,1697.11Z" fill="#63C7C2"/><path d="M5700.9,751.71L5649.05,751.71L5649.05,-155.26L4405.2,-155.26L4405.2,-207.11L5700.9,-207.11Z" fill="#63C7C2"/></svg></div>
+  <p class="brand-name"><span>Bevier Strategic</span><span>Technology Solutions</span></p>
+  <div class="brand-rule" aria-hidden="true"><i class="l"></i><svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M12 .6 14.5 9.5 23.4 12 14.5 14.5 12 23.4 9.5 14.5.6 12 9.5 9.5Z" fill="#c9a869"/></svg><i class="r"></i></div>
+</header>
+
+<main id="main">
+  <section class="panel is-on" id="panel-card" role="tabpanel" aria-labelledby="tab-card" tabindex="-1">
+    
+  <section class="hero" aria-label="Photographs">
+    <div class="hero-stage">
+      <figure class="shot is-on" data-index="0">
+        <picture>
+          <source type="image/avif" srcset="assets/photos/headshot-420.avif 420w, assets/photos/headshot-640.avif 640w, assets/photos/headshot-900.avif 900w, assets/photos/headshot-1280.avif 1280w" sizes="(min-width: 760px) 640px, 100vw">
+          <source type="image/webp" srcset="assets/photos/headshot-420.webp 420w, assets/photos/headshot-640.webp 640w, assets/photos/headshot-900.webp 900w, assets/photos/headshot-1280.webp 1280w" sizes="(min-width: 760px) 640px, 100vw">
+          <img src="assets/photos/headshot-1280.jpg" srcset="assets/photos/headshot-420.jpg 420w, assets/photos/headshot-640.jpg 640w, assets/photos/headshot-900.jpg 900w, assets/photos/headshot-1280.jpg 1280w" sizes="(min-width: 760px) 640px, 100vw"
+               alt="Jacob Bevier, Founder and Principal of Bevier Strategic Technology Solutions" width="800" height="800"
+               style="object-position:50% 30%;background-image:url(data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAwBQCdASoYABgAPt1co02opSMiN/qoARAbiWQAsOwcMq9IrTvUsl0D43C5iXMg+qL6AAD+8rTUEdb2n2cunYNFnvztw1H4bKHOSfc6FXiMtE6gGUDyuSZSLoCgr6ogAnC5av0A4hia52QhPKp2gZeQSvDWXZAA)"
+               fetchpriority="high" decoding="async">
+        </picture>
+      </figure>
+      <figure class="shot" data-index="1" aria-hidden="true">
+        <picture>
+          <source type="image/avif" srcset="assets/photos/crew-420.avif 420w, assets/photos/crew-640.avif 640w" sizes="(min-width: 760px) 640px, 100vw">
+          <source type="image/webp" srcset="assets/photos/crew-420.webp 420w, assets/photos/crew-640.webp 640w" sizes="(min-width: 760px) 640px, 100vw">
+          <img src="assets/photos/crew-640.jpg" srcset="assets/photos/crew-420.jpg 420w, assets/photos/crew-640.jpg 640w" sizes="(min-width: 760px) 640px, 100vw"
+               alt="Jacob Bevier with his crew in front of their M1 Abrams tank" width="412" height="412"
+               style="object-position:50% 48%;background-image:url(data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAwBACdASoYABgAPu1srVEppaQiqAqpMB2JZwAAIDPkWw0/R39zB4m1VsgA/u/Wg0+RYWWo59x1WiAoV2oopg6b1I3qypzhkJmOc89Hk+eJdGJMBnUB1jQ8Uvie2OzZXM4AAA==)"
+               loading="lazy" decoding="async">
+        </picture>
+      </figure>
+      <figure class="shot" data-index="2" aria-hidden="true" data-film>
+        <video poster="assets/film-poster.jpg" muted loop playsinline preload="none"
+               disablepictureinpicture aria-label="Brand film: the BSTS Abrams fires its main gun while the commander signals forward. A rendered animation of the BSTS logo artwork, not a photograph.">
+          <source src="assets/film.webm" type="video/webm">
+          <source src="assets/film.mp4" type="video/mp4">
+        </video>
+      </figure>
+      <div class="hero-scrim" aria-hidden="true"></div>
+      <div class="hero-tracer" aria-hidden="true"></div>
+    </div>
+    <div class="hero-bar">
+      <div class="hero-caption" aria-live="polite"><span class="cap is-on" data-index="0"><b>Now</b><span>Founder &amp; Principal, BSTS</span></span><span class="cap" data-index="1"><b>Then</b><span>Armor crew, U.S. Army</span></span><span class="cap" data-index="2"><b>The mark</b><span>Rendered artwork</span></span></div>
+      <div class="hero-controls">
+        <button class="ctl" type="button" data-hero="pause" aria-label="Pause photograph cycling">
+          <svg class="i when-playing" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="7" y="5" width="3.5" height="14" rx="1" fill="currentColor" stroke="none"/><rect x="13.5" y="5" width="3.5" height="14" rx="1" fill="currentColor" stroke="none"/></svg><svg class="i when-paused" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="none"/></svg>
+        </button>
+        <div class="dots" role="group" aria-label="Choose photograph"><button class="dot is-on" data-goto="0" type="button" aria-label="Show photograph 1: Now"></button><button class="dot" data-goto="1" type="button" aria-label="Show photograph 2: Then"></button><button class="dot" data-goto="2" type="button" aria-label="Show photograph 3: The mark"></button></div>
+        <button class="ctl" type="button" data-hero="expand" aria-label="View the full photograph">
+          <svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 3H4a1 1 0 0 0-1 1v5M15 3h5a1 1 0 0 1 1 1v5M9 21H4a1 1 0 0 1-1-1v-5M15 21h5a1 1 0 0 0 1-1v-5"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+    
+  <section class="identity">
+    <h1 class="name">Jacob Bevier</h1>
+    <p class="role">Founder &amp; Principal</p>
+  </section>
+    
+  <section class="contact" aria-label="Contact details">
+    <ul>
+      <li><a class="row" href="tel:+14046182346">
+        <span class="row-i"><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5L16 12l4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 3 6.2 2 2 0 0 1 5 4h1.5Z"/></svg></span>
+        <span class="row-t"><span class="row-l">Phone</span><span class="row-v">(404) 618-2346</span></span>
+      </a></li>
+      <li><a class="row" href="mailto:jacob@bevierstrategic.com">
+        <span class="row-i"><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg></span>
+        <span class="row-t"><span class="row-l">Email</span><span class="row-v">jacob@bevierstrategic.com</span></span>
+      </a></li>
+      <li><a class="row" href="https://bevierstrategic.com" rel="noopener">
+        <span class="row-i"><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg></span>
+        <span class="row-t"><span class="row-l">Website</span><span class="row-v">bevierstrategic.com</span></span>
+      </a></li>
+    </ul>
+  </section>
+
+  <section class="actions" aria-label="Actions">
+    <a class="btn btn-key" href="tel:+14046182346"><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5L16 12l4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 3 6.2 2 2 0 0 1 5 4h1.5Z"/></svg><span>Call</span></a>
+    <a class="btn" href="mailto:jacob@bevierstrategic.com"><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg><span>Email</span></a>
+    <a class="btn" href="assets/jacob-bevier.vcf" type="text/vcard" download="jacob-bevier.vcf"
+       data-action="save" data-vcard><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0 4-4m-4 4-4-4"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg><span>Save Contact</span></a>
+    <a class="btn" href="https://bevierstrategic.com" rel="noopener"><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg><span>Website</span></a>
+    <button class="btn" type="button" data-action="share"><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 15V4m0 0L8 8m4-4 4 4"/><path d="M5 13v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg><span>Share Card</span></button>
+    <button class="btn btn-gold" type="button" data-action="qr"><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM19 19h2v2h-2zM14 19h2v2h-2zM19 14h2v2h-2z" stroke="none" fill="currentColor"/></svg><span>Show QR</span></button>
+  </section>
+    
+  <section class="signature">
+    <p class="slogan" role="text" aria-label="Secure the data. Enable the AI. Prove the controls.">
+      <span class="sl sl-white is-on">Secure the data.</span><span class="sl sl-blue">Enable the AI.</span><span class="sl sl-gold">Prove the controls.</span>
+    </p>
+    <p class="vet">Service-Disabled Veteran-Owned &amp; Operated</p>
+  </section>
+  </section>
+
+  <section class="panel prose" id="panel-about" role="tabpanel" aria-labelledby="tab-about" tabindex="-1" hidden>
+    
+    <h2 class="h">The short version</h2>
+    <p class="lede">I build the automated workflows that take repetitive work off your people, and I secure them properly on the way in.</p>
+    <div class="rule" aria-hidden="true"></div>
+    <p class="p">My career started in the U.S. Army, in armor. A tank crew is one of the most procedure-bound technical systems there is: nothing is improvised, every action is checked, and the round either hits or it does not. That is still how I run a project.</p><p class="p">From there I moved into cold chain logistics for life-sciences clients — work where a shipment that slips outside its temperature window is a loss nobody can undo, and the record proving it stayed in range matters as much as the delivery. It is a good teacher. It makes you care about the handoffs, the exceptions, and the evidence.</p><p class="p">Then federal cybersecurity, where the standard is simple and unforgiving: a control only counts if you can demonstrate it. Nobody takes your word for it.</p><p class="p">Alongside that I earned a Bachelor of Science in Computer Science with a Cybersecurity major, Magna Cum Laude, and a Master of Science in Artificial Intelligence. The two halves are deliberate. AI built without security discipline is a liability. Security that blocks useful work is a tax. Doing both well means understanding both, and most people specialize in one.</p><p class="p">BSTS is where all of that goes to work for smaller organizations — the ones with real operational pressure and no AI team, no security team, and no realistic way to hire either. You get requirements in writing before anything is built, honest risk calls even when they shrink the job, and a bias toward finishing the mission rather than extending the contract.</p>
+
+    <h3 class="h3">Background</h3>
+    <ul class="ticks"><li>U.S. Army veteran — leadership including Master Gunner and First Sergeant responsibilities</li><li>Cold chain logistics for life-sciences clients</li><li>Federal information-security and cybersecurity-coordination experience</li></ul>
+
+    <h3 class="h3">Education &amp; certifications</h3>
+    <ul class="ticks"><li>Master of Science in Artificial Intelligence</li><li>Bachelor of Science in Computer Science with a Cybersecurity major, Magna Cum Laude</li><li>CompTIA Security+</li><li>AWS Certified AI Practitioner</li></ul>
+    <p class="note">Certifications are held by the founder personally, not by the company.</p>
+    <p class="note">Military and federal experience described here reflects the founder's individual background and does not imply endorsement by the U.S. Army, the Department of Defense, the Small Business Administration, or any government agency.</p>
+  </section>
+
+  <section class="panel prose" id="panel-services" role="tabpanel" aria-labelledby="tab-services" tabindex="-1" hidden>
+    
+    <h2 class="h">What BSTS does</h2>
+    <p class="lede">Most growing businesses are held together by people doing the same things by hand — re-typing the same information, chasing approvals, rebuilding the same report every month. That work is expensive, it is where mistakes happen, and most of it does not need a person at all. I find it, automate it, and make sure the result is safe to run.</p>
+    <div class="rule" aria-hidden="true"></div>
+    <div class="cards">
+      <article class="scard">
+        <span class="scard-n" aria-hidden="true">01</span>
+        <h3>Take the repetitive work off your people</h3>
+        <p>The tasks that run the same way every time — data entry, document handling, recurring reports, the same record updated in three places. Automating them gives back hours and removes the step where somebody eventually forgets.</p>
+      </article><article class="scard">
+        <span class="scard-n" aria-hidden="true">02</span>
+        <h3>Make your existing tools talk to each other</h3>
+        <p>Most businesses do not need new software. They need the systems they already pay for to pass information between them reliably, so nothing has to be copied across by hand and nothing quietly goes stale.</p>
+      </article><article class="scard">
+        <span class="scard-n" aria-hidden="true">03</span>
+        <h3>Smooth out intake, onboarding and follow-up</h3>
+        <p>A new client or new hire should trigger the next step on its own: the form, the file, the reminder, the handoff. Fewer dropped threads, and everyone can see where something actually is.</p>
+      </article><article class="scard">
+        <span class="scard-n" aria-hidden="true">04</span>
+        <h3>Put AI to work where it genuinely helps</h3>
+        <p>AI is very good at some of this and a poor fit for the rest. Where it earns its place I build it in, with a person reviewing anything consequential before it takes effect. Where a simple, predictable script is the better answer, I will say so and build that instead.</p>
+      </article><article class="scard">
+        <span class="scard-n" aria-hidden="true">05</span>
+        <h3>Protect access and sensitive information</h3>
+        <p>Who can reach what, what an automated process is allowed to touch, where customer information travels, and what gets recorded. Designed in from the start, because retrofitting it later costs more and proves less.</p>
+      </article><article class="scard">
+        <span class="scard-n" aria-hidden="true">06</span>
+        <h3>Find the bottlenecks and the gaps</h3>
+        <p>Before anything is built, a straight look at where the hours actually go and where the real exposure sits — then a ranked plan you can act on, with or without me.</p>
+      </article>
+    </div>
+
+    <h3 class="h3">What that buys you</h3>
+    <ul class="chips"><li>Hours given back</li><li>Fewer missed steps</li><li>Smoother handoffs</li><li>Clearer visibility</li><li>Safer handling of information</li></ul>
+
+    <div class="cta">
+      <h3>What would you fix first?</h3>
+      <p>If there is one process in your business that eats time or keeps going wrong, that is the conversation worth having. Tell me about it and I will tell you straight whether it is worth automating.</p>
+      <div class="cta-actions">
+        <a class="btn btn-key" href="mailto:jacob@bevierstrategic.com?subject=A%20workflow%20I'd%20like%20to%20improve"><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg><span>Email me</span></a>
+        <a class="btn" href="tel:+14046182346"><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5L16 12l4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 3 6.2 2 2 0 0 1 5 4h1.5Z"/></svg><span>Call</span></a>
+      </div>
+    </div>
+  </section>
+
+  
+  <footer class="foot">
+    <div class="foot-rule" aria-hidden="true"></div>
+    <p class="sig">Built by BSTS</p>
+    <p class="foot-line">Bevier Strategic Technology Solutions LLC &middot; Service-Disabled Veteran-Owned &amp; Operated</p>
+    <button class="linkish" type="button" data-action="install-help">Add to home screen</button>
+  </footer>
+</main>
+
+
+  <nav class="tabbar" aria-label="Sections">
+    <div class="tabs" role="tablist" aria-label="Card sections">
+      <button class="tab is-on" role="tab" type="button" id="tab-card"
+       aria-controls="panel-card" aria-selected="true" data-tab="card" tabindex="0">Card</button><button class="tab" role="tab" type="button" id="tab-about"
+       aria-controls="panel-about" aria-selected="false" data-tab="about" tabindex="-1">About</button><button class="tab" role="tab" type="button" id="tab-services"
+       aria-controls="panel-services" aria-selected="false" data-tab="services" tabindex="-1">Services</button>
+    </div>
+    <button class="tabqr" type="button" data-action="qr" aria-label="Show QR code">
+      <svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM19 19h2v2h-2zM14 19h2v2h-2zM19 14h2v2h-2z" stroke="none" fill="currentColor"/></svg><span>QR</span>
+    </button>
+  </nav>
+
+  <dialog class="sheet" id="qr-sheet" aria-label="QR code">
+    <div class="sheet-in">
+      <button class="sheet-x" type="button" data-close aria-label="Close"><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+      <p class="sheet-eyebrow">Scan to open my card</p>
+      <div class="qr-frame">
+        <div class="qr-code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37 37" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h37v37H0z"/><path stroke="#000000" d="M4 4.5h7m1 0h4m1 0h3m2 0h3m1 0h7M4 5.5h1m5 0h1m1 0h2m2 0h2m2 0h1m5 0h1m5 0h1M4 6.5h1m1 0h3m1 0h1m3 0h1m1 0h1m3 0h1m1 0h2m2 0h1m1 0h3m1 0h1M4 7.5h1m1 0h3m1 0h1m1 0h2m2 0h1m1 0h2m1 0h3m2 0h1m1 0h3m1 0h1M4 8.5h1m1 0h3m1 0h1m2 0h1m1 0h1m2 0h1m1 0h1m2 0h1m2 0h1m1 0h3m1 0h1M4 9.5h1m5 0h1m3 0h4m1 0h6m1 0h1m5 0h1M4 10.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M12 11.5h1m1 0h2m3 0h3m1 0h1M4 12.5h1m1 0h2m1 0h3m1 0h3m1 0h1m1 0h1m1 0h3m2 0h1m2 0h1m1 0h2M4 13.5h1m1 0h1m1 0h2m2 0h8m2 0h7m3 0h1M5 14.5h6m1 0h1m1 0h1m1 0h2m2 0h1m4 0h1m4 0h2M5 15.5h2m1 0h2m1 0h4m1 0h1m3 0h1m1 0h5m1 0h1m3 0h1M4 16.5h2m2 0h1m1 0h3m5 0h2m1 0h1m7 0h2M5 17.5h1m1 0h3m1 0h2m5 0h1m1 0h1m2 0h1m1 0h2m3 0h3M6 18.5h2m2 0h3m1 0h4m1 0h5m2 0h1m1 0h1m1 0h3M6 19.5h1m2 0h1m4 0h1m1 0h1m1 0h1m1 0h1m3 0h5m2 0h1M5 20.5h1m1 0h2m1 0h1m3 0h3m1 0h2m2 0h1m2 0h1m2 0h2m1 0h1M6 21.5h2m5 0h3m2 0h1m1 0h2m2 0h2m1 0h1m1 0h3M4 22.5h1m1 0h3m1 0h2m2 0h6m4 0h2m1 0h2m1 0h1M7 23.5h1m3 0h3m1 0h4m1 0h3m1 0h3m3 0h1M5 24.5h1m2 0h1m1 0h6m1 0h2m1 0h2m1 0h8M12 25.5h5m3 0h3m1 0h1m3 0h5M4 26.5h7m1 0h3m1 0h1m1 0h1m3 0h3m1 0h1m1 0h2m1 0h1M4 27.5h1m5 0h1m1 0h1m1 0h2m1 0h4m1 0h1m1 0h1m3 0h2m2 0h1M4 28.5h1m1 0h3m1 0h1m2 0h3m3 0h3m2 0h5m1 0h2M4 29.5h1m1 0h3m1 0h1m1 0h1m2 0h3m1 0h3m3 0h1m1 0h3m2 0h1M4 30.5h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h2m2 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1M4 31.5h1m5 0h1m2 0h7m3 0h2m4 0h1m1 0h1M4 32.5h7m1 0h2m1 0h3m4 0h3m2 0h1m3 0h1"/></svg></div>
+      </div>
+      <p class="qr-url">bevierstrategic.com/card</p>
+      <p class="qr-hint">No app and no account needed. Turn your screen brightness up for a faster scan.</p>
+      <div class="sheet-actions">
+        <button class="btn" type="button" data-action="copy" data-copy="https://bevierstrategic.com/card">
+          <svg class="i when-idle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M15 5H5a2 2 0 0 0-2 2v10"/></svg><svg class="i when-done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12.5 4.5 4.5L19 7"/></svg><span>Copy link</span>
+        </button>
+        <a class="btn" href="qr/bsts-card-qr-1024.png" download="BSTS-card-QR.png"><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0 4-4m-4 4-4-4"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg><span>PNG</span></a>
+        <a class="btn" href="qr/bsts-card-qr.svg" download="BSTS-card-QR.svg"><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0 4-4m-4 4-4-4"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg><span>SVG</span></a>
+      </div>
+      <p class="sheet-foot">This screen works offline once the card has loaded. Opening the card after
+      scanning needs an internet connection.</p>
+    </div>
+  </dialog>
+
+  <dialog class="sheet sheet-photo" id="photo-sheet" aria-label="Photograph">
+    <div class="sheet-in">
+      <button class="sheet-x" type="button" data-close aria-label="Close"><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+      <div class="photo-full"><img alt="" decoding="async"></div>
+      <p class="photo-cap"></p>
+    </div>
+  </dialog>
+
+  <dialog class="sheet" id="install-sheet" aria-label="Add to home screen">
+    <div class="sheet-in">
+      <button class="sheet-x" type="button" data-close aria-label="Close"><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+      <p class="sheet-eyebrow">Add to your home screen</p>
+      <p class="sheet-lede">It opens full screen, straight to your card, and the QR still works with no signal.</p>
+      <button class="btn btn-key install-now" type="button" data-action="install" hidden>
+        <svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg><span>Install</span>
+      </button>
+      <div class="steps">
+        <div>
+          <h4>iPhone &amp; iPad</h4>
+          <ol>
+            <li>Open this page in Safari.</li>
+            <li>Tap the Share button at the bottom of the screen.</li>
+            <li>Scroll down and tap <b>Add to Home Screen</b>.</li>
+            <li>Tap <b>Add</b>.</li>
+          </ol>
+        </div>
+        <div>
+          <h4>Android</h4>
+          <ol>
+            <li>Open this page in Chrome.</li>
+            <li>Tap the <b>&#8942;</b> menu, top right.</li>
+            <li>Tap <b>Add to Home screen</b> or <b>Install app</b>.</li>
+            <li>Tap <b>Install</b>.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>/**
+ * BSTS card behaviour.
+ *
+ * Progressive by design: the name, title, phone, email, website and every
+ * primary action are already in the HTML and already work before this file
+ * runs. Everything here is an enhancement, and every enhancement checks for
+ * the capability it needs before using it.
+ */
+(function () {
+  "use strict";
+
+  var DATA = {};
+  try {
+    DATA = JSON.parse(document.getElementById("card-data").textContent);
+  } catch (e) {
+    DATA = {};
+  }
+  var CARD = DATA.card || {};
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  var reduceMotion = false;
+  try {
+    var mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    reduceMotion = mq.matches;
+    var onMQ = function (e) { reduceMotion = e.matches; applyMotionPreference(); };
+    if (mq.addEventListener) mq.addEventListener("change", onMQ);
+    else if (mq.addListener) mq.addListener(onMQ);
+  } catch (e) {}
+
+  document.documentElement.classList.add("js");
+
+  /* ---------------------------------------------------------------- */
+  /* Toast                                                             */
+  /* ---------------------------------------------------------------- */
+  var toastEl = $("#toast");
+  var toastTimer;
+  function toast(msg) {
+    if (!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add("is-on");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastEl.classList.remove("is-on"); }, 2600);
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Tabs                                                              */
+  /* ---------------------------------------------------------------- */
+  var tabs = $$(".tab");
+  var panels = {
+    card: $("#panel-card"),
+    about: $("#panel-about"),
+    services: $("#panel-services"),
+  };
+
+  function showTab(name, focusPanel) {
+    if (!panels[name]) return;
+    tabs.forEach(function (t) {
+      var on = t.getAttribute("data-tab") === name;
+      t.classList.toggle("is-on", on);
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+    });
+    Object.keys(panels).forEach(function (k) {
+      var on = k === name;
+      panels[k].hidden = !on;
+      panels[k].classList.toggle("is-on", on);
+    });
+    // Each section starts at its own top; the card must never appear scrolled.
+    try { window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" }); }
+    catch (e) { window.scrollTo(0, 0); }
+    if (focusPanel) panels[name].focus();
+    try { history.replaceState(null, "", name === "card" ? "./" : "#" + name); } catch (e) {}
+  }
+
+  tabs.forEach(function (t) {
+    t.addEventListener("click", function () { showTab(t.getAttribute("data-tab"), false); });
+    t.addEventListener("keydown", function (e) {
+      var i = tabs.indexOf(t);
+      var next = e.key === "ArrowRight" ? i + 1 : e.key === "ArrowLeft" ? i - 1 : -1;
+      if (next < 0 || next >= tabs.length) return;
+      e.preventDefault();
+      tabs[next].focus();
+      showTab(tabs[next].getAttribute("data-tab"), false);
+    });
+  });
+
+  if (location.hash === "#about" || location.hash === "#services") {
+    showTab(location.hash.slice(1), false);
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Hero: cross-fading photographs                                    */
+  /* ---------------------------------------------------------------- */
+  var shots = $$(".shot");
+  var dots = $$(".dot");
+  var caps = $$(".cap");
+  var stage = $(".hero-stage");
+  var tracer = $(".hero-tracer");
+  var pauseBtn = $('[data-hero="pause"]');
+  var current = 0;
+  var paused = false;
+  var timer = null;
+
+  function setShot(i, fromUser) {
+    if (!shots.length) return;
+    i = (i + shots.length) % shots.length;
+    if (i === current && !fromUser) return;
+    current = i;
+    shots.forEach(function (s, n) {
+      var on = n === i;
+      s.classList.toggle("is-on", on);
+      if (on) s.removeAttribute("aria-hidden");
+      else s.setAttribute("aria-hidden", "true");
+
+      // The film only runs while it is the one on screen, and never at all
+      // when motion is reduced — the poster frame stands in for it.
+      var video = s.querySelector("video");
+      if (!video) return;
+      if (on && !reduceMotion) {
+        var playing = video.play();
+        if (playing && playing.catch) playing.catch(function () {});
+      } else {
+        video.pause();
+        try { video.currentTime = 0; } catch (e) {}
+      }
+    });
+    dots.forEach(function (d, n) { d.classList.toggle("is-on", n === i); });
+    caps.forEach(function (c, n) { c.classList.toggle("is-on", n === i); });
+    if (stage) stage.classList.toggle("is-film", Boolean(shots[i] && shots[i].hasAttribute("data-film")));
+    syncExpand();
+    if (tracer && !reduceMotion) {
+      tracer.classList.remove("is-sweep");
+      void tracer.offsetWidth;
+      tracer.classList.add("is-sweep");
+    }
+  }
+
+  function schedule() {
+    clearTimeout(timer);
+    if (paused || reduceMotion || shots.length < 2 || document.hidden) return;
+    // The film gets long enough to finish a loop rather than being cut off
+    // mid-shot by a dwell time chosen for still photographs.
+    var shot = shots[current];
+    var video = shot && shot.querySelector("video");
+    var dwell = (CARD.hero && CARD.hero.dwellMs) || 6500;
+    // The film holds for exactly one pass — long enough to finish the shot,
+    // short enough that it never restarts and gets cut off mid-replay.
+    if (video && video.duration) dwell = Math.ceil(video.duration * 1000) + 300;
+    timer = setTimeout(function () {
+      setShot(current + 1);
+      schedule();
+    }, dwell);
+  }
+
+  function setPaused(v) {
+    paused = v;
+    if (pauseBtn) {
+      pauseBtn.classList.toggle("is-paused", v);
+      pauseBtn.setAttribute("aria-label", v ? "Resume photograph cycling" : "Pause photograph cycling");
+    }
+    schedule();
+  }
+
+  dots.forEach(function (d) {
+    d.addEventListener("click", function () {
+      setShot(parseInt(d.getAttribute("data-goto"), 10), true);
+      setPaused(true);
+    });
+  });
+
+  if (pauseBtn) pauseBtn.addEventListener("click", function () { setPaused(!paused); });
+
+  document.addEventListener("visibilitychange", schedule);
+
+  // Swipe between photographs, without hijacking a vertical scroll.
+  if (stage) {
+    var sx = 0, sy = 0, tracking = false;
+    stage.addEventListener("touchstart", function (e) {
+      if (e.touches.length !== 1) return;
+      sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+    }, { passive: true });
+    stage.addEventListener("touchend", function (e) {
+      if (!tracking) return;
+      tracking = false;
+      var t = e.changedTouches[0];
+      var dx = t.clientX - sx, dy = t.clientY - sy;
+      if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.6) {
+        setShot(current + (dx < 0 ? 1 : -1), true);
+        setPaused(true);
+      }
+    }, { passive: true });
+  }
+
+  function applyMotionPreference() {
+    document.documentElement.classList.toggle("reduce-motion", reduceMotion);
+    schedule();
+    cycleSlogan(true);
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Slogan: one line at a time, white -> blue -> gold                 */
+  /* ---------------------------------------------------------------- */
+  var slogans = $$(".sl");
+  var slIndex = 0;
+  var slTimer = null;
+
+  function cycleSlogan(reset) {
+    clearInterval(slTimer);
+    if (!slogans.length) return;
+    if (reduceMotion) {
+      // All three read at once, in their colours, nothing moving.
+      slogans.forEach(function (s) { s.classList.add("is-on"); });
+      document.documentElement.classList.add("slogan-static");
+      return;
+    }
+    document.documentElement.classList.remove("slogan-static");
+    if (reset) {
+      slIndex = 0;
+      slogans.forEach(function (s, i) { s.classList.toggle("is-on", i === 0); });
+    }
+    slTimer = setInterval(function () {
+      if (document.hidden) return;
+      slIndex = (slIndex + 1) % slogans.length;
+      slogans.forEach(function (s, i) { s.classList.toggle("is-on", i === slIndex); });
+    }, 2200);
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Dialogs                                                           */
+  /* ---------------------------------------------------------------- */
+  var supportsDialog = typeof HTMLDialogElement === "function" &&
+    typeof HTMLDialogElement.prototype.showModal === "function";
+
+  function openSheet(el) {
+    if (!el) return;
+    if (supportsDialog) {
+      if (!el.open) el.showModal();
+    } else {
+      // Older browsers: a plain visible panel, still dismissible.
+      el.setAttribute("open", "");
+      el.classList.add("is-fallback");
+    }
+    document.documentElement.classList.add("sheet-open");
+    var first = el.querySelector("[data-close]");
+    if (first) first.focus();
+  }
+
+  function closeSheet(el) {
+    if (!el) return;
+    if (supportsDialog && el.open) el.close();
+    else el.removeAttribute("open");
+    document.documentElement.classList.remove("sheet-open");
+  }
+
+  $$(".sheet").forEach(function (sheet) {
+    sheet.addEventListener("click", function (e) {
+      // Click on the backdrop (the dialog element itself) closes.
+      if (e.target === sheet) closeSheet(sheet);
+    });
+    sheet.addEventListener("close", function () {
+      document.documentElement.classList.remove("sheet-open");
+    });
+    $$("[data-close]", sheet).forEach(function (b) {
+      b.addEventListener("click", function () { closeSheet(sheet); });
+    });
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") $$(".sheet[open]").forEach(closeSheet);
+  });
+
+  /* Photo viewer: the full, uncropped photograph. */
+  var HERO = DATA.hero || [];
+  var photoSheet = $("#photo-sheet");
+  var expandBtn = $('[data-hero="expand"]');
+
+  function canExpand(i) {
+    var shot = shots[i];
+    return Boolean(shot && shot.querySelector("img"));
+  }
+
+  function openPhoto() {
+    var shot = shots[current];
+    if (!shot || !photoSheet || !canExpand(current)) return;
+    var img = shot.querySelector("img");
+    var target = photoSheet.querySelector(".photo-full img");
+    var cap = photoSheet.querySelector(".photo-cap");
+    if (img && target) {
+      target.src = img.currentSrc || img.src;
+      target.alt = img.alt;
+    }
+    var meta = HERO[current];
+    if (cap) cap.textContent = meta ? meta.eyebrow + " — " + meta.caption : "";
+    openSheet(photoSheet);
+  }
+
+  /* The film has no full-size still to open, so the control retires for it
+     rather than sitting there doing nothing. */
+  function syncExpand() {
+    if (!expandBtn) return;
+    var ok = canExpand(current);
+    expandBtn.disabled = !ok;
+    expandBtn.hidden = !ok;
+  }
+
+  if (expandBtn) expandBtn.addEventListener("click", openPhoto);
+  shots.forEach(function (s) {
+    s.addEventListener("click", function () { if (s.classList.contains("is-on")) openPhoto(); });
+  });
+
+  /* ---------------------------------------------------------------- */
+  /* Save Contact                                                      */
+  /*                                                                   */
+  /* Both platforms understand a .vcf, but they want it delivered      */
+  /* differently. Android honours the download attribute and hands the */
+  /* file to Contacts from the notification. iOS treats a download as  */
+  /* a file to stash in Files, which buries it — whereas navigating to */
+  /* a text/vcard response makes Safari open the contact sheet with    */
+  /* "Add to Contacts" right there. So on iOS the download attribute   */
+  /* is removed and the card is opened instead.                        */
+  /* ---------------------------------------------------------------- */
+  var isIOS =
+    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    // iPadOS reports itself as a Mac, but a Mac has no touch.
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+  if (isIOS) {
+    $$("[data-vcard]").forEach(function (a) {
+      a.removeAttribute("download");
+      // Hand off to Safari so this also works from the installed app,
+      // where a same-tab navigation would otherwise leave the card.
+      a.setAttribute("target", "_blank");
+      a.setAttribute("rel", "noopener");
+    });
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Actions                                                           */
+  /* ---------------------------------------------------------------- */
+  function copyLink(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function (resolve, reject) {
+      try {
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed";
+        ta.style.top = "-1000px";
+        document.body.appendChild(ta);
+        ta.select();
+        var ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        ok ? resolve() : reject(new Error("copy refused"));
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+
+  function shareCard() {
+    var payload = {
+      title: CARD.person ? CARD.person.name + " — " + CARD.company.shortName : document.title,
+      text: CARD.person
+        ? CARD.person.name + ", " + CARD.person.title + " at " + CARD.company.name
+        : "",
+      url: CARD.publicUrl,
+    };
+    if (navigator.share) {
+      navigator.share(payload).catch(function (err) {
+        // A cancelled share is not a failure and gets no message.
+        if (err && (err.name === "AbortError" || err.name === "NotAllowedError")) return;
+        fallbackShare();
+      });
+      return;
+    }
+    fallbackShare();
+  }
+
+  function fallbackShare() {
+    copyLink(CARD.publicUrl).then(
+      function () { toast("Link copied to your clipboard"); },
+      function () { toast(CARD.publicUrl); },
+    );
+  }
+
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest ? e.target.closest("[data-action]") : null;
+    if (!el) return;
+    var action = el.getAttribute("data-action");
+
+    if (action === "qr") {
+      e.preventDefault();
+      openSheet($("#qr-sheet"));
+    } else if (action === "share") {
+      e.preventDefault();
+      shareCard();
+    } else if (action === "copy") {
+      e.preventDefault();
+      copyLink(el.getAttribute("data-copy")).then(
+        function () {
+          el.classList.add("is-done");
+          toast("Link copied");
+          setTimeout(function () { el.classList.remove("is-done"); }, 2000);
+        },
+        function () { toast("Copy is not available in this browser"); },
+      );
+    } else if (action === "install-help") {
+      e.preventDefault();
+      openSheet($("#install-sheet"));
+    } else if (action === "install") {
+      e.preventDefault();
+      doInstall();
+    } else if (action === "save") {
+      // The link itself does the work; this is only reassurance.
+      toast(isIOS ? "Opening your contact card" : "Contact card saved — open it to add me");
+    }
+  });
+
+  /* ---------------------------------------------------------------- */
+  /* Install                                                           */
+  /* ---------------------------------------------------------------- */
+  var deferredPrompt = null;
+  var installBtn = $(".install-now");
+
+  window.addEventListener("beforeinstallprompt", function (e) {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (installBtn) installBtn.hidden = false;
+  });
+
+  function doInstall() {
+    if (!deferredPrompt) {
+      toast("Follow the steps below for your phone");
+      return;
+    }
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(function () {
+      deferredPrompt = null;
+      if (installBtn) installBtn.hidden = true;
+    });
+  }
+
+  window.addEventListener("appinstalled", function () {
+    deferredPrompt = null;
+    if (installBtn) installBtn.hidden = true;
+    closeSheet($("#install-sheet"));
+    toast("Added to your home screen");
+  });
+
+  /* Launched from the manifest shortcut, or a bookmarked ?view=qr. */
+  try {
+    if (new URLSearchParams(location.search).get("view") === "qr") {
+      openSheet($("#qr-sheet"));
+    }
+  } catch (e) {}
+
+  /* ---------------------------------------------------------------- */
+  /* Offline                                                           */
+  /* ---------------------------------------------------------------- */
+  if ("serviceWorker" in navigator && location.protocol !== "file:") {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("sw.js").catch(function () {
+        // No offline QR, but everything else still works. Nothing to say.
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------------- */
+  applyMotionPreference();
+  setShot(0, true);
+  schedule();
+})();
+</script>
+</body>
+</html>

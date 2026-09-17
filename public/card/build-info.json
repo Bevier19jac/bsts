@@ -1,0 +1,11 @@
+{
+  "built": "2026-09-17T04:18:27.697Z",
+  "version": "d7c556d444f0",
+  "url": "https://bevierstrategic.com/card",
+  "warnings": [
+    "photograph \"headshot\" is only 800x800. 1400px wide or more is needed for a crisp full-bleed hero — the original is still needed.",
+    "photograph \"crew\" is only 412x412. 1400px wide or more is needed for a crisp full-bleed hero — the original is still needed.",
+    "QR target https://bevierstrategic.com/card is not confirmed (publicUrlConfirmed: false). A printed or shared QR can never be changed, so confirm the address before release."
+  ],
+  "release": false
+}
