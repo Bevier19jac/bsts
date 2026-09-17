@@ -11,7 +11,7 @@
  */
 /* Both tokens below are replaced at build time. They are written as valid
    literals so this file stays syntactically valid JavaScript on its own. */
-const VERSION = "65190db8c93d";
+const VERSION = "c35116fceae3";
 const CACHE = `bsts-card-${VERSION}`;
 const PRECACHE = [
   "./",
@@ -21,12 +21,6 @@ const PRECACHE = [
   "assets/photos/headshot-640.avif",
   "assets/photos/headshot-640.webp",
   "assets/photos/headshot-640.jpg",
-  "assets/photos/crew-420.avif",
-  "assets/photos/crew-420.webp",
-  "assets/photos/crew-420.jpg",
-  "assets/photos/crew-640.avif",
-  "assets/photos/crew-640.webp",
-  "assets/photos/crew-640.jpg",
   "qr/bsts-card-qr.svg",
   "qr/bsts-card-qr-1024.png",
   "qr/bsts-card-qr-2048.png",
