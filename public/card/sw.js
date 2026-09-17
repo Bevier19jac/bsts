@@ -11,7 +11,7 @@
  */
 /* Both tokens below are replaced at build time. They are written as valid
    literals so this file stays syntactically valid JavaScript on its own. */
-const VERSION = "d7c556d444f0";
+const VERSION = "65190db8c93d";
 const CACHE = `bsts-card-${VERSION}`;
 const PRECACHE = [
   "./",
