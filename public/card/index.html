@@ -570,6 +570,70 @@ img, svg { display: block; max-width: 100%; }
 .btn.is-done .when-done { display: block; color: var(--cyan-soft); }
 
 /* ==========================================================================
+   Profile links
+
+   Deliberately below the action grid rather than inside .contact: the phone,
+   email and website rows have to stay on the first screen of a phone, and
+   every row added above them eats that budget.
+   ========================================================================== */
+.social { padding: 0.5rem var(--pad) 0; }
+.social ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.5rem;
+}
+/* An odd one out spans the row rather than leaving a hole beside it. */
+.social li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+@media (min-width: 560px) {
+  .social ul { grid-template-columns: repeat(3, 1fr); }
+  .social li:last-child:nth-child(odd) { grid-column: auto; }
+}
+.prof {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 48px;
+  padding: 0.5rem 0.8rem;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  background: color-mix(in srgb, var(--graphite-2) 55%, transparent);
+  border: 1px solid color-mix(in srgb, var(--edge) 55%, transparent);
+  transition: border-color 0.2s, transform 0.2s var(--ease);
+}
+.prof:hover { border-color: color-mix(in srgb, var(--cyan) 42%, transparent); }
+.prof:active { transform: scale(0.99); }
+.prof-i {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: rgba(99, 199, 194, 0.08);
+  color: var(--cyan-soft);
+}
+.prof-i .i { width: 16px; height: 16px; }
+.prof-t { display: grid; min-width: 0; }
+.prof-n {
+  font-size: 0.56rem;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--warm-dim);
+}
+.prof-l {
+  font-size: 0.86rem;
+  color: var(--warm-white);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+
+/* ==========================================================================
    Prose panels: About, Services
    ========================================================================== */
 .panel:not(.is-on) { display: none; }
@@ -1044,7 +1108,7 @@ img, svg { display: block; max-width: 100%; }
   .name, .row-v, .p, .lede { color: #000; }
 }
 </style>
-<script type="application/json" id="card-data">{"card":{"publicUrl":"https://bevierstrategic.com/card","publicUrlConfirmed":false,"person":{"name":"Jacob Bevier","givenName":"Jacob","familyName":"Bevier","title":"Founder & Principal"},"company":{"name":"Bevier Strategic Technology Solutions","legalName":"Bevier Strategic Technology Solutions LLC","shortName":"BSTS","nameLines":["Bevier Strategic","Technology Solutions"],"veteranLine":"Service-Disabled Veteran-Owned & Operated"},"contact":{"phoneDisplay":"(404) 618-2346","phoneE164":"+14046182346","email":"jacob@bevierstrategic.com","websiteDisplay":"bevierstrategic.com","websiteUrl":"https://bevierstrategic.com"},"slogan":[{"text":"Secure the data.","tone":"white"},{"text":"Enable the AI.","tone":"blue"},{"text":"Prove the controls.","tone":"gold"}],"photos":[{"id":"headshot","src":"headshot","alt":"Jacob Bevier, Founder and Principal of Bevier Strategic Technology Solutions","eyebrow":"Now","caption":"Founder & Principal, BSTS","focus":{"x":50,"y":30}}],"film":{"enabled":true,"id":"film","eyebrow":"The mark","caption":"Rendered artwork","alt":"Brand film: the BSTS Abrams fires its main gun while the commander signals forward. A rendered animation of the BSTS logo artwork, not a photograph."},"hero":{"dwellMs":6500},"about":{"heading":"The short version","lede":"I build the automated workflows that take repetitive work off your people, and I secure them properly on the way in.","body":["My career started in the U.S. Army, in armor. A tank crew is one of the most procedure-bound technical systems there is: nothing is improvised, every action is checked, and the round either hits or it does not. That is still how I run a project.","From there I moved into cold chain logistics for life-sciences clients — work where a shipment that slips outside its temperature window is a loss nobody can undo, and the record proving it stayed in range matters as much as the delivery. It is a good teacher. It makes you care about the handoffs, the exceptions, and the evidence.","Then federal cybersecurity, where the standard is simple and unforgiving: a control only counts if you can demonstrate it. Nobody takes your word for it.","Alongside that I earned a Bachelor of Science in Computer Science with a Cybersecurity major, Magna Cum Laude, and a Master of Science in Artificial Intelligence. The two halves are deliberate. AI built without security discipline is a liability. Security that blocks useful work is a tax. Doing both well means understanding both, and most people specialize in one.","BSTS is where all of that goes to work for smaller organizations — the ones with real operational pressure and no AI team, no security team, and no realistic way to hire either. You get requirements in writing before anything is built, honest risk calls even when they shrink the job, and a bias toward finishing the mission rather than extending the contract."],"credentials":["Master of Science in Artificial Intelligence","Bachelor of Science in Computer Science with a Cybersecurity major, Magna Cum Laude","CompTIA Security+","AWS Certified AI Practitioner"],"credentialsNote":"Certifications are held by the founder personally, not by the company.","experience":["U.S. Army veteran — leadership including Master Gunner and First Sergeant responsibilities","Cold chain logistics for life-sciences clients","Federal information-security and cybersecurity-coordination experience"],"disclaimer":"Military and federal experience described here reflects the founder's individual background and does not imply endorsement by the U.S. Army, the Department of Defense, the Small Business Administration, or any government agency."},"services":{"heading":"What BSTS does","lede":"Most growing businesses are held together by people doing the same things by hand — re-typing the same information, chasing approvals, rebuilding the same report every month. That work is expensive, it is where mistakes happen, and most of it does not need a person at all. I find it, automate it, and make sure the result is safe to run.","items":[{"title":"Take the repetitive work off your people","body":"The tasks that run the same way every time — data entry, document handling, recurring reports, the same record updated in three places. Automating them gives back hours and removes the step where somebody eventually forgets."},{"title":"Make your existing tools talk to each other","body":"Most businesses do not need new software. They need the systems they already pay for to pass information between them reliably, so nothing has to be copied across by hand and nothing quietly goes stale."},{"title":"Smooth out intake, onboarding and follow-up","body":"A new client or new hire should trigger the next step on its own: the form, the file, the reminder, the handoff. Fewer dropped threads, and everyone can see where something actually is."},{"title":"Put AI to work where it genuinely helps","body":"AI is very good at some of this and a poor fit for the rest. Where it earns its place I build it in, with a person reviewing anything consequential before it takes effect. Where a simple, predictable script is the better answer, I will say so and build that instead."},{"title":"Protect access and sensitive information","body":"Who can reach what, what an automated process is allowed to touch, where customer information travels, and what gets recorded. Designed in from the start, because retrofitting it later costs more and proves less."},{"title":"Find the bottlenecks and the gaps","body":"Before anything is built, a straight look at where the hours actually go and where the real exposure sits — then a ranked plan you can act on, with or without me."}],"outcomes":["Hours given back","Fewer missed steps","Smoother handoffs","Clearer visibility","Safer handling of information"],"cta":{"heading":"What would you fix first?","body":"If there is one process in your business that eats time or keeps going wrong, that is the conversation worth having. Tell me about it and I will tell you straight whether it is worth automating."}},"footer":{"signature":"Built by BSTS"}},"files":{"vcard":"assets/jacob-bevier.vcf","qrSvg":"qr/bsts-card-qr.svg","qrPng":"qr/bsts-card-qr-1024.png","qrPngLarge":"qr/bsts-card-qr-2048.png"},"hero":[{"kind":"photo","eyebrow":"Now","caption":"Founder & Principal, BSTS","inset":false},{"kind":"film","eyebrow":"The mark","caption":"Rendered artwork"}]}</script>
+<script type="application/json" id="card-data">{"card":{"publicUrl":"https://bevierstrategic.com/card","publicUrlConfirmed":false,"person":{"name":"Jacob Bevier","givenName":"Jacob","familyName":"Bevier","title":"Founder & Principal"},"company":{"name":"Bevier Strategic Technology Solutions","legalName":"Bevier Strategic Technology Solutions LLC","shortName":"BSTS","nameLines":["Bevier Strategic","Technology Solutions"],"veteranLine":"Service-Disabled Veteran-Owned & Operated"},"contact":{"phoneDisplay":"(404) 618-2346","phoneE164":"+14046182346","email":"jacob@bevierstrategic.com","websiteDisplay":"bevierstrategic.com","websiteUrl":"https://bevierstrategic.com"},"socials":[{"id":"linkedin-person","network":"LinkedIn","label":"Jacob Bevier","icon":"profile","url":"https://www.linkedin.com/in/jacobbevier","vcardLabel":"LinkedIn"},{"id":"linkedin-company","network":"LinkedIn","label":"Company page","icon":"building","url":"https://www.linkedin.com/company/146305908/","vcardLabel":"LinkedIn (BSTS)"},{"id":"facebook-company","network":"Facebook","label":"Bevier Strategic","icon":"community","url":"https://www.facebook.com/bevierstrategic","vcardLabel":"Facebook"}],"slogan":[{"text":"Secure the data.","tone":"white"},{"text":"Enable the AI.","tone":"blue"},{"text":"Prove the controls.","tone":"gold"}],"photos":[{"id":"headshot","src":"headshot","alt":"Jacob Bevier, Founder and Principal of Bevier Strategic Technology Solutions","eyebrow":"Now","caption":"Founder & Principal, BSTS","focus":{"x":50,"y":30}}],"film":{"enabled":true,"id":"film","eyebrow":"The mark","caption":"Rendered artwork","alt":"Brand film: the BSTS Abrams fires its main gun while the commander signals forward. A rendered animation of the BSTS logo artwork, not a photograph."},"hero":{"dwellMs":6500},"about":{"heading":"The short version","lede":"I build the automated workflows that take repetitive work off your people, and I secure them properly on the way in.","body":["My career started in the U.S. Army, in armor. A tank crew is one of the most procedure-bound technical systems there is: nothing is improvised, every action is checked, and the round either hits or it does not. That is still how I run a project.","From there I moved into cold chain logistics for life-sciences clients — work where a shipment that slips outside its temperature window is a loss nobody can undo, and the record proving it stayed in range matters as much as the delivery. It is a good teacher. It makes you care about the handoffs, the exceptions, and the evidence.","Then federal cybersecurity, where the standard is simple and unforgiving: a control only counts if you can demonstrate it. Nobody takes your word for it.","Alongside that I earned a Bachelor of Science in Computer Science with a Cybersecurity major, Magna Cum Laude, and a Master of Science in Artificial Intelligence. The two halves are deliberate. AI built without security discipline is a liability. Security that blocks useful work is a tax. Doing both well means understanding both, and most people specialize in one.","BSTS is where all of that goes to work for smaller organizations — the ones with real operational pressure and no AI team, no security team, and no realistic way to hire either. You get requirements in writing before anything is built, honest risk calls even when they shrink the job, and a bias toward finishing the mission rather than extending the contract."],"credentials":["Master of Science in Artificial Intelligence","Bachelor of Science in Computer Science with a Cybersecurity major, Magna Cum Laude","CompTIA Security+","AWS Certified AI Practitioner"],"credentialsNote":"Certifications are held by the founder personally, not by the company.","experience":["U.S. Army veteran — leadership including Master Gunner and First Sergeant responsibilities","Cold chain logistics for life-sciences clients","Federal information-security and cybersecurity-coordination experience"],"disclaimer":"Military and federal experience described here reflects the founder's individual background and does not imply endorsement by the U.S. Army, the Department of Defense, the Small Business Administration, or any government agency."},"services":{"heading":"What BSTS does","lede":"Most growing businesses are held together by people doing the same things by hand — re-typing the same information, chasing approvals, rebuilding the same report every month. That work is expensive, it is where mistakes happen, and most of it does not need a person at all. I find it, automate it, and make sure the result is safe to run.","items":[{"title":"Take the repetitive work off your people","body":"The tasks that run the same way every time — data entry, document handling, recurring reports, the same record updated in three places. Automating them gives back hours and removes the step where somebody eventually forgets."},{"title":"Make your existing tools talk to each other","body":"Most businesses do not need new software. They need the systems they already pay for to pass information between them reliably, so nothing has to be copied across by hand and nothing quietly goes stale."},{"title":"Smooth out intake, onboarding and follow-up","body":"A new client or new hire should trigger the next step on its own: the form, the file, the reminder, the handoff. Fewer dropped threads, and everyone can see where something actually is."},{"title":"Put AI to work where it genuinely helps","body":"AI is very good at some of this and a poor fit for the rest. Where it earns its place I build it in, with a person reviewing anything consequential before it takes effect. Where a simple, predictable script is the better answer, I will say so and build that instead."},{"title":"Protect access and sensitive information","body":"Who can reach what, what an automated process is allowed to touch, where customer information travels, and what gets recorded. Designed in from the start, because retrofitting it later costs more and proves less."},{"title":"Find the bottlenecks and the gaps","body":"Before anything is built, a straight look at where the hours actually go and where the real exposure sits — then a ranked plan you can act on, with or without me."}],"outcomes":["Hours given back","Fewer missed steps","Smoother handoffs","Clearer visibility","Safer handling of information"],"cta":{"heading":"What would you fix first?","body":"If there is one process in your business that eats time or keeps going wrong, that is the conversation worth having. Tell me about it and I will tell you straight whether it is worth automating."}},"footer":{"signature":"Built by BSTS"}},"files":{"vcard":"assets/jacob-bevier.vcf","qrSvg":"qr/bsts-card-qr.svg","qrPng":"qr/bsts-card-qr-1024.png","qrPngLarge":"qr/bsts-card-qr-2048.png"},"hero":[{"kind":"photo","eyebrow":"Now","caption":"Founder & Principal, BSTS","inset":false},{"kind":"film","eyebrow":"The mark","caption":"Rendered artwork"}]}</script>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -1127,6 +1191,23 @@ img, svg { display: block; max-width: 100%; }
     <button class="btn btn-gold" type="button" data-action="qr"><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM19 19h2v2h-2zM14 19h2v2h-2zM19 14h2v2h-2z" stroke="none" fill="currentColor"/></svg><span>Show QR</span></button>
   </section>
     
+  <section class="social" aria-label="Profiles">
+    <ul>
+      <li><a class="prof" href="https://www.linkedin.com/in/jacobbevier" rel="noopener"
+        aria-label="LinkedIn: Jacob Bevier">
+        <span class="prof-i"><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></span>
+        <span class="prof-t"><span class="prof-n">LinkedIn</span><span class="prof-l">Jacob Bevier</span></span>
+      </a></li><li><a class="prof" href="https://www.linkedin.com/company/146305908/" rel="noopener"
+        aria-label="LinkedIn: Company page">
+        <span class="prof-i"><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 20V6a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v14"/><path d="M14 10h5a1 1 0 0 1 1 1v9"/><path d="M3 20h18M7 9h3M7 13h3M7 17h3M17 14h1M17 17h1"/></svg></span>
+        <span class="prof-t"><span class="prof-n">LinkedIn</span><span class="prof-l">Company page</span></span>
+      </a></li><li><a class="prof" href="https://www.facebook.com/bevierstrategic" rel="noopener"
+        aria-label="Facebook: Bevier Strategic">
+        <span class="prof-i"><svg class="i " viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="9" r="3"/><path d="M3 19a6 6 0 0 1 12 0"/><path d="M16 6.2a3 3 0 0 1 0 5.6"/><path d="M17.5 14.2A5.5 5.5 0 0 1 21 19"/></svg></span>
+        <span class="prof-t"><span class="prof-n">Facebook</span><span class="prof-l">Bevier Strategic</span></span>
+      </a></li>
+    </ul>
+  </section>
   <section class="signature">
     <p class="slogan" role="text" aria-label="Secure the data. Enable the AI. Prove the controls.">
       <span class="sl sl-white is-on">Secure the data.</span><span class="sl sl-blue">Enable the AI.</span><span class="sl sl-gold">Prove the controls.</span>

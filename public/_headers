@@ -1,12 +1,12 @@
-/assets/jacob-bevier.vcf
+/card/assets/jacob-bevier.vcf
   Content-Type: text/vcard; charset=utf-8
   Content-Disposition: attachment; filename="jacob-bevier.vcf"
 
-/manifest.webmanifest
+/card/manifest.webmanifest
   Content-Type: application/manifest+json; charset=utf-8
 
-/sw.js
+/card/sw.js
   Cache-Control: no-cache
 
-/assets/*
+/card/assets/*
   Cache-Control: public, max-age=31536000, immutable
