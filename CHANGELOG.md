@@ -2,6 +2,21 @@
 
 All notable changes to the BSTS site + BSTS OS project.
 
+## [0.6.5] — 2026-09-25
+
+### Changed
+
+- Federal status brought current: SAM.gov registration active (21 Sep 2026)
+  and SBA VetCert application #127442 submitted (25 Sep 2026).
+  `vetCertStatus` → `"submitted"` (badges now read "SBA VetCert application
+  pending"); capability statement publishes SAM Active, UEI X413ENE3MBQ7,
+  CAGE 252R9, primary NAICS 541512 + 541511 · 541519 · 541611 · 541690;
+  `acquisition.statusLine` blanked. Federal teaming note says "Pending"
+  rather than "Planned" certification. federal.test.ts guard now also
+  allows the approved "SDVOSB certification has been submitted" phrasing.
+- Not changed: print brochures in `brochures/src` still say "planned" —
+  reprint copy only when the next print run happens.
+
 ## [0.6.4] — 2026-08-22
 
 ### Changed

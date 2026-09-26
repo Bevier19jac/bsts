@@ -21,7 +21,7 @@ import { soc2Boundary } from "@/lib/content/positioning";
  * All public language updates automatically and stays legally accurate.
  */
 export type VetCertStatus = "planned" | "submitted" | "certified";
-export const vetCertStatus: VetCertStatus = "planned";
+export const vetCertStatus: VetCertStatus = "submitted";
 
 const vetCertCopy: Record<
   VetCertStatus,
@@ -324,10 +324,11 @@ export const acquisition = {
       value: "Service-Disabled Veteran-Owned & Operated",
     },
     { label: "Service area", value: "United States · remote-capable delivery" },
-    { label: "SAM registration", value: "" }, // e.g. "Active" — only when true
-    { label: "UEI", value: "" },
-    { label: "CAGE code", value: "" },
-    { label: "Primary NAICS", value: "" }, // e.g. "541511, 541512, 541519, 541690"
+    { label: "SAM registration", value: "Active" },
+    { label: "UEI", value: "X413ENE3MBQ7" },
+    { label: "CAGE code", value: "252R9" },
+    { label: "Primary NAICS", value: "541512" },
+    { label: "Additional NAICS", value: "541511 · 541519 · 541611 · 541690" },
     { label: "PSC codes", value: "" },
     { label: "Contact", value: federalContactDisplay },
   ],
@@ -342,7 +343,7 @@ export const acquisition = {
    * outstanding, so that half stays.
    */
   statusLine:
-    "The company is formed in the State of Georgia. Federal registrations are in progress, and verified identifiers will be published as they are issued.",
+    "",
 } as const;
 
 /** Only the acquisition fields that have real values — for public rendering. */

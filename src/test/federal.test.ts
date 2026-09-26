@@ -25,7 +25,7 @@ describe("VetCert status → public language mapping", () => {
     if (vetCertStatus !== "certified") {
       expect(wording).not.toContain("certified small business");
       expect(wording).not.toContain("sba-certified");
-      expect(wording).not.toMatch(/\bsdvosb\b(?! certification will be pursued)/);
+      expect(wording).not.toMatch(/\bsdvosb\b(?! certification (?:will be pursued|has been submitted))/);
       // Approved ownership wording — veteran-owned AND operated.
       expect(wording).toContain("veteran-owned & operated");
       expect(wording).toContain("veteran-owned and operated");

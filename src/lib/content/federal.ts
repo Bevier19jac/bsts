@@ -148,7 +148,7 @@ export const federalEngagements = [
     title: "Subcontracting & teaming",
     audience: "For established primes",
     body: "A technically credible, principal-led partner for secure AI expertise, AI governance support, cybersecurity documentation, workflow-automation implementation, specialized technical leadership, and proposal or task-order support.",
-    note: "BSTS is Service-Disabled Veteran-Owned & Operated; SBA VetCert status is stated precisely elsewhere on this page. Planned certification does not satisfy current SDVOSB subcontracting goals — we say so plainly.",
+    note: "BSTS is Service-Disabled Veteran-Owned & Operated; SBA VetCert status is stated precisely elsewhere on this page. Pending certification does not satisfy current SDVOSB subcontracting goals — we say so plainly.",
   },
   {
     title: "Pilots & defined work packages",
