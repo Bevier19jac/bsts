@@ -16,6 +16,55 @@ export type Article = {
 
 export const articles: Article[] = [
   {
+    slug: "why-discovery-is-free",
+    title: "Why Discovery Is Free — and How Paying for the Build Works",
+    description:
+      "BSTS no longer charges for discovery, and there is no limit on sessions. Here is why, what you get from it, and how payment works once you decide to build.",
+    readingTime: "4 min read",
+    published: "2026-09-30",
+    body: [
+      {
+        type: "p",
+        text: "Most technology engagements open with a paid assessment. The logic is reasonable: discovery is real work, and real work should be paid for. We charged for it too. We stopped, because a fee in front of the first conversation filters out exactly the businesses that most need someone to look at how their work actually runs.",
+      },
+      { type: "h2", text: "What discovery is" },
+      {
+        type: "p",
+        text: "Discovery is where we sit down with the people doing the work and map it: where the hours go, which systems hold which information, where sensitive data travels, and where the risk sits. Sometimes the honest answer is a better process rather than new software, and we will say so.",
+      },
+      {
+        type: "ul",
+        items: [
+          "A map of the workflows and systems involved",
+          "A plain-language view of where time and risk actually go",
+          "A prioritized recommendation for what to build first — or whether to build at all",
+        ],
+      },
+      {
+        type: "p",
+        text: "There is no cap on discovery sessions. The first conversation usually turns into brainstorming several possible solutions; by the second, most workflows are mapped out. What discovery produces is yours to keep, whether or not you continue with us.",
+      },
+      { type: "h2", text: "How paying for the build works" },
+      {
+        type: "p",
+        text: "Once we agree in writing on what to build — with acceptance criteria, so both sides know what finished means — build work is billed in two halves: 50% at signing, and 50% after implementation.",
+      },
+      {
+        type: "p",
+        text: "That split is deliberate. The first half commits both of us to the work. The second half is tied to delivery against the criteria we agreed, so the incentive to finish, and to finish well, sits where it belongs.",
+      },
+      { type: "h2", text: "After the build: Managed Smart SaaS" },
+      {
+        type: "p",
+        text: "Many clients do not want to run software; they want the result of it. Under Managed Smart SaaS, BSTS hosts, operates, and improves what we built for you under an agreed managed-service scope, so the tool keeps working as your integrations and workflows change. The monthly subscription starts the month after implementation — you are not paying for it while it is being built.",
+      },
+      {
+        type: "callout",
+        text: "Discovery is free and unlimited. Build work is billed 50% at signing and 50% after implementation. Managed Smart SaaS is billed monthly, starting the month after implementation.",
+      },
+    ],
+  },
+  {
     slug: "you-probably-do-not-need-to-replace-your-stack",
     title: "You Probably Do Not Need to Replace Your Entire Technology Stack",
     description:

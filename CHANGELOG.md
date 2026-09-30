@@ -2,6 +2,30 @@
 
 All notable changes to the BSTS site + BSTS OS project.
 
+## [0.7.0] — 2026-09-30
+
+### Changed
+
+- Discovery is now free and unlimited (founder decision); Discover format
+  reworded to working sessions, most workflows mapped by the second. The $1,500 assessment floor is
+  retired everywhere: `pricing.assessment`, the Bevier Breakdown result
+  lines (C1–C5), and the services provenance note.
+- Payment terms published: build work is billed 50% at signing and 50% after
+  implementation; Managed Smart SaaS billed monthly starting the month after
+  implementation (`pricing.paymentTerms`, `pricingRules`, Maintain format).
+- Managed Smart SaaS named on the site: Maintain stage (nav line, first work
+  item, deliverable) and the Assure step in `commercial.ts`.
+- Terms of Use: effective date 30 Sep 2026 (previous 19 Jul 2026); added a
+  Georgia governing-law section.
+- Capability statement / Government page: SAM shown as active through
+  7 Sep 2027; added "Information current as of 30 Sep 2026".
+
+### Added
+
+- Verified social profiles (LinkedIn company page, Facebook) in `site.social`,
+  the footer "More" column (open in a new tab) and JSON-LD `sameAs`.
+- Insights article "Why Discovery Is Free — and How Paying for the Build Works".
+
 ## [0.6.5] — 2026-09-25
 
 ### Changed

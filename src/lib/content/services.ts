@@ -26,7 +26,7 @@ import { soc2Boundary } from "./positioning";
  * The core figures are not chosen here. They come from the authoritative
  * sources, which agree with each other:
  *
- *   - Business Plan §03  — assessment floor $1,500, sprint floor $5,000,
+ *   - Business Plan §03  — sprint floor $5,000,
  *     program scoped after assessment and recurring.
  *   - Master Sales & Positioning Playbook §8 + Appendix G — identical floors,
  *     plus the rules of engagement reproduced in `pricingRules` below.
@@ -37,6 +37,12 @@ import { soc2Boundary } from "./positioning";
  * The Digital Foundations ranges are the exception: they appear in NO existing
  * BSTS document and were set directly by the founder. They are new public
  * commitments rather than figures reconciled from the business plan.
+ *
+ * DISCOVERY IS FREE (founder decision, 2026-09-30). The former $1,500
+ * assessment floor is retired. Once scope is agreed, build work is billed
+ * 50% at signing and 50% after implementation. Discovery sessions are
+ * unlimited; recurring Managed Smart SaaS billing begins the month after
+ * implementation.
  *
  * There is no paid-stage credit scheme in any BSTS source document, and none
  * is invented here. What the sources do describe — and what `progression`
@@ -84,7 +90,7 @@ export const lifecycle: ServiceStage[] = [
     ],
     deliverable:
       "A written roadmap ranked by cost and risk, a systems and data-flow map, and an executive briefing. Yours to keep and act on — with us or without us.",
-    format: "A facilitated engagement, typically two to three weeks.",
+    format: "Free working sessions, as many as it takes. One conversation usually turns into brainstorming several solutions; most workflows are mapped out by the second session.",
     price: "assessment",
     boundary:
       "Discovery comes first, always. No forced AI, and no solution looking for a problem — sometimes the honest recommendation is a better process rather than new software.",
@@ -177,10 +183,11 @@ export const lifecycle: ServiceStage[] = [
     slug: "maintain",
     name: "Maintain",
     icon: RefreshCw,
-    navLine: "Keep your software useful, secure, and maintained.",
+    navLine: "Managed Smart SaaS — we build it, then we run it for you.",
     problem:
       "Your software needs an owner after launch. Integrations change, workflows evolve, and somebody must maintain the system—not just deliver it and disappear.",
     work: [
+      "Managed Smart SaaS — BSTS hosts, operates, and improves the software built for you",
       "Managed operation of the agreed software environment",
       "Integration maintenance and operational monitoring",
       "Agreed improvements as workflows change",
@@ -197,8 +204,8 @@ export const lifecycle: ServiceStage[] = [
       "Security and compliance advisory support",
     ],
     deliverable:
-      "An agreed managed-service scope for operating, maintaining, and improving the system. Security, governance, and audit-readiness support can be included where relevant; responsibilities, usage limits, and service expectations are defined in writing.",
-    format: "A recurring retainer. Deliberately capped so delivery quality holds.",
+      "Managed Smart SaaS: software built around your business, then hosted, operated, and improved by BSTS under an agreed managed-service scope — you get the tool without having to run it. Security, governance, and audit-readiness support can be included where relevant; responsibilities, usage limits, and service expectations are defined in writing.",
+    format: "A monthly subscription that begins the month after implementation. Deliberately capped so delivery quality holds.",
     price: "program",
   },
 ];
@@ -251,12 +258,15 @@ export const foundationsExclusions =
 
 /** How paid stages relate to one another. Stated in the Business Plan and Playbook. */
 export const progression =
-  "Each stage stands on its own — nothing here requires committing to the whole sequence up front. The roadmap that discovery produces is yours to keep whether or not you continue. Most organizations start with an assessment and decide from there.";
+  "Each stage stands on its own — nothing here requires committing to the whole sequence up front. The roadmap that discovery produces is yours to keep whether or not you continue. Most organizations start with free discovery and decide from there.";
 
 /** The pricing rules, verbatim in substance from the Playbook’s Appendix G. */
 export const pricingRules = [
   "Published starting prices are floors, and floors are never discounted — when budget is tight, scope shrinks instead.",
-  "No final price is quoted before scope is agreed in writing, with acceptance criteria.",
+  "Discovery is free. No final price is quoted until we agree in writing what to build, with acceptance criteria.",
+  "Discovery sessions are free and unlimited — most workflows are mapped by the second session.",
+  "Build work is billed 50% at signing and 50% after implementation.",
+  "Managed Smart SaaS is billed monthly, starting the month after implementation.",
   "The recurring program is never quoted before an assessment.",
   "No hourly rates, and no return-on-investment guarantees.",
 ] as const;

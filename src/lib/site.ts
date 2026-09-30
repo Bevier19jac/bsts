@@ -90,6 +90,11 @@ export const site = {
   founderEmail: "jacob@bevierstrategic.com",
   phone: "(404) 618-2346",
   phoneHref: "tel:+14046182346",
+  /** Verified public profiles (confirmed by the founder, Sep 2026). Used in the footer and JSON-LD sameAs. */
+  social: [
+    { href: "https://www.linkedin.com/company/146305908/", label: "LinkedIn" },
+    { href: "https://www.facebook.com/bevierstrategic", label: "Facebook" },
+  ],
   /** Response-time promise shown after a successful submission. Keep honest. */
   responsePromise: "We typically reply within two business days.",
   description:
@@ -102,8 +107,10 @@ export const site = {
 
 /** Pricing language lives here so one edit updates the whole site. */
 export const pricing = {
-  assessment: "Typical engagements begin at $1,500.",
+  assessment: "Discovery is free.",
   sprint: "Typical projects begin at $5,000.",
+  /** Payment terms for scoped build work (founder decision, 2026-09-30). */
+  paymentTerms: "50% at signing, 50% after implementation; managed-service billing starts the following month.",
   transformation: "Scoped following an assessment.",
 } as const;
 
@@ -214,6 +221,8 @@ export const footerLinks = {
     // that without giving a single pilot product a top-level nav slot.
     { href: "/vaultiq", label: "VaultIQ" },
     { href: "/contact", label: "Discuss your workflow" },
+    { href: "https://www.linkedin.com/company/146305908/", label: "LinkedIn" },
+    { href: "https://www.facebook.com/bevierstrategic", label: "Facebook" },
   ],
   legal: [
     { href: "/privacy", label: "Privacy" },
@@ -324,13 +333,14 @@ export const acquisition = {
       value: "Service-Disabled Veteran-Owned & Operated",
     },
     { label: "Service area", value: "United States · remote-capable delivery" },
-    { label: "SAM registration", value: "Active" },
+    { label: "SAM registration", value: "Active · through September 7, 2027" },
     { label: "UEI", value: "X413ENE3MBQ7" },
     { label: "CAGE code", value: "252R9" },
     { label: "Primary NAICS", value: "541512" },
     { label: "Additional NAICS", value: "541511 · 541519 · 541611 · 541690" },
     { label: "PSC codes", value: "" },
     { label: "Contact", value: federalContactDisplay },
+    { label: "Information current as of", value: "September 30, 2026" },
   ],
   /**
    * Honest high-level status line shown while identifiers above are unissued.

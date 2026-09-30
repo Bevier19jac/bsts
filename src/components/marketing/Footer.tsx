@@ -61,7 +61,16 @@ function FooterColumn({
       <ul className="mt-4 space-y-2.5">
         {links.map((link) => (
           <li key={link.href}>
-            {link.href.includes("#") ? (
+            {link.href.startsWith("http") ? (
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-warm-mist transition-colors hover:text-cyan-soft"
+              >
+                {link.label}
+              </a>
+            ) : link.href.includes("#") ? (
               <a
                 href={link.href}
                 className="text-sm text-warm-mist transition-colors hover:text-cyan-soft"

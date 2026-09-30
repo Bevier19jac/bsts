@@ -682,11 +682,11 @@ export function route(a: Answers): Breakdown {
     C5: "AI, Security & Automation Assessment, routing toward the Governance & Assurance Program",
   };
   const PRICE: Record<Condition, string> = {
-    C1: "Typical engagements begin at $1,500.",
-    C2: "Typical engagements begin at $1,500.",
-    C3: "Typical engagements begin at $1,500; typical sprint projects begin at $5,000.",
-    C4: "Typical engagements begin at $1,500.",
-    C5: "Typical engagements begin at $1,500; the program is scoped following an assessment.",
+    C1: "Discovery is free.",
+    C2: "Discovery is free.",
+    C3: "Discovery is free; typical sprint projects begin at $5,000.",
+    C4: "Discovery is free.",
+    C5: "Discovery is free; the program is scoped following an assessment.",
   };
 
   // Incident and sensitive-data-only routes must not auto-recommend or

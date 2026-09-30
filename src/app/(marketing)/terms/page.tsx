@@ -18,8 +18,8 @@ export default function TermsPage() {
         lede="These terms describe how this website may be used today."
       />
       <p className="mt-6 text-sm text-warm-dim">
-        Effective date: July 19, 2026. The terms described here are accurate as
-        written.
+        Effective date: September 30, 2026. Previous version: July 19, 2026.
+        The terms described here are accurate as written.
       </p>
       <p className="mt-2 text-sm text-warm-dim">
         Formal legal review is pending. These terms may be updated following
@@ -77,7 +77,13 @@ export default function TermsPage() {
           we do. Continued use after an update constitutes acceptance.
         </p>
 
-        <h2>8. Contact</h2>
+        <h2>8. Governing law</h2>
+        <p>
+          These terms are governed by the laws of the State of Georgia, without
+          regard to its conflict-of-laws rules.
+        </p>
+
+        <h2>9. Contact</h2>
         <p>Questions about these terms can be sent through the contact page.</p>
       </div>
     </div>

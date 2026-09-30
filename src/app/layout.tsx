@@ -94,8 +94,8 @@ export const viewport: Viewport = {
  *                        schema. Not worth a local-pack ranking.
  *   telephone            site.phone is empty. An unanswered number is worse
  *                        than none.
- *   sameAs               Needs verified profile URLs. Guessing a LinkedIn
- *                        slug that 404s actively damages entity resolution.
+ *   (sameAs is now present: the LinkedIn company page and Facebook page
+ *   were verified by the founder in Sep 2026 — see site.social.)
  *   aggregateRating      There are no customer reviews. Inventing them is
  *                        fraud, and Google has a manual action for it.
  */
@@ -118,6 +118,7 @@ const organizationJsonLd = {
   },
   image: `${site.url}/og.png`,
   founder: { "@type": "Person", name: "Jacob Bevier" },
+  sameAs: site.social.map((s) => s.href),
   knowsAbout: [
     "Secure AI implementation",
     "AI security and governance",
