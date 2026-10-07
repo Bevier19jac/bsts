@@ -98,7 +98,7 @@ export const shipped: VaultiqCapability[] = [
     icon: CalendarClock,
     title: "The next session, from the coach's own calendar",
     body:
-      "A coach can choose to connect their own Google Calendar, read-only. VaultIQ then finds the next session with a client on that calendar and shows its date in the preparation view, and the coach sees their own upcoming events on the Connections page. It never creates, changes, or deletes events — see the disclosure below.",
+      "A coach can choose to connect their own Google Calendar, read-only. VaultIQ shows that coach — and only that coach — their own upcoming events and, on their own preparation view, a private note with the next session it finds on their calendar. Nothing from the calendar is saved or shown to anyone else; shared agendas and action sheets use the client record's date. See the disclosure below.",
   },
   {
     icon: Timer,
@@ -157,7 +157,7 @@ export const planned: VaultiqCapability[] = [
 export const googleDisclosure = {
   heading: "Google Calendar connection — read-only",
   status:
-    "VaultIQ connects to Google Calendar only when a coach chooses to connect their own calendar, and it asks for read-only access. It reads that coach's upcoming events to find the next session with a client. It never creates, changes, or deletes calendar events, and it does not copy calendar events into its database.",
+    "VaultIQ connects to Google Calendar only when a coach chooses to connect their own calendar, and it asks for read-only access. What it reads is shown only to that coach, live, and is never saved or shown to anyone else. It never creates, changes, or deletes calendar events.",
   scopeIntro:
     "VaultIQ requests one Google permission, the narrowest that does the job, and only at the moment someone chooses to connect their own calendar:",
   scopes: [
@@ -177,14 +177,14 @@ export const googleDisclosure = {
   handling: [
     "Each user connects their own Google account. Connecting is a choice, never a condition of using VaultIQ, and a firm can run the product with no Google connection at all.",
     "Authorization tokens are encrypted with AES-256-GCM before they are written to storage, and each record is readable only by the account that created it, enforced by row-level security in the database rather than by application code alone.",
-    "Calendar events are read when needed and are not saved. The one calendar-derived item VaultIQ keeps is the date and time of a client's next session, saved with a session agenda or weekly action sheet the coach builds. Saved agendas are visible to the advisors on that client under the firm's vault permissions, and a weekly action sheet is a document shared with the client.",
+    "Calendar events are read when needed and are not saved. The coach sees their own upcoming events on the Connections page and, on their own preparation view, a private note labelled as visible only to them. Shared agendas, weekly action sheets and the audit trail use the next-session date on the client's record, never a coach's calendar.",
     "No Google Calendar data is sent to an artificial-intelligence provider.",
     "A user can disconnect at any time from VaultIQ's Connections page or from their Google Account permissions page. Disconnecting in VaultIQ asks Google to revoke access and marks the stored authorization revoked so VaultIQ can no longer use it; the encrypted record and an audit entry are kept.",
   ],
   sharedSignIn:
     "VaultIQ's Google sign-in application is also used by the ActionCOACH Prospecting Engine, a separate BSTS product with its own sign-in client. When a team member connects Google in the Prospecting Engine, Google's consent screen also shows the name \"VaultIQ\", and it lists that product's own permissions: sending an email the team member has written (send-only, no access to read mail) and creating appointments on their own calendar. VaultIQ itself never requests either permission.",
   limitedUse:
-    "Use of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements. Google user data will not be used for advertising, will not be sold or transferred except as required to provide the feature the user asked for or as required by law, will not be read by humans except with the user's explicit permission, for security purposes, to comply with law, or on data that has been aggregated and made anonymous, and will not be used to develop, improve, or train generalized artificial-intelligence or machine-learning models.",
+    "Use and transfer of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements. Google user data is used only to provide or improve the user-facing features described here. It is not transferred except as necessary for those features and only with the user's consent, for security, to comply with law, or in a merger, acquisition or sale of assets only after the user's explicit prior consent. It is never used or sold for advertising, given to data brokers, or used for credit or lending decisions. Humans do not read it unless the user has affirmatively agreed for specific data to be viewed by specific people, for security, to comply with law, or when it is aggregated and used for internal operations in line with privacy and legal requirements. It is not used to develop, improve, or train generalized artificial-intelligence or machine-learning models.",
 } as const;
 
 /* ------------------------------------------------------------------ */

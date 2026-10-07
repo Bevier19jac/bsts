@@ -137,7 +137,9 @@ describe("Google Calendar disclosure", () => {
     const lu = googleDisclosure.limitedUse;
     expect(lu).toContain("Google API Services User Data Policy");
     expect(lu).toContain("Limited Use requirements");
-    expect(lu).toContain("will not be used for advertising");
+    expect(lu).toContain("never used or sold for advertising");
+    expect(lu).toContain("only after the user's explicit prior consent");
+    expect(lu).toContain("aggregated and used for internal operations");
     expect(lu).toContain(
       "develop, improve, or train generalized artificial-intelligence",
     );
@@ -177,9 +179,27 @@ describe("privacy policy — Google Workspace section", () => {
     expect(privacy).toContain("myaccount.google.com/permissions");
   });
 
-  it("states the Limited Use commitment in the policy itself", () => {
+  it("states the Limited Use commitment in Google's terms, without a broad sharing exception", () => {
     expect(privacy).toContain("Google API Services User Data Policy");
     expect(privacy).toContain("Limited Use requirements");
+    // Mergers need explicit prior consent, not notice; feature transfers need consent.
+    expect(privacy).toContain("only after obtaining the\n            user&apos;s explicit prior consent");
+    expect(privacy).not.toContain("with notice to users");
+    // Human reading: affirmative agreement for specific data and people, and
+    // the internal-operations condition for aggregated data.
+    expect(privacy).toContain("affirmative agreement for specific data to be viewed by\n            specific people");
+    expect(privacy).toContain("internal operations");
+    expect(privacy).not.toMatch(/shared through the product/i);
+  });
+
+  it("says VaultIQ keeps calendar data private and shared records use the client record", () => {
+    expect(privacy).toContain("Shared records never use calendar data.");
+    expect(privacy).not.toContain("which can come from that coach&apos;s calendar");
+  });
+
+  it("says engine team records name the member, not their Google address", () => {
+    expect(privacy).toContain("records the rest of the team can see name the team member, not their\n          Google address");
+    expect(privacy).not.toContain("the Google account it was sent from");
   });
 
   it("says no Google user data reaches an AI provider", () => {

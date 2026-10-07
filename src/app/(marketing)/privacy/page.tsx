@@ -139,23 +139,23 @@ export default function PrivacyPage() {
           the person who connects.
         </p>
         <p>
-          <strong>How it uses the data.</strong> When a page needs it, VaultIQ
-          reads the coach&apos;s upcoming events and picks the earliest one that
-          plainly belongs to the client in view — by its title, by a name on
-          that client&apos;s profile, or by an invited address on that profile.
-          It shows that session&apos;s date and time in the preparation view
-          of the person viewing it, and the Connections page shows each coach
-          their own upcoming events. Calendar events are read when needed and
-          are not copied into VaultIQ&apos;s database; event titles, attendees,
-          and descriptions are not saved.
+          <strong>How it uses the data.</strong> What VaultIQ reads from a
+          coach&apos;s calendar is shown only to that coach, live, and is never
+          saved. The Connections page lists the coach&apos;s own upcoming
+          events, and the coach&apos;s own preparation view for a client can
+          show a private note — labelled as visible only to them — with the
+          date of the next event on their calendar that plainly belongs to that
+          client (by its title, a name on the client&apos;s profile, or an
+          invited address on that profile). Calendar events, including their
+          titles, attendees, and descriptions, are not copied into
+          VaultIQ&apos;s database.
         </p>
         <p>
-          One item is saved: when a coach builds a session agenda or a weekly
-          action sheet, the date and time of the client&apos;s next session,
-          which can come from that coach&apos;s calendar, is saved with it.
-          Saved agendas are visible to the advisors on that client under the
-          firm&apos;s own vault permissions, and a weekly action sheet, including
-          that session date, is a document shared with the client.
+          Shared records never use calendar data. Session agendas, weekly
+          action sheets, and VaultIQ&apos;s audit trail use the next-session
+          date kept on the client&apos;s record, never a coach&apos;s calendar,
+          so no coach&apos;s calendar information is shown to other advisors or
+          to the client.
         </p>
         <p>
           <strong>How it stores and protects the connection.</strong>
@@ -178,7 +178,7 @@ export default function PrivacyPage() {
           </li>
           <li>
             BSTS keeps backups of VaultIQ&apos;s database. They include the
-            encrypted authorizations and any saved session dates.
+            encrypted authorizations.
           </li>
         </ul>
         <p>
@@ -192,8 +192,7 @@ export default function PrivacyPage() {
           the authorization and marks its stored copy revoked so VaultIQ can
           never use it again. The encrypted copy is kept, together with an
           audit-trail entry recording when the connection was made (with the
-          permissions granted) and when it was revoked. Session dates already
-          saved in agendas or action sheets stay part of those documents.
+          permissions granted) and when it was revoked.
         </p>
 
         <h3 id="google-prospecting-engine">ActionCOACH Prospecting Engine</h3>
@@ -232,7 +231,10 @@ export default function PrivacyPage() {
           <strong>What it stores.</strong> For each connected team member, it
           stores the Google account&apos;s email address, the permissions that
           were granted, and the authorization tokens Google issues, so it can
-          send or schedule on that member&apos;s behalf. Those tokens are held
+          send or schedule on that member&apos;s behalf. That email address is
+          kept with the member&apos;s own connection and shown only to them;
+          records the rest of the team can see name the team member, not their
+          Google address. Those tokens are held
           in its database, which is operated by Supabase with encryption at
           rest under that provider&apos;s published protections; the
           Prospecting Engine does not add its own encryption to them.
@@ -242,15 +244,17 @@ export default function PrivacyPage() {
         </p>
         <p>
           For each email sent, it keeps a record of the recipient, subject, send
-          time, the Google account it was sent from, and Google&apos;s message
-          identifiers. The recipient is recorded just before the email is handed
+          time, the name of the team member who sent it in the Prospecting
+          Engine, and Google&apos;s message identifiers. The recipient is recorded just before the email is handed
           to Google, so a failed attempt is recorded too. It does not keep the
           message body on its servers. If a team member has to reconnect Google
           while writing an email, the unsent draft is kept in that browser
           tab&apos;s temporary storage so it is not lost. It is cleared the next
           time the page loads or when the tab is closed, it is offered back only
-          within 30 minutes, and it is not sent to our servers. For each appointment, it keeps the title, time, time zone,
-          attendees, organizer, and Google&apos;s event identifiers and link.
+          within 30 minutes, and it is not sent to our servers.
+          For each appointment, it keeps the title, time, time zone,
+          attendees, the name of the team member who created it, and
+          Google&apos;s event identifiers and link.
           These records form part of the business&apos;s activity history, are
           visible to the team members who use the Prospecting Engine for that
           business, and are kept after a team member disconnects.
@@ -284,30 +288,57 @@ export default function PrivacyPage() {
           Prospecting Engine&apos;s research feature sends an
           artificial-intelligence provider details about the business being
           researched and the reason a team member gave for the request, never
-          email or calendar records. VaultIQ writes weekly action sheets, the
-          only documents that carry a session date from a calendar, without an
-          artificial-intelligence provider.
+          email or calendar records. VaultIQ never puts calendar data into any
+          document, so none of it can reach an artificial-intelligence
+          provider.
         </p>
 
         <h3>Limited Use</h3>
         <p>
-          VaultIQ&apos;s and the ActionCOACH Prospecting Engine&apos;s use of
-          information received from Google APIs will adhere to the{" "}
+          VaultIQ&apos;s and the ActionCOACH Prospecting Engine&apos;s use and
+          transfer of information received from Google APIs will adhere to the{" "}
           <a href="https://developers.google.com/terms/api-services-user-data-policy">
             Google API Services User Data Policy
           </a>
-          , including the Limited Use requirements. Specifically, Google user
-          data will not be used for advertising; will not be sold; will not be
-          transferred to others except as necessary to provide or improve the
-          feature the user asked for, to comply with applicable law, or as part
-          of a merger, acquisition, or sale of assets with notice to users; will
-          not be read by humans except with the user&apos;s explicit permission
-          for specific messages, where necessary for security purposes such as
-          investigating abuse, to comply with applicable law, or where the data
-          has been aggregated and made anonymous; and will not be used to
-          develop, improve, or train generalized artificial-intelligence or
-          machine-learning models.
+          , including the Limited Use requirements. Specifically:
         </p>
+        <ul>
+          <li>
+            We use Google user data only to provide or improve the user-facing
+            features described above, which are prominent in each
+            product&apos;s interface.
+          </li>
+          <li>
+            We do not transfer Google user data to others except: as necessary
+            to provide or improve those user-facing features, and only with the
+            user&apos;s consent; for security purposes, such as investigating
+            abuse; to comply with applicable law; or as part of a merger,
+            acquisition, or sale of assets, and only after obtaining the
+            user&apos;s explicit prior consent.
+          </li>
+          <li>
+            We do not use, transfer, or sell Google user data for serving ads,
+            including retargeting, personalized, or interest-based advertising;
+            we do not transfer or sell it to advertising platforms, data
+            brokers, or information resellers; and we do not use it to determine
+            credit-worthiness or for lending purposes.
+          </li>
+          <li>
+            We do not allow humans to read Google user data unless: the user has
+            given affirmative agreement for specific data to be viewed by
+            specific people, for example by confirming that a particular item
+            may be shown to the people the product names before it is shared;
+            it is necessary for security purposes, such as investigating a bug
+            or abuse; it is necessary to comply with applicable law; or the
+            data, including anything derived from it, is aggregated and used for
+            internal operations in accordance with applicable privacy and other
+            legal requirements.
+          </li>
+          <li>
+            We do not use Google user data to develop, improve, or train
+            generalized artificial-intelligence or machine-learning models.
+          </li>
+        </ul>
 
         <h2>Your choices</h2>
         <ul>
