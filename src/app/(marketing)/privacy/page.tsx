@@ -5,7 +5,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "How BSTS handles information on this site: no advertising trackers, no data sale, assessment data stays in your browser unless you choose to send it. Includes the Google Workspace and Google API data disclosure for VaultIQ.",
+    "How BSTS handles information on this site: no advertising trackers, no data sale, assessment data stays in your browser unless you choose to send it. Includes the Google Workspace and Google API data disclosure for VaultIQ and the ActionCOACH Prospecting Engine.",
 };
 
 export default function PrivacyPage() {
@@ -15,17 +15,17 @@ export default function PrivacyPage() {
             as="h1"
         eyebrow="Legal"
         title="Privacy Policy"
-        lede="This policy describes how the website operates, how submitted information is handled today, and how VaultIQ handles Google user data."
+        lede="This policy describes how the website operates, how submitted information is handled today, and how VaultIQ and the ActionCOACH Prospecting Engine handle Google user data."
       />
       <p className="mt-6 text-sm text-warm-dim">
-        Effective date: September 15, 2026. Previous version: July 19, 2026. The
+        Effective date: October 7, 2026. Previous version: September 15, 2026. The
         practices described here are accurate as written.
       </p>
       <p className="mt-2 text-sm text-warm-dim">
         This policy covers the BSTS website and, in the section titled{" "}
         <a href="#google-workspace">Google Workspace and Google API Data</a>, the
-        handling of Google user data by VaultIQ — software built and operated by
-        BSTS.
+        handling of Google user data by VaultIQ and by the ActionCOACH
+        Prospecting Engine — software built and operated by BSTS.
       </p>
       <p className="mt-2 text-sm text-warm-dim">
         Formal legal review is pending. This policy may be updated following
@@ -46,10 +46,13 @@ export default function PrivacyPage() {
         <p>
           Separately, BSTS builds and operates{" "}
           <Link href="/vaultiq/">VaultIQ</Link>, client-vault software used by
-          advisory firms. VaultIQ does not connect to Google today. The section{" "}
+          advisory firms, and the ActionCOACH Prospecting Engine,
+          business-development software used by ActionCOACH Peachtree. Each can
+          connect to a user&apos;s own Google account when that user chooses
+          to. The section{" "}
           <a href="#google-workspace">Google Workspace and Google API Data</a>{" "}
-          below states what it would request, why, and what it would never do
-          with it.
+          below states exactly what each requests, why, and what each never
+          does with it.
         </p>
 
         <h2>Information we collect through this site</h2>
@@ -102,64 +105,54 @@ export default function PrivacyPage() {
 
         <h2 id="google-workspace">Google Workspace and Google API Data</h2>
         <p>
-          This section applies to <Link href="/vaultiq/">VaultIQ</Link>, the
-          client-vault software built and operated by BSTS. It does not describe
-          the BSTS website, which requests no Google permissions of any kind.
+          This section applies to two pieces of software that BSTS builds and
+          operates: <Link href="/vaultiq/">VaultIQ</Link>, and the ActionCOACH
+          Prospecting Engine. It does not describe the BSTS website, which
+          requests no Google permissions of any kind.
+        </p>
+        <p>
+          Both use the same Google sign-in application, so Google&apos;s
+          consent screen shows the name &quot;VaultIQ&quot; for each. Each has
+          its own sign-in client and asks only for the permissions listed for
+          it below. Connecting a Google account is always optional, and each
+          person connects only their own account.
         </p>
 
-        <h3>Current status</h3>
+        <h3 id="google-vaultiq">VaultIQ</h3>
         <p>
-          <strong>
-            VaultIQ does not connect to Google today. It requests no Google
-            permissions, receives no Google user data, and stores no Google user
-            data.
-          </strong>{" "}
-          There is no live Google authorization flow in the software, and the
-          credentials such a flow would require are not configured. Everything
-          below describes a planned Google Calendar integration and takes effect
-          only if and when that integration is enabled. This policy will carry a
-          new effective date before that happens.
-        </p>
-
-        <h3>What VaultIQ will request</h3>
-        <p>
-          When the integration is enabled, a user may choose to connect their
-          own Google account. VaultIQ will request only the two Google Calendar
-          scopes below, and only at the moment the user chooses to connect:
+          <strong>What it requests.</strong> VaultIQ asks for one Google
+          permission, and only when a coach chooses to connect:
         </p>
         <ul>
           <li>
             <strong>
               https://www.googleapis.com/auth/calendar.events.readonly
             </strong>{" "}
-            — to read events on the connecting user&apos;s own calendar, so their
-            upcoming client meetings can be shown in context inside that
-            client&apos;s vault.
-          </li>
-          <li>
-            <strong>https://www.googleapis.com/auth/calendar.events</strong> —
-            to create and update meetings that the user schedules from inside a
-            client vault.
+            — to read events on the connecting coach&apos;s own calendar, so
+            VaultIQ can find the next session with a client.
           </li>
         </ul>
         <p>
-          VaultIQ will not request access to Gmail, Google Drive, Google
-          Contacts, Google Chat, or any other Google service, and it will not
-          request access to any calendar other than the one belonging to the
-          person who connects. Connecting a Google account will always be
-          optional: VaultIQ is fully usable with no Google connection.
+          VaultIQ never creates, changes, or deletes calendar events. It does
+          not request access to Gmail, Google Drive, Google Contacts, Google
+          Chat, or any other Google service, and it reads only the calendar of
+          the person who connects.
         </p>
-
-        <h3>How Google user data will be used</h3>
         <p>
-          Calendar information will be used for one purpose — showing and
-          scheduling that user&apos;s client meetings inside VaultIQ. It will be
-          visible only to the people already entitled to see that client under
-          the firm&apos;s own vault permissions, and it is subject to the same
-          isolation between firms that governs every other record in the system.
+          <strong>How it uses the data.</strong> When a page needs it, VaultIQ
+          reads the coach&apos;s upcoming events and picks the earliest one that
+          plainly belongs to the client in view — by its title, by a name on
+          that client&apos;s profile, or by an invited address on that profile.
+          It shows that session&apos;s date in the coach&apos;s preparation
+          view, visible only to people already entitled to see that client
+          under the firm&apos;s own vault permissions. The Connections page
+          shows each coach their own upcoming events. Calendar events are not
+          copied into VaultIQ&apos;s database. The date of a matched session
+          can be saved as part of an agenda the coach builds.
         </p>
-
-        <h3>How Google user data will be stored and protected</h3>
+        <p>
+          <strong>How it stores and protects the connection.</strong>
+        </p>
         <ul>
           <li>
             Google authorization tokens are encrypted with AES-256-GCM before
@@ -176,44 +169,101 @@ export default function PrivacyPage() {
             Supabase, with encryption in transit and at rest under that
             provider&apos;s published protections.
           </li>
-          <li>
-            Google user data is retained only while the connection is active and
-            only for as long as the client organization&apos;s own retention
-            settings allow.
-          </li>
         </ul>
-
-        <h3>Revoking access and deletion</h3>
         <p>
-          A user can disconnect at any time, either from within VaultIQ or from
-          the Google Account permissions page at{" "}
+          <strong>Disconnecting.</strong> A coach can disconnect at any time
+          from VaultIQ&apos;s Connections page, or from the Google Account
+          permissions page at{" "}
           <a href="https://myaccount.google.com/permissions">
             myaccount.google.com/permissions
           </a>
-          . On disconnection the stored authorization stops being usable, the
-          revocation is recorded, and any Google-derived calendar information
-          held for that connection is deleted. A request to delete Google-derived
-          data can also be sent to us using the contact details on the{" "}
+          . When a coach disconnects in VaultIQ, VaultIQ asks Google to revoke
+          the authorization and marks its stored copy revoked so it can never
+          be used again. A record that the connection existed is kept for
+          VaultIQ&apos;s audit trail. A session date already saved in an agenda
+          stays part of that agenda.
+        </p>
+
+        <h3 id="google-prospecting-engine">ActionCOACH Prospecting Engine</h3>
+        <p>
+          The Prospecting Engine is business-development software that BSTS
+          builds and operates for ActionCOACH Peachtree.
+        </p>
+        <p>
+          <strong>What it requests.</strong> The Prospecting Engine asks for
+          these Google permissions only, and only when a team member chooses to
+          connect their own Google account:
+        </p>
+        <ul>
+          <li>
+            <strong>https://www.googleapis.com/auth/gmail.send</strong> — to
+            send an email the team member has written and reviewed, from their
+            own Gmail account, when they press Send.
+          </li>
+          <li>
+            <strong>https://www.googleapis.com/auth/calendar.events</strong> —
+            to create an appointment the team member sets up on their own
+            calendar, and to invite the attendees they choose.
+          </li>
+          <li>
+            <strong>openid</strong> and <strong>email</strong> — to show which
+            Google account is connected.
+          </li>
+        </ul>
+        <p>
+          <strong>What it never does.</strong> It does not read, search, list,
+          modify, or delete email. It does not read, list, or change existing
+          calendar events. It does not access Google Drive, Google Contacts, or
+          any other Google service.
+        </p>
+        <p>
+          <strong>What it stores.</strong> For each connected team member, it
+          stores the Google account&apos;s email address, the permissions that
+          were granted, and the authorization tokens Google issues, so it can
+          send or schedule on that member&apos;s behalf. Those tokens are held
+          in its database, where row-level security limits each connection to
+          the team member it belongs to. For each email sent, it keeps a record
+          of the recipient, subject, send time, and Google&apos;s message
+          identifiers; it does not keep the message body. For each appointment,
+          it keeps the title, time, attendees, and Google&apos;s event
+          identifiers. These records form part of the business&apos;s activity
+          history.
+        </p>
+        <p>
+          <strong>Disconnecting.</strong> A team member can disconnect at any
+          time from the app&apos;s header. Disconnecting deletes the stored
+          authorization. Google access can also be removed at{" "}
+          <a href="https://myaccount.google.com/permissions">
+            myaccount.google.com/permissions
+          </a>
+          . Records of emails already sent and appointments already created
+          stay in the activity history.
+        </p>
+
+        <h3>Deletion requests</h3>
+        <p>
+          A request to delete Google-derived data held by either product can be
+          sent to us using the contact details on the{" "}
           <Link href="/contact/">contact page</Link>.
         </p>
 
         <h3>Artificial intelligence</h3>
         <p>
           Google user data is not used to develop, improve, or train generalized
-          artificial-intelligence or machine-learning models, whether our own or
-          anyone else&apos;s. No Google user data is sent to any third-party
-          artificial-intelligence provider today, because VaultIQ holds no Google
-          user data. If a future VaultIQ feature would send Google user data to
-          an artificial-intelligence provider in order to produce something for
-          the user who connected the account, that processing will be described
-          in this policy, and it will remain bound by the Limited Use
-          requirements below, before the feature is enabled.
+          artificial-intelligence or machine-learning models. The Prospecting
+          Engine sends no Google user data to any artificial-intelligence
+          provider. VaultIQ sends one item: when a coach asks VaultIQ to draft a
+          client&apos;s weekly action sheet, the date of that client&apos;s next
+          session, which may come from the coach&apos;s calendar, can be
+          included in the material sent to VaultIQ&apos;s artificial-intelligence
+          provider to produce that draft for the coach. No other calendar
+          information is sent to an artificial-intelligence provider.
         </p>
 
         <h3>Limited Use</h3>
         <p>
-          VaultIQ&apos;s use of information received from Google APIs will adhere
-          to the{" "}
+          VaultIQ&apos;s and the ActionCOACH Prospecting Engine&apos;s use of
+          information received from Google APIs will adhere to the{" "}
           <a href="https://developers.google.com/terms/api-services-user-data-policy">
             Google API Services User Data Policy
           </a>
