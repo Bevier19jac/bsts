@@ -143,12 +143,19 @@ export default function PrivacyPage() {
           reads the coach&apos;s upcoming events and picks the earliest one that
           plainly belongs to the client in view — by its title, by a name on
           that client&apos;s profile, or by an invited address on that profile.
-          It shows that session&apos;s date in the coach&apos;s preparation
-          view, visible only to people already entitled to see that client
-          under the firm&apos;s own vault permissions. The Connections page
-          shows each coach their own upcoming events. Calendar events are not
-          copied into VaultIQ&apos;s database. The date of a matched session
-          can be saved as part of an agenda the coach builds.
+          It shows that session&apos;s date and time in the preparation view
+          of the person viewing it, and the Connections page shows each coach
+          their own upcoming events. Calendar events are read when needed and
+          are not copied into VaultIQ&apos;s database; event titles, attendees,
+          and descriptions are not saved.
+        </p>
+        <p>
+          One item is saved: when a coach builds a session agenda or a weekly
+          action sheet, the date and time of the client&apos;s next session,
+          which can come from that coach&apos;s calendar, is saved with it.
+          Saved agendas are visible to the advisors on that client under the
+          firm&apos;s own vault permissions, and a weekly action sheet, including
+          that session date, is a document shared with the client.
         </p>
         <p>
           <strong>How it stores and protects the connection.</strong>
@@ -169,6 +176,10 @@ export default function PrivacyPage() {
             Supabase, with encryption in transit and at rest under that
             provider&apos;s published protections.
           </li>
+          <li>
+            BSTS keeps backups of VaultIQ&apos;s database. They include the
+            encrypted authorizations and any saved session dates.
+          </li>
         </ul>
         <p>
           <strong>Disconnecting.</strong> A coach can disconnect at any time
@@ -178,10 +189,11 @@ export default function PrivacyPage() {
             myaccount.google.com/permissions
           </a>
           . When a coach disconnects in VaultIQ, VaultIQ asks Google to revoke
-          the authorization and marks its stored copy revoked so it can never
-          be used again. A record that the connection existed is kept for
-          VaultIQ&apos;s audit trail. A session date already saved in an agenda
-          stays part of that agenda.
+          the authorization and marks its stored copy revoked so VaultIQ can
+          never use it again. The encrypted copy is kept, together with an
+          audit-trail entry recording when the connection was made (with the
+          permissions granted) and when it was revoked. Session dates already
+          saved in agendas or action sheets stay part of those documents.
         </p>
 
         <h3 id="google-prospecting-engine">ActionCOACH Prospecting Engine</h3>
@@ -221,23 +233,39 @@ export default function PrivacyPage() {
           stores the Google account&apos;s email address, the permissions that
           were granted, and the authorization tokens Google issues, so it can
           send or schedule on that member&apos;s behalf. Those tokens are held
-          in its database, where row-level security limits each connection to
-          the team member it belongs to. For each email sent, it keeps a record
-          of the recipient, subject, send time, and Google&apos;s message
-          identifiers; it does not keep the message body. For each appointment,
-          it keeps the title, time, attendees, and Google&apos;s event
-          identifiers. These records form part of the business&apos;s activity
-          history.
+          in its database, which is operated by Supabase with encryption at
+          rest under that provider&apos;s published protections; the
+          Prospecting Engine does not add its own encryption to them.
+          Row-level security limits each signed-in team member to their own
+          connection, and the server and BSTS&apos;s database administrators
+          can also access it to operate the service.
+        </p>
+        <p>
+          For each email sent, it keeps a record of the recipient, subject, send
+          time, the Google account it was sent from, and Google&apos;s message
+          identifiers. The recipient is recorded just before the email is handed
+          to Google, so a failed attempt is recorded too. It does not keep the
+          message body on its servers. If a team member has to reconnect Google
+          while writing an email, the unsent draft is held in that browser tab
+          for up to 30 minutes so it is not lost; it is not sent to our
+          servers. For each appointment, it keeps the title, time, time zone,
+          attendees, organizer, and Google&apos;s event identifiers and link.
+          These records form part of the business&apos;s activity history, are
+          visible to the team members who use the Prospecting Engine for that
+          business, and are kept after a team member disconnects.
         </p>
         <p>
           <strong>Disconnecting.</strong> A team member can disconnect at any
           time from the app&apos;s header. Disconnecting deletes the stored
-          authorization. Google access can also be removed at{" "}
+          authorization from the Prospecting Engine&apos;s database. It does
+          not withdraw the permission on Google&apos;s side; to do that, remove
+          the app at{" "}
           <a href="https://myaccount.google.com/permissions">
             myaccount.google.com/permissions
           </a>
-          . Records of emails already sent and appointments already created
-          stay in the activity history.
+          . The stored authorization is also deleted automatically if Google
+          reports it is no longer valid. Records of emails already sent and
+          appointments already created stay in the activity history.
         </p>
 
         <h3>Deletion requests</h3>
@@ -250,14 +278,14 @@ export default function PrivacyPage() {
         <h3>Artificial intelligence</h3>
         <p>
           Google user data is not used to develop, improve, or train generalized
-          artificial-intelligence or machine-learning models. The Prospecting
-          Engine sends no Google user data to any artificial-intelligence
-          provider. VaultIQ sends one item: when a coach asks VaultIQ to draft a
-          client&apos;s weekly action sheet, the date of that client&apos;s next
-          session, which may come from the coach&apos;s calendar, can be
-          included in the material sent to VaultIQ&apos;s artificial-intelligence
-          provider to produce that draft for the coach. No other calendar
-          information is sent to an artificial-intelligence provider.
+          artificial-intelligence or machine-learning models. Neither product
+          sends Google user data to any artificial-intelligence provider. The
+          Prospecting Engine&apos;s research feature sends an
+          artificial-intelligence provider details about the business being
+          researched and the reason a team member gave for the request, never
+          email or calendar records. VaultIQ writes weekly action sheets, the
+          only documents that carry a session date from a calendar, without an
+          artificial-intelligence provider.
         </p>
 
         <h3>Limited Use</h3>

@@ -239,7 +239,7 @@ export default function VaultIqPage() {
         </Reveal>
 
         <div className="prose-bsts mt-10">
-          <h3>What will be requested, and why</h3>
+          <h3>What is requested, and why</h3>
           <p>{googleDisclosure.scopeIntro}</p>
         </div>
 
@@ -255,25 +255,29 @@ export default function VaultIqPage() {
         </div>
 
         <div className="prose-bsts mt-10">
-          <h3>What will never be requested</h3>
+          <h3>What is never requested</h3>
           <ul>
             {googleDisclosure.notRequested.map((n) => (
               <li key={n}>{n}</li>
             ))}
           </ul>
 
-          <h3>How the connection will work</h3>
+          <h3>How the connection works</h3>
           <ul>
             {googleDisclosure.handling.map((h) => (
               <li key={h}>{h}</li>
             ))}
           </ul>
 
+          <h3>The same Google sign-in, used by another BSTS product</h3>
+          <p>{googleDisclosure.sharedSignIn}</p>
+
           <h3>Limited Use</h3>
           <p>{googleDisclosure.limitedUse}</p>
 
           <p>
-            The full account of how VaultIQ handles Google user data is in the{" "}
+            The full account of how VaultIQ and the Prospecting Engine handle
+            Google user data is in the{" "}
             <Link href="/privacy/#google-workspace">
               Google Workspace and Google API Data section of the BSTS Privacy
               Policy

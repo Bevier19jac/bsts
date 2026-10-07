@@ -86,18 +86,34 @@ describe("VaultIQ content — built and not-built stay separated", () => {
 });
 
 describe("Google Calendar disclosure", () => {
-  it("states that no Google connection exists today", () => {
+  it("states the live, read-only connection and that VaultIQ never writes", () => {
+    expect(googleDisclosure.status).toContain("asks for read-only access");
     expect(googleDisclosure.status).toContain(
-      "VaultIQ does not connect to Google today",
+      "never creates, changes, or deletes calendar events",
     );
-    expect(googleDisclosure.status).toContain("stores no Google user data");
   });
 
-  it("requests exactly the two calendar scopes and no others", () => {
+  it("requests exactly the one read-only calendar scope VaultIQ offers", () => {
+    // Mirrors OFFERED_GOOGLE_CAPABILITIES = ["calendar_read"] in VaultIQ.
     expect(googleDisclosure.scopes.map((s) => s.scope)).toEqual([
       "https://www.googleapis.com/auth/calendar.events.readonly",
-      "https://www.googleapis.com/auth/calendar.events",
     ]);
+  });
+
+  it("explains the shared Google sign-in with the Prospecting Engine", () => {
+    expect(googleDisclosure.sharedSignIn).toContain(
+      "ActionCOACH Prospecting Engine",
+    );
+    expect(googleDisclosure.sharedSignIn).toContain(
+      "VaultIQ itself never requests either permission",
+    );
+    expect(src(PAGE)).toContain("googleDisclosure.sharedSignIn");
+  });
+
+  it("says no calendar data reaches an AI provider, matching the policy", () => {
+    expect(googleDisclosure.handling).toContain(
+      "No Google Calendar data is sent to an artificial-intelligence provider.",
+    );
   });
 
   it("never advertises a Gmail or Drive scope anywhere in public content", () => {
@@ -166,13 +182,22 @@ describe("privacy policy — Google Workspace section", () => {
     expect(privacy).toContain("Limited Use requirements");
   });
 
-  it("says exactly which Google data can reach an AI provider", () => {
+  it("says no Google user data reaches an AI provider", () => {
     expect(privacy).toContain(
-      "The Prospecting\n          Engine sends no Google user data to any artificial-intelligence",
+      "Neither product\n          sends Google user data to any artificial-intelligence provider.",
     );
-    expect(privacy).toContain(
-      "No other calendar\n          information is sent to an artificial-intelligence provider.",
+  });
+
+  it("does not claim the Prospecting Engine encrypts tokens or revokes at Google", () => {
+    // Verified 7 Oct 2026: engine tokens are stored without application-level
+    // encryption, and disconnect deletes the row without calling Google.
+    const engine = privacy.slice(
+      privacy.indexOf('id="google-prospecting-engine"'),
+      privacy.indexOf("Deletion requests"),
     );
+    expect(engine).toContain("does not add its own encryption");
+    expect(engine).toContain("does\n          not withdraw the permission on Google&apos;s side");
+    expect(engine).not.toContain("AES-256");
   });
 
   it("discloses each app's Google permissions, and only those", () => {
