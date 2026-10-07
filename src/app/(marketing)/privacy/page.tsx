@@ -246,9 +246,10 @@ export default function PrivacyPage() {
           identifiers. The recipient is recorded just before the email is handed
           to Google, so a failed attempt is recorded too. It does not keep the
           message body on its servers. If a team member has to reconnect Google
-          while writing an email, the unsent draft is held in that browser tab
-          for up to 30 minutes so it is not lost; it is not sent to our
-          servers. For each appointment, it keeps the title, time, time zone,
+          while writing an email, the unsent draft is kept in that browser
+          tab&apos;s temporary storage so it is not lost. It is cleared the next
+          time the page loads or when the tab is closed, it is offered back only
+          within 30 minutes, and it is not sent to our servers. For each appointment, it keeps the title, time, time zone,
           attendees, organizer, and Google&apos;s event identifiers and link.
           These records form part of the business&apos;s activity history, are
           visible to the team members who use the Prospecting Engine for that
