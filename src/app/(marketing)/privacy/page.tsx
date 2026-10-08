@@ -140,7 +140,7 @@ export default function PrivacyPage() {
         </p>
         <p>
           <strong>How it uses the data.</strong> What VaultIQ reads from a
-          coach&apos;s calendar is shown only to that coach, live, and is never
+          coach&apos;s calendar is shown only to that coach, live, and is not
           saved. The Connections page lists the coach&apos;s own upcoming
           events, and the coach&apos;s own preparation view for a client can
           show a private note — labelled as visible only to them — with the
@@ -151,11 +151,29 @@ export default function PrivacyPage() {
           VaultIQ&apos;s database.
         </p>
         <p>
-          Shared records never use calendar data. Session agendas, weekly
-          action sheets, and VaultIQ&apos;s audit trail use the next-session
-          date kept on the client&apos;s record, never a coach&apos;s calendar,
-          so no coach&apos;s calendar information is shown to other advisors or
-          to the client.
+          Shared records do not use calendar data. Session agendas, weekly
+          action sheets, and VaultIQ&apos;s audit trail use only the
+          next-session date kept on the client&apos;s record, never a
+          coach&apos;s calendar, so they show no coach&apos;s calendar
+          information to other advisors or to the client.
+        </p>
+        <p>
+          <strong>Records from before 7 October 2026.</strong> An earlier
+          version of VaultIQ, in use from 29 September to 7 October 2026,
+          copied the date and time of a coach&apos;s next calendar event — the
+          date and time only, never an event&apos;s title, attendees, or
+          description — into some shared records: session agendas, weekly
+          action sheets, and the audit entries for those sheets. Until 7
+          October, other advisors working with the same client could see those
+          dates, and a weekly action sheet containing one could be shown to the
+          client. On 7 October 2026 we removed those dates from the affected
+          agendas and restricted the remaining records without altering them:
+          those weekly action sheets can now be opened only by the coach whose
+          calendar the date came from, and those audit entries by no user of
+          the app. A copy of the original agenda entries is kept for recovery
+          in storage that only BSTS&apos;s database administrators can access,
+          and our database provider&apos;s backups contain the original records
+          until those backups expire.
         </p>
         <p>
           <strong>How it stores and protects the connection.</strong>
@@ -234,7 +252,13 @@ export default function PrivacyPage() {
           send or schedule on that member&apos;s behalf. That email address is
           kept with the member&apos;s own connection and shown only to them;
           records the rest of the team can see name the team member, not their
-          Google address. Those tokens are held
+          Google address. Before 7 October 2026, the Prospecting Engine also
+          wrote the connected Google address onto email and appointment records
+          the rest of the team could see. On 7 October 2026 we replaced it on
+          those records with the team member&apos;s name; a recovery copy of the
+          original records is kept in storage that only BSTS&apos;s database
+          administrators can access, and our database provider&apos;s backups
+          contain the originals until they expire. Those tokens are held
           in its database, which is operated by Supabase with encryption at
           rest under that provider&apos;s published protections; the
           Prospecting Engine does not add its own encryption to them.
@@ -288,9 +312,13 @@ export default function PrivacyPage() {
           Prospecting Engine&apos;s research feature sends an
           artificial-intelligence provider details about the business being
           researched and the reason a team member gave for the request, never
-          email or calendar records. VaultIQ never puts calendar data into any
-          document, so none of it can reach an artificial-intelligence
-          provider.
+          email or calendar records. VaultIQ does not put calendar data into any
+          document, and its AI-assisted chat and drafting do not use agendas or
+          weekly action sheets as input. The calendar-derived dates that an
+          earlier version copied into weekly action sheets were never sent to an
+          artificial-intelligence provider: weekly action sheets have always been
+          written by VaultIQ&apos;s own built-in drafter, which makes no outside
+          call.
         </p>
 
         <h3>Limited Use</h3>

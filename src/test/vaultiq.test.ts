@@ -193,8 +193,22 @@ describe("privacy policy — Google Workspace section", () => {
   });
 
   it("says VaultIQ keeps calendar data private and shared records use the client record", () => {
-    expect(privacy).toContain("Shared records never use calendar data.");
+    expect(privacy).toContain("Shared records do not use calendar data.");
     expect(privacy).not.toContain("which can come from that coach&apos;s calendar");
+  });
+
+  it("acknowledges the calendar-derived records from before 7 October 2026 instead of claiming 'never'", () => {
+    // Verified 7 Oct 2026: 29 Sep – 7 Oct an earlier version copied calendar dates into
+    // shared agendas, weekly sheets and audit rows; agendas redacted, the rest held.
+    expect(privacy).toContain("<strong>Records from before 7 October 2026.</strong>");
+    expect(privacy).toContain("in use from 29 September to 7 October 2026");
+    expect(privacy).not.toContain("Shared records never use calendar data.");
+    expect(privacy).not.toMatch(/and is never\s+saved/);
+    expect(privacy).not.toContain("VaultIQ never puts calendar data into any");
+    // The engine's earlier Google addresses on team records are disclosed too.
+    expect(privacy).toContain("Before 7 October 2026, the Prospecting Engine also");
+    // No calendar-derived date reached an AI provider (weekly sheets: built-in drafter).
+    expect(privacy).toContain("were never sent to an\n          artificial-intelligence provider");
   });
 
   it("says engine team records name the member, not their Google address", () => {

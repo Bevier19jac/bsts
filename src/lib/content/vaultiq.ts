@@ -157,7 +157,7 @@ export const planned: VaultiqCapability[] = [
 export const googleDisclosure = {
   heading: "Google Calendar connection — read-only",
   status:
-    "VaultIQ connects to Google Calendar only when a coach chooses to connect their own calendar, and it asks for read-only access. What it reads is shown only to that coach, live, and is never saved or shown to anyone else. It never creates, changes, or deletes calendar events.",
+    "VaultIQ connects to Google Calendar only when a coach chooses to connect their own calendar, and it asks for read-only access. What it reads is shown only to that coach, live, and is not saved or shown to anyone else. It never creates, changes, or deletes calendar events.",
   scopeIntro:
     "VaultIQ requests one Google permission, the narrowest that does the job, and only at the moment someone chooses to connect their own calendar:",
   scopes: [
