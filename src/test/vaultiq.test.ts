@@ -86,18 +86,34 @@ describe("VaultIQ content — built and not-built stay separated", () => {
 });
 
 describe("Google Calendar disclosure", () => {
-  it("states that no Google connection exists today", () => {
+  it("states the live, read-only connection and that VaultIQ never writes", () => {
+    expect(googleDisclosure.status).toContain("asks for read-only access");
     expect(googleDisclosure.status).toContain(
-      "VaultIQ does not connect to Google today",
+      "never creates, changes, or deletes calendar events",
     );
-    expect(googleDisclosure.status).toContain("stores no Google user data");
   });
 
-  it("requests exactly the two calendar scopes and no others", () => {
+  it("requests exactly the one read-only calendar scope VaultIQ offers", () => {
+    // Mirrors OFFERED_GOOGLE_CAPABILITIES = ["calendar_read"] in VaultIQ.
     expect(googleDisclosure.scopes.map((s) => s.scope)).toEqual([
       "https://www.googleapis.com/auth/calendar.events.readonly",
-      "https://www.googleapis.com/auth/calendar.events",
     ]);
+  });
+
+  it("explains the shared Google sign-in with the Prospecting Engine", () => {
+    expect(googleDisclosure.sharedSignIn).toContain(
+      "ActionCOACH Prospecting Engine",
+    );
+    expect(googleDisclosure.sharedSignIn).toContain(
+      "VaultIQ itself never requests either permission",
+    );
+    expect(src(PAGE)).toContain("googleDisclosure.sharedSignIn");
+  });
+
+  it("says no calendar data reaches an AI provider, matching the policy", () => {
+    expect(googleDisclosure.handling).toContain(
+      "No Google Calendar data is sent to an artificial-intelligence provider.",
+    );
   });
 
   it("never advertises a Gmail or Drive scope anywhere in public content", () => {
@@ -105,7 +121,13 @@ describe("Google Calendar disclosure", () => {
     // Publishing their OAuth SCOPE STRINGS would tell a reviewer the app asks
     // for them. Those strings must not appear.
     for (const file of [PAGE, PRIVACY, "lib/content/vaultiq.ts"]) {
-      const text = src(file);
+      // The one exception: the privacy policy discloses the ActionCOACH
+      // Prospecting Engine's send-only Gmail permission, which that app really
+      // requests under the same Google project. Any other Gmail scope fails.
+      const text =
+        file === PRIVACY
+          ? src(file).replaceAll("https://www.googleapis.com/auth/gmail.send", "")
+          : src(file);
       expect(text).not.toContain("auth/gmail.");
       expect(text).not.toContain("auth/drive.");
     }
@@ -115,7 +137,9 @@ describe("Google Calendar disclosure", () => {
     const lu = googleDisclosure.limitedUse;
     expect(lu).toContain("Google API Services User Data Policy");
     expect(lu).toContain("Limited Use requirements");
-    expect(lu).toContain("will not be used for advertising");
+    expect(lu).toContain("never used or sold for advertising");
+    expect(lu).toContain("only after the user's explicit prior consent");
+    expect(lu).toContain("aggregated and used for internal operations");
     expect(lu).toContain(
       "develop, improve, or train generalized artificial-intelligence",
     );
@@ -145,25 +169,86 @@ describe("privacy policy — Google Workspace section", () => {
   });
 
   it("carries a new effective date and preserves the previous one", () => {
-    expect(privacy).toContain("Effective date: September 15, 2026");
-    expect(privacy).toContain("Previous version: July 19, 2026");
+    expect(privacy).toContain("Effective date: October 7, 2026");
+    expect(privacy).toContain("Previous version: September 15, 2026");
   });
 
-  it("states the current-status fact, the storage protection, and revocation", () => {
-    expect(privacy).toContain("VaultIQ does not connect to Google today");
+  it("states the storage protection and revocation", () => {
     expect(privacy).toContain("AES-256-GCM");
     expect(privacy).toContain("row-level security");
     expect(privacy).toContain("myaccount.google.com/permissions");
   });
 
-  it("states the Limited Use commitment in the policy itself", () => {
+  it("states the Limited Use commitment in Google's terms, without a broad sharing exception", () => {
     expect(privacy).toContain("Google API Services User Data Policy");
     expect(privacy).toContain("Limited Use requirements");
+    // Mergers need explicit prior consent, not notice; feature transfers need consent.
+    expect(privacy).toContain("only after obtaining the\n            user&apos;s explicit prior consent");
+    expect(privacy).not.toContain("with notice to users");
+    // Human reading: affirmative agreement for specific data and people, and
+    // the internal-operations condition for aggregated data.
+    expect(privacy).toContain("affirmative agreement for specific data to be viewed by\n            specific people");
+    expect(privacy).toContain("internal operations");
+    expect(privacy).not.toMatch(/shared through the product/i);
   });
 
-  it("does not claim Google data is sent to an AI provider today", () => {
+  it("says VaultIQ keeps calendar data private and shared records use the client record", () => {
+    expect(privacy).toContain("Shared records do not use calendar data.");
+    expect(privacy).not.toContain("which can come from that coach&apos;s calendar");
+  });
+
+  it("acknowledges the calendar-derived records from before 7 October 2026 instead of claiming 'never'", () => {
+    // Verified 7 Oct 2026: 29 Sep – 7 Oct an earlier version copied calendar dates into
+    // shared agendas, weekly sheets and audit rows; agendas redacted, the rest held.
+    expect(privacy).toContain("<strong>Records from before 7 October 2026.</strong>");
+    expect(privacy).toContain("in use from 29 September to 7 October 2026");
+    expect(privacy).not.toContain("Shared records never use calendar data.");
+    expect(privacy).not.toMatch(/and is never\s+saved/);
+    expect(privacy).not.toContain("VaultIQ never puts calendar data into any");
+    // The engine's earlier Google addresses on team records are disclosed too.
+    expect(privacy).toContain("Before 7 October 2026, the Prospecting Engine also");
+    // No calendar-derived date reached an AI provider (weekly sheets: built-in drafter).
+    expect(privacy).toContain("were never sent to an\n          artificial-intelligence provider");
+  });
+
+  it("says engine team records name the member, not their Google address", () => {
+    expect(privacy).toContain("records the rest of the team can see name the team member, not their\n          Google address");
+    expect(privacy).not.toContain("the Google account it was sent from");
+  });
+
+  it("says no Google user data reaches an AI provider", () => {
     expect(privacy).toContain(
-      "No Google user data is sent to any third-party",
+      "Neither product\n          sends Google user data to any artificial-intelligence provider.",
     );
+  });
+
+  it("does not claim the Prospecting Engine encrypts tokens or revokes at Google", () => {
+    // Verified 7 Oct 2026: engine tokens are stored without application-level
+    // encryption, and disconnect deletes the row without calling Google.
+    const engine = privacy.slice(
+      privacy.indexOf('id="google-prospecting-engine"'),
+      privacy.indexOf("Deletion requests"),
+    );
+    expect(engine).toContain("does not add its own encryption");
+    expect(engine).toContain("does\n          not withdraw the permission on Google&apos;s side");
+    expect(engine).not.toContain("AES-256");
+  });
+
+  it("discloses each app's Google permissions, and only those", () => {
+    // VaultIQ: read-only calendar. Prospecting Engine: send-only Gmail and
+    // event creation. These must match what each OAuth client requests.
+    const vaultiq = privacy.slice(
+      privacy.indexOf('id="google-vaultiq"'),
+      privacy.indexOf('id="google-prospecting-engine"'),
+    );
+    const engine = privacy.slice(
+      privacy.indexOf('id="google-prospecting-engine"'),
+      privacy.indexOf("Deletion requests"),
+    );
+    expect(vaultiq).toContain("auth/calendar.events.readonly");
+    expect(vaultiq).not.toMatch(/auth\/calendar\.events(?!\.readonly)/);
+    expect(engine).toContain("https://www.googleapis.com/auth/gmail.send");
+    expect(engine).toContain("https://www.googleapis.com/auth/calendar.events");
+    expect(engine).not.toContain("calendar.events.readonly");
   });
 });

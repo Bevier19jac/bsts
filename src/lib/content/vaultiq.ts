@@ -95,6 +95,12 @@ export const shipped: VaultiqCapability[] = [
       "Meeting records, meeting items, and durable client facts live alongside the documents. Access and connector changes are written to an audit log, so the question of who saw what has an answer that does not depend on memory.",
   },
   {
+    icon: CalendarClock,
+    title: "The next session, from the coach's own calendar",
+    body:
+      "A coach can choose to connect their own Google Calendar, read-only. VaultIQ shows that coach — and only that coach — their own upcoming events and, on their own preparation view, a private note with the next session it finds on their calendar. Nothing from the calendar is saved or shown to anyone else; shared agendas and action sheets use the client record's date. See the disclosure below.",
+  },
+  {
     icon: Timer,
     title: "Retention and export the client controls",
     body:
@@ -109,9 +115,9 @@ export const shipped: VaultiqCapability[] = [
 export const planned: VaultiqCapability[] = [
   {
     icon: CalendarClock,
-    title: "Google Calendar scheduling from inside a vault",
+    title: "Scheduling from inside a vault",
     body:
-      "Booking a client meeting without leaving that client's vault, and seeing the meetings already on the calendar in context. Designed and specified. No Google connection exists in the software today — see the disclosure below.",
+      "Booking a client meeting without leaving that client's vault. Designed and specified. Not built: VaultIQ's Google connection is read-only today and requests no permission to create or change events.",
   },
   {
     icon: Layers,
@@ -138,46 +144,47 @@ export const planned: VaultiqCapability[] = [
 /* ------------------------------------------------------------------ */
 
 /**
- * PLANNED integration. Every claim here is checkable against the code:
- * the scope registry in the product names exactly these two scopes, the
- * authorization entry point has no callers, and the credentials the flow
- * requires are unset — so the connection genuinely cannot be initiated.
+ * LIVE integration, read-only. Every claim here was checked against VaultIQ
+ * main (ffa81a7) on 7 Oct 2026: OFFERED_GOOGLE_CAPABILITIES is
+ * ["calendar_read"] (calendar.events.readonly), the Google provider's write
+ * methods throw, events are read from the connecting user's primary calendar
+ * and not persisted, and the only calendar-derived value saved is the
+ * next-session date on agendas and weekly action sheets.
  *
  * The matching section in src/app/(marketing)/privacy/page.tsx must not
  * disagree with this. src/test/vaultiq.test.ts checks that both exist.
  */
 export const googleDisclosure = {
-  heading: "Google Calendar integration — planned, not active",
+  heading: "Google Calendar connection — read-only",
   status:
-    "VaultIQ does not connect to Google today. It requests no Google permissions, receives no Google user data, and stores no Google user data. There is no live authorization flow in the software, and the credentials such a flow would require are not configured.",
+    "VaultIQ connects to Google Calendar only when a coach chooses to connect their own calendar, and it asks for read-only access. What it reads is shown only to that coach, live, and is not saved or shown to anyone else. It never creates, changes, or deletes calendar events.",
   scopeIntro:
-    "When the integration is enabled, VaultIQ will request the narrowest permissions that let it do the job, and only at the moment someone chooses to connect their own calendar:",
+    "VaultIQ requests one Google permission, the narrowest that does the job, and only at the moment someone chooses to connect their own calendar:",
   scopes: [
     {
       scope: "https://www.googleapis.com/auth/calendar.events.readonly",
       purpose:
-        "Read events on the calendar of the person who connected it, so their upcoming client meetings can be shown in context inside that client's vault.",
-    },
-    {
-      scope: "https://www.googleapis.com/auth/calendar.events",
-      purpose:
-        "Create and update meetings that the user schedules from inside a client vault, so scheduling does not require leaving the vault and re-typing the details.",
+        "Read events on the primary calendar of the person who connected it, so VaultIQ can show the date of their next session with a client and list their own upcoming events on their Connections page.",
     },
   ],
   notRequested: [
     "Gmail — no mail scope is requested, and no mailbox is read",
     "Google Drive — no Drive scope is requested, and no files are read",
+    "Permission to create, change, or delete calendar events",
     "Google Contacts, Google Chat, and every other Workspace service",
     "Any calendar other than the one belonging to the person who connects",
   ],
   handling: [
     "Each user connects their own Google account. Connecting is a choice, never a condition of using VaultIQ, and a firm can run the product with no Google connection at all.",
     "Authorization tokens are encrypted with AES-256-GCM before they are written to storage, and each record is readable only by the account that created it, enforced by row-level security in the database rather than by application code alone.",
-    "A user can disconnect at any time from their Google account permissions page or from within VaultIQ. Disconnection is recorded, and the stored authorization stops being usable.",
-    "Calendar information is shown only to the people already entitled to see that client, under the same vault permissions that govern every other record. It is not shown across firms, and vault isolation applies to it exactly as it applies to documents.",
+    "Calendar events are read when needed and are not saved. The coach sees their own upcoming events on the Connections page and, on their own preparation view, a private note labelled as visible only to them. Shared agendas, weekly action sheets and the audit trail use the next-session date on the client's record, never a coach's calendar.",
+    "No Google Calendar data is sent to an artificial-intelligence provider.",
+    "A user can disconnect at any time from VaultIQ's Connections page or from their Google Account permissions page. Disconnecting in VaultIQ asks Google to revoke access and marks the stored authorization revoked so VaultIQ can no longer use it; the encrypted record and an audit entry are kept.",
   ],
+  sharedSignIn:
+    "VaultIQ's Google sign-in application is also used by the ActionCOACH Prospecting Engine, a separate BSTS product with its own sign-in client. When a team member connects Google in the Prospecting Engine, Google's consent screen also shows the name \"VaultIQ\", and it lists that product's own permissions: sending an email the team member has written (send-only, no access to read mail) and creating appointments on their own calendar. VaultIQ itself never requests either permission.",
   limitedUse:
-    "Use of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements. Google user data will not be used for advertising, will not be sold or transferred except as required to provide the feature the user asked for or as required by law, will not be read by humans except with the user's explicit permission, for security purposes, to comply with law, or on data that has been aggregated and made anonymous, and will not be used to develop, improve, or train generalized artificial-intelligence or machine-learning models.",
+    "Use and transfer of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements. Google user data is used only to provide or improve the user-facing features described here. It is not transferred except as necessary for those features and only with the user's consent, for security, to comply with law, or in a merger, acquisition or sale of assets only after the user's explicit prior consent. It is never used or sold for advertising, given to data brokers, or used for credit or lending decisions. Humans do not read it unless the user has affirmatively agreed for specific data to be viewed by specific people, for security, to comply with law, or when it is aggregated and used for internal operations in line with privacy and legal requirements. It is not used to develop, improve, or train generalized artificial-intelligence or machine-learning models.",
 } as const;
 
 /* ------------------------------------------------------------------ */
