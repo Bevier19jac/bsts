@@ -504,6 +504,30 @@ function TrustSection() {
             <p className="mt-4 text-xs leading-relaxed text-warm-dim">
               {trustPoints.qualificationsNote}
             </p>
+            <a
+              href={trustPoints.recognition.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 flex items-center gap-4 border-t border-edge/50 pt-5 hover:opacity-90"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={trustPoints.recognition.badgeSrc}
+                alt={trustPoints.recognition.badgeAlt}
+                width={72}
+                height={74}
+                loading="lazy"
+                className="h-[74px] w-[72px] shrink-0"
+              />
+              <span>
+                <span className="block text-sm font-semibold text-warm-white">
+                  {trustPoints.recognition.name}, {trustPoints.recognition.year}
+                </span>
+                <span className="mt-1 block text-xs leading-relaxed text-warm-dim">
+                  {trustPoints.recognition.note}
+                </span>
+              </span>
+            </a>
             <ul className="mt-5 space-y-2.5 border-t border-edge/50 pt-5">
               {trustPoints.background.map((b) => (
                 <li key={b} className="flex gap-3 text-sm leading-relaxed text-warm-mist">
