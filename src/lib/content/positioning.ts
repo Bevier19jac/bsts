@@ -673,6 +673,18 @@ export const trustPoints = {
   ],
   qualificationsNote:
     "Certifications listed are held by the founder personally, not by the company.",
+  /**
+   * Founder honor. The badge is the issuer's own artwork, issued to the
+   * founder by Marquis Who's Who (Oct 2026) — see CLAIMS_REGISTER.md.
+   */
+  recognition: {
+    name: "Marquis Who's Who Honored Listee",
+    year: "2026",
+    note: "Recognition of the founder, not of the company.",
+    badgeSrc: "/badges/marquis-whos-who-honored-listee-2026.png",
+    badgeAlt: "Marquis Who's Who Honored Listee 2026 badge",
+    href: "https://marquiswhoswho.com/",
+  },
   background: [
     "U.S. Army veteran — leadership including Master Gunner and First Sergeant responsibilities",
     "Federal information-security and cybersecurity-coordination experience",
