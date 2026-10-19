@@ -22,6 +22,7 @@ automated test (`src/test/claims.test.ts`).
 | Bachelor of Science in Computer Science with a Cybersecurity major, Magna Cum Laude | Verified credential | Exact wording mandated by the founder. Never shorten to "BS in Cybersecurity" — test-enforced. |
 | CompTIA Security+ | Verified credential | Founder-held. Text display only until badge verification (see `public/badges/README.md`). |
 | AWS Certified AI Practitioner | Verified credential | Founder-held. Text display only until badge verification. |
+| Marquis Who's Who Honored Listee, 2026 | Founder honor | Issued to the founder by Marquis Who's Who (Oct 2026). Badge artwork is the issuer's own, issued to the founder (`public/badges/`). Shown as the founder's recognition, not the company's. |
 | Federal cybersecurity experience | Founder experience | Site carries an explicit "does not imply federal endorsement" note (About page). |
 | U.S. Army veteran and senior operational leader | Founder experience | Factual background statement. |
 | "NIST-aligned" / "informed by NIST CSF 2.0" | Framework informing methodology | Site states NIST does not certify consultancies. |
