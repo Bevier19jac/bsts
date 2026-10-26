@@ -1,6 +1,7 @@
 import { BookOpenCheck, FileSearch, ShieldCheck, Workflow } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { soc2Boundary } from "@/lib/content/positioning";
+import { vetCert, vetCertStatus } from "@/lib/site";
 
 /**
  * Federal (Government page) content. Claims rules apply here with extra
@@ -148,7 +149,10 @@ export const federalEngagements = [
     title: "Subcontracting & teaming",
     audience: "For established primes",
     body: "A technically credible, principal-led partner for secure AI expertise, AI governance support, cybersecurity documentation, workflow-automation implementation, specialized technical leadership, and proposal or task-order support.",
-    note: "BSTS is Service-Disabled Veteran-Owned & Operated; SBA VetCert status is stated precisely elsewhere on this page. Pending certification does not satisfy current SDVOSB subcontracting goals — we say so plainly.",
+    note:
+      vetCertStatus === "certified"
+        ? `BSTS is an ${vetCert.short} (SBA VetCert, October 2026), so subcontract awards to BSTS can count toward a prime's SDVOSB subcontracting goals.`
+        : "BSTS is Service-Disabled Veteran-Owned & Operated; SBA VetCert status is stated precisely elsewhere on this page. Pending certification does not satisfy current SDVOSB subcontracting goals — we say so plainly.",
   },
   {
     title: "Pilots & defined work packages",
