@@ -21,7 +21,7 @@ import { soc2Boundary } from "@/lib/content/positioning";
  * All public language updates automatically and stays legally accurate.
  */
 export type VetCertStatus = "planned" | "submitted" | "certified";
-export const vetCertStatus: VetCertStatus = "submitted";
+export const vetCertStatus: VetCertStatus = "certified";
 
 const vetCertCopy: Record<
   VetCertStatus,
@@ -330,7 +330,11 @@ export const acquisition = {
     }[formationStatus],
     {
       label: "Business status",
-      value: "Service-Disabled Veteran-Owned & Operated",
+      value: "SBA VetCert: Service-Disabled Veteran-Owned (SDVOSB) and Veteran-Owned (VOSB)",
+    },
+    {
+      label: "SBA certification",
+      value: "Certified October 26, 2026 · renewal October 26, 2029",
     },
     { label: "Service area", value: "United States · remote-capable delivery" },
     { label: "SAM registration", value: "Active · through September 7, 2027" },
@@ -340,7 +344,7 @@ export const acquisition = {
     { label: "Additional NAICS", value: "541511 · 541519 · 541611 · 541690" },
     { label: "PSC codes", value: "" },
     { label: "Contact", value: federalContactDisplay },
-    { label: "Information current as of", value: "September 30, 2026" },
+    { label: "Information current as of", value: "October 26, 2026" },
   ],
   /**
    * Honest high-level status line shown while identifiers above are unissued.
