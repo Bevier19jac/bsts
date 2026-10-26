@@ -32,7 +32,7 @@ import {
 export const metadata: Metadata = {
   title: { absolute: "Government | Secure AI, Automation & Cybersecurity | BSTS" },
   description:
-    "BSTS supports federal agencies and government contractors with secure AI implementation, AI governance, workflow automation, NIST-aligned cybersecurity documentation, compliance readiness, and principal-led modernization. Service-disabled veteran-owned and operated.",
+    `BSTS supports federal agencies and government contractors with secure AI implementation, AI governance, workflow automation, NIST-aligned cybersecurity documentation, compliance readiness, and principal-led modernization. ${vetCert.short}.`,
   keywords: [
     "federal secure AI",
     "government AI governance",
