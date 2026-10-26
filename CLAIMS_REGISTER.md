@@ -84,7 +84,7 @@ checks the mandated phrases exist.
 | Founder military/federal background | Founder experience | Always labeled founder experience; never "BSTS past performance". No unit insignia, seals, or endorsement implied. |
 | Acquisition identifiers (SAM, UEI, CAGE, NAICS, PSC) | Unissued — hidden | Empty config values are hidden from the public page; no placeholder text permitted (test-enforced). |
 | "Guaranteed award", "prequalified", "cleared company", "FedRAMP certified", "CMMC certified", "sole-source provider", "contract-ready", "preferred government vendor" | Prohibited | Banned site-wide by the automated claims audit. |
-| "SBA-certified…" / "eligible for SDVOSB set-aside" | Config-gated | Exist only in the certified-state branch of src/lib/site.ts; appear publicly only when vetCertStatus === "certified" (test-enforced). |
+| "SBA-certified…" / "eligible for SDVOSB set-aside" | Live (certified 2026-10-26) | SBA VetCert approved SDVOSB + VOSB on 2026-10-26, application #127442, renewal 2029-10-26; vetCertStatus set to "certified". Approval letters filed under BSTS Operations. Test-enforced mapping. |
 
 ## v0.5.1 corrective pass
 
