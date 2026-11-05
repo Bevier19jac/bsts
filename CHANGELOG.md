@@ -2,6 +2,16 @@
 
 All notable changes to the BSTS site + BSTS OS project.
 
+## [0.7.1] — 2026-11-05
+
+### Added
+
+- Footer: Bevier family crest (founder's personal heritage mark, "Deum
+  Verere") at the end of the legal strip, right-aligned on desktop. Asset
+  `public/crest/bevier-crest-dark-640.png`; light-background versions
+  `bevier-crest-light-{200,400}.png` are published for the email signature.
+  Deliberately separate from the BSTS lockup; not part of the BSTS brand.
+
 ## [0.7.0] — 2026-09-30
 
 ### Changed
