@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { footerLinks, frameworkDisclaimer, site, trademarkNotice, vetCert } from "@/lib/site";
 import { BstsLockup } from "@/components/brand/BstsLockup";
@@ -32,14 +33,25 @@ export function Footer() {
           <FooterColumn title="Legal" links={footerLinks.legal} />
         </div>
 
-        <div className="mt-14 border-t border-edge/40 pt-8">
-          <p className="max-w-3xl text-xs leading-relaxed text-warm-dim">
-            {frameworkDisclaimer}
-          </p>
-          <p className="mt-4 text-xs text-warm-dim">{trademarkNotice}</p>
-          <p className="mt-2 text-xs text-warm-dim">
-            © {new Date().getFullYear()} {site.name}. All rights reserved.
-          </p>
+        <div className="mt-14 flex flex-col gap-8 border-t border-edge/40 pt-8 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="max-w-3xl text-xs leading-relaxed text-warm-dim">
+              {frameworkDisclaimer}
+            </p>
+            <p className="mt-4 text-xs text-warm-dim">{trademarkNotice}</p>
+            <p className="mt-2 text-xs text-warm-dim">
+              © {new Date().getFullYear()} {site.name}. All rights reserved.
+            </p>
+          </div>
+          {/* Bevier family crest — a personal heritage mark of the founder,
+              deliberately separate from the BSTS brand lockup above. */}
+          <Image
+            src="/crest/bevier-crest-dark-640.png"
+            alt="Bevier family crest — Deum Verere"
+            width={520}
+            height={640}
+            className="h-32 w-auto shrink-0 self-start md:h-40 md:self-end"
+          />
         </div>
       </div>
     </footer>
