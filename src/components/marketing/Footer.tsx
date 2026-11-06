@@ -53,28 +53,28 @@ export function Footer() {
                 alt="CompTIA Security+ certified"
                 width={320}
                 height={320}
-                className="h-14 w-auto"
+                className="h-16 w-auto"
               />
               <Image
                 src="/badges/credly-aws-ai-practitioner.png"
                 alt="AWS Certified AI Practitioner"
                 width={320}
                 height={320}
-                className="h-14 w-auto"
+                className="h-16 w-auto"
               />
               <Image
                 src="/badges/microsoft-certified-fundamentals.svg"
                 alt="Microsoft Certified: Azure Fundamentals (AZ-900)"
                 width={300}
                 height={300}
-                className="h-14 w-auto"
+                className="h-16 w-auto"
               />
               <Image
                 src="/badges/marquis-honored-listee-2026.png"
                 alt="Marquis Who's Who Honored Listee, 2026"
                 width={640}
                 height={640}
-                className="h-14 w-auto rounded-full"
+                className="h-16 w-auto rounded-full"
               />
             </div>
           </div>
