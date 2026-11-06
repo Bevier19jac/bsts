@@ -2,6 +2,31 @@
 
 All notable changes to the BSTS site + BSTS OS project.
 
+## [0.7.2] — 2026-11-06
+
+### Added
+
+- Credential badges, displayed in the precedence order now recorded in
+  `CLAIMS_REGISTER.md` (BSTS logo → SBA SDVOSB → Security+ → AWS AI
+  Practitioner → AZ-900 → Marquis Who's Who 2026 → Bevier crest):
+  official SBA SDVOSB icon (`public/badges/sba-sdvosb-certified.png`),
+  founder's Credly badges for CompTIA Security+ and AWS Certified AI
+  Practitioner, Microsoft's Fundamentals badge (SVG + PNG), and the Marquis
+  Who's Who 2026 seal. Shown in the
+  footer's first column and on the /security credentials grid (now 3 columns,
+  SBA card first). `public/badges/README.md` documents provenance and SBA's
+  usage rule.
+- `founder.credentials` gains Azure Fundamentals (AZ-900) and Marquis Who's
+  Who Honored Listee, 2026 (flows to the capability statement).
+- `docs/EMAIL_SIGNATURE.html`: Gmail signature block for jacob@bevierstrategic.com
+  built from the same assets, in the same order; BSTS mark stacked above the
+  crest to the right of the teal rule.
+
+### Changed
+
+- Footer: the Bevier crest moves from the legal strip to sit beside the BSTS
+  lockup at the top of the first column, sized to the lockup.
+
 ## [0.7.1] — 2026-11-05
 
 ### Added

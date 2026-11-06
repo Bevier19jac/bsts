@@ -2,6 +2,38 @@
 
 This folder intentionally ships **empty of badge images**.
 
+## SBA VetCert icons (added 2026-11-06)
+
+`sba-sdvosb-certified.png` is the official SBA certification icon (the VOSB
+icon is intentionally not displayed — SDVOSB already implies it) from the SBA brand guide ("Decals and web icons",
+sba.gov/document/brand-guide-decals-web-icons). BSTS was approved by SBA
+VetCert as SDVOSB + VOSB on 2026-10-26 (see `vetCertStatus` in
+`src/lib/site.ts` and `CLAIMS_REGISTER.md`), so use is permitted.
+
+SBA's usage rule shipped with the icons: certified firms MAY use them on the
+website, business cards, social media profiles, capability statements and
+proposal bids. They MAY NOT be used on letterhead, marketing materials or
+advertising (paid or PSA, traditional or digital), or to imply SBA endorsement
+of any goods or services. Remove them if certification lapses (renewal due
+2026-10-26 + 3 years).
+
+## Founder certification badges (added 2026-11-06)
+
+- `credly-comptia-security-plus.png` — CompTIA Security+ ce, downloaded from the
+  founder's own Credly account (badge 6ec5df3f-f586-4dc9-92ff-47f040bf23ca).
+- `credly-aws-ai-practitioner.png` — AWS Certified AI Practitioner, downloaded from
+  the founder's own Credly account (badge a566981a-1004-423c-9d3a-76ec4465a549).
+- `microsoft-certified-fundamentals.svg` — Microsoft's official "Microsoft Certified
+  Fundamentals" badge from the founder's Microsoft Learn credentials page
+  (Microsoft no longer issues distinct Azure Fundamentals artwork; the AZ-900
+  wording lives in the adjacent text). `microsoft-certified-fundamentals.png` is a
+  320px raster of the same SVG for the email signature, since Gmail does not
+  render SVG.
+
+Display order follows the credential precedence rule in `CLAIMS_REGISTER.md`.
+- `marquis-honored-listee-2026.png` — Marquis Who's Who Honored Listee 2026 seal, from the
+  founder's own Marquis listing assets (cropped from `marquis-honored-listee-2026-post.png`).
+
 ## Why
 
 BSTS displays credentials as text-based components (see `/security` and

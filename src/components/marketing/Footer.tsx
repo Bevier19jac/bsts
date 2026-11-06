@@ -11,9 +11,18 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-16">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_.8fr]">
           <div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               <BstsLockup className="w-[116px]" />
               <span className="sr-only">BSTS</span>
+              {/* Bevier family crest — the founder's personal heritage mark,
+                  kept beside (not inside) the BSTS lockup. */}
+              <Image
+                src="/crest/bevier-crest-dark-640.png"
+                alt="Bevier family crest — Deum Verere"
+                width={520}
+                height={640}
+                className="h-12 w-auto"
+              />
             </div>
             <p className="display mt-4 text-lg leading-snug">
               <StrategicLine />
@@ -25,6 +34,49 @@ export function Footer() {
             <p className="mt-4 max-w-xs text-xs tracking-[0.12em] text-gold-soft uppercase">
               {vetCert.short}
             </p>
+            {/* Official SBA certification icons. Permitted on the website for
+                firms certified through SBA VetCert (see public/badges/README.md).
+                Rendered alongside — not instead of — the text line above. */}
+            {/* Credential precedence (CLAIMS_REGISTER.md): SBA SDVOSB → Security+ →
+                AWS AI Practitioner → Azure Fundamentals → Marquis Who's Who 2026. Each badge is the asset
+                issued to the founder (Credly) or the official SBA/Microsoft mark. */}
+            <div className="mt-4 flex items-center gap-3">
+              <Image
+                src="/badges/sba-sdvosb-certified.png"
+                alt="SBA Certified Service-Disabled Veteran-Owned Small Business"
+                width={256}
+                height={320}
+                className="h-16 w-auto"
+              />
+              <Image
+                src="/badges/credly-comptia-security-plus.png"
+                alt="CompTIA Security+ certified"
+                width={320}
+                height={320}
+                className="h-14 w-auto"
+              />
+              <Image
+                src="/badges/credly-aws-ai-practitioner.png"
+                alt="AWS Certified AI Practitioner"
+                width={320}
+                height={320}
+                className="h-14 w-auto"
+              />
+              <Image
+                src="/badges/microsoft-certified-fundamentals.svg"
+                alt="Microsoft Certified: Azure Fundamentals (AZ-900)"
+                width={300}
+                height={300}
+                className="h-14 w-auto"
+              />
+              <Image
+                src="/badges/marquis-honored-listee-2026.png"
+                alt="Marquis Who's Who Honored Listee, 2026"
+                width={640}
+                height={640}
+                className="h-14 w-auto rounded-full"
+              />
+            </div>
           </div>
 
           <FooterColumn title="Services" links={footerLinks.services} />
@@ -43,15 +95,6 @@ export function Footer() {
               © {new Date().getFullYear()} {site.name}. All rights reserved.
             </p>
           </div>
-          {/* Bevier family crest — a personal heritage mark of the founder,
-              deliberately separate from the BSTS brand lockup above. */}
-          <Image
-            src="/crest/bevier-crest-dark-640.png"
-            alt="Bevier family crest — Deum Verere"
-            width={520}
-            height={640}
-            className="h-32 w-auto shrink-0 self-start md:h-40 md:self-end"
-          />
         </div>
       </div>
     </footer>
