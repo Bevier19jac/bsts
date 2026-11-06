@@ -11,18 +11,9 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-16">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_.8fr]">
           <div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <BstsLockup className="w-[116px]" />
               <span className="sr-only">BSTS</span>
-              {/* Bevier family crest — the founder's personal heritage mark,
-                  kept beside (not inside) the BSTS lockup. */}
-              <Image
-                src="/crest/bevier-crest-dark-640.png"
-                alt="Bevier family crest — Deum Verere"
-                width={520}
-                height={640}
-                className="h-12 w-auto"
-              />
             </div>
             <p className="display mt-4 text-lg leading-snug">
               <StrategicLine />
@@ -40,7 +31,7 @@ export function Footer() {
             {/* Credential precedence (CLAIMS_REGISTER.md): SBA SDVOSB → Security+ →
                 AWS AI Practitioner → Azure Fundamentals → Marquis Who's Who 2026. Each badge is the asset
                 issued to the founder (Credly) or the official SBA/Microsoft mark. */}
-            <div className="mt-4 flex items-center gap-3">
+            <div className="mt-4 flex flex-wrap items-center gap-3">
               <Image
                 src="/badges/sba-sdvosb-certified.png"
                 alt="SBA Certified Service-Disabled Veteran-Owned Small Business"
@@ -75,6 +66,16 @@ export function Footer() {
                 width={640}
                 height={640}
                 className="h-16 w-auto rounded-full"
+              />
+              {/* Bevier family crest — the founder's personal heritage mark;
+                  last in precedence, set apart from the credentials by a gap
+                  and slightly larger. */}
+              <Image
+                src="/crest/bevier-crest-dark-640.png"
+                alt="Bevier family crest — Deum Verere"
+                width={520}
+                height={640}
+                className="ml-5 h-20 w-auto"
               />
             </div>
           </div>

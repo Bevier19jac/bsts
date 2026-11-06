@@ -24,8 +24,9 @@ All notable changes to the BSTS site + BSTS OS project.
 
 ### Changed
 
-- Footer: the Bevier crest moves from the legal strip to sit beside the BSTS
-  lockup at the top of the first column, sized to the lockup.
+- Footer: the Bevier crest moves from the legal strip to the end of the
+  credential badge row, set apart by a gap and slightly larger (last in
+  precedence).
 
 ## [0.7.1] — 2026-11-05
 
