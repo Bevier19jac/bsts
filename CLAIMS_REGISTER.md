@@ -20,8 +20,11 @@ automated test (`src/test/claims.test.ts`).
 | --- | --- | --- |
 | Master of Science in Artificial Intelligence | Verified credential | Exact wording mandated. Never "graduate-level completion/coursework". |
 | Bachelor of Science in Computer Science with a Cybersecurity major, Magna Cum Laude | Verified credential | Exact wording mandated by the founder. Never shorten to "BS in Cybersecurity" — test-enforced. |
-| CompTIA Security+ | Verified credential | Founder-held. Text display only until badge verification (see `public/badges/README.md`). |
-| AWS Certified AI Practitioner | Verified credential | Founder-held. Text display only until badge verification. |
+| CompTIA Security+ | Verified credential | Founder-held. Verified Credly badge displayed as of 2026-11-06 (see `public/badges/README.md`). |
+| AWS Certified AI Practitioner | Verified credential | Founder-held. Verified Credly badge displayed as of 2026-11-06. |
+| Microsoft Certified: Azure Fundamentals (AZ-900) | Verified credential | Founder-held. Official Microsoft Learn Fundamentals badge displayed as of 2026-11-06. |
+| Marquis Who's Who Honored Listee, 2026 | Verified credential | Founder-held, Oct 2026. Listed after professional certifications. Official Marquis seal displayed as of 2026-11-06 (`public/badges/marquis-honored-listee-2026.png`). |
+| Credential precedence (display order everywhere: signature, site, collateral) | Display rule | BSTS logo → SBA SDVOSB icon → CompTIA Security+ → AWS Certified AI Practitioner → AZ-900 → Marquis Who's Who 2026 → Bevier family crest (personal mark, visually separated, always last). Set 2026-11-06. |
 | Federal cybersecurity experience | Founder experience | Site carries an explicit "does not imply federal endorsement" note (About page). |
 | U.S. Army veteran and senior operational leader | Founder experience | Factual background statement. |
 | "NIST-aligned" / "informed by NIST CSF 2.0" | Framework informing methodology | Site states NIST does not certify consultancies. |

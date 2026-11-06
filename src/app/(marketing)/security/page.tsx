@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import { ArrowRight, Bot, FileCheck2, KeyRound, Radar, ShieldCheck } from "lucide-react";
 import { Atmosphere } from "@/components/ui/Atmosphere";
@@ -120,15 +121,20 @@ export default function SecurityPage() {
           title="What we hold, and what we merely follow."
           lede="We display credentials as text because precision beats badges. Certifications named below are held by the founder personally; frameworks are practices that inform our work."
         />
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {[
-            { kind: "Held certification", name: "CompTIA Security+", detail: "Founder-held, industry security certification" },
-            { kind: "Held certification", name: "AWS Certified AI Practitioner", detail: "Founder-held, cloud AI certification" },
+            { kind: "Company certification", name: "SBA-certified SDVOSB", detail: "Service-Disabled Veteran-Owned Small Business, certified through SBA VetCert", icon: "/badges/sba-sdvosb-certified.png" },
+            { kind: "Held certification", name: "CompTIA Security+", detail: "Founder-held, industry security certification", icon: "/badges/credly-comptia-security-plus.png" },
+            { kind: "Held certification", name: "AWS Certified AI Practitioner", detail: "Founder-held, cloud AI certification", icon: "/badges/credly-aws-ai-practitioner.png" },
+            { kind: "Held certification", name: "Microsoft Certified: Azure Fundamentals (AZ-900)", detail: "Founder-held, cloud fundamentals certification", icon: "/badges/microsoft-certified-fundamentals.svg" },
             { kind: "Framework", name: "NIST CSF 2.0", detail: "Informs our assessment and baseline methodology" },
             { kind: "Framework", name: "OWASP · Zero Trust", detail: "Inform our development and access practices" },
-          ].map((c, i) => (
+          ].map((c: { kind: string; name: string; detail: string; icon?: string }, i) => (
             <Reveal key={c.name} delay={staggerDelay(i)}>
               <div className="surface-quiet blob-c h-full p-6">
+                {c.icon ? (
+                  <Image src={c.icon} alt="" width={256} height={320} className="mb-3 h-14 w-auto" />
+                ) : null}
                 <p className={`text-[0.62rem] font-semibold tracking-[0.16em] uppercase ${c.kind === "Framework" ? "text-cyan-soft" : "text-gold-soft"}`}>
                   {c.kind}
                 </p>
@@ -140,10 +146,11 @@ export default function SecurityPage() {
         </div>
         <Reveal delay={0.2}>
           <p className="mt-8 max-w-3xl text-sm leading-relaxed text-warm-dim">
-            {frameworkDisclaimer} BSTS does not display third-party certification
-            logos; where official badge programs permit verified display, assets
-            may be added after verification (see the repository&apos;s badge
-            documentation).
+            {frameworkDisclaimer} The SBA certification icon is the official mark
+            issued for VetCert-certified firms; the certification badges are the
+            verified assets issued to the founder by CompTIA and AWS through
+            Credly and by Microsoft Learn. Frameworks carry no badge because BSTS
+            holds no certification from them.
           </p>
         </Reveal>
       </section>

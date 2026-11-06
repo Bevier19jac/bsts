@@ -33,6 +33,60 @@ export function Footer() {
           <FooterColumn title="Legal" links={footerLinks.legal} />
         </div>
 
+        {/* Credential row, full width so it never wraps. Precedence
+            (CLAIMS_REGISTER.md): SBA SDVOSB → Security+ → AWS AI Practitioner →
+            Azure Fundamentals → Marquis Who's Who 2026, then the Bevier crest set
+            apart. SBA icon use is permitted for VetCert-certified firms
+            (public/badges/README.md); each badge is the asset issued to the
+            founder or the official SBA/Microsoft mark. */}
+        <div className="mt-10 flex flex-wrap items-center gap-4">
+            <Image
+              src="/badges/sba-sdvosb-certified.png"
+              alt="SBA Certified Service-Disabled Veteran-Owned Small Business"
+              width={256}
+              height={320}
+              className="h-16 w-auto"
+            />
+            <Image
+              src="/badges/credly-comptia-security-plus.png"
+              alt="CompTIA Security+ certified"
+              width={320}
+              height={320}
+              className="h-16 w-auto"
+            />
+            <Image
+              src="/badges/credly-aws-ai-practitioner.png"
+              alt="AWS Certified AI Practitioner"
+              width={320}
+              height={320}
+              className="h-16 w-auto"
+            />
+            <Image
+              src="/badges/microsoft-certified-fundamentals.svg"
+              alt="Microsoft Certified: Azure Fundamentals (AZ-900)"
+              width={300}
+              height={300}
+              className="h-16 w-auto"
+            />
+            <Image
+              src="/badges/marquis-honored-listee-2026.png"
+              alt="Marquis Who's Who Honored Listee, 2026"
+              width={640}
+              height={640}
+              className="h-16 w-auto rounded-full"
+            />
+            {/* Bevier family crest — the founder's personal heritage mark;
+                last in precedence, set apart from the credentials by a gap
+                and slightly larger. */}
+            <Image
+              src="/crest/bevier-crest-dark-640.png"
+              alt="Bevier family crest — Deum Verere"
+              width={520}
+              height={640}
+              className="ml-5 h-20 w-auto"
+            />
+          </div>
+
         <div className="mt-14 flex flex-col gap-8 border-t border-edge/40 pt-8 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="max-w-3xl text-xs leading-relaxed text-warm-dim">
@@ -43,15 +97,6 @@ export function Footer() {
               © {new Date().getFullYear()} {site.name}. All rights reserved.
             </p>
           </div>
-          {/* Bevier family crest — a personal heritage mark of the founder,
-              deliberately separate from the BSTS brand lockup above. */}
-          <Image
-            src="/crest/bevier-crest-dark-640.png"
-            alt="Bevier family crest — Deum Verere"
-            width={520}
-            height={640}
-            className="h-32 w-auto shrink-0 self-start md:h-40 md:self-end"
-          />
         </div>
       </div>
     </footer>

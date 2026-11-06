@@ -16,6 +16,8 @@ export const founder = {
     "Bachelor of Science in Computer Science with a Cybersecurity major, Magna Cum Laude",
     "CompTIA Security+",
     "AWS Certified AI Practitioner",
+    "Microsoft Certified: Azure Fundamentals (AZ-900)",
+    "Marquis Who's Who Honored Listee, 2026",
   ],
   experience: [
     "U.S. Army veteran — Army leadership experience including Master Gunner and First Sergeant responsibilities",
